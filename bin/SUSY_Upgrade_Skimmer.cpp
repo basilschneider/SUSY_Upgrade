@@ -11,20 +11,20 @@
 
 int main(int argc, char* argv[]){
 
-	if(argc!=2){
-		std::cout << "SUSY_Upgrade_Skimmer: need exactly one input file" <<std::endl;
-		exit (-1);
-	}
+    if(argc!=2){
+        std::cout << "SUSY_Upgrade_Skimmer: need exactly one input file" <<std::endl;
+        exit (-1);
+    }
 
 
-	std::string inputfile=argv[1];
+    std::string inputfile=argv[1];
 
-	SUSY_Upgrade_Skimmer analyser;
+    SUSY_Upgrade_Skimmer analyser;
 
 
-	analyser.readConfigFile(inputfile);
+    analyser.readConfigFile(inputfile);
 
-	analyser.start();
+    analyser.start();
 
-	return 1;
+    return 1;
 }

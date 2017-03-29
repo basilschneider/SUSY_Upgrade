@@ -14,15 +14,15 @@
 
 
 class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
-public:
-	SUSY_Upgrade_Skimmer():d_ana::basicAnalyzer(){}
-	~SUSY_Upgrade_Skimmer(){}
+    public:
+        SUSY_Upgrade_Skimmer():d_ana::basicAnalyzer(){}
+        ~SUSY_Upgrade_Skimmer(){}
 
 
-private:
-	void analyze(size_t id);
+    private:
+        void analyze(size_t id);
 
-	void postProcess();
+        void postProcess();
 };
 
 
