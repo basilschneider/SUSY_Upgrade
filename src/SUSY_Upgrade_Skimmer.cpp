@@ -43,13 +43,16 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
      */
     //
     d_ana::dBranchHandler<HepMCEvent>  event(tree(),"Event");
-    d_ana::dBranchHandler<GenParticle> genpart(tree(),"Particle");
-    d_ana::dBranchHandler<Jet>         genjet(tree(),"GenJet");
-    d_ana::dBranchHandler<Jet>         jet(tree(),"Jet");
     d_ana::dBranchHandler<Muon>        muontight(tree(),"MuonTight");
-    d_ana::dBranchHandler<Muon>        muonloose(tree(),"MuonLoose");
-    d_ana::dBranchHandler<Photon>      photon(tree(),"Photon");
-    d_ana::dBranchHandler<MissingET>   met(tree(),"MissingET");
+    d_ana::dBranchHandler<Jet>         jetpuppi(tree(), "JetPUPPI");
+    d_ana::dBranchHandler<MissingET>   puppimet(tree(), "PuppiMissingET");
+    //d_ana::dBranchHandler<GenParticle> genpart(tree(),"Particle");
+    //d_ana::dBranchHandler<Jet>         genjet(tree(),"GenJet");
+    //d_ana::dBranchHandler<Jet>         jet(tree(),"Jet");
+    //d_ana::dBranchHandler<Muon>        muontight(tree(),"MuonTight");
+    //d_ana::dBranchHandler<Muon>        muonloose(tree(),"MuonLoose");
+    //d_ana::dBranchHandler<Photon>      photon(tree(),"Photon");
+    //d_ana::dBranchHandler<MissingET>   met(tree(),"MissingET");
 
 
     /* ==SKIM==
@@ -74,7 +77,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
      * Always use this function to add a new histogram (can also be 2D)!
      * Histograms created this way are automatically added to the output file
      */
-    TH1* histo=addPlot(new TH1D("histoname1","histotitle1",100,0,100),"p_{T} [GeV]","N_{e}");
+    //TH1* histo=addPlot(new TH1D("histoname1","histotitle1",100,0,100),"p_{T} [GeV]","N_{e}");
 
 
     /*
@@ -86,15 +89,25 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     /*
      * Add a simple branch to the skim
      */
-    Double_t elecPt=0;
-    myskim->Branch("elecPt", &elecPt);
+    //Double_t elecPt=0;
+    //myskim->Branch("elecPt", &elecPt);
     /*
      * Or store a vector of objects (also possible to store only one object)
      */
     std::vector<Electron> skimmedelecs;
     myskim->Branch("Electrons",&skimmedelecs);
 
+    std::vector<Event> skimmedevent;
+    myskim->Branch("Event",&skimmedevent);
 
+    std::vector<Muon> skimmedmuons;
+    myskim->Branch("MuonTight", &skimmedmuons);
+
+    std::vector<Jet> skimmedjets;
+    myskim->Branch("JetPUPPI", &skimmedjets);
+
+    std::vector<MissingET> skimmedmet;
+    myskim->Branch("PuppiMissingET", &skimmedmet);
 
     size_t nevents=tree()->entries();
     if(isTestMode())
@@ -112,9 +125,9 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         /*
          * Begin the event-by-event analysis
          */
-        for(size_t i=0;i<elecs.size();i++){
-            histo->Fill(elecs.at(i)->PT);
-        }
+        //for(size_t i=0;i<elecs.size();i++){
+        //    histo->Fill(elecs.at(i)->PT);
+        //}
 
         /*
          * Or to fill the skim
@@ -122,11 +135,32 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         skimmedelecs.clear();
         for(size_t i=0;i<elecs.size();i++){
             //flat info
-            elecPt=elecs.at(i)->PT;
-            if(elecs.at(i)->PT < 20) continue;
+            //elecPt=elecs.at(i)->PT;
+            //if(elecs.at(i)->PT < 20) continue;
             //or objects
             skimmedelecs.push_back(*elecs.at(i));
         }
+
+        skimmedevent.clear();
+        for(size_t i=0;i<event.size();i++){
+            skimmedevent.push_back(*event.at(i));
+        }
+
+        skimmedmuons.clear();
+        for(size_t i=0;i<muontight.size();i++){
+            skimmedmuons.push_back(*muontight.at(i));
+        }
+
+        skimmedjets.clear();
+        for(size_t i=0;i<jetpuppi.size();i++){
+            skimmedjets.push_back(*jetpuppi.at(i));
+        }
+
+        skimmedmet.clear();
+        for(size_t i=0;i<puppimet.size();i++){
+            skimmedmet.push_back(*puppimet.at(i));
+        }
+
 
         myskim->Fill();
 
@@ -168,10 +202,10 @@ void SUSY_Upgrade_Skimmer::postProcess(){
      * of the parallelised analysis.
      * The sampleCollection class can also be used externally for accessing the output consistently
      */
-    d_ana::sampleCollection samplecoll;
-    samplecoll.readFromFile(getOutPath());
+    //d_ana::sampleCollection samplecoll;
+    //samplecoll.readFromFile(getOutPath());
 
-    std::vector<TString> alllegends = samplecoll.listAllLegends();
+    //std::vector<TString> alllegends = samplecoll.listAllLegends();
 
     /*
      * Example how to process the output.
@@ -183,29 +217,29 @@ void SUSY_Upgrade_Skimmer::postProcess(){
      * So in practise, the following would more look like
      * samplecoll.getHistos("signal");
      */
-    if(alllegends.size()>0){
-        d_ana::histoCollection histos=samplecoll.getHistos(alllegends.at(0));
+    //if(alllegends.size()>0){
+    //    d_ana::histoCollection histos=samplecoll.getHistos(alllegends.at(0));
 
-        /*
-         * here, the histogram created in the analyze() function is selected and evaluated
-         * The histoCollection maintains ownership (you don't need to delete the histogram)
-         */
-        const TH1* myplot=histos.getHisto("histoname1");
+    //    /*
+    //     * here, the histogram created in the analyze() function is selected and evaluated
+    //     * The histoCollection maintains ownership (you don't need to delete the histogram)
+    //     */
+    //    const TH1* myplot=histos.getHisto("histoname1");
 
-        std::cout << "(example output): the integral is " << myplot->Integral() <<std::endl;
+    //    std::cout << "(example output): the integral is " << myplot->Integral() <<std::endl;
 
-        /*
-         * If the histogram is subject to changes, please clone it and take ownership
-         */
+    //    /*
+    //     * If the histogram is subject to changes, please clone it and take ownership
+    //     */
 
-        TH1* myplot2=histos.cloneHisto("histoname1");
+    //    TH1* myplot2=histos.cloneHisto("histoname1");
 
-        /*
-         * do something with the histogram
-         */
+    //    /*
+    //     * do something with the histogram
+    //     */
 
-        delete myplot2;
-    }
+    //    delete myplot2;
+    //}
 
     /*
      * do the extraction here.
