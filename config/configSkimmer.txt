@@ -17,7 +17,7 @@ $
 
 [config-begin]
 
-    Outputdir  = /afs/cern.ch/work/b/bschneid/daf-samples/output03
+    Outputdir  = /eos/user/b/bschneid/SUSY_Upgrade_Skimmer/output04/
     Outputfile = outputfile.root
     
 $ The luminosity is to be given to match the cross section values listed in the section "inputfiles"
@@ -30,7 +30,7 @@ $ If the testmode is activated, only a fraction of the events will be processed.
 $ This mode is meant to test histogram ranges etc. The scaling does not necessarily
 $ correspond to the relative cross sections of the processes
     
-    Testmode   = false
+    Testmode   = true
 
 $ Maximum number of child processes that are spawned simultaneously, each running on a
 $ different input file.
@@ -102,7 +102,7 @@ Bjj-vbf-4p-0-700-v1510_14TEV_200PU/        , Bjj , 630,     86456.04,  5746151, 
 Bjj-vbf-4p-700-1400-v1510_14TEV_200PU/     , Bjj , 630,      4348.69,  7005309, 1, false
 Bjj-vbf-4p-1400-2300-v1510_14TEV_200PU/    , Bjj , 630,       324.65,  6040315, 1, false
 Bjj-vbf-4p-2300-3400-v1510_14TEV_200PU/    , Bjj , 630,        30.32,  5618875, 1, false
-$Bjj-vbf-4p-3400-100000-v1510_14TEV_200PU/  , Bjj , 630,        3.13, auto, 1, false THIS SAMPLE IS MISSING!
+$Bjj-vbf-4p-3400-100000-v1510_14TEV_200PU/  , Bjj , 630,         3.13,     auto, 1, false THIS SAMPLE IS MISSING!
 H-4p-0-300-v1510_14TEV_200PU/              , H   , 630,     21559.90,  6532466, 1, false
 H-4p-300-800-v1510_14TEV_200PU/            , H   , 630,      1112.82,  3788994, 1, false
 H-4p-800-1500-v1510_14TEV_200PU/           , H   , 630,        91.88,  3064444, 1, false
