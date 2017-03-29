@@ -44,8 +44,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     //
     d_ana::dBranchHandler<HepMCEvent>  event(tree(),"Event");
     d_ana::dBranchHandler<Muon>        muontight(tree(),"MuonTight");
+    d_ana::dBranchHandler<Muon>        muonloose(tree(),"MuonLoose");
     d_ana::dBranchHandler<Jet>         jetpuppi(tree(), "JetPUPPI");
     d_ana::dBranchHandler<MissingET>   puppimet(tree(), "PuppiMissingET");
+    d_ana::dBranchHandler<Weight>        rwgt(tree(), "Rwgt");
+    d_ana::dBranchHandler<ScalarHT>    scalarht(tree(), "ScalarHT");
     //d_ana::dBranchHandler<GenParticle> genpart(tree(),"Particle");
     //d_ana::dBranchHandler<Jet>         genjet(tree(),"GenJet");
     //d_ana::dBranchHandler<Jet>         jet(tree(),"Jet");
@@ -100,14 +103,23 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     std::vector<Event> skimmedevent;
     myskim->Branch("Event",&skimmedevent);
 
-    std::vector<Muon> skimmedmuons;
-    myskim->Branch("MuonTight", &skimmedmuons);
+    std::vector<Muon> skimmedmuonstight;
+    myskim->Branch("MuonTight", &skimmedmuonstight);
+
+    std::vector<Muon> skimmedmuonsloose;
+    myskim->Branch("MuonLoose", &skimmedmuonsloose);
 
     std::vector<Jet> skimmedjets;
     myskim->Branch("JetPUPPI", &skimmedjets);
 
     std::vector<MissingET> skimmedmet;
     myskim->Branch("PuppiMissingET", &skimmedmet);
+
+    std::vector<Weight> skimmedrwgt;
+    myskim->Branch("Rwgt", &skimmedrwgt);
+
+    std::vector<ScalarHT> skimmedht;
+    myskim->Branch("ScalarHT", &skimmedht);
 
     size_t nevents=tree()->entries();
     if(isTestMode())
@@ -146,9 +158,14 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             skimmedevent.push_back(*event.at(i));
         }
 
-        skimmedmuons.clear();
+        skimmedmuonstight.clear();
         for(size_t i=0;i<muontight.size();i++){
-            skimmedmuons.push_back(*muontight.at(i));
+            skimmedmuonstight.push_back(*muontight.at(i));
+        }
+
+        skimmedmuonsloose.clear();
+        for(size_t i=0;i<muonloose.size();i++){
+            skimmedmuonsloose.push_back(*muonloose.at(i));
         }
 
         skimmedjets.clear();
@@ -159,6 +176,16 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         skimmedmet.clear();
         for(size_t i=0;i<puppimet.size();i++){
             skimmedmet.push_back(*puppimet.at(i));
+        }
+
+        skimmedrwgt.clear();
+        for(size_t i=0;i<rwgt.size();i++){
+            skimmedrwgt.push_back(*rwgt.at(i));
+        }
+
+        skimmedht.clear();
+        for(size_t i=0;i<scalarht.size();i++){
+            skimmedht.push_back(*scalarht.at(i));
         }
 
 
