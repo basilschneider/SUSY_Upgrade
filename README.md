@@ -1,6 +1,10 @@
 CMS SUSY Phase 2 Upgrade Studies
 ================================
 
+Set environment variables:
+
+    . ./env.sh
+
 Compile with:
 
     make
