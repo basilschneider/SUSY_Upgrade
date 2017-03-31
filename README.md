@@ -9,4 +9,6 @@ To produce skims:
 
     ./SUSY_Upgrade_Skimmer config/configSkimmer.txt
 
+If your samples are on a foreign EOS, you may need a voms proxy.
+
 To produce plots or cutflows: not yet implemented
