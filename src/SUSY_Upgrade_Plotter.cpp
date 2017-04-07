@@ -82,8 +82,6 @@ void SUSY_Upgrade_Plotter::analyze(size_t childid /* this info can be used for p
      * Histograms created this way are automatically added to the output file
      */
     TH1* histo=addPlot(new TH1D("histoname1","histotitle1",100,0,100),"p_{T} [GeV]","N_{e}");
-
-
     /*
      * If (optionally) a skim or a flat ntuple is to be created, please use the following function to initialize
      * the tree.
@@ -115,7 +113,7 @@ void SUSY_Upgrade_Plotter::analyze(size_t childid /* this info can be used for p
          */
         std::vector<Electron> * skimelecs=electrons.content();
         for(size_t i=0;i<skimelecs->size();i++){
-        	histo->Fill(skimelecs->at(i).PT);
+            histo->Fill(skimelecs->at(i).PT);
         }
     }
 
@@ -130,6 +128,19 @@ void SUSY_Upgrade_Plotter::analyze(size_t childid /* this info can be used for p
 
 
 void SUSY_Upgrade_Plotter::postProcess(){
+
+    d_ana::stackPlotter sPlots;
+
+    sPlots.rewriteOutfile(true);
+    sPlots.savePlots(true);
+    sPlots.saveCanvasRootFile(true);
+
+    sPlots.setInputFile("output/outputfile3.root");
+    sPlots.setOutDir("output");
+    sPlots.setLumi(1);
+
+    sPlots.plot();
+
     /*
      * This function can be used to analyse the output histograms, e.g. extract a signal contribution etc.
      * The function can also be called directly on an output file with the histograms, if

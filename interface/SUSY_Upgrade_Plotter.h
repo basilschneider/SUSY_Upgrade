@@ -10,6 +10,7 @@
 
 #include "interface/basicAnalyzer.h"
 #include "interface/sampleCollection.h"
+#include "interface/stackPlotter.h"
 #include "classes/DelphesClasses.h"
 
 
