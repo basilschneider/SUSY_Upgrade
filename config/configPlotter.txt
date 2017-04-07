@@ -1,6 +1,6 @@
 [config-begin]
-    Outputdir  = 
-    Outputfile = outputfile.root
+    Outputdir  = ./output/
+    Outputfile = outputfile3.root
     Lumi = 3000
     Maxchilds = 6
     Samplesdir = root://eoscms.cern.ch//store/user/bschneid/SUSY_Upgrade_Skimmer/output12/
