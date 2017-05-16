@@ -36,6 +36,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
      * For skimmed ntuples, see below
      */
     d_ana::dBranchHandler<Electron> elecs(tree(),"Electron");
+    d_ana::dBranchHandler<Muon> muontight(tree(),"MuonTight");
     /*
      * Other branches might be the following
      * (for a full list, please inspect the Delphes sample root file with root)
@@ -100,11 +101,19 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     //std::vector<Electron> skimmedelecs;
     //myskim->Branch("Electrons",&skimmedelecs);
 
+    // Electron variables
     double el_pt, el_eta, el_phi, el_q;
     myskim->Branch("el_pt", &el_pt);
     myskim->Branch("el_eta", &el_eta);
     myskim->Branch("el_phi", &el_phi);
     myskim->Branch("el_q", &el_q);
+
+    // Muon variables
+    double mu_pt, mu_eta, mu_phi, mu_q;
+    myskim->Branch("mu_pt", &mu_pt);
+    myskim->Branch("mu_eta", &mu_eta);
+    myskim->Branch("mu_phi", &mu_phi);
+    myskim->Branch("mu_q", &mu_q);
 
     //std::vector<Event> skimmedevent;
     //myskim->Branch("Event",&skimmedevent);
@@ -151,7 +160,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
          * Or to fill the skim
          */
         //skimmedelecs.clear();
-        for(size_t i=0;i<elecs.size();i++){
+        for (size_t i=0; i<elecs.size(); ++i){
             //flat info
             //elecPt=elecs.at(i)->PT;
             //if(elecs.at(i)->PT < 20) continue;
@@ -162,6 +171,13 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             el_eta = elecs.at(i)->Eta;
             el_phi = elecs.at(i)->Phi;
             el_q = elecs.at(i)->Charge;
+        }
+
+        for (size_t i=0; i<muontight.size(); ++i){
+            mu_pt = muontight.at(i)->PT;
+            mu_eta = muontight.at(i)->Eta;
+            mu_phi = muontight.at(i)->Phi;
+            mu_q = muontight.at(i)->Charge;
         }
 
         //skimmedevent.clear();
