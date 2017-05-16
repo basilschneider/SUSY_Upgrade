@@ -42,13 +42,13 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
      * For the Delphes class description, see $DELPHES_PATH/classes/DelphesClasses.h
      */
     //
-    d_ana::dBranchHandler<HepMCEvent>  event(tree(),"Event");
-    d_ana::dBranchHandler<Muon>        muontight(tree(),"MuonTight");
-    d_ana::dBranchHandler<Muon>        muonloose(tree(),"MuonLoose");
-    d_ana::dBranchHandler<Jet>         jetpuppi(tree(), "JetPUPPI");
-    d_ana::dBranchHandler<MissingET>   puppimet(tree(), "PuppiMissingET");
-    d_ana::dBranchHandler<Weight>        rwgt(tree(), "Rwgt");
-    d_ana::dBranchHandler<ScalarHT>    scalarht(tree(), "ScalarHT");
+    //d_ana::dBranchHandler<HepMCEvent>  event(tree(),"Event");
+    //d_ana::dBranchHandler<Muon>        muontight(tree(),"MuonTight");
+    //d_ana::dBranchHandler<Muon>        muonloose(tree(),"MuonLoose");
+    //d_ana::dBranchHandler<Jet>         jetpuppi(tree(), "JetPUPPI");
+    //d_ana::dBranchHandler<MissingET>   puppimet(tree(), "PuppiMissingET");
+    ////d_ana::dBranchHandler<Weight>        rwgt(tree(), "Rwgt");
+    //d_ana::dBranchHandler<ScalarHT>    scalarht(tree(), "ScalarHT");
     //d_ana::dBranchHandler<GenParticle> genpart(tree(),"Particle");
     //d_ana::dBranchHandler<Jet>         genjet(tree(),"GenJet");
     //d_ana::dBranchHandler<Jet>         jet(tree(),"Jet");
@@ -97,29 +97,32 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     /*
      * Or store a vector of objects (also possible to store only one object)
      */
-    std::vector<Electron> skimmedelecs;
-    myskim->Branch("Electrons",&skimmedelecs);
+    //std::vector<Electron> skimmedelecs;
+    //myskim->Branch("Electrons",&skimmedelecs);
 
-    std::vector<Event> skimmedevent;
-    myskim->Branch("Event",&skimmedevent);
+    double el_pt;
+    myskim->Branch("el_pt", &el_pt);
 
-    std::vector<Muon> skimmedmuonstight;
-    myskim->Branch("MuonTight", &skimmedmuonstight);
+    //std::vector<Event> skimmedevent;
+    //myskim->Branch("Event",&skimmedevent);
 
-    std::vector<Muon> skimmedmuonsloose;
-    myskim->Branch("MuonLoose", &skimmedmuonsloose);
+    //std::vector<Muon> skimmedmuonstight;
+    //myskim->Branch("MuonTight", &skimmedmuonstight);
 
-    std::vector<Jet> skimmedjets;
-    myskim->Branch("JetPUPPI", &skimmedjets);
+    //std::vector<Muon> skimmedmuonsloose;
+    //myskim->Branch("MuonLoose", &skimmedmuonsloose);
 
-    std::vector<MissingET> skimmedmet;
-    myskim->Branch("PuppiMissingET", &skimmedmet);
+    //std::vector<Jet> skimmedjets;
+    //myskim->Branch("JetPUPPI", &skimmedjets);
 
-    std::vector<Weight> skimmedrwgt;
-    myskim->Branch("Rwgt", &skimmedrwgt);
+    //std::vector<MissingET> skimmedmet;
+    //myskim->Branch("PuppiMissingET", &skimmedmet);
 
-    std::vector<ScalarHT> skimmedht;
-    myskim->Branch("ScalarHT", &skimmedht);
+    ////std::vector<Weight> skimmedrwgt;
+    ////myskim->Branch("Rwgt", &skimmedrwgt);
+
+    //std::vector<ScalarHT> skimmedht;
+    //myskim->Branch("ScalarHT", &skimmedht);
 
     size_t nevents=tree()->entries();
     if(isTestMode())
@@ -144,49 +147,51 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         /*
          * Or to fill the skim
          */
-        skimmedelecs.clear();
+        //skimmedelecs.clear();
         for(size_t i=0;i<elecs.size();i++){
             //flat info
             //elecPt=elecs.at(i)->PT;
             //if(elecs.at(i)->PT < 20) continue;
+            //
             //or objects
-            skimmedelecs.push_back(*elecs.at(i));
+            //skimmedelecs.push_back(*elecs.at(i));
+            el_pt = elecs.at(i)->PT;
         }
 
-        skimmedevent.clear();
-        for(size_t i=0;i<event.size();i++){
-            skimmedevent.push_back(*event.at(i));
-        }
+        //skimmedevent.clear();
+        //for(size_t i=0;i<event.size();i++){
+        //    skimmedevent.push_back(*event.at(i));
+        //}
 
-        skimmedmuonstight.clear();
-        for(size_t i=0;i<muontight.size();i++){
-            skimmedmuonstight.push_back(*muontight.at(i));
-        }
+        //skimmedmuonstight.clear();
+        //for(size_t i=0;i<muontight.size();i++){
+        //    skimmedmuonstight.push_back(*muontight.at(i));
+        //}
 
-        skimmedmuonsloose.clear();
-        for(size_t i=0;i<muonloose.size();i++){
-            skimmedmuonsloose.push_back(*muonloose.at(i));
-        }
+        //skimmedmuonsloose.clear();
+        //for(size_t i=0;i<muonloose.size();i++){
+        //    skimmedmuonsloose.push_back(*muonloose.at(i));
+        //}
 
-        skimmedjets.clear();
-        for(size_t i=0;i<jetpuppi.size();i++){
-            skimmedjets.push_back(*jetpuppi.at(i));
-        }
+        //skimmedjets.clear();
+        //for(size_t i=0;i<jetpuppi.size();i++){
+        //    skimmedjets.push_back(*jetpuppi.at(i));
+        //}
 
-        skimmedmet.clear();
-        for(size_t i=0;i<puppimet.size();i++){
-            skimmedmet.push_back(*puppimet.at(i));
-        }
+        //skimmedmet.clear();
+        //for(size_t i=0;i<puppimet.size();i++){
+        //    skimmedmet.push_back(*puppimet.at(i));
+        //}
 
-        skimmedrwgt.clear();
-        for(size_t i=0;i<rwgt.size();i++){
-            skimmedrwgt.push_back(*rwgt.at(i));
-        }
+        ////skimmedrwgt.clear();
+        ////for(size_t i=0;i<rwgt.size();i++){
+        ////    skimmedrwgt.push_back(*rwgt.at(i));
+        ////}
 
-        skimmedht.clear();
-        for(size_t i=0;i<scalarht.size();i++){
-            skimmedht.push_back(*scalarht.at(i));
-        }
+        //skimmedht.clear();
+        //for(size_t i=0;i<scalarht.size();i++){
+        //    skimmedht.push_back(*scalarht.at(i));
+        //}
 
 
         myskim->Fill();
