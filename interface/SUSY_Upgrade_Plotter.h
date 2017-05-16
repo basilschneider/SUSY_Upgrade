@@ -13,6 +13,7 @@
 #include "interface/stackPlotter.h"
 #include "classes/DelphesClasses.h"
 
+typedef std::tuple<int,std::string,double> cutflowtuple;
 
 class SUSY_Upgrade_Plotter: public d_ana::basicAnalyzer{
     public:
@@ -22,8 +23,16 @@ class SUSY_Upgrade_Plotter: public d_ana::basicAnalyzer{
 
     private:
         void analyze(size_t id);
+        bool isBasicSelection();
 
         void postProcess();
+
+        std::vector<Electron>* skimelecs;
+        std::vector<MissingET>* skimmet;
+
+        // Vector of 3-tuple storing cutflow: Cut number, Cut name, Number of events
+        std::vector<cutflowtuple> cutflow;
+
 };
 
 

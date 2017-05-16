@@ -7,7 +7,11 @@
 
 #include "interface/SUSY_Upgrade_Plotter.h"
 
-
+bool SUSY_Upgrade_Plotter::isBasicSelection(){
+    /////////////Put that in an initialize function, then increment
+    cutflow.push_back(cutflowtuple(0, "foo", 0.));
+    return true;
+}
 
 void SUSY_Upgrade_Plotter::analyze(size_t childid /* this info can be used for printouts */){
 
@@ -66,7 +70,10 @@ void SUSY_Upgrade_Plotter::analyze(size_t childid /* this info can be used for p
      *
      */
     d_ana::tBranchHandler<std::vector<Electron> > electrons(tree(),"Electrons");
-    //d_ana::tBranchHandler<MissingET> met(tree(),"MET");
+    d_ana::tBranchHandler<std::vector<MissingET>> puppimet(tree(),"PuppiMissingET");
+
+    //d_ana::dBranchHandler<Electron> elecs(tree(),"Electron");
+    //d_ana::dBranchHandler<MissingET>   puppimet(tree(), "PuppiMissingET");
 
     /*==SKIM==
      *
@@ -111,10 +118,18 @@ void SUSY_Upgrade_Plotter::analyze(size_t childid /* this info can be used for p
         /*==SKIM==
          * Access the branches of the skim
          */
-        std::vector<Electron> * skimelecs=electrons.content();
+        skimelecs = electrons.content();
+        skimmet = puppimet.content();
+
+        if (!isBasicSelection()){
+            continue;
+        }
+
         for(size_t i=0;i<skimelecs->size();i++){
             histo->Fill(skimelecs->at(i).PT);
         }
+
+
     }
 
 
@@ -128,6 +143,12 @@ void SUSY_Upgrade_Plotter::analyze(size_t childid /* this info can be used for p
 
 
 void SUSY_Upgrade_Plotter::postProcess(){
+
+    // Cutflow numbers
+    std::cout << "Cutflow: " << cutflow.size() << std::endl;
+    for (cutflowtuple cutflowelement : cutflow){
+        std::cout << "abc: " << std::get<0>(cutflowelement) << std::endl;
+    }
 
     d_ana::stackPlotter sPlots;
 
