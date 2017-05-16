@@ -100,8 +100,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     //std::vector<Electron> skimmedelecs;
     //myskim->Branch("Electrons",&skimmedelecs);
 
-    double el_pt;
+    double el_pt, el_eta, el_phi, el_q;
     myskim->Branch("el_pt", &el_pt);
+    myskim->Branch("el_eta", &el_eta);
+    myskim->Branch("el_phi", &el_phi);
+    myskim->Branch("el_q", &el_q);
 
     //std::vector<Event> skimmedevent;
     //myskim->Branch("Event",&skimmedevent);
@@ -156,6 +159,9 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             //or objects
             //skimmedelecs.push_back(*elecs.at(i));
             el_pt = elecs.at(i)->PT;
+            el_eta = elecs.at(i)->Eta;
+            el_phi = elecs.at(i)->Phi;
+            el_q = elecs.at(i)->Charge;
         }
 
         //skimmedevent.clear();
