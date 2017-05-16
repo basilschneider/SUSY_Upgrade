@@ -18,7 +18,7 @@ $
 [config-begin]
 
     $Outputdir  = root://eoscms.cern.ch//store/user/bschneid/SUSY_Upgrade_Skimmer/output11/
-    Outputdir  = /eos/cms/store/user/bschneid/SUSY_Upgrade_Skimmer/output12_ttB/
+    Outputdir  = /eos/cms/store/user/bschneid/SUSY_Upgrade_Skimmer/output12_sig/
     Outputfile = outputfile.root
 
 $ The luminosity is to be given to match the cross section values listed in the section "inputfiles"
@@ -41,7 +41,8 @@ $ different input file.
 $ This Samplesdir can be a local directory or refer to off-site locations via xrootd
 
     $Samplesdir = /afs/cern.ch/user/j/jkiesele/public/testsamples
-    Samplesdir = root://eoscms.cern.ch//store/group/upgrade/delphes_output/DelphesFromLHE_333pre16_2016Aug/
+    $Samplesdir = root://eoscms.cern.ch//store/group/upgrade/delphes_output/DelphesFromLHE_333pre16_2016Aug/
+    Samplesdir = root://eoscms.cern.ch//store/user/bschneid/SUSY_Upgrade_Skimmer/signal/TChiWZ_300_260/
 
 
 $ The analyser will have a postProcess() function. This function should be used to
@@ -137,5 +138,6 @@ $ttB-4p-0-900-v1510_14TEV_200PU/            , ttB , 824 ,      2667.30 ,  904951
 $ttB-4p-900-1600-v1510_14TEV_200PU/         , ttB , 824 ,       250.47 ,  8186012 , 1 , false
 $ttB-4p-1600-2500-v1510_14TEV_200PU/        , ttB , 824 ,        23.74 ,  8929669 , 1 , false
 $ttB-4p-2500-100000-v1510_14TEV_200PU/      , ttB , 824 ,         2.09 , 23821464 , 1 , false
+TChiWZoff_C1N2_300_LSP_260_xqcut30_decayed.root, TChiWZ_300_260, 616, 1.00, auto, 1, true
 
 [inputfiles-end]
