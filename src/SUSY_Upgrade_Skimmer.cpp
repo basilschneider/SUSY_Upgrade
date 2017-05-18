@@ -127,35 +127,20 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("met_eta", &met_eta);
     myskim->Branch("met_phi", &met_phi);
 
+    // HT variables
+    double ht;
+    myskim->Branch("ht", &ht);
+
     // Cutflow variables
-    int nLep;
+    int nLep, nSoftLep;
     myskim->Branch("nLep", &nLep);
+    myskim->Branch("nSoftLep", &nSoftLep);
     bool hasSFOS;
     myskim->Branch("hasSFOS", &hasSFOS);
     double mll;
     myskim->Branch("mll", &mll);
 
-    //std::vector<Event> skimmedevent;
-    //myskim->Branch("Event",&skimmedevent);
-
-    //std::vector<Muon> skimmedmuonstight;
-    //myskim->Branch("MuonTight", &skimmedmuonstight);
-
-    //std::vector<Muon> skimmedmuonsloose;
-    //myskim->Branch("MuonLoose", &skimmedmuonsloose);
-
-    //std::vector<Jet> skimmedjets;
-    //myskim->Branch("JetPUPPI", &skimmedjets);
-
-    //std::vector<MissingET> skimmedmet;
-    //myskim->Branch("PuppiMissingET", &skimmedmet);
-
-    ////std::vector<Weight> skimmedrwgt;
-    ////myskim->Branch("Rwgt", &skimmedrwgt);
-
-    //std::vector<ScalarHT> skimmedht;
-    //myskim->Branch("ScalarHT", &skimmedht);
-
+    // Event loop
     size_t nevents=tree()->entries();
     if(isTestMode())
         nevents/=1000;
@@ -208,8 +193,20 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             return;
         }
 
+        // Fill HT
+        ht = 0.;
+        for (size_t i=0; i<jetpuppi.size(); ++i){
+            ht += jetpuppi.at(i)->PT;
+        }
+
         // Number of leptons
         nLep = elecs.size() + muontight.size();
+        nSoftLep = 0;
+        for (size_t i=0; i<elecs.size(); ++i){
+            if (elecs.at(i)->PT > 5. && elecs.at(i)->PT < 30.){
+                nSoftLep++;
+            }
+        }
 
         // Is a same flavour opposite sign lepton pair present?
         hasSFOS = false;
@@ -246,43 +243,6 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                              0.105658);
             mll = el1*el2;
         }
-
-
-        //skimmedevent.clear();
-        //for(size_t i=0;i<event.size();i++){
-        //    skimmedevent.push_back(*event.at(i));
-        //}
-
-        //skimmedmuonstight.clear();
-        //for(size_t i=0;i<muontight.size();i++){
-        //    skimmedmuonstight.push_back(*muontight.at(i));
-        //}
-
-        //skimmedmuonsloose.clear();
-        //for(size_t i=0;i<muonloose.size();i++){
-        //    skimmedmuonsloose.push_back(*muonloose.at(i));
-        //}
-
-        //skimmedjets.clear();
-        //for(size_t i=0;i<jetpuppi.size();i++){
-        //    skimmedjets.push_back(*jetpuppi.at(i));
-        //}
-
-        //skimmedmet.clear();
-        //for(size_t i=0;i<puppimet.size();i++){
-        //    skimmedmet.push_back(*puppimet.at(i));
-        //}
-
-        ////skimmedrwgt.clear();
-        ////for(size_t i=0;i<rwgt.size();i++){
-        ////    skimmedrwgt.push_back(*rwgt.at(i));
-        ////}
-
-        //skimmedht.clear();
-        //for(size_t i=0;i<scalarht.size();i++){
-        //    skimmedht.push_back(*scalarht.at(i));
-        //}
-
 
         myskim->Fill();
 
