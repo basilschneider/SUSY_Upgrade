@@ -103,21 +103,24 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     //myskim->Branch("Electrons",&skimmedelecs);
 
     // Electron variables
-    double el_pt, el_eta, el_phi, el_q;
+    double el_pt, el_eta, el_phi;
+    int el_q;
     myskim->Branch("el_pt", &el_pt);
     myskim->Branch("el_eta", &el_eta);
     myskim->Branch("el_phi", &el_phi);
     myskim->Branch("el_q", &el_q);
 
     // Muon variables
-    double mu_tight_pt, mu_tight_eta, mu_tight_phi, mu_tight_q;
+    double mu_tight_pt, mu_tight_eta, mu_tight_phi;
+    int mu_tight_q;
     myskim->Branch("mu_tight_pt", &mu_tight_pt);
     myskim->Branch("mu_tight_eta", &mu_tight_eta);
     myskim->Branch("mu_tight_phi", &mu_tight_phi);
     myskim->Branch("mu_tight_q", &mu_tight_q);
 
     // Jet variables
-    double jet_puppi_pt, jet_puppi_eta, jet_puppi_phi, jet_puppi_q;
+    double jet_puppi_pt, jet_puppi_eta, jet_puppi_phi;
+    int jet_puppi_q;
     myskim->Branch("jet_puppi_pt", &jet_puppi_pt);
     myskim->Branch("jet_puppi_eta", &jet_puppi_eta);
     myskim->Branch("jet_puppi_phi", &jet_puppi_phi);
