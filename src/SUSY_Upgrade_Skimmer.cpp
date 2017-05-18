@@ -109,11 +109,17 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("el_q", &el_q);
 
     // Muon variables
-    double mu_pt, mu_eta, mu_phi, mu_q;
-    myskim->Branch("mu_pt", &mu_pt);
-    myskim->Branch("mu_eta", &mu_eta);
-    myskim->Branch("mu_phi", &mu_phi);
-    myskim->Branch("mu_q", &mu_q);
+    double mu_tight_pt, mu_tight_eta, mu_tight_phi, mu_tight_q;
+    myskim->Branch("mu_tight_pt", &mu_tight_pt);
+    myskim->Branch("mu_tight_eta", &mu_tight_eta);
+    myskim->Branch("mu_tight_phi", &mu_tight_phi);
+    myskim->Branch("mu_tight_q", &mu_tight_q);
+
+    // Cutflow variables
+    int nLep;
+    myskim->Branch("nLep", &nLep);
+    bool hasSFOS;
+    myskim->Branch("hasSFOS", &hasSFOS);
 
     //std::vector<Event> skimmedevent;
     //myskim->Branch("Event",&skimmedevent);
@@ -147,19 +153,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         reportStatus(eventno,nevents);
         tree()->setEntry(eventno);
 
-
-
-        /*
-         * Begin the event-by-event analysis
-         */
-        //for(size_t i=0;i<elecs.size();i++){
-        //    histo->Fill(elecs.at(i)->PT);
-        //}
-
-        /*
-         * Or to fill the skim
-         */
-        //skimmedelecs.clear();
+        // Fill electrons
         for (size_t i=0; i<elecs.size(); ++i){
             //flat info
             //elecPt=elecs.at(i)->PT;
@@ -173,11 +167,24 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             el_q = elecs.at(i)->Charge;
         }
 
+        // Fill muons
         for (size_t i=0; i<muontight.size(); ++i){
-            mu_pt = muontight.at(i)->PT;
-            mu_eta = muontight.at(i)->Eta;
-            mu_phi = muontight.at(i)->Phi;
-            mu_q = muontight.at(i)->Charge;
+            mu_tight_pt = muontight.at(i)->PT;
+            mu_tight_eta = muontight.at(i)->Eta;
+            mu_tight_phi = muontight.at(i)->Phi;
+            mu_tight_q = muontight.at(i)->Charge;
+        }
+
+        // Number of leptons
+        nLep = elecs.size() + muontight.size();
+
+        // Is a same flavour opposite sign lepton pair present?
+        hasSFOS = false;
+        if (elecs.size() == 2 && elecs.at(0)->Charge*elecs.at(1)->Charge < 0){
+            hasSFOS = true;
+        }
+        if (muontight.size() == 2 && muontight.at(0)->Charge*muontight.at(1)->Charge < 0){
+            hasSFOS = true;
         }
 
         //skimmedevent.clear();
