@@ -31,6 +31,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     d_ana::dBranchHandler<Electron> elecs(tree(),"Electron");
     d_ana::dBranchHandler<Muon> muontight(tree(),"MuonTight");
     d_ana::dBranchHandler<Jet> jetpuppi(tree(), "JetPUPPI");
+    d_ana::dBranchHandler<MissingET> puppimet(tree(), "PuppiMissingET");
     /*
      * Other branches might be the following
      * (for a full list, please inspect the Delphes sample root file with root)
@@ -120,6 +121,12 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("jet_puppi_q", &jet_puppi_q);
     myskim->Branch("jet_puppi_b", &jet_puppi_b);
 
+    // MET variables
+    double met, met_eta, met_phi;
+    myskim->Branch("met", &met);
+    myskim->Branch("met_eta", &met_eta);
+    myskim->Branch("met_phi", &met_phi);
+
     // Cutflow variables
     int nLep;
     myskim->Branch("nLep", &nLep);
@@ -189,6 +196,16 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             jet_puppi_phi = jetpuppi.at(i)->Phi;
             jet_puppi_q = jetpuppi.at(i)->Charge;
             jet_puppi_b = jetpuppi.at(i)->BTag;
+        }
+
+        // Fill MET
+        try{
+            met = puppimet.at(0)->MET;
+            met_eta = puppimet.at(0)->Eta;
+            met_phi = puppimet.at(0)->Phi;
+        }catch (const std::out_of_range& oor){
+            std::cerr << "Out of range error when accessing MET vector: " << oor.what() << std::endl;
+            return;
         }
 
         // Number of leptons
