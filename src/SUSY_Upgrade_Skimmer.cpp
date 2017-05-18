@@ -120,11 +120,12 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
     // Jet variables
     double jet_puppi_pt, jet_puppi_eta, jet_puppi_phi;
-    int jet_puppi_q;
+    int jet_puppi_q, jet_puppi_b;
     myskim->Branch("jet_puppi_pt", &jet_puppi_pt);
     myskim->Branch("jet_puppi_eta", &jet_puppi_eta);
     myskim->Branch("jet_puppi_phi", &jet_puppi_phi);
     myskim->Branch("jet_puppi_q", &jet_puppi_q);
+    myskim->Branch("jet_puppi_b", &jet_puppi_b);
 
     // Cutflow variables
     int nLep;
@@ -192,6 +193,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             jet_puppi_eta = jetpuppi.at(i)->Eta;
             jet_puppi_phi = jetpuppi.at(i)->Phi;
             jet_puppi_q = jetpuppi.at(i)->Charge;
+            jet_puppi_b = jetpuppi.at(i)->BTag;
         }
 
         // Number of leptons
