@@ -96,30 +96,42 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     //std::vector<Electron> skimmedelecs;
     //myskim->Branch("Electrons",&skimmedelecs);
 
+    // Event variables
+    double genWeight;
+    myskim->Branch("genWeight", &genWeight);
+
     // Electron variables
-    double el_pt, el_eta, el_phi;
-    int el_q;
-    myskim->Branch("el_pt", &el_pt);
-    myskim->Branch("el_eta", &el_eta);
-    myskim->Branch("el_phi", &el_phi);
-    myskim->Branch("el_q", &el_q);
+    double el1_pt, el1_eta, el1_phi, el2_pt, el2_eta, el2_phi;
+    int el1_q, el2_q;
+    myskim->Branch("el1_pt", &el1_pt);
+    myskim->Branch("el1_eta", &el1_eta);
+    myskim->Branch("el1_phi", &el1_phi);
+    myskim->Branch("el1_q", &el1_q);
+    myskim->Branch("el2_pt", &el1_pt);
+    myskim->Branch("el2_eta", &el1_eta);
+    myskim->Branch("el2_phi", &el1_phi);
+    myskim->Branch("el2_q", &el1_q);
 
     // Muon variables
-    double mu_tight_pt, mu_tight_eta, mu_tight_phi;
-    int mu_tight_q;
-    myskim->Branch("mu_tight_pt", &mu_tight_pt);
-    myskim->Branch("mu_tight_eta", &mu_tight_eta);
-    myskim->Branch("mu_tight_phi", &mu_tight_phi);
-    myskim->Branch("mu_tight_q", &mu_tight_q);
+    double mu1_tight_pt, mu1_tight_eta, mu1_tight_phi, mu2_tight_pt, mu2_tight_eta, mu2_tight_phi;
+    int mu1_tight_q, mu2_tight_q;
+    myskim->Branch("mu1_tight_pt", &mu1_tight_pt);
+    myskim->Branch("mu1_tight_eta", &mu1_tight_eta);
+    myskim->Branch("mu1_tight_phi", &mu1_tight_phi);
+    myskim->Branch("mu1_tight_q", &mu1_tight_q);
+    myskim->Branch("mu2_tight_pt", &mu2_tight_pt);
+    myskim->Branch("mu2_tight_eta", &mu2_tight_eta);
+    myskim->Branch("mu2_tight_phi", &mu2_tight_phi);
+    myskim->Branch("mu2_tight_q", &mu2_tight_q);
 
     // Jet variables
-    double jet_puppi_pt, jet_puppi_eta, jet_puppi_phi;
-    int jet_puppi_q, jet_puppi_b;
-    myskim->Branch("jet_puppi_pt", &jet_puppi_pt);
-    myskim->Branch("jet_puppi_eta", &jet_puppi_eta);
-    myskim->Branch("jet_puppi_phi", &jet_puppi_phi);
-    myskim->Branch("jet_puppi_q", &jet_puppi_q);
-    myskim->Branch("jet_puppi_b", &jet_puppi_b);
+    double jet1_puppi_pt, jet1_puppi_eta, jet1_puppi_phi;
+    int jet1_puppi_q, jet1_puppi_b;
+    myskim->Branch("jet1_puppi_pt", &jet1_puppi_pt);
+    myskim->Branch("jet1_puppi_eta", &jet1_puppi_eta);
+    myskim->Branch("jet1_puppi_phi", &jet1_puppi_phi);
+    myskim->Branch("jet1_puppi_q", &jet1_puppi_q);
+    myskim->Branch("jet1_puppi_b", &jet1_puppi_b);
 
     // MET variables
     double met, met_eta, met_phi;
@@ -132,12 +144,16 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("ht", &ht);
 
     // Cutflow variables
-    int nLep, nSoftLep;
-    myskim->Branch("nLep", &nLep);
-    myskim->Branch("nSoftLep", &nSoftLep);
+    int nLep, nEl, nMu, nSoftLep, nSoftEl, nSoftMu;
     bool hasSFOS;
-    myskim->Branch("hasSFOS", &hasSFOS);
     double mll;
+    myskim->Branch("nLep", &nLep);
+    myskim->Branch("nEl", &nEl);
+    myskim->Branch("nMu", &nMu);
+    myskim->Branch("nSoftLep", &nSoftLep);
+    myskim->Branch("nSoftEl", &nSoftEl);
+    myskim->Branch("nSoftMu", &nSoftMu);
+    myskim->Branch("hasSFOS", &hasSFOS);
     myskim->Branch("mll", &mll);
 
     // Event loop
@@ -152,35 +168,50 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         reportStatus(eventno,nevents);
         tree()->setEntry(eventno);
 
+        // Fill event variables
+        genWeight = 1.;
+
         // Fill electrons
-        for (size_t i=0; i<elecs.size(); ++i){
-            //flat info
-            //elecPt=elecs.at(i)->PT;
-            //if(elecs.at(i)->PT < 20) continue;
-            //
-            //or objects
-            //skimmedelecs.push_back(*elecs.at(i));
-            el_pt = elecs.at(i)->PT;
-            el_eta = elecs.at(i)->Eta;
-            el_phi = elecs.at(i)->Phi;
-            el_q = elecs.at(i)->Charge;
+        el1_pt = el1_eta = el1_phi = el2_pt = el2_eta = el2_phi = 0.;
+        el1_q = el2_q = 0;
+        if (elecs.size() >= 1){
+            el1_pt = elecs.at(0)->PT;
+            el1_eta = elecs.at(0)->Eta;
+            el1_phi = elecs.at(0)->Phi;
+            el1_q = elecs.at(0)->Charge;
+        }
+        if (elecs.size() >= 2){
+            el2_pt = elecs.at(1)->PT;
+            el2_eta = elecs.at(1)->Eta;
+            el2_phi = elecs.at(1)->Phi;
+            el2_q = elecs.at(1)->Charge;
         }
 
         // Fill muons
-        for (size_t i=0; i<muontight.size(); ++i){
-            mu_tight_pt = muontight.at(i)->PT;
-            mu_tight_eta = muontight.at(i)->Eta;
-            mu_tight_phi = muontight.at(i)->Phi;
-            mu_tight_q = muontight.at(i)->Charge;
+        mu1_tight_pt = mu1_tight_eta = mu1_tight_phi = mu2_tight_pt = mu2_tight_eta = mu2_tight_phi = 0.;
+        mu1_tight_q = mu2_tight_q = 0;
+        if (muontight.size() >= 1){
+            mu1_tight_pt = muontight.at(0)->PT;
+            mu1_tight_eta = muontight.at(0)->Eta;
+            mu1_tight_phi = muontight.at(0)->Phi;
+            mu1_tight_q = muontight.at(0)->Charge;
+        }
+        if (muontight.size() >= 2){
+            mu2_tight_pt = muontight.at(1)->PT;
+            mu2_tight_eta = muontight.at(1)->Eta;
+            mu2_tight_phi = muontight.at(1)->Phi;
+            mu2_tight_q = muontight.at(1)->Charge;
         }
 
         // Fill jets
-        for (size_t i=0; i<jetpuppi.size(); ++i){
-            jet_puppi_pt = jetpuppi.at(i)->PT;
-            jet_puppi_eta = jetpuppi.at(i)->Eta;
-            jet_puppi_phi = jetpuppi.at(i)->Phi;
-            jet_puppi_q = jetpuppi.at(i)->Charge;
-            jet_puppi_b = jetpuppi.at(i)->BTag;
+        jet1_puppi_pt = jet1_puppi_eta = jet1_puppi_phi = 0.;
+        jet1_puppi_q = jet1_puppi_b = 0;
+        if (jetpuppi.size() >= 1){
+            jet1_puppi_pt = jetpuppi.at(0)->PT;
+            jet1_puppi_eta = jetpuppi.at(0)->Eta;
+            jet1_puppi_phi = jetpuppi.at(0)->Phi;
+            jet1_puppi_q = jetpuppi.at(0)->Charge;
+            jet1_puppi_b = jetpuppi.at(0)->BTag;
         }
 
         // Fill MET
@@ -203,9 +234,18 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
         // Number of leptons
         nLep = elecs.size() + muontight.size();
-        nSoftLep = 0;
+        nEl = elecs.size();
+        nMu = muontight.size();
+        nSoftLep = nSoftEl = nSoftMu = 0;
         for (size_t i=0; i<elecs.size(); ++i){
             if (elecs.at(i)->PT > 5. && elecs.at(i)->PT < 30.){
+                nSoftEl++;
+                nSoftLep++;
+            }
+        }
+        for (size_t i=0; i<muontight.size(); ++i){
+            if (muontight.at(i)->PT > 5. && muontight.at(i)->PT < 30.){
+                nSoftMu++;
                 nSoftLep++;
             }
         }
