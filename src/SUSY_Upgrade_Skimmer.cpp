@@ -246,6 +246,10 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             mll = el1*el2;
         }
 
+        // Skim
+        if (nSoftLep < 2){ continue; }
+        if (!hasSFOS){ continue; }
+
         myskim->Fill();
 
 
