@@ -126,12 +126,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
     // Jet variables
     double jet1_puppi_pt, jet1_puppi_eta, jet1_puppi_phi;
-    int jet1_puppi_q, jet1_puppi_b;
+    int jet1_puppi_q;
     myskim->Branch("jet1_puppi_pt", &jet1_puppi_pt);
     myskim->Branch("jet1_puppi_eta", &jet1_puppi_eta);
     myskim->Branch("jet1_puppi_phi", &jet1_puppi_phi);
     myskim->Branch("jet1_puppi_q", &jet1_puppi_q);
-    myskim->Branch("jet1_puppi_b", &jet1_puppi_b);
 
     // MET variables
     double met, met_eta, met_phi;
@@ -144,7 +143,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("ht", &ht);
 
     // Cutflow variables
-    int nLep, nEl, nMu, nSoftLep, nSoftEl, nSoftMu;
+    int nLep, nEl, nMu, nSoftLep, nSoftEl, nSoftMu, nJet, nBJet;
     bool hasSFOS;
     double mll;
     myskim->Branch("nLep", &nLep);
@@ -153,6 +152,8 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("nSoftLep", &nSoftLep);
     myskim->Branch("nSoftEl", &nSoftEl);
     myskim->Branch("nSoftMu", &nSoftMu);
+    myskim->Branch("nJet", &nJet);
+    myskim->Branch("nBJet", &nBJet);
     myskim->Branch("hasSFOS", &hasSFOS);
     myskim->Branch("mll", &mll);
 
@@ -205,13 +206,12 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
         // Fill jets
         jet1_puppi_pt = jet1_puppi_eta = jet1_puppi_phi = 0.;
-        jet1_puppi_q = jet1_puppi_b = 0;
+        jet1_puppi_q = 0;
         if (jetpuppi.size() >= 1){
             jet1_puppi_pt = jetpuppi.at(0)->PT;
             jet1_puppi_eta = jetpuppi.at(0)->Eta;
             jet1_puppi_phi = jetpuppi.at(0)->Phi;
             jet1_puppi_q = jetpuppi.at(0)->Charge;
-            jet1_puppi_b = jetpuppi.at(0)->BTag;
         }
 
         // Fill MET
@@ -232,11 +232,12 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             }
         }
 
-        // Number of leptons
+        // Cutflow variables
         nLep = elecs.size() + muontight.size();
         nEl = elecs.size();
         nMu = muontight.size();
         nSoftLep = nSoftEl = nSoftMu = 0;
+        nJet = nBJet = 0;
         for (size_t i=0; i<elecs.size(); ++i){
             if (elecs.at(i)->PT > 5. && elecs.at(i)->PT < 30.){
                 nSoftEl++;
@@ -247,6 +248,14 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             if (muontight.at(i)->PT > 5. && muontight.at(i)->PT < 30.){
                 nSoftMu++;
                 nSoftLep++;
+            }
+        }
+        for (size_t i=0; i<jetpuppi.size(); ++i){
+            if (jetpuppi.at(i)->PT > 25.){
+                nJet++;
+                if (jetpuppi.at(i)->BTag){
+                    nBJet++;
+                }
             }
         }
 
