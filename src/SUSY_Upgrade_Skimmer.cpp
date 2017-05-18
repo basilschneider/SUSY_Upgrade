@@ -37,6 +37,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
      */
     d_ana::dBranchHandler<Electron> elecs(tree(),"Electron");
     d_ana::dBranchHandler<Muon> muontight(tree(),"MuonTight");
+    d_ana::dBranchHandler<Jet> jetpuppi(tree(), "JetPUPPI");
     /*
      * Other branches might be the following
      * (for a full list, please inspect the Delphes sample root file with root)
@@ -115,6 +116,13 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("mu_tight_phi", &mu_tight_phi);
     myskim->Branch("mu_tight_q", &mu_tight_q);
 
+    // Jet variables
+    double jet_puppi_pt, jet_puppi_eta, jet_puppi_phi, jet_puppi_q;
+    myskim->Branch("jet_puppi_pt", &jet_puppi_pt);
+    myskim->Branch("jet_puppi_eta", &jet_puppi_eta);
+    myskim->Branch("jet_puppi_phi", &jet_puppi_phi);
+    myskim->Branch("jet_puppi_q", &jet_puppi_q);
+
     // Cutflow variables
     int nLep;
     myskim->Branch("nLep", &nLep);
@@ -173,6 +181,14 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             mu_tight_eta = muontight.at(i)->Eta;
             mu_tight_phi = muontight.at(i)->Phi;
             mu_tight_q = muontight.at(i)->Charge;
+        }
+
+        // Fill jets
+        for (size_t i=0; i<jetpuppi.size(); ++i){
+            jet_puppi_pt = jetpuppi.at(i)->PT;
+            jet_puppi_eta = jetpuppi.at(i)->Eta;
+            jet_puppi_phi = jetpuppi.at(i)->Phi;
+            jet_puppi_q = jetpuppi.at(i)->Charge;
         }
 
         // Number of leptons
