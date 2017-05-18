@@ -196,7 +196,9 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         // Fill HT
         ht = 0.;
         for (size_t i=0; i<jetpuppi.size(); ++i){
-            ht += jetpuppi.at(i)->PT;
+            if (jetpuppi.at(i)->PT > 25.){
+                ht += jetpuppi.at(i)->PT;
+            }
         }
 
         // Number of leptons
