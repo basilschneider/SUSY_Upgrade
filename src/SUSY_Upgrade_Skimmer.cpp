@@ -1,10 +1,3 @@
-/*
- * SUSY_Upgrade_Skimmer.cpp
- *
- *  Created on: 24 Aug 2016
- *      Author: jkiesele
- */
-
 #include "interface/SUSY_Upgrade_Skimmer.h"
 
 
@@ -132,6 +125,8 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("nLep", &nLep);
     bool hasSFOS;
     myskim->Branch("hasSFOS", &hasSFOS);
+    double mll;
+    myskim->Branch("mll", &mll);
 
     //std::vector<Event> skimmedevent;
     //myskim->Branch("Event",&skimmedevent);
@@ -207,6 +202,34 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         if (muontight.size() == 2 && muontight.at(0)->Charge*muontight.at(1)->Charge < 0){
             hasSFOS = true;
         }
+
+        // Invariant mass of same flavour lepton pair
+        mll = 0.;
+        if (elecs.size() == 2){
+            TLorentzVector el1, el2;
+            el1.SetPtEtaPhiM(elecs.at(0)->PT,
+                             elecs.at(0)->Eta,
+                             elecs.at(0)->Phi,
+                             0.000511);
+            el2.SetPtEtaPhiM(elecs.at(1)->PT,
+                             elecs.at(1)->Eta,
+                             elecs.at(1)->Phi,
+                             0.000511);
+            mll = el1*el2;
+        }
+        if (muontight.size() == 2){
+            TLorentzVector el1, el2;
+            el1.SetPtEtaPhiM(muontight.at(0)->PT,
+                             muontight.at(0)->Eta,
+                             muontight.at(0)->Phi,
+                             0.105658);
+            el2.SetPtEtaPhiM(muontight.at(1)->PT,
+                             muontight.at(1)->Eta,
+                             muontight.at(1)->Phi,
+                             0.105658);
+            mll = el1*el2;
+        }
+
 
         //skimmedevent.clear();
         //for(size_t i=0;i<event.size();i++){
