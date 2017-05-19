@@ -235,21 +235,27 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
 
         // Cutflow variables
-        nLep = elecs.size() + muontight.size();
-        nEl = elecs.size();
-        nMu = muontight.size();
+        nLep = nEl = nMu = 0;
         nSoftLep = nSoftEl = nSoftMu = 0;
         nJet = nBJet = 0;
         for (size_t i=0; i<elecs.size(); ++i){
-            if (elecs.at(i)->PT > 5. && elecs.at(i)->PT < 30.){
-                nSoftEl++;
-                nSoftLep++;
+            if (elecs.at(i)->PT > 5.){
+                nLep++;
+                nEl++;
+                if (elecs.at(i)->PT < 30.){
+                    nSoftEl++;
+                    nSoftLep++;
+                }
             }
         }
         for (size_t i=0; i<muontight.size(); ++i){
-            if (muontight.at(i)->PT > 5. && muontight.at(i)->PT < 30.){
-                nSoftMu++;
-                nSoftLep++;
+            if (muontight.at(i)->PT > 5.){
+                nLep++;
+                nMu++;
+                if (muontight.at(i)->PT < 30.){
+                    nSoftMu++;
+                    nSoftLep++;
+                }
             }
         }
         for (size_t i=0; i<jetpuppi.size(); ++i){
