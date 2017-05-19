@@ -97,8 +97,9 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     //myskim->Branch("Electrons",&skimmedelecs);
 
     // Event variables
-    double genWeight;
+    double genWeight, nTot;
     myskim->Branch("genWeight", &genWeight);
+    myskim->Branch("nTot", &nTot);
 
     // Electron variables
     double el1_pt, el1_eta, el1_phi, el2_pt, el2_eta, el2_phi;
@@ -171,6 +172,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
         // Fill event variables
         genWeight = 1.;
+        nTot = nevents;
 
         // Fill electrons
         el1_pt = el1_eta = el1_phi = el2_pt = el2_eta = el2_phi = 0.;

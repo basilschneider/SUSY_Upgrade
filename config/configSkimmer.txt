@@ -138,6 +138,6 @@ $ttB-4p-0-900-v1510_14TEV_200PU/            , ttB , 824 ,      2667.30 ,  904951
 $ttB-4p-900-1600-v1510_14TEV_200PU/         , ttB , 824 ,       250.47 ,  8186012 , 1 , false
 $ttB-4p-1600-2500-v1510_14TEV_200PU/        , ttB , 824 ,        23.74 ,  8929669 , 1 , false
 $ttB-4p-2500-100000-v1510_14TEV_200PU/      , ttB , 824 ,         2.09 , 23821464 , 1 , false
-TChiWZoff_C1N2_300_LSP_260_xqcut30_decayed.root, TChiWZ_300_260_sig, 616, 1.00, auto, 1, true
+TChiWZoff_C1N2_300_LSP_260_xqcut30_decayed.root, TChiWZ_300_260_sig, 616, 1.23, auto, 1, true
 
 [inputfiles-end]
