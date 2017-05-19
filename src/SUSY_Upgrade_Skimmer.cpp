@@ -96,6 +96,13 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     //std::vector<Electron> skimmedelecs;
     //myskim->Branch("Electrons",&skimmedelecs);
 
+    // Cut variables
+    double el_pt_lo = 5.;
+    double el_pt_hi = 30.;
+    double mu_pt_lo = 5.;
+    double mu_pt_hi = 30.;
+    double jet_pt_lo = 25.;
+
     // Event variables
     double genWeight, nTot;
     myskim->Branch("genWeight", &genWeight);
@@ -229,7 +236,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         // Fill HT
         ht = 0.;
         for (size_t i=0; i<jetpuppi.size(); ++i){
-            if (jetpuppi.at(i)->PT > 25.){
+            if (jetpuppi.at(i)->PT > jet_pt_lo){
                 ht += jetpuppi.at(i)->PT;
             }
         }
@@ -239,27 +246,27 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         nSoftLep = nSoftEl = nSoftMu = 0;
         nJet = nBJet = 0;
         for (size_t i=0; i<elecs.size(); ++i){
-            if (elecs.at(i)->PT > 5.){
+            if (elecs.at(i)->PT > el_pt_lo){
                 nLep++;
                 nEl++;
-                if (elecs.at(i)->PT < 30.){
+                if (elecs.at(i)->PT < el_pt_hi){
                     nSoftEl++;
                     nSoftLep++;
                 }
             }
         }
         for (size_t i=0; i<muontight.size(); ++i){
-            if (muontight.at(i)->PT > 5.){
+            if (muontight.at(i)->PT > mu_pt_lo){
                 nLep++;
                 nMu++;
-                if (muontight.at(i)->PT < 30.){
+                if (muontight.at(i)->PT < mu_pt_hi){
                     nSoftMu++;
                     nSoftLep++;
                 }
             }
         }
         for (size_t i=0; i<jetpuppi.size(); ++i){
-            if (jetpuppi.at(i)->PT > 25.){
+            if (jetpuppi.at(i)->PT > jet_pt_lo){
                 nJet++;
                 if (jetpuppi.at(i)->BTag){
                     nBJet++;
