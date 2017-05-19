@@ -115,10 +115,10 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("el1_eta", &el1_eta);
     myskim->Branch("el1_phi", &el1_phi);
     myskim->Branch("el1_q", &el1_q);
-    myskim->Branch("el2_pt", &el1_pt);
-    myskim->Branch("el2_eta", &el1_eta);
-    myskim->Branch("el2_phi", &el1_phi);
-    myskim->Branch("el2_q", &el1_q);
+    myskim->Branch("el2_pt", &el2_pt);
+    myskim->Branch("el2_eta", &el2_eta);
+    myskim->Branch("el2_phi", &el2_phi);
+    myskim->Branch("el2_q", &el2_q);
 
     // Muon variables
     double mu1_tight_pt, mu1_tight_eta, mu1_tight_phi, mu2_tight_pt, mu2_tight_eta, mu2_tight_phi;
