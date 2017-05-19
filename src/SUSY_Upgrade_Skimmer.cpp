@@ -175,8 +175,8 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         nTot = nevents;
 
         // Fill electrons
-        el1_pt = el1_eta = el1_phi = el2_pt = el2_eta = el2_phi = 0.;
-        el1_q = el2_q = 0;
+        el1_pt = el1_eta = el1_phi = el2_pt = el2_eta = el2_phi = -99.;
+        el1_q = el2_q = -99;
         if (elecs.size() >= 1){
             el1_pt = elecs.at(0)->PT;
             el1_eta = elecs.at(0)->Eta;
@@ -191,8 +191,8 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
 
         // Fill muons
-        mu1_tight_pt = mu1_tight_eta = mu1_tight_phi = mu2_tight_pt = mu2_tight_eta = mu2_tight_phi = 0.;
-        mu1_tight_q = mu2_tight_q = 0;
+        mu1_tight_pt = mu1_tight_eta = mu1_tight_phi = mu2_tight_pt = mu2_tight_eta = mu2_tight_phi = -99.;
+        mu1_tight_q = mu2_tight_q = -99;
         if (muontight.size() >= 1){
             mu1_tight_pt = muontight.at(0)->PT;
             mu1_tight_eta = muontight.at(0)->Eta;
@@ -207,8 +207,8 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
 
         // Fill jets
-        jet1_puppi_pt = jet1_puppi_eta = jet1_puppi_phi = 0.;
-        jet1_puppi_q = 0;
+        jet1_puppi_pt = jet1_puppi_eta = jet1_puppi_phi = -99.;
+        jet1_puppi_q = -99;
         if (jetpuppi.size() >= 1){
             jet1_puppi_pt = jetpuppi.at(0)->PT;
             jet1_puppi_eta = jetpuppi.at(0)->Eta;
@@ -271,7 +271,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
 
         // Invariant mass of same flavour lepton pair
-        mll = 0.;
+        mll = -99.;
         if (elecs.size() == 2){
             TLorentzVector el1, el2;
             el1.SetPtEtaPhiM(elecs.at(0)->PT,
