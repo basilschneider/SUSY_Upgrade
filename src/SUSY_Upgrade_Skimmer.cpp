@@ -152,7 +152,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
     // Cutflow variables
     int nLep, nEl, nMu, nSoftLep, nSoftEl, nSoftMu, nJet, nBJet;
-    bool hasSFOS;
+    bool hasSFOS, hasSoftSFOS;
     double mll;
     myskim->Branch("nLep", &nLep);
     myskim->Branch("nEl", &nEl);
@@ -163,6 +163,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("nJet", &nJet);
     myskim->Branch("nBJet", &nBJet);
     myskim->Branch("hasSFOS", &hasSFOS);
+    myskim->Branch("hasSoftSFOS", &hasSoftSFOS);
     myskim->Branch("mll", &mll);
 
     // Event loop
@@ -275,12 +276,18 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
 
         // Is a same flavour opposite sign lepton pair present?
-        hasSFOS = false;
-        if (elecs.size() == 2 && elecs.at(0)->Charge*elecs.at(1)->Charge < 0){
+        hasSFOS = hasSoftSFOS = false;
+        if (nEl == 2 && elecs.at(0)->Charge*elecs.at(1)->Charge < 0){
             hasSFOS = true;
+            if (nSoftEl == 2){
+                hasSoftSFOS = true;
+            }
         }
-        if (muontight.size() == 2 && muontight.at(0)->Charge*muontight.at(1)->Charge < 0){
+        if (nMu == 2 && muontight.at(0)->Charge*muontight.at(1)->Charge < 0){
             hasSFOS = true;
+            if (nSoftMu == 2){
+                hasSoftSFOS = true;
+            }
         }
 
         // Invariant mass of same flavour lepton pair
@@ -312,7 +319,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
         // Skim
         if (nSoftLep != 2){ continue; }
-        if (!hasSFOS){ continue; }
+        if (!hasSoftSFOS){ continue; }
 
         myskim->Fill();
 
