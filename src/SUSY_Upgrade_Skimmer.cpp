@@ -132,6 +132,13 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("mu2_tight_phi", &mu2_tight_phi);
     myskim->Branch("mu2_tight_q", &mu2_tight_q);
 
+    // Lepton variables
+    double lep1_pt, lep2_pt, lep1_eta, lep2_eta;
+    myskim->Branch("lep1_pt", &lep1_pt);
+    myskim->Branch("lep2_pt", &lep2_pt);
+    myskim->Branch("lep1_eta", &lep1_eta);
+    myskim->Branch("lep2_eta", &lep2_eta);
+
     // Jet variables
     double jet1_puppi_pt, jet1_puppi_eta, jet1_puppi_phi;
     int jet1_puppi_q;
@@ -213,6 +220,20 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             mu2_tight_phi = muontight.at(1)->Phi;
             mu2_tight_q = muontight.at(1)->Charge;
         }
+
+        // Fill leptons
+        // Put pT and eta into vector of vector for sorting
+        std::vector<std::vector<double>> lepvec = {{el1_pt, el1_eta},
+                                                   {el2_pt, el2_eta},
+                                                   {mu1_tight_pt, mu1_tight_eta},
+                                                   {mu2_tight_pt, mu2_tight_eta}};
+        // By definition, this sorts by the first element of the vector
+        std::sort(begin(lepvec), end(lepvec));
+        std::reverse(begin(lepvec), end(lepvec));
+        lep1_pt = lepvec[0][0];
+        lep1_eta = lepvec[0][1];
+        lep2_pt = lepvec[1][0];
+        lep2_eta = lepvec[1][1];
 
         // Fill jets
         jet1_puppi_pt = jet1_puppi_eta = jet1_puppi_phi = -99.;
