@@ -328,7 +328,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                              elecs.at(1)->Eta,
                              elecs.at(1)->Phi,
                              0.000511);
-            mll = el1*el2;
+            mll = (el1+el2).M();
         }
         if (nMu == 2){
             TLorentzVector mu1, mu2;
@@ -340,7 +340,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                              muontight.at(1)->Eta,
                              muontight.at(1)->Phi,
                              0.105658);
-            mll = mu1*mu2;
+            mll = (mu1+mu2).M();
         }
 
         myskim->Fill();
