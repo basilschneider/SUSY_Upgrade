@@ -291,7 +291,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         // Fill jets
         jet1_puppi_pt = jet1_puppi_eta = jet1_puppi_phi = -99.;
         jet1_puppi_q = -99;
-        if (jetpuppi.size() >= 1){
+        if (jetpuppi.size() >= 1 && jetpuppi.at(0)->PT > jet_pt_lo){
             jet1_puppi_pt = jetpuppi.at(0)->PT;
             jet1_puppi_eta = jetpuppi.at(0)->Eta;
             jet1_puppi_phi = jetpuppi.at(0)->Phi;
