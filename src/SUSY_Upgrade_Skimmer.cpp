@@ -102,6 +102,8 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     double mu_pt_lo = 5.;
     double mu_pt_hi = 30.;
     double jet_pt_lo = 25.;
+    double mass_el = .000511;
+    double mass_mu = 0.105658;
 
     // Event variables
     double genWeight, nTot;
@@ -133,11 +135,15 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("mu2_tight_q", &mu2_tight_q);
 
     // Lepton variables
-    double lep1_pt, lep2_pt, lep1_eta, lep2_eta;
+    double lep1_pt, lep1_eta, lep1_phi, lep1_mass, lep2_pt, lep2_eta, lep2_phi, lep2_mass;
     myskim->Branch("lep1_pt", &lep1_pt);
-    myskim->Branch("lep2_pt", &lep2_pt);
     myskim->Branch("lep1_eta", &lep1_eta);
+    myskim->Branch("lep1_phi", &lep1_phi);
+    myskim->Branch("lep1_mass", &lep1_mass);
+    myskim->Branch("lep2_pt", &lep2_pt);
     myskim->Branch("lep2_eta", &lep2_eta);
+    myskim->Branch("lep2_phi", &lep2_phi);
+    myskim->Branch("lep2_mass", &lep2_mass);
 
     // Jet variables
     double jet1_puppi_pt, jet1_puppi_eta, jet1_puppi_phi;
@@ -276,17 +282,21 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
         // Fill leptons
         // Put pT and eta into vector of vector for sorting
-        std::vector<std::vector<double>> lepvec = {{el1_pt, el1_eta},
-                                                   {el2_pt, el2_eta},
-                                                   {mu1_tight_pt, mu1_tight_eta},
-                                                   {mu2_tight_pt, mu2_tight_eta}};
-        // By definition, this sorts by the first element of the vector
+        std::vector<std::vector<double>> lepvec = {{el1_pt, el1_eta, el1_phi, mass_el},
+                                                   {el2_pt, el2_eta, el2_phi, mass_el},
+                                                   {mu1_tight_pt, mu1_tight_eta, mu1_tight_phi, mass_mu},
+                                                   {mu2_tight_pt, mu2_tight_eta, mu2_tight_phi, mass_mu}};
+        // By definition, this sorts by the first element of the vector (in this case pT)
         std::sort(begin(lepvec), end(lepvec));
         std::reverse(begin(lepvec), end(lepvec));
         lep1_pt = lepvec[0][0];
         lep1_eta = lepvec[0][1];
+        lep1_phi = lepvec[0][2];
+        lep1_mass = lepvec[0][3];
         lep2_pt = lepvec[1][0];
         lep2_eta = lepvec[1][1];
+        lep2_phi = lepvec[1][2];
+        lep2_mass = lepvec[1][3];
 
         // Fill jets
         jet1_puppi_pt = jet1_puppi_eta = jet1_puppi_phi = -99.;
@@ -318,29 +328,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
         // Invariant mass of same flavour lepton pair
         mll = -99.;
-        if (nEl == 2){
-            TLorentzVector el1, el2;
-            el1.SetPtEtaPhiM(elecs.at(0)->PT,
-                             elecs.at(0)->Eta,
-                             elecs.at(0)->Phi,
-                             0.000511);
-            el2.SetPtEtaPhiM(elecs.at(1)->PT,
-                             elecs.at(1)->Eta,
-                             elecs.at(1)->Phi,
-                             0.000511);
-            mll = (el1+el2).M();
-        }
-        if (nMu == 2){
-            TLorentzVector mu1, mu2;
-            mu1.SetPtEtaPhiM(muontight.at(0)->PT,
-                             muontight.at(0)->Eta,
-                             muontight.at(0)->Phi,
-                             0.105658);
-            mu2.SetPtEtaPhiM(muontight.at(1)->PT,
-                             muontight.at(1)->Eta,
-                             muontight.at(1)->Phi,
-                             0.105658);
-            mll = (mu1+mu2).M();
+        if (hasSFOS){
+            TLorentzVector l1, l2;
+            l1.SetPtEtaPhiM(lep1_pt, lep1_eta, lep1_phi, lep1_mass);
+            l2.SetPtEtaPhiM(lep2_pt, lep2_eta, lep2_phi, lep2_mass);
+            mll = (l1+l2).M();
         }
 
         myskim->Fill();
