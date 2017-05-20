@@ -166,7 +166,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     // Cutflow variables
     int nLep, nEl, nMu, nSoftLep, nSoftEl, nSoftMu, nJet, nBJet;
     bool hasSFOS, hasSoftSFOS;
-    double mll;
+    double mll, mt1, mt2;
     myskim->Branch("nLep", &nLep);
     myskim->Branch("nEl", &nEl);
     myskim->Branch("nMu", &nMu);
@@ -178,6 +178,8 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("hasSFOS", &hasSFOS);
     myskim->Branch("hasSoftSFOS", &hasSoftSFOS);
     myskim->Branch("mll", &mll);
+    myskim->Branch("mt1", &mt1);
+    myskim->Branch("mt2", &mt2);
 
     // Event loop
     size_t nevents=tree()->entries();
@@ -335,8 +337,16 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             mll = (l1+l2).M();
         }
 
-        myskim->Fill();
+        // Transverse mass of each lepton
+        mt1 = mt2 = -99.;
+        if (nLep >= 1){
+            mt1 = std::sqrt(2*lep1_pt*met*(1-std::cos(lep1_phi-met_phi)));
+        }
+        if (nLep >= 2){
+            mt2 = std::sqrt(2*lep2_pt*met*(1-std::cos(lep2_phi-met_phi)));
+        }
 
+        myskim->Fill();
 
         /*==SKIM==
          * Access the branches of the skim
