@@ -189,6 +189,59 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         genWeight = 1.;
         nTot = nevents;
 
+        // Cutflow variables
+        nLep = nEl = nMu = 0;
+        nSoftLep = nSoftEl = nSoftMu = 0;
+        nJet = nBJet = 0;
+        for (size_t i=0; i<elecs.size(); ++i){
+            if (elecs.at(i)->PT > el_pt_lo){
+                nLep++;
+                nEl++;
+                if (elecs.at(i)->PT < el_pt_hi){
+                    nSoftEl++;
+                    nSoftLep++;
+                }
+            }
+        }
+        for (size_t i=0; i<muontight.size(); ++i){
+            if (muontight.at(i)->PT > mu_pt_lo){
+                nLep++;
+                nMu++;
+                if (muontight.at(i)->PT < mu_pt_hi){
+                    nSoftMu++;
+                    nSoftLep++;
+                }
+            }
+        }
+        for (size_t i=0; i<jetpuppi.size(); ++i){
+            if (jetpuppi.at(i)->PT > jet_pt_lo){
+                nJet++;
+                if (jetpuppi.at(i)->BTag){
+                    nBJet++;
+                }
+            }
+        }
+
+        // Is a same flavour opposite sign lepton pair present?
+        hasSFOS = hasSoftSFOS = false;
+        if (nEl == 2 && elecs.at(0)->Charge*elecs.at(1)->Charge < 0){
+            hasSFOS = true;
+            if (nSoftEl == 2){
+                hasSoftSFOS = true;
+            }
+        }
+        if (nMu == 2 && muontight.at(0)->Charge*muontight.at(1)->Charge < 0){
+            hasSFOS = true;
+            if (nSoftMu == 2){
+                hasSoftSFOS = true;
+            }
+        }
+
+        // Skim
+        if (nLep != 2){ continue; }
+        if (nSoftLep != 2){ continue; }
+        if (!hasSoftSFOS){ continue; }
+
         // Fill electrons
         el1_pt = el1_eta = el1_phi = el2_pt = el2_eta = el2_phi = -99.;
         el1_q = el2_q = -99;
@@ -263,54 +316,6 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             }
         }
 
-        // Cutflow variables
-        nLep = nEl = nMu = 0;
-        nSoftLep = nSoftEl = nSoftMu = 0;
-        nJet = nBJet = 0;
-        for (size_t i=0; i<elecs.size(); ++i){
-            if (elecs.at(i)->PT > el_pt_lo){
-                nLep++;
-                nEl++;
-                if (elecs.at(i)->PT < el_pt_hi){
-                    nSoftEl++;
-                    nSoftLep++;
-                }
-            }
-        }
-        for (size_t i=0; i<muontight.size(); ++i){
-            if (muontight.at(i)->PT > mu_pt_lo){
-                nLep++;
-                nMu++;
-                if (muontight.at(i)->PT < mu_pt_hi){
-                    nSoftMu++;
-                    nSoftLep++;
-                }
-            }
-        }
-        for (size_t i=0; i<jetpuppi.size(); ++i){
-            if (jetpuppi.at(i)->PT > jet_pt_lo){
-                nJet++;
-                if (jetpuppi.at(i)->BTag){
-                    nBJet++;
-                }
-            }
-        }
-
-        // Is a same flavour opposite sign lepton pair present?
-        hasSFOS = hasSoftSFOS = false;
-        if (nEl == 2 && elecs.at(0)->Charge*elecs.at(1)->Charge < 0){
-            hasSFOS = true;
-            if (nSoftEl == 2){
-                hasSoftSFOS = true;
-            }
-        }
-        if (nMu == 2 && muontight.at(0)->Charge*muontight.at(1)->Charge < 0){
-            hasSFOS = true;
-            if (nSoftMu == 2){
-                hasSoftSFOS = true;
-            }
-        }
-
         // Invariant mass of same flavour lepton pair
         mll = -99.;
         if (elecs.size() == 2){
@@ -337,11 +342,6 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                              0.105658);
             mll = mu1*mu2;
         }
-
-        // Skim
-        if (nLep != 2){ continue; }
-        if (nSoftLep != 2){ continue; }
-        if (!hasSoftSFOS){ continue; }
 
         myskim->Fill();
 
