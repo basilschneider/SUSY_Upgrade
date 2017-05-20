@@ -305,16 +305,16 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             mll = el1*el2;
         }
         if (muontight.size() == 2){
-            TLorentzVector el1, el2;
-            el1.SetPtEtaPhiM(muontight.at(0)->PT,
+            TLorentzVector mu1, mu2;
+            mu1.SetPtEtaPhiM(muontight.at(0)->PT,
                              muontight.at(0)->Eta,
                              muontight.at(0)->Phi,
                              0.105658);
-            el2.SetPtEtaPhiM(muontight.at(1)->PT,
+            mu2.SetPtEtaPhiM(muontight.at(1)->PT,
                              muontight.at(1)->Eta,
                              muontight.at(1)->Phi,
                              0.105658);
-            mll = el1*el2;
+            mll = mu1*mu2;
         }
 
         // Skim
