@@ -107,9 +107,10 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     double mass_mu = 0.105658;
 
     // Event variables
-    double genWeight, nTot;
+    double genWeight, nTot, xs;
     myskim->Branch("genWeight", &genWeight);
     myskim->Branch("nTot", &nTot);
+    myskim->Branch("xs", &xs);
 
     // Electron variables
     double el1_pt, el1_eta, el1_phi, el2_pt, el2_eta, el2_phi;
@@ -202,6 +203,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             return;
         }
         nTot = nevents;
+        xs = getXsec();
 
         // Cutflow variables
         nLep = nEl = nMu = 0;
