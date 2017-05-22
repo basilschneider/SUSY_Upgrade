@@ -28,6 +28,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
      * is used to run directly in Delphes output.
      * For skimmed ntuples, see below
      */
+    d_ana::dBranchHandler<HepMCEvent>  event(tree(),"Event");
     d_ana::dBranchHandler<Electron> elecs(tree(),"Electron");
     d_ana::dBranchHandler<Muon> muontight(tree(),"MuonTight");
     d_ana::dBranchHandler<Jet> jetpuppi(tree(), "JetPUPPI");
@@ -194,7 +195,12 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         tree()->setEntry(eventno);
 
         // Fill event variables
-        genWeight = 1.;
+        try{
+            genWeight = event.at(0)->Weight;
+        }catch (const std::out_of_range& oor){
+            std::cerr << "Out of range error when accessing event vector: " << oor.what() << std::endl;
+            return;
+        }
         nTot = nevents;
 
         // Cutflow variables
