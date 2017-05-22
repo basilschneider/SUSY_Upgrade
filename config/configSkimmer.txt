@@ -40,11 +40,7 @@ $ different input file.
 
 $ This Samplesdir can be a local directory or refer to off-site locations via xrootd
 
-    $Samplesdir = /afs/cern.ch/user/j/jkiesele/public/testsamples
-    $Samplesdir = root://eoscms.cern.ch//store/group/upgrade/delphes_output/DelphesFromLHE_333pre16_2016Aug/
-    $Samplesdir = root://eoscms.cern.ch//store/user/bschneid/SUSY_Upgrade_Skimmer/signal/TChiWZ_300_260/
-    Samplesdir = root://eoscms.cern.ch//store/cmst3/group/susy/upgrade/
-
+    Samplesdir = root://eoscms.cern.ch//store/user/bschneid/upgrade/samples/
 
 $ The analyser will have a postProcess() function. This function should be used to
 $ extract parameters from the filled histograms, do additional calculations, etc.
@@ -139,7 +135,7 @@ $ttB-4p-0-900-v1510_14TEV_200PU/            , ttB_ST0to900      , 824 ,      266
 $ttB-4p-900-1600-v1510_14TEV_200PU/         , ttB_ST900to1600   , 824 ,       250.47 ,  8186012 , 1 , false
 $ttB-4p-1600-2500-v1510_14TEV_200PU/        , ttB_ST1600to2500  , 824 ,        23.74 ,  8929669 , 1 , false
 $ttB-4p-2500-100000-v1510_14TEV_200PU/      , ttB_ST2500toInf   , 824 ,         2.09 , 23821464 , 1 , false
-$TChiWZoff_C1N2_300_LSP_260_xqcut30_decayed.root, TChiWZ_300_260_sig, 616, 1.23, auto, 1, true
-C1N2_400_LSP_375_14TeV_delphised/200PU/     , TChiWZ_400_375_sig, 616 ,         1.23 ,     auto , 1 , true
+TChiWZ_300_260/                            , TChiWZ_300_260_sig, 616 ,         1.23 ,     auto , 1 , true
+TChiWZ_400_375/                            , TChiWZ_400_375_sig, 616 ,         1.23 ,     auto , 1 , true
 
 [inputfiles-end]
