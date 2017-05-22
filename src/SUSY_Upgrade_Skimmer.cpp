@@ -202,7 +202,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             std::cerr << "Out of range error when accessing event vector: " << oor.what() << std::endl;
             return;
         }
-        nTot = nevents;
+        nTot = (getXsec()*3000.)/getNorm();
         xs = getXsec();
 
         // Cutflow variables
