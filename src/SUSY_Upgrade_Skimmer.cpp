@@ -77,7 +77,10 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
      * Always use this function to add a new histogram (can also be 2D)!
      * Histograms created this way are automatically added to the output file
      */
-    //TH1* histo=addPlot(new TH1D("histoname1","histotitle1",100,0,100),"p_{T} [GeV]","N_{e}");
+    //TH1* histo=addPlot(new TH1D("puppijets25","puppijets25",150,-.5,149.5),"nJet25","Events");
+    //TH1* histo2=addPlot(new TH1D("jets25","jets25",150,-.5,149.5),"nJet25","Events");
+    //TH1* histo3=addPlot(new TH1D("puppijets0","puppijets0",150,-.5,149.5),"nJet0","Events");
+    //TH1* histo4=addPlot(new TH1D("jets0","jets0",150,-.5,149.5),"nJet0","Events");
 
 
     /*
@@ -237,6 +240,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 }
             }
         }
+        //histo->Fill(nJet);
+        //histo2->Fill(nJetN);
+        //histo3->Fill(jetpuppi.size());
+        //histo4->Fill(jetnotpuppi.size());
+        //continue;
 
         // Is a same flavour opposite sign lepton pair present?
         hasSFOS = hasSoftSFOS = false;
@@ -355,14 +363,6 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
 
         myskim->Fill();
-
-        /*==SKIM==
-         * Access the branches of the skim
-         */
-        //std::vector<Electron> * skimelecs=electrons.content();
-        //for(size_t i=0;i<skimelecs->size();i++){
-        //	histo->Fill(skimelecs->at(i).PT);
-        //}
     }
 
 
