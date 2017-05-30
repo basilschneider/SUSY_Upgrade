@@ -248,12 +248,19 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
         // Is a same flavour opposite sign lepton pair present?
         hasSFOS = hasSoftSFOS = false;
+        mll = -99.;
         for (size_t i=0; i<elecs.size(); ++i){
             for (size_t j=i+1; j<elecs.size(); ++j){
                 if (elecs.at(i)->Charge*elecs.at(j)->Charge < 0){
                     hasSFOS = true;
                     if (elecs.at(i)->PT > el_pt_lo && elecs.at(i)->PT < el_pt_hi && elecs.at(j)->PT > el_pt_lo && elecs.at(j)->PT < el_pt_hi){
                         hasSoftSFOS = true;
+
+                        // Mll for soft SFOS (only first found pair considered)
+                        TLorentzVector l1, l2;
+                        l1.SetPtEtaPhiM(elecs.at(i)->PT, elecs.at(i)->Eta, elecs.at(i)->Phi, mass_el);
+                        l2.SetPtEtaPhiM(elecs.at(j)->PT, elecs.at(j)->Eta, elecs.at(j)->Phi, mass_el);
+                        mll = (l1+l2).M();
                     }
                 }
             }
@@ -264,6 +271,12 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                     hasSFOS = true;
                     if (muontight.at(i)->PT > mu_pt_lo && muontight.at(i)->PT < mu_pt_hi && muontight.at(j)->PT > mu_pt_lo && muontight.at(j)->PT < mu_pt_hi){
                         hasSoftSFOS = true;
+
+                        // Mll for SFOS (only first found pair considered; this could potentially overwrite e+e- Mll)
+                        TLorentzVector l1, l2;
+                        l1.SetPtEtaPhiM(muontight.at(i)->PT, muontight.at(i)->Eta, muontight.at(i)->Phi, mass_mu);
+                        l2.SetPtEtaPhiM(muontight.at(j)->PT, muontight.at(j)->Eta, muontight.at(j)->Phi, mass_mu);
+                        mll = (l1+l2).M();
                     }
                 }
             }
@@ -352,16 +365,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             }
         }
 
-        // Invariant mass of same flavour lepton pair
-        mll = -99.;
-        if (hasSFOS){
-            TLorentzVector l1, l2;
-            l1.SetPtEtaPhiM(lep1_pt, lep1_eta, lep1_phi, lep1_mass);
-            l2.SetPtEtaPhiM(lep2_pt, lep2_eta, lep2_phi, lep2_mass);
-            mll = (l1+l2).M();
-        }
-
-        // Transverse mass of each lepton
+        // Transverse mass of leading two leptons
         mt1 = mt2 = -99.;
         if (nLep >= 1){
             mt1 = std::sqrt(2*lep1_pt*met*(1-std::cos(lep1_phi-met_phi)));
