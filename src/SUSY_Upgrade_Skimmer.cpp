@@ -77,7 +77,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
      * Always use this function to add a new histogram (can also be 2D)!
      * Histograms created this way are automatically added to the output file
      */
-    //TH1* histo=addPlot(new TH1D("puppijets25","puppijets25",150,-.5,149.5),"nJet25","Events");
+    //TH1* histo=addPlot(new TH1D("puppijets25","puppijets25",1,-.5,.5),"nJet25","Events");
     //TH1* histo2=addPlot(new TH1D("jets25","jets25",150,-.5,149.5),"nJet25","Events");
     //TH1* histo3=addPlot(new TH1D("puppijets0","puppijets0",150,-.5,149.5),"nJet0","Events");
     //TH1* histo4=addPlot(new TH1D("jets0","jets0",150,-.5,149.5),"nJet0","Events");
@@ -248,16 +248,24 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
         // Is a same flavour opposite sign lepton pair present?
         hasSFOS = hasSoftSFOS = false;
-        if (nEl == 2 && elecs.at(0)->Charge*elecs.at(1)->Charge < 0){
-            hasSFOS = true;
-            if (nSoftEl == 2){
-                hasSoftSFOS = true;
+        for (size_t i=0; i<elecs.size(); ++i){
+            for (size_t j=i+1; j<elecs.size(); ++j){
+                if (elecs.at(i)->Charge*elecs.at(j)->Charge < 0){
+                    hasSFOS = true;
+                    if (elecs.at(i)->PT > el_pt_lo && elecs.at(i)->PT < el_pt_hi && elecs.at(j)->PT > el_pt_lo && elecs.at(j)->PT < el_pt_hi){
+                        hasSoftSFOS = true;
+                    }
+                }
             }
         }
-        if (nMu == 2 && muontight.at(0)->Charge*muontight.at(1)->Charge < 0){
-            hasSFOS = true;
-            if (nSoftMu == 2){
-                hasSoftSFOS = true;
+        for (size_t i=0; i<muontight.size(); ++i){
+            for (size_t j=i+1; j<muontight.size(); ++j){
+                if (muontight.at(i)->Charge*muontight.at(j)->Charge < 0){
+                    hasSFOS = true;
+                    if (muontight.at(i)->PT > mu_pt_lo && muontight.at(i)->PT < mu_pt_hi && muontight.at(j)->PT > mu_pt_lo && muontight.at(j)->PT < mu_pt_hi){
+                        hasSoftSFOS = true;
+                    }
+                }
             }
         }
 
