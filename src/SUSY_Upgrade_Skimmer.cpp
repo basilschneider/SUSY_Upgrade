@@ -165,6 +165,13 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     mt2.clear();
 }
 
+template <typename T> bool SUSY_Upgrade_Skimmer::isIsolated(T particle){
+    if (particle->IsolationVarRhoCorr/particle->PT < iso_cut){
+        return true;
+    }
+    return false;
+}
+
 void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for printouts */){
 
     d_ana::dBranchHandler<HepMCEvent> event(tree(),"Event");
@@ -209,7 +216,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         nSoftLep = nSoftEl = nSoftMu = 0;
         nJet = nBJet = 0;
         for (size_t i=0; i<elecs.size(); ++i){
-            if (elecs.at(i)->PT > el_pt_lo){
+            if (elecs.at(i)->PT > el_pt_lo && isIsolated(elecs.at(i))){
                 nLep++;
                 nEl++;
                 if (elecs.at(i)->PT < el_pt_hi){
@@ -219,7 +226,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             }
         }
         for (size_t i=0; i<muontight.size(); ++i){
-            if (muontight.at(i)->PT > mu_pt_lo){
+            if (muontight.at(i)->PT > mu_pt_lo && isIsolated(muontight.at(i))){
                 nLep++;
                 nMu++;
                 if (muontight.at(i)->PT < mu_pt_hi){
@@ -245,10 +252,14 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         // Is a same flavour opposite sign lepton pair present?
         hasSFOS = hasSoftSFOS = false;
         for (size_t i=0; i<elecs.size(); ++i){
+            // Only consider isolated particles with minimum pT
+            if (elecs.at(i)->PT < el_pt_lo || !isIsolated(elecs.at(i))){ continue; }
             for (size_t j=i+1; j<elecs.size(); ++j){
+                if (elecs.at(j)->PT < el_pt_lo || !isIsolated(elecs.at(j))){ continue; }
                 if (elecs.at(i)->Charge*elecs.at(j)->Charge < 0){
                     hasSFOS = true;
-                    if (elecs.at(i)->PT > el_pt_lo && elecs.at(i)->PT < el_pt_hi && elecs.at(j)->PT > el_pt_lo && elecs.at(j)->PT < el_pt_hi){
+                    // Check if both particles are soft
+                    if (elecs.at(i)->PT < el_pt_hi && elecs.at(j)->PT < el_pt_hi){
                         hasSoftSFOS = true;
 
                         // Mll for soft SFOS (only first found pair considered)
@@ -261,10 +272,14 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             }
         }
         for (size_t i=0; i<muontight.size(); ++i){
+            // Only consider isolated particles with minimum pT
+            if (muontight.at(i)->PT < mu_pt_lo || !isIsolated(muontight.at(i))){ continue; }
             for (size_t j=i+1; j<muontight.size(); ++j){
+                if (muontight.at(j)->PT < mu_pt_lo || !isIsolated(muontight.at(j))){ continue; }
                 if (muontight.at(i)->Charge*muontight.at(j)->Charge < 0){
                     hasSFOS = true;
-                    if (muontight.at(i)->PT > mu_pt_lo && muontight.at(i)->PT < mu_pt_hi && muontight.at(j)->PT > mu_pt_lo && muontight.at(j)->PT < mu_pt_hi){
+                    // Check if both particles are soft
+                    if (muontight.at(i)->PT < mu_pt_hi && muontight.at(j)->PT < mu_pt_hi){
                         hasSoftSFOS = true;
 
                         // Mll for SFOS (only first found pair considered; this could potentially overwrite e+e- Mll)

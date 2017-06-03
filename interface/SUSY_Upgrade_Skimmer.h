@@ -26,6 +26,7 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
 
         void addBranches();
         void clearVectors();
+        template <typename T> bool isIsolated(T particle);
 
         // Tree
         TTree* myskim;
