@@ -1,125 +1,13 @@
 #include "interface/SUSY_Upgrade_Skimmer.h"
 
-
-
-void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for printouts */){
-
-    /*
-     * This skeleton analyser runs directly on the Delphes output.
-     * It can be used to create histograms directly or a skim.
-     * If a skim is created, a new input configuration will be written automatically
-     * and stored in the output directory together with the ntuples.
-     * The skim can contain delphes objects again or can be flat. This is up
-     * to the user.
-     * Examples for both are given here.
-     *
-     * The same skeleton can be used to read the skim. Please refer to the comments
-     * marked with "==SKIM=="
-     *
-     * These parts are commented, since the code is supposed to work as an example without
-     * modifications on Delphes output directly.
-     */
-
-
-
-    /*
-     * Define the branches that are to be considered for the analysis
-     * This branch handler (notice the "d")
-     * is used to run directly in Delphes output.
-     * For skimmed ntuples, see below
-     */
-    d_ana::dBranchHandler<HepMCEvent> event(tree(),"Event");
-    d_ana::dBranchHandler<Electron> elecs(tree(),"Electron");
-    d_ana::dBranchHandler<Muon> muontight(tree(),"MuonTight");
-    d_ana::dBranchHandler<Jet> jetpuppi(tree(), "JetPUPPI");
-    d_ana::dBranchHandler<MissingET> puppimet(tree(), "PuppiMissingET");
-    d_ana::dBranchHandler<GenParticle> genpart(tree(),"Particle");
-    d_ana::dBranchHandler<Jet> genjet(tree(),"GenJet");
-    /*
-     * Other branches might be the following
-     * (for a full list, please inspect the Delphes sample root file with root)
-     * For the Delphes class description, see $DELPHES_PATH/classes/DelphesClasses.h
-     */
-    //
-    //d_ana::dBranchHandler<HepMCEvent>  event(tree(),"Event");
-    //d_ana::dBranchHandler<Muon>        muontight(tree(),"MuonTight");
-    //d_ana::dBranchHandler<Muon>        muonloose(tree(),"MuonLoose");
-    //d_ana::dBranchHandler<Jet>         jetpuppi(tree(), "JetPUPPI");
-    //d_ana::dBranchHandler<MissingET>   puppimet(tree(), "PuppiMissingET");
-    ////d_ana::dBranchHandler<Weight>        rwgt(tree(), "Rwgt");
-    //d_ana::dBranchHandler<ScalarHT>    scalarht(tree(), "ScalarHT");
-    //d_ana::dBranchHandler<GenParticle> genpart(tree(),"Particle");
-    //d_ana::dBranchHandler<Jet>         genjet(tree(),"GenJet");
-    //d_ana::dBranchHandler<Jet>         jet(tree(),"Jet");
-    //d_ana::dBranchHandler<Muon>        muontight(tree(),"MuonTight");
-    //d_ana::dBranchHandler<Muon>        muonloose(tree(),"MuonLoose");
-    //d_ana::dBranchHandler<Photon>      photon(tree(),"Photon");
-    //d_ana::dBranchHandler<MissingET>   met(tree(),"MissingET");
-
-
-    /* ==SKIM==
-     *
-     * If a skim of the Delphes outout was created in a way indicated
-     * further below, use the tBranchHandler (please notice the "t")
-     * to access vectors of objects...
-     *
-     */
-    // d_ana::tBranchHandler<std::vector<Electron> > electrons(tree(),"Electrons");
-
-    /*==SKIM==
-     *
-     * Or an object directly
-     *
-     */
-    //d_ana::tBranchHandler<MissingET> met(tree(),"MET");
-
-
-
-    /*
-     * Always use this function to add a new histogram (can also be 2D)!
-     * Histograms created this way are automatically added to the output file
-     */
-    //TH1* histo=addPlot(new TH1D("puppijets25","puppijets25",1,-.5,.5),"nJet25","Events");
-    //TH1* histo2=addPlot(new TH1D("jets25","jets25",150,-.5,149.5),"nJet25","Events");
-    //TH1* histo3=addPlot(new TH1D("puppijets0","puppijets0",150,-.5,149.5),"nJet0","Events");
-    //TH1* histo4=addPlot(new TH1D("jets0","jets0",150,-.5,149.5),"nJet0","Events");
-
-
-    /*
-     * If (optionally) a skim or a flat ntuple is to be created, please use the following function to initialize
-     * the tree.
-     * The output files will be written automatically, and a config file will be created.
-     */
-    TTree* myskim=addTree();
-    /*
-     * Add a simple branch to the skim
-     */
-    //Double_t elecPt=0;
-    //myskim->Branch("elecPt", &elecPt);
-    /*
-     * Or store a vector of objects (also possible to store only one object)
-     */
-    //std::vector<Electron> skimmedelecs;
-    //myskim->Branch("Electrons",&skimmedelecs);
-
-    // Cut variables
-    double el_pt_lo = 5.;
-    double el_pt_hi = 30.;
-    double mu_pt_lo = 5.;
-    double mu_pt_hi = 30.;
-    double jet_pt_lo = 25.;
-    double mass_el = .000511;
-    double mass_mu = 0.105658;
+void SUSY_Upgrade_Skimmer::addBranches(){
 
     // Event variables
-    double genWeight, nTot, xs;
     myskim->Branch("genWeight", &genWeight);
     myskim->Branch("nTot", &nTot);
     myskim->Branch("xs", &xs);
 
     // Electron variables
-    std::vector<double> el1_pt, el1_eta, el1_phi, el2_pt, el2_eta, el2_phi;
-    std::vector<int> el1_q, el2_q;
     myskim->Branch("el1_pt", &el1_pt);
     myskim->Branch("el1_eta", &el1_eta);
     myskim->Branch("el1_phi", &el1_phi);
@@ -130,8 +18,6 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("el2_q", &el2_q);
 
     // Truth electron variables
-    std::vector<double> el1_pt_truth, el1_eta_truth, el1_phi_truth, el2_pt_truth, el2_eta_truth, el2_phi_truth;
-    std::vector<int> el1_q_truth, el2_q_truth;
     myskim->Branch("el1_pt_truth", &el1_pt_truth);
     myskim->Branch("el1_eta_truth", &el1_eta_truth);
     myskim->Branch("el1_phi_truth", &el1_phi_truth);
@@ -142,8 +28,6 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("el2_q_truth", &el2_q_truth);
 
     // Muon variables
-    std::vector<double> mu1_tight_pt, mu1_tight_eta, mu1_tight_phi, mu2_tight_pt, mu2_tight_eta, mu2_tight_phi;
-    std::vector<int> mu1_tight_q, mu2_tight_q;
     myskim->Branch("mu1_tight_pt", &mu1_tight_pt);
     myskim->Branch("mu1_tight_eta", &mu1_tight_eta);
     myskim->Branch("mu1_tight_phi", &mu1_tight_phi);
@@ -154,8 +38,6 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("mu2_tight_q", &mu2_tight_q);
 
     // Truth muon variables
-    std::vector<double> mu1_pt_truth, mu1_eta_truth, mu1_phi_truth, mu2_pt_truth, mu2_eta_truth, mu2_phi_truth;
-    std::vector<int> mu1_q_truth, mu2_q_truth;
     myskim->Branch("mu1_pt_truth", &mu1_pt_truth);
     myskim->Branch("mu1_eta_truth", &mu1_eta_truth);
     myskim->Branch("mu1_phi_truth", &mu1_phi_truth);
@@ -166,7 +48,6 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("mu2_q_truth", &mu2_q_truth);
 
     // Lepton variables
-    std::vector<double> lep1_pt, lep1_eta, lep1_phi, lep1_mass, lep2_pt, lep2_eta, lep2_phi, lep2_mass;
     myskim->Branch("lep1_pt", &lep1_pt);
     myskim->Branch("lep1_eta", &lep1_eta);
     myskim->Branch("lep1_phi", &lep1_phi);
@@ -177,7 +58,6 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("lep2_mass", &lep2_mass);
 
     // Truth lepton variables
-    std::vector<double> lep1_pt_truth, lep1_eta_truth, lep1_phi_truth, lep1_mass_truth, lep2_pt_truth, lep2_eta_truth, lep2_phi_truth, lep2_mass_truth;
     myskim->Branch("lep1_pt_truth", &lep1_pt_truth);
     myskim->Branch("lep1_eta_truth", &lep1_eta_truth);
     myskim->Branch("lep1_phi_truth", &lep1_phi_truth);
@@ -188,35 +68,23 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("lep2_mass_truth", &lep2_mass_truth);
 
     // Jet variables
-    std::vector<double> jet1_puppi_pt, jet1_puppi_eta, jet1_puppi_phi;
-    std::vector<int> jet1_puppi_q;
     myskim->Branch("jet1_puppi_pt", &jet1_puppi_pt);
     myskim->Branch("jet1_puppi_eta", &jet1_puppi_eta);
     myskim->Branch("jet1_puppi_phi", &jet1_puppi_phi);
     myskim->Branch("jet1_puppi_q", &jet1_puppi_q);
 
     // Truth jet variables
-    std::vector<double> jet1_pt_truth, jet1_eta_truth, jet1_phi_truth;
-    std::vector<int> jet1_q_truth;
     myskim->Branch("jet1_pt_truth", &jet1_pt_truth);
     myskim->Branch("jet1_eta_truth", &jet1_eta_truth);
     myskim->Branch("jet1_phi_truth", &jet1_phi_truth);
     myskim->Branch("jet1_q_truth", &jet1_q_truth);
 
     // MET variables
-    double met, met_eta, met_phi;
     myskim->Branch("met", &met);
     myskim->Branch("met_eta", &met_eta);
     myskim->Branch("met_phi", &met_phi);
 
-    // HT variables
-    double ht;
-    myskim->Branch("ht", &ht);
-
-    // Cutflow variables
-    int nLep, nEl, nMu, nSoftLep, nSoftEl, nSoftMu, nJet, nBJet;
-    bool hasSFOS, hasSoftSFOS;
-    std::vector<double> mll, mt1, mt2;
+    // Other variables
     myskim->Branch("nLep", &nLep);
     myskim->Branch("nEl", &nEl);
     myskim->Branch("nMu", &nMu);
@@ -225,84 +93,106 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("nSoftMu", &nSoftMu);
     myskim->Branch("nJet", &nJet);
     myskim->Branch("nBJet", &nBJet);
+    myskim->Branch("ht", &ht);
     myskim->Branch("hasSFOS", &hasSFOS);
     myskim->Branch("hasSoftSFOS", &hasSoftSFOS);
     myskim->Branch("mll", &mll);
     myskim->Branch("mt1", &mt1);
     myskim->Branch("mt2", &mt2);
+}
+
+void SUSY_Upgrade_Skimmer::clearVectors(){
+
+    // Clear vectors
+    el1_pt.clear();
+    el1_eta.clear();
+    el1_phi.clear();
+    el1_q.clear();
+    el2_pt.clear();
+    el2_eta.clear();
+    el2_phi.clear();
+    el2_q.clear();
+    el1_pt_truth.clear();
+    el1_eta_truth.clear();
+    el1_phi_truth.clear();
+    el1_q_truth.clear();
+    el2_pt_truth.clear();
+    el2_eta_truth.clear();
+    el2_phi_truth.clear();
+    el2_q_truth.clear();
+    mu1_tight_pt.clear();
+    mu1_tight_eta.clear();
+    mu1_tight_phi.clear();
+    mu1_tight_q.clear();
+    mu2_tight_pt.clear();
+    mu2_tight_eta.clear();
+    mu2_tight_phi.clear();
+    mu2_tight_q.clear();
+    mu1_pt_truth.clear();
+    mu1_eta_truth.clear();
+    mu1_phi_truth.clear();
+    mu1_q_truth.clear();
+    mu2_pt_truth.clear();
+    mu2_eta_truth.clear();
+    mu2_phi_truth.clear();
+    mu2_q_truth.clear();
+    lep1_pt.clear();
+    lep1_eta.clear();
+    lep1_phi.clear();
+    lep1_mass.clear();
+    lep2_pt.clear();
+    lep2_eta.clear();
+    lep2_phi.clear();
+    lep2_mass.clear();
+    lep1_pt_truth.clear();
+    lep1_eta_truth.clear();
+    lep1_phi_truth.clear();
+    lep1_mass_truth.clear();
+    lep2_pt_truth.clear();
+    lep2_eta_truth.clear();
+    lep2_phi_truth.clear();
+    lep2_mass_truth.clear();
+    jet1_puppi_pt.clear();
+    jet1_puppi_eta.clear();
+    jet1_puppi_phi.clear();
+    jet1_puppi_q.clear();
+    jet1_pt_truth.clear();
+    jet1_eta_truth.clear();
+    jet1_phi_truth.clear();
+    jet1_q_truth.clear();
+    mll.clear();
+    mt1.clear();
+    mt2.clear();
+}
+
+void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for printouts */){
+
+    d_ana::dBranchHandler<HepMCEvent> event(tree(),"Event");
+    d_ana::dBranchHandler<Electron> elecs(tree(),"Electron");
+    d_ana::dBranchHandler<Muon> muontight(tree(),"MuonTight");
+    d_ana::dBranchHandler<Jet> jetpuppi(tree(), "JetPUPPI");
+    d_ana::dBranchHandler<MissingET> puppimet(tree(), "PuppiMissingET");
+    d_ana::dBranchHandler<GenParticle> genpart(tree(),"Particle");
+    d_ana::dBranchHandler<Jet> genjet(tree(),"GenJet");
+    //d_ana::dBranchHandler<Weight> rwgt(tree(), "Rwgt");
+    //d_ana::dBranchHandler<ScalarHT> scalarht(tree(), "ScalarHT");
+    //d_ana::dBranchHandler<Photon> photon(tree(),"Photon");
+
+    myskim=addTree();
+    addBranches();
 
     // Event loop
     size_t nevents=tree()->entries();
-    if(isTestMode())
+    if(isTestMode()){
         nevents/=1000;
+    }
     for(size_t eventno=0;eventno<nevents;eventno++){
-        /*
-         * The following two lines report the status and set the event link
-         * Do not remove!
-         */
+
+        // Report status and set event link
         reportStatus(eventno,nevents);
         tree()->setEntry(eventno);
 
-        // Clear vectors
-        el1_pt.clear();
-        el1_eta.clear();
-        el1_phi.clear();
-        el1_q.clear();
-        el2_pt.clear();
-        el2_eta.clear();
-        el2_phi.clear();
-        el2_q.clear();
-        el1_pt_truth.clear();
-        el1_eta_truth.clear();
-        el1_phi_truth.clear();
-        el1_q_truth.clear();
-        el2_pt_truth.clear();
-        el2_eta_truth.clear();
-        el2_phi_truth.clear();
-        el2_q_truth.clear();
-        mu1_tight_pt.clear();
-        mu1_tight_eta.clear();
-        mu1_tight_phi.clear();
-        mu1_tight_q.clear();
-        mu2_tight_pt.clear();
-        mu2_tight_eta.clear();
-        mu2_tight_phi.clear();
-        mu2_tight_q.clear();
-        mu1_pt_truth.clear();
-        mu1_eta_truth.clear();
-        mu1_phi_truth.clear();
-        mu1_q_truth.clear();
-        mu2_pt_truth.clear();
-        mu2_eta_truth.clear();
-        mu2_phi_truth.clear();
-        mu2_q_truth.clear();
-        lep1_pt.clear();
-        lep1_eta.clear();
-        lep1_phi.clear();
-        lep1_mass.clear();
-        lep2_pt.clear();
-        lep2_eta.clear();
-        lep2_phi.clear();
-        lep2_mass.clear();
-        lep1_pt_truth.clear();
-        lep1_eta_truth.clear();
-        lep1_phi_truth.clear();
-        lep1_mass_truth.clear();
-        lep2_pt_truth.clear();
-        lep2_eta_truth.clear();
-        lep2_phi_truth.clear();
-        lep2_mass_truth.clear();
-        jet1_puppi_pt.clear();
-        jet1_puppi_eta.clear();
-        jet1_puppi_phi.clear();
-        jet1_puppi_q.clear();
-        jet1_pt_truth.clear();
-        jet1_eta_truth.clear();
-        jet1_phi_truth.clear();
-        jet1_q_truth.clear();
-        mll.clear();
-        mt1.clear();
-        mt2.clear();
+        clearVectors();
 
         // Fill event variables
         try{
