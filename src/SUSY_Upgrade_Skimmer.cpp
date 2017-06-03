@@ -28,12 +28,13 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
      * is used to run directly in Delphes output.
      * For skimmed ntuples, see below
      */
-    d_ana::dBranchHandler<HepMCEvent>  event(tree(),"Event");
+    d_ana::dBranchHandler<HepMCEvent> event(tree(),"Event");
     d_ana::dBranchHandler<Electron> elecs(tree(),"Electron");
     d_ana::dBranchHandler<Muon> muontight(tree(),"MuonTight");
     d_ana::dBranchHandler<Jet> jetpuppi(tree(), "JetPUPPI");
     d_ana::dBranchHandler<MissingET> puppimet(tree(), "PuppiMissingET");
     d_ana::dBranchHandler<GenParticle> genpart(tree(),"Particle");
+    d_ana::dBranchHandler<Jet> genjet(tree(),"GenJet");
     /*
      * Other branches might be the following
      * (for a full list, please inspect the Delphes sample root file with root)
@@ -153,16 +154,16 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("mu2_tight_q", &mu2_tight_q);
 
     // Truth muon variables
-    std::vector<double> mu1_tight_pt_truth, mu1_tight_eta_truth, mu1_tight_phi_truth, mu2_tight_pt_truth, mu2_tight_eta_truth, mu2_tight_phi_truth;
-    std::vector<int> mu1_tight_q_truth, mu2_tight_q_truth;
-    myskim->Branch("mu1_tight_pt_truth", &mu1_tight_pt_truth);
-    myskim->Branch("mu1_tight_eta_truth", &mu1_tight_eta_truth);
-    myskim->Branch("mu1_tight_phi_truth", &mu1_tight_phi_truth);
-    myskim->Branch("mu1_tight_q_truth", &mu1_tight_q_truth);
-    myskim->Branch("mu2_tight_pt_truth", &mu2_tight_pt_truth);
-    myskim->Branch("mu2_tight_eta_truth", &mu2_tight_eta_truth);
-    myskim->Branch("mu2_tight_phi_truth", &mu2_tight_phi_truth);
-    myskim->Branch("mu2_tight_q_truth", &mu2_tight_q_truth);
+    std::vector<double> mu1_pt_truth, mu1_eta_truth, mu1_phi_truth, mu2_pt_truth, mu2_eta_truth, mu2_phi_truth;
+    std::vector<int> mu1_q_truth, mu2_q_truth;
+    myskim->Branch("mu1_pt_truth", &mu1_pt_truth);
+    myskim->Branch("mu1_eta_truth", &mu1_eta_truth);
+    myskim->Branch("mu1_phi_truth", &mu1_phi_truth);
+    myskim->Branch("mu1_q_truth", &mu1_q_truth);
+    myskim->Branch("mu2_pt_truth", &mu2_pt_truth);
+    myskim->Branch("mu2_eta_truth", &mu2_eta_truth);
+    myskim->Branch("mu2_phi_truth", &mu2_phi_truth);
+    myskim->Branch("mu2_q_truth", &mu2_q_truth);
 
     // Lepton variables
     std::vector<double> lep1_pt, lep1_eta, lep1_phi, lep1_mass, lep2_pt, lep2_eta, lep2_phi, lep2_mass;
@@ -193,6 +194,14 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("jet1_puppi_eta", &jet1_puppi_eta);
     myskim->Branch("jet1_puppi_phi", &jet1_puppi_phi);
     myskim->Branch("jet1_puppi_q", &jet1_puppi_q);
+
+    // Truth jet variables
+    std::vector<double> jet1_pt_truth, jet1_eta_truth, jet1_phi_truth;
+    std::vector<int> jet1_q_truth;
+    myskim->Branch("jet1_pt_truth", &jet1_pt_truth);
+    myskim->Branch("jet1_eta_truth", &jet1_eta_truth);
+    myskim->Branch("jet1_phi_truth", &jet1_phi_truth);
+    myskim->Branch("jet1_q_truth", &jet1_q_truth);
 
     // MET variables
     double met, met_eta, met_phi;
@@ -259,14 +268,14 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         mu2_tight_eta.clear();
         mu2_tight_phi.clear();
         mu2_tight_q.clear();
-        mu1_tight_pt_truth.clear();
-        mu1_tight_eta_truth.clear();
-        mu1_tight_phi_truth.clear();
-        mu1_tight_q_truth.clear();
-        mu2_tight_pt_truth.clear();
-        mu2_tight_eta_truth.clear();
-        mu2_tight_phi_truth.clear();
-        mu2_tight_q_truth.clear();
+        mu1_pt_truth.clear();
+        mu1_eta_truth.clear();
+        mu1_phi_truth.clear();
+        mu1_q_truth.clear();
+        mu2_pt_truth.clear();
+        mu2_eta_truth.clear();
+        mu2_phi_truth.clear();
+        mu2_q_truth.clear();
         lep1_pt.clear();
         lep1_eta.clear();
         lep1_phi.clear();
@@ -287,6 +296,10 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         jet1_puppi_eta.clear();
         jet1_puppi_phi.clear();
         jet1_puppi_q.clear();
+        jet1_pt_truth.clear();
+        jet1_eta_truth.clear();
+        jet1_phi_truth.clear();
+        jet1_q_truth.clear();
         mll.clear();
         mt1.clear();
         mt2.clear();
@@ -430,16 +443,16 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         for (size_t i=0; i<genpart.size(); ++i){
             if (fabs(genpart.at(i)->PID) != 13){ continue; }
             // Fill it if it hasn't been filled
-            if (mu1_tight_pt_truth.size() == 0){
-                mu1_tight_pt_truth.push_back(genpart.at(i)->PT);
-                mu1_tight_eta_truth.push_back(genpart.at(i)->Eta);
-                mu1_tight_phi_truth.push_back(genpart.at(i)->Phi);
-                mu1_tight_q_truth.push_back(genpart.at(i)->Charge);
+            if (mu1_pt_truth.size() == 0){
+                mu1_pt_truth.push_back(genpart.at(i)->PT);
+                mu1_eta_truth.push_back(genpart.at(i)->Eta);
+                mu1_phi_truth.push_back(genpart.at(i)->Phi);
+                mu1_q_truth.push_back(genpart.at(i)->Charge);
             }else{
-                mu2_tight_pt_truth.push_back(genpart.at(i)->PT);
-                mu2_tight_eta_truth.push_back(genpart.at(i)->Eta);
-                mu2_tight_phi_truth.push_back(genpart.at(i)->Phi);
-                mu2_tight_q_truth.push_back(genpart.at(i)->Charge);
+                mu2_pt_truth.push_back(genpart.at(i)->PT);
+                mu2_eta_truth.push_back(genpart.at(i)->Eta);
+                mu2_phi_truth.push_back(genpart.at(i)->Phi);
+                mu2_q_truth.push_back(genpart.at(i)->Charge);
                 // When second particle has been filled, break
                 break;
             }
@@ -488,11 +501,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         if (el2_pt_truth.size() != 0){
             lepvec_truth.push_back({el2_pt_truth.at(0), el2_eta_truth.at(0), el2_phi_truth.at(0), mass_el});
         }
-        if (mu1_tight_pt_truth.size() != 0){
-            lepvec_truth.push_back({mu1_tight_pt_truth.at(0), mu1_tight_eta_truth.at(0), mu1_tight_phi_truth.at(0), mass_mu});
+        if (mu1_pt_truth.size() != 0){
+            lepvec_truth.push_back({mu1_pt_truth.at(0), mu1_eta_truth.at(0), mu1_phi_truth.at(0), mass_mu});
         }
-        if (mu2_tight_pt_truth.size() != 0){
-            lepvec_truth.push_back({mu2_tight_pt_truth.at(0), mu2_tight_eta_truth.at(0), mu2_tight_phi_truth.at(0), mass_mu});
+        if (mu2_pt_truth.size() != 0){
+            lepvec_truth.push_back({mu2_pt_truth.at(0), mu2_eta_truth.at(0), mu2_phi_truth.at(0), mass_mu});
         }
         // By definition, this sorts by the first element of the vector (in this case pT)
         if (lepvec_truth.size() > 1){
@@ -519,6 +532,15 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             jet1_puppi_eta.push_back(jetpuppi.at(0)->Eta);
             jet1_puppi_phi.push_back(jetpuppi.at(0)->Phi);
             jet1_puppi_q.push_back(jetpuppi.at(0)->Charge);
+        }
+
+        // Fill truth jets
+        for (size_t i=0; i<genjet.size(); ++i){
+            if (genjet.at(i)->PT < jet_pt_lo){ continue; }
+            jet1_pt_truth.push_back(genjet.at(i)->PT);
+            jet1_eta_truth.push_back(genjet.at(i)->Eta);
+            jet1_phi_truth.push_back(genjet.at(i)->Phi);
+            jet1_q_truth.push_back(genjet.at(i)->Charge);
         }
 
         // Fill MET
