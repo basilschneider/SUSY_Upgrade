@@ -33,6 +33,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     d_ana::dBranchHandler<Muon> muontight(tree(),"MuonTight");
     d_ana::dBranchHandler<Jet> jetpuppi(tree(), "JetPUPPI");
     d_ana::dBranchHandler<MissingET> puppimet(tree(), "PuppiMissingET");
+    d_ana::dBranchHandler<GenParticle> genpart(tree(),"Particle");
     /*
      * Other branches might be the following
      * (for a full list, please inspect the Delphes sample root file with root)
@@ -127,6 +128,18 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("el2_phi", &el2_phi);
     myskim->Branch("el2_q", &el2_q);
 
+    // Truth electron variables
+    std::vector<double> el1_pt_truth, el1_eta_truth, el1_phi_truth, el2_pt_truth, el2_eta_truth, el2_phi_truth;
+    std::vector<int> el1_q_truth, el2_q_truth;
+    myskim->Branch("el1_pt_truth", &el1_pt_truth);
+    myskim->Branch("el1_eta_truth", &el1_eta_truth);
+    myskim->Branch("el1_phi_truth", &el1_phi_truth);
+    myskim->Branch("el1_q_truth", &el1_q_truth);
+    myskim->Branch("el2_pt_truth", &el2_pt_truth);
+    myskim->Branch("el2_eta_truth", &el2_eta_truth);
+    myskim->Branch("el2_phi_truth", &el2_phi_truth);
+    myskim->Branch("el2_q_truth", &el2_q_truth);
+
     // Muon variables
     std::vector<double> mu1_tight_pt, mu1_tight_eta, mu1_tight_phi, mu2_tight_pt, mu2_tight_eta, mu2_tight_phi;
     std::vector<int> mu1_tight_q, mu2_tight_q;
@@ -139,8 +152,20 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("mu2_tight_phi", &mu2_tight_phi);
     myskim->Branch("mu2_tight_q", &mu2_tight_q);
 
+    // Truth muon variables
+    std::vector<double> mu1_tight_pt_truth, mu1_tight_eta_truth, mu1_tight_phi_truth, mu2_tight_pt_truth, mu2_tight_eta_truth, mu2_tight_phi_truth;
+    std::vector<int> mu1_tight_q_truth, mu2_tight_q_truth;
+    myskim->Branch("mu1_tight_pt_truth", &mu1_tight_pt_truth);
+    myskim->Branch("mu1_tight_eta_truth", &mu1_tight_eta_truth);
+    myskim->Branch("mu1_tight_phi_truth", &mu1_tight_phi_truth);
+    myskim->Branch("mu1_tight_q_truth", &mu1_tight_q_truth);
+    myskim->Branch("mu2_tight_pt_truth", &mu2_tight_pt_truth);
+    myskim->Branch("mu2_tight_eta_truth", &mu2_tight_eta_truth);
+    myskim->Branch("mu2_tight_phi_truth", &mu2_tight_phi_truth);
+    myskim->Branch("mu2_tight_q_truth", &mu2_tight_q_truth);
+
     // Lepton variables
-    double lep1_pt, lep1_eta, lep1_phi, lep1_mass, lep2_pt, lep2_eta, lep2_phi, lep2_mass;
+    std::vector<double> lep1_pt, lep1_eta, lep1_phi, lep1_mass, lep2_pt, lep2_eta, lep2_phi, lep2_mass;
     myskim->Branch("lep1_pt", &lep1_pt);
     myskim->Branch("lep1_eta", &lep1_eta);
     myskim->Branch("lep1_phi", &lep1_phi);
@@ -149,6 +174,17 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("lep2_eta", &lep2_eta);
     myskim->Branch("lep2_phi", &lep2_phi);
     myskim->Branch("lep2_mass", &lep2_mass);
+
+    // Truth lepton variables
+    std::vector<double> lep1_pt_truth, lep1_eta_truth, lep1_phi_truth, lep1_mass_truth, lep2_pt_truth, lep2_eta_truth, lep2_phi_truth, lep2_mass_truth;
+    myskim->Branch("lep1_pt_truth", &lep1_pt_truth);
+    myskim->Branch("lep1_eta_truth", &lep1_eta_truth);
+    myskim->Branch("lep1_phi_truth", &lep1_phi_truth);
+    myskim->Branch("lep1_mass_truth", &lep1_mass_truth);
+    myskim->Branch("lep2_pt_truth", &lep2_pt_truth);
+    myskim->Branch("lep2_eta_truth", &lep2_eta_truth);
+    myskim->Branch("lep2_phi_truth", &lep2_phi_truth);
+    myskim->Branch("lep2_mass_truth", &lep2_mass_truth);
 
     // Jet variables
     std::vector<double> jet1_puppi_pt, jet1_puppi_eta, jet1_puppi_phi;
@@ -207,6 +243,14 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         el2_eta.clear();
         el2_phi.clear();
         el2_q.clear();
+        el1_pt_truth.clear();
+        el1_eta_truth.clear();
+        el1_phi_truth.clear();
+        el1_q_truth.clear();
+        el2_pt_truth.clear();
+        el2_eta_truth.clear();
+        el2_phi_truth.clear();
+        el2_q_truth.clear();
         mu1_tight_pt.clear();
         mu1_tight_eta.clear();
         mu1_tight_phi.clear();
@@ -215,6 +259,30 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         mu2_tight_eta.clear();
         mu2_tight_phi.clear();
         mu2_tight_q.clear();
+        mu1_tight_pt_truth.clear();
+        mu1_tight_eta_truth.clear();
+        mu1_tight_phi_truth.clear();
+        mu1_tight_q_truth.clear();
+        mu2_tight_pt_truth.clear();
+        mu2_tight_eta_truth.clear();
+        mu2_tight_phi_truth.clear();
+        mu2_tight_q_truth.clear();
+        lep1_pt.clear();
+        lep1_eta.clear();
+        lep1_phi.clear();
+        lep1_mass.clear();
+        lep2_pt.clear();
+        lep2_eta.clear();
+        lep2_phi.clear();
+        lep2_mass.clear();
+        lep1_pt_truth.clear();
+        lep1_eta_truth.clear();
+        lep1_phi_truth.clear();
+        lep1_mass_truth.clear();
+        lep2_pt_truth.clear();
+        lep2_eta_truth.clear();
+        lep2_phi_truth.clear();
+        lep2_mass_truth.clear();
         jet1_puppi_pt.clear();
         jet1_puppi_eta.clear();
         jet1_puppi_phi.clear();
@@ -325,6 +393,25 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             el2_q.push_back(elecs.at(1)->Charge);
         }
 
+        // Fill truth electrons
+        for (size_t i=0; i<genpart.size(); ++i){
+            if (fabs(genpart.at(i)->PID) != 11){ continue; }
+            // Fill it if it hasn't been filled
+            if (el1_pt_truth.size() == 0){
+                el1_pt_truth.push_back(genpart.at(i)->PT);
+                el1_eta_truth.push_back(genpart.at(i)->Eta);
+                el1_phi_truth.push_back(genpart.at(i)->Phi);
+                el1_q_truth.push_back(genpart.at(i)->Charge);
+            }else{
+                el2_pt_truth.push_back(genpart.at(i)->PT);
+                el2_eta_truth.push_back(genpart.at(i)->Eta);
+                el2_phi_truth.push_back(genpart.at(i)->Phi);
+                el2_q_truth.push_back(genpart.at(i)->Charge);
+                // When second particle has been filled, break
+                break;
+            }
+        }
+
         // Fill muons
         if (nMu >= 1){
             mu1_tight_pt.push_back(muontight.at(0)->PT);
@@ -337,6 +424,25 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             mu2_tight_eta.push_back(muontight.at(1)->Eta);
             mu2_tight_phi.push_back(muontight.at(1)->Phi);
             mu2_tight_q.push_back(muontight.at(1)->Charge);
+        }
+
+        // Fill truth muons
+        for (size_t i=0; i<genpart.size(); ++i){
+            if (fabs(genpart.at(i)->PID) != 13){ continue; }
+            // Fill it if it hasn't been filled
+            if (mu1_tight_pt_truth.size() == 0){
+                mu1_tight_pt_truth.push_back(genpart.at(i)->PT);
+                mu1_tight_eta_truth.push_back(genpart.at(i)->Eta);
+                mu1_tight_phi_truth.push_back(genpart.at(i)->Phi);
+                mu1_tight_q_truth.push_back(genpart.at(i)->Charge);
+            }else{
+                mu2_tight_pt_truth.push_back(genpart.at(i)->PT);
+                mu2_tight_eta_truth.push_back(genpart.at(i)->Eta);
+                mu2_tight_phi_truth.push_back(genpart.at(i)->Phi);
+                mu2_tight_q_truth.push_back(genpart.at(i)->Charge);
+                // When second particle has been filled, break
+                break;
+            }
         }
 
         // Fill leptons
@@ -355,16 +461,57 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             lepvec.push_back({mu2_tight_pt.at(0), mu2_tight_eta.at(0), mu2_tight_phi.at(0), mass_mu});
         }
         // By definition, this sorts by the first element of the vector (in this case pT)
-        std::sort(begin(lepvec), end(lepvec));
-        std::reverse(begin(lepvec), end(lepvec));
-        lep1_pt = lepvec[0][0];
-        lep1_eta = lepvec[0][1];
-        lep1_phi = lepvec[0][2];
-        lep1_mass = lepvec[0][3];
-        lep2_pt = lepvec[1][0];
-        lep2_eta = lepvec[1][1];
-        lep2_phi = lepvec[1][2];
-        lep2_mass = lepvec[1][3];
+        if (lepvec.size() > 1){
+            std::sort(begin(lepvec), end(lepvec));
+            std::reverse(begin(lepvec), end(lepvec));
+        }
+        if (lepvec.size() >= 1){
+            lep1_pt.push_back(lepvec[0][0]);
+            lep1_eta.push_back(lepvec[0][1]);
+            lep1_phi.push_back(lepvec[0][2]);
+            lep1_mass.push_back(lepvec[0][3]);
+        }
+        if (lepvec.size() >= 2){
+            lep2_pt.push_back(lepvec[1][0]);
+            lep2_eta.push_back(lepvec[1][1]);
+            lep2_phi.push_back(lepvec[1][2]);
+            lep2_mass.push_back(lepvec[1][3]);
+        }
+        lepvec.clear();
+
+        // Fill truth leptons
+        // Put pT and eta into vector of vector for sorting
+        std::vector<std::vector<double>> lepvec_truth;
+        if (el1_pt_truth.size() != 0){
+            lepvec_truth.push_back({el1_pt_truth.at(0), el1_eta_truth.at(0), el1_phi_truth.at(0), mass_el});
+        }
+        if (el2_pt_truth.size() != 0){
+            lepvec_truth.push_back({el2_pt_truth.at(0), el2_eta_truth.at(0), el2_phi_truth.at(0), mass_el});
+        }
+        if (mu1_tight_pt_truth.size() != 0){
+            lepvec_truth.push_back({mu1_tight_pt_truth.at(0), mu1_tight_eta_truth.at(0), mu1_tight_phi_truth.at(0), mass_mu});
+        }
+        if (mu2_tight_pt_truth.size() != 0){
+            lepvec_truth.push_back({mu2_tight_pt_truth.at(0), mu2_tight_eta_truth.at(0), mu2_tight_phi_truth.at(0), mass_mu});
+        }
+        // By definition, this sorts by the first element of the vector (in this case pT)
+        if (lepvec_truth.size() > 1){
+            std::sort(begin(lepvec_truth), end(lepvec_truth));
+            std::reverse(begin(lepvec_truth), end(lepvec_truth));
+        }
+        if (lepvec_truth.size() >= 1){
+            lep1_pt_truth.push_back(lepvec_truth[0][0]);
+            lep1_eta_truth.push_back(lepvec_truth[0][1]);
+            lep1_phi_truth.push_back(lepvec_truth[0][2]);
+            lep1_mass_truth.push_back(lepvec_truth[0][3]);
+        }
+        if (lepvec_truth.size() >= 2){
+            lep2_pt_truth.push_back(lepvec_truth[1][0]);
+            lep2_eta_truth.push_back(lepvec_truth[1][1]);
+            lep2_phi_truth.push_back(lepvec_truth[1][2]);
+            lep2_mass_truth.push_back(lepvec_truth[1][3]);
+        }
+        lepvec_truth.clear();
 
         // Fill jets
         if (nJet >= 1){
@@ -393,12 +540,12 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
 
         // Transverse mass of leading two leptons
-        if (nLep >= 1){
-            mt1.push_back(std::sqrt(2*lep1_pt*met*(1-std::cos(lep1_phi-met_phi))));
-        }
-        if (nLep >= 2){
-            mt2.push_back(std::sqrt(2*lep2_pt*met*(1-std::cos(lep2_phi-met_phi))));
-        }
+        //if (lep1_pt.size() >= 1){
+        //    mt1.push_back(std::sqrt(2*lep1_pt.at(0)*met*(1-std::cos(lep1_phi.at(0)-met_phi))));
+        //}
+        //if (lep1_pt.size() >= 2){
+        //    mt2.push_back(std::sqrt(2*lep2_pt.at(1)*met*(1-std::cos(lep2_phi.at(1)-met_phi))));
+        //}
 
         myskim->Fill();
     }
