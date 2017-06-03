@@ -116,8 +116,8 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("xs", &xs);
 
     // Electron variables
-    double el1_pt, el1_eta, el1_phi, el2_pt, el2_eta, el2_phi;
-    int el1_q, el2_q;
+    std::vector<double> el1_pt, el1_eta, el1_phi, el2_pt, el2_eta, el2_phi;
+    std::vector<int> el1_q, el2_q;
     myskim->Branch("el1_pt", &el1_pt);
     myskim->Branch("el1_eta", &el1_eta);
     myskim->Branch("el1_phi", &el1_phi);
@@ -128,8 +128,8 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("el2_q", &el2_q);
 
     // Muon variables
-    double mu1_tight_pt, mu1_tight_eta, mu1_tight_phi, mu2_tight_pt, mu2_tight_eta, mu2_tight_phi;
-    int mu1_tight_q, mu2_tight_q;
+    std::vector<double> mu1_tight_pt, mu1_tight_eta, mu1_tight_phi, mu2_tight_pt, mu2_tight_eta, mu2_tight_phi;
+    std::vector<int> mu1_tight_q, mu2_tight_q;
     myskim->Branch("mu1_tight_pt", &mu1_tight_pt);
     myskim->Branch("mu1_tight_eta", &mu1_tight_eta);
     myskim->Branch("mu1_tight_phi", &mu1_tight_phi);
@@ -151,8 +151,8 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     myskim->Branch("lep2_mass", &lep2_mass);
 
     // Jet variables
-    double jet1_puppi_pt, jet1_puppi_eta, jet1_puppi_phi;
-    int jet1_puppi_q;
+    std::vector<double> jet1_puppi_pt, jet1_puppi_eta, jet1_puppi_phi;
+    std::vector<int> jet1_puppi_q;
     myskim->Branch("jet1_puppi_pt", &jet1_puppi_pt);
     myskim->Branch("jet1_puppi_eta", &jet1_puppi_eta);
     myskim->Branch("jet1_puppi_phi", &jet1_puppi_phi);
@@ -171,7 +171,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     // Cutflow variables
     int nLep, nEl, nMu, nSoftLep, nSoftEl, nSoftMu, nJet, nBJet;
     bool hasSFOS, hasSoftSFOS;
-    double mll, mt1, mt2;
+    std::vector<double> mll, mt1, mt2;
     myskim->Branch("nLep", &nLep);
     myskim->Branch("nEl", &nEl);
     myskim->Branch("nMu", &nMu);
@@ -197,6 +197,31 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
          */
         reportStatus(eventno,nevents);
         tree()->setEntry(eventno);
+
+        // Clear vectors
+        el1_pt.clear();
+        el1_eta.clear();
+        el1_phi.clear();
+        el1_q.clear();
+        el2_pt.clear();
+        el2_eta.clear();
+        el2_phi.clear();
+        el2_q.clear();
+        mu1_tight_pt.clear();
+        mu1_tight_eta.clear();
+        mu1_tight_phi.clear();
+        mu1_tight_q.clear();
+        mu2_tight_pt.clear();
+        mu2_tight_eta.clear();
+        mu2_tight_phi.clear();
+        mu2_tight_q.clear();
+        jet1_puppi_pt.clear();
+        jet1_puppi_eta.clear();
+        jet1_puppi_phi.clear();
+        jet1_puppi_q.clear();
+        mll.clear();
+        mt1.clear();
+        mt2.clear();
 
         // Fill event variables
         try{
@@ -248,7 +273,6 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
         // Is a same flavour opposite sign lepton pair present?
         hasSFOS = hasSoftSFOS = false;
-        mll = -99.;
         for (size_t i=0; i<elecs.size(); ++i){
             for (size_t j=i+1; j<elecs.size(); ++j){
                 if (elecs.at(i)->Charge*elecs.at(j)->Charge < 0){
@@ -260,7 +284,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                         TLorentzVector l1, l2;
                         l1.SetPtEtaPhiM(elecs.at(i)->PT, elecs.at(i)->Eta, elecs.at(i)->Phi, mass_el);
                         l2.SetPtEtaPhiM(elecs.at(j)->PT, elecs.at(j)->Eta, elecs.at(j)->Phi, mass_el);
-                        mll = (l1+l2).M();
+                        mll.push_back((l1+l2).M());
                     }
                 }
             }
@@ -276,7 +300,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                         TLorentzVector l1, l2;
                         l1.SetPtEtaPhiM(muontight.at(i)->PT, muontight.at(i)->Eta, muontight.at(i)->Phi, mass_mu);
                         l2.SetPtEtaPhiM(muontight.at(j)->PT, muontight.at(j)->Eta, muontight.at(j)->Phi, mass_mu);
-                        mll = (l1+l2).M();
+                        mll.push_back((l1+l2).M());
                     }
                 }
             }
@@ -288,43 +312,48 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         if (!hasSoftSFOS){ continue; }
 
         // Fill electrons
-        el1_pt = el1_eta = el1_phi = el2_pt = el2_eta = el2_phi = -99.;
-        el1_q = el2_q = -99;
         if (nEl >= 1){
-            el1_pt = elecs.at(0)->PT;
-            el1_eta = elecs.at(0)->Eta;
-            el1_phi = elecs.at(0)->Phi;
-            el1_q = elecs.at(0)->Charge;
+            el1_pt.push_back(elecs.at(0)->PT);
+            el1_eta.push_back(elecs.at(0)->Eta);
+            el1_phi.push_back(elecs.at(0)->Phi);
+            el1_q.push_back(elecs.at(0)->Charge);
         }
         if (nEl >= 2){
-            el2_pt = elecs.at(1)->PT;
-            el2_eta = elecs.at(1)->Eta;
-            el2_phi = elecs.at(1)->Phi;
-            el2_q = elecs.at(1)->Charge;
+            el2_pt.push_back(elecs.at(1)->PT);
+            el2_eta.push_back(elecs.at(1)->Eta);
+            el2_phi.push_back(elecs.at(1)->Phi);
+            el2_q.push_back(elecs.at(1)->Charge);
         }
 
         // Fill muons
-        mu1_tight_pt = mu1_tight_eta = mu1_tight_phi = mu2_tight_pt = mu2_tight_eta = mu2_tight_phi = -99.;
-        mu1_tight_q = mu2_tight_q = -99;
         if (nMu >= 1){
-            mu1_tight_pt = muontight.at(0)->PT;
-            mu1_tight_eta = muontight.at(0)->Eta;
-            mu1_tight_phi = muontight.at(0)->Phi;
-            mu1_tight_q = muontight.at(0)->Charge;
+            mu1_tight_pt.push_back(muontight.at(0)->PT);
+            mu1_tight_eta.push_back(muontight.at(0)->Eta);
+            mu1_tight_phi.push_back(muontight.at(0)->Phi);
+            mu1_tight_q.push_back(muontight.at(0)->Charge);
         }
         if (nMu >= 2){
-            mu2_tight_pt = muontight.at(1)->PT;
-            mu2_tight_eta = muontight.at(1)->Eta;
-            mu2_tight_phi = muontight.at(1)->Phi;
-            mu2_tight_q = muontight.at(1)->Charge;
+            mu2_tight_pt.push_back(muontight.at(1)->PT);
+            mu2_tight_eta.push_back(muontight.at(1)->Eta);
+            mu2_tight_phi.push_back(muontight.at(1)->Phi);
+            mu2_tight_q.push_back(muontight.at(1)->Charge);
         }
 
         // Fill leptons
         // Put pT and eta into vector of vector for sorting
-        std::vector<std::vector<double>> lepvec = {{el1_pt, el1_eta, el1_phi, mass_el},
-                                                   {el2_pt, el2_eta, el2_phi, mass_el},
-                                                   {mu1_tight_pt, mu1_tight_eta, mu1_tight_phi, mass_mu},
-                                                   {mu2_tight_pt, mu2_tight_eta, mu2_tight_phi, mass_mu}};
+        std::vector<std::vector<double>> lepvec;
+        if (el1_pt.size() != 0){
+            lepvec.push_back({el1_pt.at(0), el1_eta.at(0), el1_phi.at(0), mass_el});
+        }
+        if (el2_pt.size() != 0){
+            lepvec.push_back({el2_pt.at(0), el2_eta.at(0), el2_phi.at(0), mass_el});
+        }
+        if (mu1_tight_pt.size() != 0){
+            lepvec.push_back({mu1_tight_pt.at(0), mu1_tight_eta.at(0), mu1_tight_phi.at(0), mass_mu});
+        }
+        if (mu2_tight_pt.size() != 0){
+            lepvec.push_back({mu2_tight_pt.at(0), mu2_tight_eta.at(0), mu2_tight_phi.at(0), mass_mu});
+        }
         // By definition, this sorts by the first element of the vector (in this case pT)
         std::sort(begin(lepvec), end(lepvec));
         std::reverse(begin(lepvec), end(lepvec));
@@ -338,13 +367,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         lep2_mass = lepvec[1][3];
 
         // Fill jets
-        jet1_puppi_pt = jet1_puppi_eta = jet1_puppi_phi = -99.;
-        jet1_puppi_q = -99;
         if (nJet >= 1){
-            jet1_puppi_pt = jetpuppi.at(0)->PT;
-            jet1_puppi_eta = jetpuppi.at(0)->Eta;
-            jet1_puppi_phi = jetpuppi.at(0)->Phi;
-            jet1_puppi_q = jetpuppi.at(0)->Charge;
+            jet1_puppi_pt.push_back(jetpuppi.at(0)->PT);
+            jet1_puppi_eta.push_back(jetpuppi.at(0)->Eta);
+            jet1_puppi_phi.push_back(jetpuppi.at(0)->Phi);
+            jet1_puppi_q.push_back(jetpuppi.at(0)->Charge);
         }
 
         // Fill MET
@@ -366,12 +393,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
 
         // Transverse mass of leading two leptons
-        mt1 = mt2 = -99.;
         if (nLep >= 1){
-            mt1 = std::sqrt(2*lep1_pt*met*(1-std::cos(lep1_phi-met_phi)));
+            mt1.push_back(std::sqrt(2*lep1_pt*met*(1-std::cos(lep1_phi-met_phi))));
         }
         if (nLep >= 2){
-            mt2 = std::sqrt(2*lep2_pt*met*(1-std::cos(lep2_phi-met_phi)));
+            mt2.push_back(std::sqrt(2*lep2_pt*met*(1-std::cos(lep2_phi-met_phi))));
         }
 
         myskim->Fill();
