@@ -220,8 +220,8 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 nLep++;
                 nEl++;
                 if (elecs.at(i)->PT < el_pt_hi){
-                    nSoftEl++;
                     nSoftLep++;
+                    nSoftEl++;
                 }
             }
         }
@@ -230,8 +230,8 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 nLep++;
                 nMu++;
                 if (muontight.at(i)->PT < mu_pt_hi){
-                    nSoftMu++;
                     nSoftLep++;
+                    nSoftMu++;
                 }
             }
         }
