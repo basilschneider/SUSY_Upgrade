@@ -315,21 +315,31 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
 
         // Fill truth electrons
-        for (size_t i=0; i<genpart.size(); ++i){
-            if (fabs(genpart.at(i)->PID) != 11){ continue; }
-            if (genpart.at(i)->PT < el_pt_lo){ continue; }
-            // Fill it if it hasn't been filled
-            if (el1_pt_truth.size() == 0){
-                el1_pt_truth.push_back(genpart.at(i)->PT);
-                el1_eta_truth.push_back(genpart.at(i)->Eta);
-                el1_phi_truth.push_back(genpart.at(i)->Phi);
-                el1_q_truth.push_back(genpart.at(i)->Charge);
-            }else{
-                // Otherwise fill second vector and break
-                el2_pt_truth.push_back(genpart.at(i)->PT);
-                el2_eta_truth.push_back(genpart.at(i)->Eta);
-                el2_phi_truth.push_back(genpart.at(i)->Phi);
-                el2_q_truth.push_back(genpart.at(i)->Charge);
+        for (size_t i=0; i<el1_pt.size(); ++i){
+            for (size_t j=0; j<genpart.size(); ++j){
+                if (fabs(genpart.at(j)->PID) != 11){ continue; }
+                // Truth matching
+                if (fabs(genpart.at(j)->PT - el1_pt.at(i)) > truth_match_diff_pt){ continue; }
+                if (fabs(genpart.at(j)->Eta - el1_eta.at(i)) > truth_match_diff_eta){ continue; }
+                // If we make it here, the particle has been matched
+                el1_pt_truth.push_back(genpart.at(j)->PT);
+                el1_eta_truth.push_back(genpart.at(j)->Eta);
+                el1_phi_truth.push_back(genpart.at(j)->Phi);
+                el1_q_truth.push_back(genpart.at(j)->Charge);
+                break;
+            }
+        }
+        for (size_t i=0; i<el2_pt.size(); ++i){
+            for (size_t j=0; j<genpart.size(); ++j){
+                if (fabs(genpart.at(j)->PID) != 11){ continue; }
+                // Truth matching
+                if (fabs(genpart.at(j)->PT - el2_pt.at(i)) > truth_match_diff_pt){ continue; }
+                if (fabs(genpart.at(j)->Eta - el2_eta.at(i)) > truth_match_diff_eta){ continue; }
+                // If we make it here, the particle has been matched
+                el2_pt_truth.push_back(genpart.at(j)->PT);
+                el2_eta_truth.push_back(genpart.at(j)->Eta);
+                el2_phi_truth.push_back(genpart.at(j)->Phi);
+                el2_q_truth.push_back(genpart.at(j)->Charge);
                 break;
             }
         }
@@ -354,21 +364,31 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
 
         // Fill truth muons
-        for (size_t i=0; i<genpart.size(); ++i){
-            if (fabs(genpart.at(i)->PID) != 13){ continue; }
-            if (genpart.at(i)->PT < mu_pt_lo){ continue; }
-            // Fill it if it hasn't been filled
-            if (mu1_pt_truth.size() == 0){
-                mu1_pt_truth.push_back(genpart.at(i)->PT);
-                mu1_eta_truth.push_back(genpart.at(i)->Eta);
-                mu1_phi_truth.push_back(genpart.at(i)->Phi);
-                mu1_q_truth.push_back(genpart.at(i)->Charge);
-            }else{
-                // Otherwise fill second vector and break
-                mu2_pt_truth.push_back(genpart.at(i)->PT);
-                mu2_eta_truth.push_back(genpart.at(i)->Eta);
-                mu2_phi_truth.push_back(genpart.at(i)->Phi);
-                mu2_q_truth.push_back(genpart.at(i)->Charge);
+        for (size_t i=0; i<mu1_tight_pt.size(); ++i){
+            for (size_t j=0; j<genpart.size(); ++j){
+                if (fabs(genpart.at(j)->PID) != 13){ continue; }
+                // Truth matching
+                if (fabs(genpart.at(j)->PT - mu1_tight_pt.at(i)) > truth_match_diff_pt){ continue; }
+                if (fabs(genpart.at(j)->Eta - mu1_tight_eta.at(i)) > truth_match_diff_eta){ continue; }
+                // If we make it here, the particle has been matched
+                mu1_pt_truth.push_back(genpart.at(j)->PT);
+                mu1_eta_truth.push_back(genpart.at(j)->Eta);
+                mu1_phi_truth.push_back(genpart.at(j)->Phi);
+                mu1_q_truth.push_back(genpart.at(j)->Charge);
+                break;
+            }
+        }
+        for (size_t i=0; i<mu2_tight_pt.size(); ++i){
+            for (size_t j=0; j<genpart.size(); ++j){
+                if (fabs(genpart.at(j)->PID) != 13){ continue; }
+                // Truth matching
+                if (fabs(genpart.at(j)->PT - mu2_tight_pt.at(i)) > truth_match_diff_pt){ continue; }
+                if (fabs(genpart.at(j)->Eta - mu2_tight_eta.at(i)) > truth_match_diff_eta){ continue; }
+                // If we make it here, the particle has been matched
+                mu2_pt_truth.push_back(genpart.at(j)->PT);
+                mu2_eta_truth.push_back(genpart.at(j)->Eta);
+                mu2_phi_truth.push_back(genpart.at(j)->Phi);
+                mu2_q_truth.push_back(genpart.at(j)->Charge);
                 break;
             }
         }
@@ -452,13 +472,18 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
 
         // Fill truth jets
-        for (size_t i=0; i<genjet.size(); ++i){
-            if (genjet.at(i)->PT < jet_pt_lo){ continue; }
-            jet1_pt_truth.push_back(genjet.at(i)->PT);
-            jet1_eta_truth.push_back(genjet.at(i)->Eta);
-            jet1_phi_truth.push_back(genjet.at(i)->Phi);
-            jet1_q_truth.push_back(genjet.at(i)->Charge);
-            break;
+        for (size_t i=0; i<jet1_puppi_pt.size(); ++i){
+            for (size_t j=0; j<genjet.size(); ++j){
+                // Truth matching
+                if (fabs(genjet.at(j)->PT - jet1_puppi_pt.at(i)) > truth_match_diff_pt){ continue; }
+                if (fabs(genjet.at(j)->Eta - jet1_puppi_eta.at(i) > truth_match_diff_eta)){ continue; }
+                // If we make it here, the particle has been matched
+                jet1_pt_truth.push_back(genjet.at(j)->PT);
+                jet1_eta_truth.push_back(genjet.at(j)->Eta);
+                jet1_phi_truth.push_back(genjet.at(j)->Phi);
+                jet1_q_truth.push_back(genjet.at(j)->Charge);
+                break;
+            }
         }
 
         // Fill MET
