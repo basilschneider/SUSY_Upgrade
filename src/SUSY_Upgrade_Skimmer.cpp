@@ -191,7 +191,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     // Event loop
     size_t nevents=tree()->entries();
     if(isTestMode()){
-        nevents/=1000;
+        nevents/=100;
     }
     for(size_t eventno=0;eventno<nevents;eventno++){
 
