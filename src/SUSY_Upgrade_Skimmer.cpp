@@ -216,23 +216,21 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         nSoftLep = nSoftEl = nSoftMu = 0;
         nJet = nBJet = 0;
         for (size_t i=0; i<elecs.size(); ++i){
-            if (elecs.at(i)->PT > el_pt_lo && isIsolated(elecs.at(i))){
-                nLep++;
-                nEl++;
-                if (elecs.at(i)->PT < el_pt_hi){
-                    nSoftLep++;
-                    nSoftEl++;
-                }
+            if (elecs.at(i)->PT < el_pt_lo || !isIsolated(elecs.at(i))){ continue; }
+            nLep++;
+            nEl++;
+            if (elecs.at(i)->PT < el_pt_hi){
+                nSoftLep++;
+                nSoftEl++;
             }
         }
         for (size_t i=0; i<muontight.size(); ++i){
-            if (muontight.at(i)->PT > mu_pt_lo && isIsolated(muontight.at(i))){
-                nLep++;
-                nMu++;
-                if (muontight.at(i)->PT < mu_pt_hi){
-                    nSoftLep++;
-                    nSoftMu++;
-                }
+            if (muontight.at(i)->PT < mu_pt_lo || !isIsolated(muontight.at(i))){ continue; }
+            nLep++;
+            nMu++;
+            if (muontight.at(i)->PT < mu_pt_hi){
+                nSoftLep++;
+                nSoftMu++;
             }
         }
         for (size_t i=0; i<jetpuppi.size(); ++i){
@@ -298,22 +296,28 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         if (!hasSoftSFOS){ continue; }
 
         // Fill electrons
-        if (nEl >= 1){
-            el1_pt.push_back(elecs.at(0)->PT);
-            el1_eta.push_back(elecs.at(0)->Eta);
-            el1_phi.push_back(elecs.at(0)->Phi);
-            el1_q.push_back(elecs.at(0)->Charge);
-        }
-        if (nEl >= 2){
-            el2_pt.push_back(elecs.at(1)->PT);
-            el2_eta.push_back(elecs.at(1)->Eta);
-            el2_phi.push_back(elecs.at(1)->Phi);
-            el2_q.push_back(elecs.at(1)->Charge);
+        for (size_t i=0; i<elecs.size(); ++i){
+            if (elecs.at(i)->PT < el_pt_lo || !isIsolated(elecs.at(i))){ continue; }
+            // Fill it if it hasn't been filled
+            if (el1_pt.size() == 0){
+                el1_pt.push_back(elecs.at(i)->PT);
+                el1_eta.push_back(elecs.at(i)->Eta);
+                el1_phi.push_back(elecs.at(i)->Phi);
+                el1_q.push_back(elecs.at(i)->Charge);
+            }else{
+                // Otherwise fill second vector and break
+                el2_pt.push_back(elecs.at(i)->PT);
+                el2_eta.push_back(elecs.at(i)->Eta);
+                el2_phi.push_back(elecs.at(i)->Phi);
+                el2_q.push_back(elecs.at(i)->Charge);
+                break;
+            }
         }
 
         // Fill truth electrons
         for (size_t i=0; i<genpart.size(); ++i){
             if (fabs(genpart.at(i)->PID) != 11){ continue; }
+            if (genpart.at(i)->PT < el_pt_lo){ continue; }
             // Fill it if it hasn't been filled
             if (el1_pt_truth.size() == 0){
                 el1_pt_truth.push_back(genpart.at(i)->PT);
@@ -321,32 +325,38 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 el1_phi_truth.push_back(genpart.at(i)->Phi);
                 el1_q_truth.push_back(genpart.at(i)->Charge);
             }else{
+                // Otherwise fill second vector and break
                 el2_pt_truth.push_back(genpart.at(i)->PT);
                 el2_eta_truth.push_back(genpart.at(i)->Eta);
                 el2_phi_truth.push_back(genpart.at(i)->Phi);
                 el2_q_truth.push_back(genpart.at(i)->Charge);
-                // When second particle has been filled, break
                 break;
             }
         }
 
         // Fill muons
-        if (nMu >= 1){
-            mu1_tight_pt.push_back(muontight.at(0)->PT);
-            mu1_tight_eta.push_back(muontight.at(0)->Eta);
-            mu1_tight_phi.push_back(muontight.at(0)->Phi);
-            mu1_tight_q.push_back(muontight.at(0)->Charge);
-        }
-        if (nMu >= 2){
-            mu2_tight_pt.push_back(muontight.at(1)->PT);
-            mu2_tight_eta.push_back(muontight.at(1)->Eta);
-            mu2_tight_phi.push_back(muontight.at(1)->Phi);
-            mu2_tight_q.push_back(muontight.at(1)->Charge);
+        for (size_t i=0; i<muontight.size(); ++i){
+            if (muontight.at(i)->PT < mu_pt_lo || !isIsolated(muontight.at(i))){ continue; }
+            // Fill it if it hasn't been filled
+            if (mu1_tight_pt.size() == 0){
+                mu1_tight_pt.push_back(muontight.at(i)->PT);
+                mu1_tight_eta.push_back(muontight.at(i)->Eta);
+                mu1_tight_phi.push_back(muontight.at(i)->Phi);
+                mu1_tight_q.push_back(muontight.at(i)->Charge);
+            }else{
+                // Otherwise fill second vector and break
+                mu2_tight_pt.push_back(muontight.at(i)->PT);
+                mu2_tight_eta.push_back(muontight.at(i)->Eta);
+                mu2_tight_phi.push_back(muontight.at(i)->Phi);
+                mu2_tight_q.push_back(muontight.at(i)->Charge);
+                break;
+            }
         }
 
         // Fill truth muons
         for (size_t i=0; i<genpart.size(); ++i){
             if (fabs(genpart.at(i)->PID) != 13){ continue; }
+            if (genpart.at(i)->PT < mu_pt_lo){ continue; }
             // Fill it if it hasn't been filled
             if (mu1_pt_truth.size() == 0){
                 mu1_pt_truth.push_back(genpart.at(i)->PT);
@@ -354,11 +364,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 mu1_phi_truth.push_back(genpart.at(i)->Phi);
                 mu1_q_truth.push_back(genpart.at(i)->Charge);
             }else{
+                // Otherwise fill second vector and break
                 mu2_pt_truth.push_back(genpart.at(i)->PT);
                 mu2_eta_truth.push_back(genpart.at(i)->Eta);
                 mu2_phi_truth.push_back(genpart.at(i)->Phi);
                 mu2_q_truth.push_back(genpart.at(i)->Charge);
-                // When second particle has been filled, break
                 break;
             }
         }
@@ -432,11 +442,13 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         lepvec_truth.clear();
 
         // Fill jets
-        if (nJet >= 1){
+        for (size_t i=0; i<jetpuppi.size(); ++i){
+            if (jetpuppi.at(i)->PT < jet_pt_lo){ continue; }
             jet1_puppi_pt.push_back(jetpuppi.at(0)->PT);
             jet1_puppi_eta.push_back(jetpuppi.at(0)->Eta);
             jet1_puppi_phi.push_back(jetpuppi.at(0)->Phi);
             jet1_puppi_q.push_back(jetpuppi.at(0)->Charge);
+            break;
         }
 
         // Fill truth jets
@@ -446,6 +458,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             jet1_eta_truth.push_back(genjet.at(i)->Eta);
             jet1_phi_truth.push_back(genjet.at(i)->Phi);
             jet1_q_truth.push_back(genjet.at(i)->Charge);
+            break;
         }
 
         // Fill MET
