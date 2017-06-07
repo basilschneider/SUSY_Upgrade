@@ -27,6 +27,12 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("el2_phi_truth", &el2_phi_truth);
     myskim->Branch("el2_q_truth", &el2_q_truth);
 
+    // Truth electron vectors
+    myskim->Branch("el_pt_truth", &el_pt_truth);
+    myskim->Branch("el_eta_truth", &el_eta_truth);
+    myskim->Branch("el_phi_truth", &el_phi_truth);
+    myskim->Branch("el_q_truth", &el_q_truth);
+
     // Muon variables
     myskim->Branch("mu1_tight_pt", &mu1_tight_pt);
     myskim->Branch("mu1_tight_eta", &mu1_tight_eta);
@@ -46,6 +52,12 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("mu2_eta_truth", &mu2_eta_truth);
     myskim->Branch("mu2_phi_truth", &mu2_phi_truth);
     myskim->Branch("mu2_q_truth", &mu2_q_truth);
+
+    // Truth muon vectors
+    myskim->Branch("mu_pt_truth", &mu_pt_truth);
+    myskim->Branch("mu_eta_truth", &mu_eta_truth);
+    myskim->Branch("mu_phi_truth", &mu_phi_truth);
+    myskim->Branch("mu_q_truth", &mu_q_truth);
 
     // Lepton variables
     myskim->Branch("lep1_pt", &lep1_pt);
@@ -120,6 +132,10 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     el2_eta_truth.clear();
     el2_phi_truth.clear();
     el2_q_truth.clear();
+    el_pt_truth.clear();
+    el_eta_truth.clear();
+    el_phi_truth.clear();
+    el_q_truth.clear();
     mu1_tight_pt.clear();
     mu1_tight_eta.clear();
     mu1_tight_phi.clear();
@@ -136,6 +152,10 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     mu2_eta_truth.clear();
     mu2_phi_truth.clear();
     mu2_q_truth.clear();
+    mu_pt_truth.clear();
+    mu_eta_truth.clear();
+    mu_phi_truth.clear();
+    mu_q_truth.clear();
     lep1_pt.clear();
     lep1_eta.clear();
     lep1_phi.clear();
@@ -341,6 +361,23 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 el2_phi_truth.push_back(genpart.at(j)->Phi);
                 el2_q_truth.push_back(genpart.at(j)->Charge);
                 break;
+            }
+        }
+        for (size_t j=0; j<genpart.size(); ++j){
+            if (genpart.at(j)->Status != 1){ continue; }
+            // Electrons
+            if (fabs(genpart.at(j)->PID) == 11){
+                el_pt_truth.push_back(genpart.at(j)->PT);
+                el_eta_truth.push_back(genpart.at(j)->Eta);
+                el_phi_truth.push_back(genpart.at(j)->Phi);
+                el_q_truth.push_back(genpart.at(j)->Charge);
+            }
+            //Muons
+            else if (fabs(genpart.at(j)->PID) == 13){
+                mu_pt_truth.push_back(genpart.at(j)->PT);
+                mu_eta_truth.push_back(genpart.at(j)->Eta);
+                mu_phi_truth.push_back(genpart.at(j)->Phi);
+                mu_q_truth.push_back(genpart.at(j)->Charge);
             }
         }
 
