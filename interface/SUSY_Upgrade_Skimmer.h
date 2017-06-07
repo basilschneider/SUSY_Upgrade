@@ -88,7 +88,7 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         double met, met_eta, met_phi;
 
         // Other variables
-        int nLep, nEl, nMu, nSoftLep, nSoftEl, nSoftMu, nJet, nBJet;
+        int nLep, nEl, nMu, nSoftLep, nSoftEl, nSoftMu, nJet, nBJet, nW, nZ;
         double ht;
         bool hasSFOS, hasSoftSFOS;
         std::vector<double> mll, mt1, mt2;

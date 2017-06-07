@@ -105,6 +105,8 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("nSoftMu", &nSoftMu);
     myskim->Branch("nJet", &nJet);
     myskim->Branch("nBJet", &nBJet);
+    myskim->Branch("nW", &nW);
+    myskim->Branch("nZ", &nZ);
     myskim->Branch("ht", &ht);
     myskim->Branch("hasSFOS", &hasSFOS);
     myskim->Branch("hasSoftSFOS", &hasSoftSFOS);
@@ -235,6 +237,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         nLep = nEl = nMu = 0;
         nSoftLep = nSoftEl = nSoftMu = 0;
         nJet = nBJet = 0;
+        nW = nZ = 0;
         for (size_t i=0; i<elecs.size(); ++i){
             if (elecs.at(i)->PT < el_pt_lo || !isIsolated(elecs.at(i))){ continue; }
             nLep++;
@@ -261,6 +264,16 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 }
             }
         }
+        for (size_t i=0; i<genpart.size(); ++i){
+            // Only count particles with status between 21 and 29 (to be revised?)
+            if (genpart.at(i)->Status < 21 || genpart.at(i)->Status > 29){ continue; }
+            if (fabs(genpart.at(i)->PID) == 23){
+                nZ++;
+            }else if (fabs(genpart.at(i)->PID) == 24){
+                nW++;
+            }
+        }
+
         //histo->Fill(nJet);
         //histo2->Fill(nJetN);
         //histo3->Fill(jetpuppi.size());
@@ -364,6 +377,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             }
         }
         for (size_t j=0; j<genpart.size(); ++j){
+            // Select only particles from hard process
             if (genpart.at(j)->Status != 1){ continue; }
             // Electrons
             if (fabs(genpart.at(j)->PID) == 11){
