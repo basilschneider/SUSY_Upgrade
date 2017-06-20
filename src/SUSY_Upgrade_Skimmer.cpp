@@ -188,10 +188,13 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
 }
 
 template <typename T> bool SUSY_Upgrade_Skimmer::isIsolated(const T particle){
-    if (particle->IsolationVarRhoCorr/particle->PT < iso_cut){
-        return true;
+    if (particle->IsolationVarRhoCorr/particle->PT > iso_cut_rel){
+        return false;
     }
-    return false;
+    if (particle->IsolationVarRhoCorr > iso_cut_abs){
+        return false;
+    }
+    return true;
 }
 
 void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for printouts */){
