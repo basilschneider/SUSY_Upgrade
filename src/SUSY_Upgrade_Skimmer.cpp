@@ -559,12 +559,12 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
 
         // Transverse mass of leading two leptons
-        //if (lep1_pt.size() >= 1){
-        //    mt1.push_back(std::sqrt(2*lep1_pt.at(0)*met*(1-std::cos(lep1_phi.at(0)-met_phi))));
-        //}
-        //if (lep1_pt.size() >= 2){
-        //    mt2.push_back(std::sqrt(2*lep2_pt.at(1)*met*(1-std::cos(lep2_phi.at(1)-met_phi))));
-        //}
+        if (lep1_pt.size() >= 1){
+            mt1.push_back(std::sqrt(2*lep1_pt.at(0)*met*(1-std::cos(lep1_phi.at(0)-met_phi))));
+        }
+        if (lep2_pt.size() >= 1){
+            mt2.push_back(std::sqrt(2*lep2_pt.at(0)*met*(1-std::cos(lep2_phi.at(0)-met_phi))));
+        }
 
         myskim->Fill();
     }
