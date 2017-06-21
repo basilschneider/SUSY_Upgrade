@@ -210,6 +210,8 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     //d_ana::dBranchHandler<ScalarHT> scalarht(tree(), "ScalarHT");
     //d_ana::dBranchHandler<Photon> photon(tree(),"Photon");
 
+    //TH1* histo=addPlot(new TH1D("histo","histo",24,0.,60.),"p_{T} (e_{2})","Events");
+
     myskim=addTree();
     addBranches();
 
@@ -223,6 +225,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         // Report status and set event link
         reportStatus(eventno,nevents);
         tree()->setEntry(eventno);
+
+        //if (elecs.size() >= 2){
+        //    histo->Fill(elecs.at(1)->PT);
+        //}
+        //continue;
 
         clearVectors();
 
@@ -276,12 +283,6 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 nW++;
             }
         }
-
-        //histo->Fill(nJet);
-        //histo2->Fill(nJetN);
-        //histo3->Fill(jetpuppi.size());
-        //histo4->Fill(jetnotpuppi.size());
-        //continue;
 
         // Is a same flavour opposite sign lepton pair present?
         hasSFOS = hasSoftSFOS = false;
