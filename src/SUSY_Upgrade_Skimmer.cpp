@@ -354,6 +354,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         // Fill truth electrons
         for (size_t i=0; i<el1_pt.size(); ++i){
             for (size_t j=0; j<genpart.size(); ++j){
+                if (genpart.at(j)->Status != 1){ continue; }
                 if (fabs(genpart.at(j)->PID) != 11){ continue; }
                 // Truth matching
                 if (fabs(genpart.at(j)->PT - el1_pt.at(i)) > truth_match_diff_pt){ continue; }
@@ -368,6 +369,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
         for (size_t i=0; i<el2_pt.size(); ++i){
             for (size_t j=0; j<genpart.size(); ++j){
+                if (genpart.at(j)->Status != 1){ continue; }
                 if (fabs(genpart.at(j)->PID) != 11){ continue; }
                 // Truth matching
                 if (fabs(genpart.at(j)->PT - el2_pt.at(i)) > truth_match_diff_pt){ continue; }
@@ -421,6 +423,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         // Fill truth muons
         for (size_t i=0; i<mu1_tight_pt.size(); ++i){
             for (size_t j=0; j<genpart.size(); ++j){
+                if (genpart.at(j)->Status != 1){ continue; }
                 if (fabs(genpart.at(j)->PID) != 13){ continue; }
                 // Truth matching
                 if (fabs(genpart.at(j)->PT - mu1_tight_pt.at(i)) > truth_match_diff_pt){ continue; }
@@ -435,6 +438,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
         for (size_t i=0; i<mu2_tight_pt.size(); ++i){
             for (size_t j=0; j<genpart.size(); ++j){
+                if (genpart.at(j)->Status != 1){ continue; }
                 if (fabs(genpart.at(j)->PID) != 13){ continue; }
                 // Truth matching
                 if (fabs(genpart.at(j)->PT - mu2_tight_pt.at(i)) > truth_match_diff_pt){ continue; }
