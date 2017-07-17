@@ -382,24 +382,6 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 break;
             }
         }
-        for (size_t j=0; j<genpart.size(); ++j){
-            // Select only particles from hard process
-            if (genpart.at(j)->Status != 1){ continue; }
-            // Electrons
-            if (fabs(genpart.at(j)->PID) == 11){
-                el_pt_truth.push_back(genpart.at(j)->PT);
-                el_eta_truth.push_back(genpart.at(j)->Eta);
-                el_phi_truth.push_back(genpart.at(j)->Phi);
-                el_q_truth.push_back(genpart.at(j)->Charge);
-            }
-            //Muons
-            else if (fabs(genpart.at(j)->PID) == 13){
-                mu_pt_truth.push_back(genpart.at(j)->PT);
-                mu_eta_truth.push_back(genpart.at(j)->Eta);
-                mu_phi_truth.push_back(genpart.at(j)->Phi);
-                mu_q_truth.push_back(genpart.at(j)->Charge);
-            }
-        }
 
         // Fill muons
         for (size_t i=0; i<muontight.size(); ++i){
@@ -519,6 +501,26 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             lep2_mass_truth.push_back(lepvec_truth[1][3]);
         }
         lepvec_truth.clear();
+
+        // Fill unmatched truth leptons
+        for (size_t j=0; j<genpart.size(); ++j){
+            // Select only particles from hard process
+            if (genpart.at(j)->Status != 1){ continue; }
+            // Electrons
+            if (fabs(genpart.at(j)->PID) == 11){
+                el_pt_truth.push_back(genpart.at(j)->PT);
+                el_eta_truth.push_back(genpart.at(j)->Eta);
+                el_phi_truth.push_back(genpart.at(j)->Phi);
+                el_q_truth.push_back(genpart.at(j)->Charge);
+            }
+            //Muons
+            else if (fabs(genpart.at(j)->PID) == 13){
+                mu_pt_truth.push_back(genpart.at(j)->PT);
+                mu_eta_truth.push_back(genpart.at(j)->Eta);
+                mu_phi_truth.push_back(genpart.at(j)->Phi);
+                mu_q_truth.push_back(genpart.at(j)->Charge);
+            }
+        }
 
         // Fill jets
         for (size_t i=0; i<jetpuppi.size(); ++i){
