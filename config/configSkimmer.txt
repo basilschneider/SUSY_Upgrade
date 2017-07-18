@@ -140,7 +140,6 @@ $TChiWZ_400_375_Delphes/                    , TChiWZ_400_375_Delphes   , 616 ,  
 $TChiWZ_300_250_Delphes/                    , TChiWZ_300_250_Delphes   , 616 ,       451.45 ,     auto , 1 , true
 $TChiWZ_300_293_Delphes/                    , TChiWZ_300_293_Delphes   , 616 ,       451.45 ,     auto , 1 , true
 $TChiWZ_300_250_v342pre03/                  , TChiWZ_300_250_v342pre03 , 616 ,       451.45 ,     auto , 1 , true
-$TChiWZ_300_250_FullSim/                    , TChiWZ_300_250_FullSim   , 616 ,       451.45 ,     auto , 1 , true
 $$C2N4/                                      , C2N4_X_Y_Delphes         , 616 ,      1000.00 ,     auto , 1 , true
 
 [inputfiles-end]
