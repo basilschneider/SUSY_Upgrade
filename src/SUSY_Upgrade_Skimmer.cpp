@@ -116,6 +116,7 @@ void SUSY_Upgrade_Skimmer::addBranches(){
 
     // Other variables
     myskim->Branch("nLep", &nLep);
+    myskim->Branch("nLep_truth", &nLep_truth);
     myskim->Branch("nEl", &nEl);
     myskim->Branch("nMu", &nMu);
     myskim->Branch("nSoftLep", &nSoftLep);
@@ -127,7 +128,9 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("nZ", &nZ);
     myskim->Branch("ht", &ht);
     myskim->Branch("hasSFOS", &hasSFOS);
+    myskim->Branch("hasSFOS_truth", &hasSFOS_truth);
     myskim->Branch("hasSoftSFOS", &hasSoftSFOS);
+    myskim->Branch("hasSoftSFOS_truth", &hasSoftSFOS_truth);
     myskim->Branch("mll", &mll);
     myskim->Branch("mt1", &mt1);
     myskim->Branch("mt2", &mt2);
@@ -572,19 +575,37 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
         // Fill unmatched truth leptons
         // Put pT and eta into vector of vector for sorting
+        hasSFOS_truth = hasSoftSFOS_truth = false;
         std::vector<std::vector<double>> lepvec_truth;
         if (el1_pt_truth.size() != 0){
             lepvec_truth.push_back({el1_pt_truth.at(0), el1_eta_truth.at(0), el1_phi_truth.at(0), mass_el});
         }
         if (el2_pt_truth.size() != 0){
             lepvec_truth.push_back({el2_pt_truth.at(0), el2_eta_truth.at(0), el2_phi_truth.at(0), mass_el});
+            // Do we have a SFOS in truth?
+            if (el1_q_truth.at(0) * el2_q_truth.at(0) < 0){
+                hasSFOS_truth = true;
+                // Is the SFOS soft?
+                if (el1_pt_truth.at(0) > 5 && el1_pt_truth.at(0) < 30 && el2_pt_truth.at(0) > 5 && el2_pt_truth.at(0) < 30){
+                    hasSoftSFOS_truth = true;
+                }
+            }
         }
         if (mu1_pt_truth.size() != 0){
             lepvec_truth.push_back({mu1_pt_truth.at(0), mu1_eta_truth.at(0), mu1_phi_truth.at(0), mass_mu});
         }
         if (mu2_pt_truth.size() != 0){
             lepvec_truth.push_back({mu2_pt_truth.at(0), mu2_eta_truth.at(0), mu2_phi_truth.at(0), mass_mu});
+            // Do we have a SFOS in truth?
+            if (mu1_q_truth.at(0) * mu2_q_truth.at(0) < 0){
+                hasSFOS_truth = true;
+                // Is the SFOS soft?
+                if (mu1_pt_truth.at(0) > 5 && mu1_pt_truth.at(0) < 30 && mu2_pt_truth.at(0) > 5 && mu2_pt_truth.at(0) < 30){
+                    hasSoftSFOS_truth = true;
+                }
+            }
         }
+        nLep_truth = lepvec_truth.size();
         // By definition, this sorts by the first element of the vector (in this case pT)
         if (lepvec_truth.size() > 1){
             std::sort(begin(lepvec_truth), end(lepvec_truth));
