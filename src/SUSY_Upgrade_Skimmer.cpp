@@ -131,7 +131,8 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("hasSFOS_truth", &hasSFOS_truth);
     myskim->Branch("hasSoftSFOS", &hasSoftSFOS);
     myskim->Branch("hasSoftSFOS_truth", &hasSoftSFOS_truth);
-    myskim->Branch("mll", &mll);
+    myskim->Branch("mllMin", &mllMin);
+    myskim->Branch("mllMax", &mllMax);
     myskim->Branch("mt1", &mt1);
     myskim->Branch("mt2", &mt2);
 }
@@ -219,7 +220,8 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     jet1_eta_truth_matched.clear();
     jet1_phi_truth_matched.clear();
     jet1_q_truth_matched.clear();
-    mll.clear();
+    mllMin.clear();
+    mllMax.clear();
     mt1.clear();
     mt2.clear();
 }
@@ -334,11 +336,21 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                     if (elecs.at(i)->PT < el_pt_hi && elecs.at(j)->PT < el_pt_hi){
                         hasSoftSFOS = true;
 
-                        // Mll for soft SFOS (only first found pair considered)
+                        // Mll for soft SFOS
                         TLorentzVector l1, l2;
                         l1.SetPtEtaPhiM(elecs.at(i)->PT, elecs.at(i)->Eta, elecs.at(i)->Phi, mass_el);
                         l2.SetPtEtaPhiM(elecs.at(j)->PT, elecs.at(j)->Eta, elecs.at(j)->Phi, mass_el);
-                        mll.push_back((l1+l2).M());
+                        double mll = (l1+l2).M();
+                        if (mllMin.size() == 0){
+                            mllMin.push_back(mll);
+                        }else if (mllMin.at(0) > mll){
+                            mllMin.at(0) = mll;
+                        }
+                        if (mllMax.size() == 0){
+                            mllMax.push_back(mll);
+                        }else if (mllMax.at(0) < mll){
+                            mllMax.at(0) = mll;
+                        }
                     }
                 }
             }
@@ -358,7 +370,17 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                         TLorentzVector l1, l2;
                         l1.SetPtEtaPhiM(muontight.at(i)->PT, muontight.at(i)->Eta, muontight.at(i)->Phi, mass_mu);
                         l2.SetPtEtaPhiM(muontight.at(j)->PT, muontight.at(j)->Eta, muontight.at(j)->Phi, mass_mu);
-                        mll.push_back((l1+l2).M());
+                        double mll = (l1+l2).M();
+                        if (mllMin.size() == 0){
+                            mllMin.push_back(mll);
+                        }else if (mllMin.at(0) > mll){
+                            mllMin.at(0) = mll;
+                        }
+                        if (mllMax.size() == 0){
+                            mllMax.push_back(mll);
+                        }else if (mllMax.at(0) < mll){
+                            mllMax.at(0) = mll;
+                        }
                     }
                 }
             }

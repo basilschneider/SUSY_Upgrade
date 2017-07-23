@@ -96,7 +96,7 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         int nLep_truth;
         double ht;
         bool hasSFOS, hasSoftSFOS, hasSFOS_truth, hasSoftSFOS_truth;
-        std::vector<double> mll, mt1, mt2;
+        std::vector<double> mllMin, mllMax, mt1, mt2;
 
 };
 
