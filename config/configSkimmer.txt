@@ -18,7 +18,7 @@ $
 [config-begin]
 
     $Outputdir  = root://eoscms.cern.ch//store/user/bschneid/SUSY_Upgrade_Skimmer/output11/
-    Outputdir = /afs/cern.ch/work/b/bschneid/DAFproduction/production050/
+    Outputdir = /afs/cern.ch/work/b/bschneid/DAFproduction/production052/
     Outputfile = outputfile.root
 
 $ The luminosity is to be given to match the cross section values listed in the section "inputfiles"

@@ -60,8 +60,8 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         std::vector<int> el1_q_truth, el2_q_truth;
 
         // Muon variables
-        std::vector<double> mu1_tight_pt, mu1_tight_eta, mu1_tight_phi, mu2_tight_pt, mu2_tight_eta, mu2_tight_phi;
-        std::vector<int> mu1_tight_q, mu2_tight_q;
+        std::vector<double> mu1_pt, mu1_eta, mu1_phi, mu2_pt, mu2_eta, mu2_phi;
+        std::vector<int> mu1_q, mu2_q;
 
         // Matched truth muon variables
         std::vector<double> mu1_pt_truth_matched, mu1_eta_truth_matched, mu1_phi_truth_matched, mu2_pt_truth_matched, mu2_eta_truth_matched, mu2_phi_truth_matched;

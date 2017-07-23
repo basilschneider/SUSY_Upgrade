@@ -38,14 +38,14 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("el2_q_truth", &el2_q_truth);
 
     // Muon variables
-    myskim->Branch("mu1_tight_pt", &mu1_tight_pt);
-    myskim->Branch("mu1_tight_eta", &mu1_tight_eta);
-    myskim->Branch("mu1_tight_phi", &mu1_tight_phi);
-    myskim->Branch("mu1_tight_q", &mu1_tight_q);
-    myskim->Branch("mu2_tight_pt", &mu2_tight_pt);
-    myskim->Branch("mu2_tight_eta", &mu2_tight_eta);
-    myskim->Branch("mu2_tight_phi", &mu2_tight_phi);
-    myskim->Branch("mu2_tight_q", &mu2_tight_q);
+    myskim->Branch("mu1_pt", &mu1_pt);
+    myskim->Branch("mu1_eta", &mu1_eta);
+    myskim->Branch("mu1_phi", &mu1_phi);
+    myskim->Branch("mu1_q", &mu1_q);
+    myskim->Branch("mu2_pt", &mu2_pt);
+    myskim->Branch("mu2_eta", &mu2_eta);
+    myskim->Branch("mu2_phi", &mu2_phi);
+    myskim->Branch("mu2_q", &mu2_q);
 
     // Matched truth muon variables
     myskim->Branch("mu1_pt_truth_matched", &mu1_pt_truth_matched);
@@ -163,14 +163,14 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     el2_eta_truth.clear();
     el2_phi_truth.clear();
     el2_q_truth.clear();
-    mu1_tight_pt.clear();
-    mu1_tight_eta.clear();
-    mu1_tight_phi.clear();
-    mu1_tight_q.clear();
-    mu2_tight_pt.clear();
-    mu2_tight_eta.clear();
-    mu2_tight_phi.clear();
-    mu2_tight_q.clear();
+    mu1_pt.clear();
+    mu1_eta.clear();
+    mu1_phi.clear();
+    mu1_q.clear();
+    mu2_pt.clear();
+    mu2_eta.clear();
+    mu2_phi.clear();
+    mu2_q.clear();
     mu1_pt_truth_matched.clear();
     mu1_eta_truth_matched.clear();
     mu1_phi_truth_matched.clear();
@@ -424,29 +424,29 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         for (size_t i=0; i<muontight.size(); ++i){
             if (muontight.at(i)->PT < mu_pt_lo || !isIsolated(muontight.at(i))){ continue; }
             // Fill it if it hasn't been filled
-            if (mu1_tight_pt.size() == 0){
-                mu1_tight_pt.push_back(muontight.at(i)->PT);
-                mu1_tight_eta.push_back(muontight.at(i)->Eta);
-                mu1_tight_phi.push_back(muontight.at(i)->Phi);
-                mu1_tight_q.push_back(muontight.at(i)->Charge);
+            if (mu1_pt.size() == 0){
+                mu1_pt.push_back(muontight.at(i)->PT);
+                mu1_eta.push_back(muontight.at(i)->Eta);
+                mu1_phi.push_back(muontight.at(i)->Phi);
+                mu1_q.push_back(muontight.at(i)->Charge);
             }else{
                 // Otherwise fill second vector and break
-                mu2_tight_pt.push_back(muontight.at(i)->PT);
-                mu2_tight_eta.push_back(muontight.at(i)->Eta);
-                mu2_tight_phi.push_back(muontight.at(i)->Phi);
-                mu2_tight_q.push_back(muontight.at(i)->Charge);
+                mu2_pt.push_back(muontight.at(i)->PT);
+                mu2_eta.push_back(muontight.at(i)->Eta);
+                mu2_phi.push_back(muontight.at(i)->Phi);
+                mu2_q.push_back(muontight.at(i)->Charge);
                 break;
             }
         }
 
         // Fill truth muons
-        for (size_t i=0; i<mu1_tight_pt.size(); ++i){
+        for (size_t i=0; i<mu1_pt.size(); ++i){
             for (size_t j=0; j<genpart.size(); ++j){
                 if (genpart.at(j)->Status != 1){ continue; }
                 if (fabs(genpart.at(j)->PID) != 13){ continue; }
                 // Truth matching
-                if (fabs(genpart.at(j)->PT - mu1_tight_pt.at(i)) > truth_match_diff_pt){ continue; }
-                if (fabs(genpart.at(j)->Eta - mu1_tight_eta.at(i)) > truth_match_diff_eta){ continue; }
+                if (fabs(genpart.at(j)->PT - mu1_pt.at(i)) > truth_match_diff_pt){ continue; }
+                if (fabs(genpart.at(j)->Eta - mu1_eta.at(i)) > truth_match_diff_eta){ continue; }
                 // If we make it here, the particle has been matched
                 mu1_pt_truth_matched.push_back(genpart.at(j)->PT);
                 mu1_eta_truth_matched.push_back(genpart.at(j)->Eta);
@@ -455,13 +455,13 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 break;
             }
         }
-        for (size_t i=0; i<mu2_tight_pt.size(); ++i){
+        for (size_t i=0; i<mu2_pt.size(); ++i){
             for (size_t j=0; j<genpart.size(); ++j){
                 if (genpart.at(j)->Status != 1){ continue; }
                 if (fabs(genpart.at(j)->PID) != 13){ continue; }
                 // Truth matching
-                if (fabs(genpart.at(j)->PT - mu2_tight_pt.at(i)) > truth_match_diff_pt){ continue; }
-                if (fabs(genpart.at(j)->Eta - mu2_tight_eta.at(i)) > truth_match_diff_eta){ continue; }
+                if (fabs(genpart.at(j)->PT - mu2_pt.at(i)) > truth_match_diff_pt){ continue; }
+                if (fabs(genpart.at(j)->Eta - mu2_eta.at(i)) > truth_match_diff_eta){ continue; }
                 // If we make it here, the particle has been matched
                 mu2_pt_truth_matched.push_back(genpart.at(j)->PT);
                 mu2_eta_truth_matched.push_back(genpart.at(j)->Eta);
@@ -480,11 +480,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         if (el2_pt.size() != 0){
             lepvec.push_back({el2_pt.at(0), el2_eta.at(0), el2_phi.at(0), mass_el});
         }
-        if (mu1_tight_pt.size() != 0){
-            lepvec.push_back({mu1_tight_pt.at(0), mu1_tight_eta.at(0), mu1_tight_phi.at(0), mass_mu});
+        if (mu1_pt.size() != 0){
+            lepvec.push_back({mu1_pt.at(0), mu1_eta.at(0), mu1_phi.at(0), mass_mu});
         }
-        if (mu2_tight_pt.size() != 0){
-            lepvec.push_back({mu2_tight_pt.at(0), mu2_tight_eta.at(0), mu2_tight_phi.at(0), mass_mu});
+        if (mu2_pt.size() != 0){
+            lepvec.push_back({mu2_pt.at(0), mu2_eta.at(0), mu2_phi.at(0), mass_mu});
         }
         // By definition, this sorts by the first element of the vector (in this case pT)
         if (lepvec.size() > 1){
