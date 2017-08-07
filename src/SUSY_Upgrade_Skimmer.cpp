@@ -135,6 +135,7 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("mllMax", &mllMax);
     myskim->Branch("mt1", &mt1);
     myskim->Branch("mt2", &mt2);
+    myskim->Branch("pt2l", &pt2l);
 }
 
 void SUSY_Upgrade_Skimmer::clearVectors(){
@@ -224,6 +225,7 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     mllMax.clear();
     mt1.clear();
     mt2.clear();
+    pt2l.clear();
 }
 
 template <typename T> bool SUSY_Upgrade_Skimmer::isIsolated(const T particle){
@@ -696,6 +698,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
         if (lep2_pt.size() >= 1){
             mt2.push_back(std::sqrt(2*lep2_pt.at(0)*met*(1-std::cos(lep2_phi.at(0)-met_phi))));
+            // Fill pt of two leptons
+            TLorentzVector l1, l2;
+            l1.SetPtEtaPhiM(lep1_pt[0], lep1_eta[0], lep1_phi[0], lep1_mass[0]);
+            l2.SetPtEtaPhiM(lep2_pt[0], lep2_eta[0], lep2_phi[0], lep2_mass[0]);
+            pt2l.push_back((l1 + l2).Pt());
         }
 
         myskim->Fill();
