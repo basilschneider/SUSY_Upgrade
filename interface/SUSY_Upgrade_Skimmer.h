@@ -32,9 +32,9 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         TTree* myskim;
 
         // Cut variables
-        static constexpr double el_pt_lo = 5.;
+        static constexpr double el_pt_lo = 2.;
         static constexpr double el_pt_hi = 30.;
-        static constexpr double mu_pt_lo = 5.;
+        static constexpr double mu_pt_lo = 2.;
         static constexpr double mu_pt_hi = 30.;
         static constexpr double jet_pt_lo = 25.;
         static constexpr double mass_el = .000511;
