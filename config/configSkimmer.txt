@@ -18,7 +18,7 @@ $
 [config-begin]
 
     $Outputdir  = root://eoscms.cern.ch//store/user/bschneid/SUSY_Upgrade_Skimmer/output11/
-    Outputdir = /afs/cern.ch/work/b/bschneid/DAFproduction/production066/
+    Outputdir = /afs/cern.ch/work/b/bschneid/DAFproduction/production090/
     Outputfile = outputfile.root
 
 $ The luminosity is to be given to match the cross section values listed in the section "inputfiles"
@@ -138,5 +138,7 @@ $ttB-4p-2500-100000-v1510_14TEV_200PU/      , ttB_ST2500toInf                 , 
 
 $TChiWZ_300_250_Delphes_v06/                , TChiWZ_300_250_Delphes_v06      , 616 ,       451.45 ,     auto , 1 , true
 $TChiWZ_300_293_Delphes_v06/                , TChiWZ_300_293_Delphes_v06      , 616 ,       451.45 ,     auto , 1 , true
+$TChiWZ_300_250_Delphes_v07_Julie/          , TChiWZ_300_250_Delphes_v07_Julie, 616 ,       451.45 ,     auto , 1 , true
+$TChiWZ_300_293_Delphes_v07_Julie/          , TChiWZ_300_293_Delphes_v07_Julie, 616 ,       451.45 ,     auto , 1 , true
 
 [inputfiles-end]
