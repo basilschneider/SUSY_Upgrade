@@ -98,6 +98,11 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         bool hasSFOS, hasSoftSFOS, hasSFOS_truth, hasSoftSFOS_truth;
         std::vector<double> mllMin, mllMax, mt1, mt2, pt2l;
 
+        // Real lepton efficiency histograms
+        TH2D* rle_el_num = new TH2D("rle_el_num", "rle_el_num", 6, 0., 30., 8, 0., 4.);
+        TH2D* rle_el_den = new TH2D("rle_el_den", "rle_el_den", 6, 0., 30., 8, 0., 4.);
+        TH2D* rle_mu_num = new TH2D("rle_mu_num", "rle_mu_num", 6, 0., 30., 8, 0., 4.);
+        TH2D* rle_mu_den = new TH2D("rle_mu_den", "rle_mu_den", 6, 0., 30., 8, 0., 4.);
 };
 
 
