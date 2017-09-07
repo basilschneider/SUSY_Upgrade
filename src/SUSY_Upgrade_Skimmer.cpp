@@ -319,12 +319,14 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         // Count particles with status 23 for real lepton efficiency histograms
         unsigned int nGenElStatus23 = 0;
         unsigned int nGenMuStatus23 = 0;
-        for (size_t i=0; i<genpart.size(); ++i){
-            if (genpart.at(i)->Status == 23){
-                if (fabs(genpart.at(i)->PID) == 11){
-                    nGenElStatus23++;
-                }else if (fabs(genpart.at(i)->PID) == 13){
-                    nGenMuStatus23++;
+        if (fill_rle){
+            for (size_t i=0; i<genpart.size(); ++i){
+                if (genpart.at(i)->Status == 23){
+                    if (fabs(genpart.at(i)->PID) == 11){
+                        nGenElStatus23++;
+                    }else if (fabs(genpart.at(i)->PID) == 13){
+                        nGenMuStatus23++;
+                    }
                 }
             }
         }
@@ -339,48 +341,49 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 }
             }
 
-            // Fill real lepton efficiency histograms as many times as there are
-            // Status 23 particles, but use Status 1 particles for this
-            if (fabs(genpart.at(i)->PID) == 11){
-                if (!nGenElStatus23){ continue; }
-                if (genpart.at(i)->Status != 1){ continue; }
+            if (fill_rle){
+                // Fill real lepton efficiency histograms as many times as there are
+                // Status 23 particles, but use Status 1 particles for this
+                if (fabs(genpart.at(i)->PID) == 11){
+                    if (!nGenElStatus23){ continue; }
+                    if (genpart.at(i)->Status != 1){ continue; }
 
-                // Fill denominator histogram
-                rle_el_den->Fill(genpart.at(i)->PT, genpart.at(i)->Eta);
-                nGenElStatus23--;
+                    // Fill denominator histogram
+                    rle_el_den->Fill(genpart.at(i)->PT, genpart.at(i)->Eta);
+                    nGenElStatus23--;
 
-                // Check if we can match that particle
-                for (size_t j=0; j<elecs.size(); ++j){
-                    if (!isIsolated(elecs.at(j))){ continue; }
-                    // If we make it here, this is a proper reco electron
-                    // Fill numerator histogram if it can be matched
-                    if (fabs(genpart.at(i)->PT - elecs.at(j)->PT) < truth_match_diff_pt \
-                            && fabs(genpart.at(i)->Eta - elecs.at(j)->Eta) < truth_match_diff_eta){
-                        rle_el_num->Fill(genpart.at(i)->PT, genpart.at(i)->Eta);
-                        break;
+                    // Check if we can match that particle
+                    for (size_t j=0; j<elecs.size(); ++j){
+                        if (!isIsolated(elecs.at(j))){ continue; }
+                        // If we make it here, this is a proper reco electron
+                        // Fill numerator histogram if it can be matched
+                        if (fabs(genpart.at(i)->PT - elecs.at(j)->PT) < truth_match_diff_pt \
+                                && fabs(genpart.at(i)->Eta - elecs.at(j)->Eta) < truth_match_diff_eta){
+                            rle_el_num->Fill(genpart.at(i)->PT, genpart.at(i)->Eta);
+                            break;
+                        }
+                    }
+
+                }else if (fabs(genpart.at(i)->PID) == 13){
+                    if (!nGenMuStatus23){ continue; }
+                    if (genpart.at(i)->Status != 1){ continue; }
+
+                    // Fill denominator histogram
+                    rle_mu_den->Fill(genpart.at(i)->PT, genpart.at(i)->Eta);
+                    nGenMuStatus23--;
+
+                    // Check if we can match that particle
+                    for (size_t j=0; j<muontight.size(); ++j){
+                        if (!isIsolated(muontight.at(j))){ continue; }
+                        // If we make it here, this is a proper reco muon
+                        // Fill numerator histogram if it can be matched
+                        if (fabs(genpart.at(i)->PT - muontight.at(j)->PT) < truth_match_diff_pt \
+                                && fabs(genpart.at(i)->Eta - muontight.at(j)->Eta) < truth_match_diff_eta){
+                            rle_mu_num->Fill(genpart.at(i)->PT, genpart.at(i)->Eta);
+                            break;
+                        }
                     }
                 }
-
-            }else if (fabs(genpart.at(i)->PID) == 13){
-                if (!nGenMuStatus23){ continue; }
-                if (genpart.at(i)->Status != 1){ continue; }
-
-                // Fill denominator histogram
-                rle_mu_den->Fill(genpart.at(i)->PT, genpart.at(i)->Eta);
-                nGenMuStatus23--;
-
-                // Check if we can match that particle
-                for (size_t j=0; j<muontight.size(); ++j){
-                    if (!isIsolated(muontight.at(j))){ continue; }
-                    // If we make it here, this is a proper reco muon
-                    // Fill numerator histogram if it can be matched
-                    if (fabs(genpart.at(i)->PT - muontight.at(j)->PT) < truth_match_diff_pt \
-                            && fabs(genpart.at(i)->Eta - muontight.at(j)->Eta) < truth_match_diff_eta){
-                        rle_mu_num->Fill(genpart.at(i)->PT, genpart.at(i)->Eta);
-                        break;
-                    }
-                }
-
             }
         }
 
@@ -767,18 +770,20 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         myskim->Fill();
     }
 
-    rle_el_num->Write();
-    rle_el_den->Write();
-    rle_mu_num->Write();
-    rle_mu_den->Write();
-    TH2D* rle_el = (TH2D*)rle_el_num->Clone();
-    TH2D* rle_mu = (TH2D*)rle_mu_num->Clone();
-    rle_el->SetNameTitle("rle_el", "rle_el");
-    rle_mu->SetNameTitle("rle_mu", "rle_mu");
-    rle_el->Divide(rle_el_den);
-    rle_mu->Divide(rle_mu_den);
-    rle_el->Write();
-    rle_mu->Write();
+    if (fill_rle){
+        rle_el_num->Write();
+        rle_el_den->Write();
+        rle_mu_num->Write();
+        rle_mu_den->Write();
+        TH2D* rle_el = (TH2D*)rle_el_num->Clone();
+        TH2D* rle_mu = (TH2D*)rle_mu_num->Clone();
+        rle_el->SetNameTitle("rle_el", "rle_el");
+        rle_mu->SetNameTitle("rle_mu", "rle_mu");
+        rle_el->Divide(rle_el_den);
+        rle_mu->Divide(rle_mu_den);
+        rle_el->Write();
+        rle_mu->Write();
+    }
 
     /*
      * Must be called in the end, takes care of thread-safe writeout and

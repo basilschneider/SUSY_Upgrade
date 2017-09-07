@@ -31,6 +31,9 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         // Tree
         TTree* myskim;
 
+        // Cutflow control
+        static constexpr bool fill_rle = false;
+
         // Cut variables
         static constexpr double el_pt_lo = 2.;
         static constexpr double el_pt_hi = 30.;
