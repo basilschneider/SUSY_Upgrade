@@ -1,0 +1,7 @@
+#!/usr/bin/env bash
+
+set -e -o pipefail
+
+make 2>&1 | tee make.out
+
+./SUSY_Upgrade_Skimmer config/configSkimmer_v342pre05.txt
