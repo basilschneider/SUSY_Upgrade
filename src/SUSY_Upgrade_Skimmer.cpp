@@ -238,6 +238,30 @@ template <typename T> bool SUSY_Upgrade_Skimmer::isIsolated(const T particle){
     return true;
 }
 
+double SUSY_Upgrade_Skimmer::DeltaR(double eta1, double eta2, double phi1, double phi2){
+    double dEta = eta1 - eta2;
+    double dPhi = DeltaPhi(phi1, phi2);
+    return TMath::Sqrt(dEta*dEta + dPhi*dPhi);
+}
+
+double SUSY_Upgrade_Skimmer::DeltaPhi(double phi1, double phi2){
+    double dPhi = phi1 - phi2;
+    while (dPhi  >  TMath::Pi()) dPhi -= 2*TMath::Pi();
+    while (dPhi <= -TMath::Pi()) dPhi += 2*TMath::Pi();
+    return fabs(dPhi);
+}
+
+bool SUSY_Upgrade_Skimmer::isOverlap(const Jet* jet, d_ana::dBranchHandler<Electron>& elecs, d_ana::dBranchHandler<Muon>& muons){
+    return false;
+    for (size_t i=0; i<elecs.size(); ++i){
+        if (DeltaR(jet->Eta, elecs.at(i)->Eta, jet->Phi, elecs.at(i)->Phi) < jet_or_dr){ return true; }
+    }
+    for (size_t i=0; i<muons.size(); ++i){
+        if (DeltaR(jet->Eta, muons.at(i)->Eta, jet->Phi, muons.at(i)->Phi) < jet_or_dr){ return true; }
+    }
+    return false;
+}
+
 void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for printouts */){
 
     d_ana::dBranchHandler<HepMCEvent> event(tree(),"Event");
@@ -308,6 +332,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             }
         }
         for (size_t i=0; i<jetpuppi.size(); ++i){
+            if (isOverlap(jetpuppi.at(i), elecs, muontight)){ continue; }
             if (jetpuppi.at(i)->PT > jet_pt_lo){
                 nJet++;
                 if (jetpuppi.at(i)->BTag){
@@ -714,6 +739,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         // Fill jets
         for (size_t i=0; i<jetpuppi.size(); ++i){
             if (jetpuppi.at(i)->PT < jet_pt_lo){ continue; }
+            if (isOverlap(jetpuppi.at(i), elecs, muontight)){ continue; }
             jet1_puppi_pt.push_back(jetpuppi.at(0)->PT);
             jet1_puppi_eta.push_back(jetpuppi.at(0)->Eta);
             jet1_puppi_phi.push_back(jetpuppi.at(0)->Phi);
@@ -749,6 +775,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         // Fill HT
         ht = 0.;
         for (size_t i=0; i<jetpuppi.size(); ++i){
+            if (isOverlap(jetpuppi.at(i), elecs, muontight)){ continue; }
             if (jetpuppi.at(i)->PT > jet_pt_lo){
                 ht += jetpuppi.at(i)->PT;
             }

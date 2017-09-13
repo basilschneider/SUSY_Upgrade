@@ -27,6 +27,9 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         void addBranches();
         void clearVectors();
         template <typename T> bool isIsolated(T particle);
+        double DeltaR(double eta1, double eta2, double phi1, double phi2);
+        double DeltaPhi(double phi1, double phi2);
+        bool isOverlap(const Jet* jet, d_ana::dBranchHandler<Electron>& elecs, d_ana::dBranchHandler<Muon>& muons);
 
         // Tree
         TTree* myskim;
@@ -44,6 +47,7 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         static constexpr double mass_mu = .105658;
         static constexpr double iso_cut_rel = .3;
         static constexpr double iso_cut_abs = 3.;
+        static constexpr double jet_or_dr = .4;
         static constexpr double truth_match_diff_pt = 3.;
         static constexpr double truth_match_diff_eta = .1;
 
