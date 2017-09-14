@@ -342,10 +342,19 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
 
         // Count particles with status 23 for real lepton efficiency histograms
+        // Store also the max lepton pT's for these particles, since the genpart
+        // vector is not sorted (there's an ambuigity here when several
+        // particles have exactly the same pT, but oh well...)
         unsigned int nGenElStatus23 = 0;
         unsigned int nGenMuStatus23 = 0;
+        std::vector<double> nGenLepPts;
         if (fill_rle){
             for (size_t i=0; i<genpart.size(); ++i){
+                // Fill pT's of all status 1 particles
+                if (genpart.at(i)->Status == 1){
+                    nGenLepPts.push_back(genpart.at(i)->PT);
+                }
+                // Count status 23 particles
                 if (genpart.at(i)->Status == 23){
                     if (fabs(genpart.at(i)->PID) == 11){
                         nGenElStatus23++;
@@ -354,6 +363,10 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                     }
                 }
             }
+            // Sort vector
+            std::sort(nGenLepPts.begin(), nGenLepPts.end());
+            // Trim vector to number of status 23 particles
+            nGenLepPts.resize(nGenElStatus23+nGenMuStatus23);
         }
 
         for (size_t i=0; i<genpart.size(); ++i){
@@ -369,12 +382,14 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             if (fill_rle){
                 // Fill real lepton efficiency histograms as many times as there are
                 // Status 23 particles, but use Status 1 particles for this
+                // Assume hardest leptons are the ones we are looking for
                 if (fabs(genpart.at(i)->PID) == 11){
                     if (!nGenElStatus23){ continue; }
                     if (genpart.at(i)->Status != 1){ continue; }
+                    if (std::find(nGenLepPts.begin(), nGenLepPts.end(), genpart.at(i)->PT) == nGenLepPts.end()){ continue; }
 
                     // Fill denominator histogram
-                    rle_el_den->Fill(genpart.at(i)->PT, genpart.at(i)->Eta);
+                    rle_el_den->Fill(genpart.at(i)->PT, fabs(genpart.at(i)->Eta));
                     nGenElStatus23--;
 
                     // Check if we can match that particle
@@ -384,7 +399,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                         // Fill numerator histogram if it can be matched
                         if (fabs(genpart.at(i)->PT - elecs.at(j)->PT) < truth_match_diff_pt \
                                 && fabs(genpart.at(i)->Eta - elecs.at(j)->Eta) < truth_match_diff_eta){
-                            rle_el_num->Fill(genpart.at(i)->PT, genpart.at(i)->Eta);
+                            rle_el_num->Fill(genpart.at(i)->PT, fabs(genpart.at(i)->Eta));
                             break;
                         }
                     }
@@ -392,9 +407,10 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 }else if (fabs(genpart.at(i)->PID) == 13){
                     if (!nGenMuStatus23){ continue; }
                     if (genpart.at(i)->Status != 1){ continue; }
+                    if (std::find(nGenLepPts.begin(), nGenLepPts.end(), genpart.at(i)->PT) == nGenLepPts.end()){ continue; }
 
                     // Fill denominator histogram
-                    rle_mu_den->Fill(genpart.at(i)->PT, genpart.at(i)->Eta);
+                    rle_mu_den->Fill(genpart.at(i)->PT, fabs(genpart.at(i)->Eta));
                     nGenMuStatus23--;
 
                     // Check if we can match that particle
@@ -404,7 +420,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                         // Fill numerator histogram if it can be matched
                         if (fabs(genpart.at(i)->PT - muontight.at(j)->PT) < truth_match_diff_pt \
                                 && fabs(genpart.at(i)->Eta - muontight.at(j)->Eta) < truth_match_diff_eta){
-                            rle_mu_num->Fill(genpart.at(i)->PT, genpart.at(i)->Eta);
+                            rle_mu_num->Fill(genpart.at(i)->PT, fabs(genpart.at(i)->Eta));
                             break;
                         }
                     }
@@ -650,91 +666,94 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
         lepvec_truth_matched.clear();
 
-        // Fill unmatched truth leptons
-        for (size_t j=0; j<genpart.size(); ++j){
-            // Select only particles from hard process
-            if (genpart.at(j)->Status != 1){ continue; }
-            // Electrons
-            if (fabs(genpart.at(j)->PID) == 11){
-                if (el1_pt_truth.size() == 0){
-                    el1_pt_truth.push_back(genpart.at(j)->PT);
-                    el1_eta_truth.push_back(genpart.at(j)->Eta);
-                    el1_phi_truth.push_back(genpart.at(j)->Phi);
-                    el1_q_truth.push_back(genpart.at(j)->Charge);
-                }else if (el2_pt_truth.size() == 0){
-                    el2_pt_truth.push_back(genpart.at(j)->PT);
-                    el2_eta_truth.push_back(genpart.at(j)->Eta);
-                    el2_phi_truth.push_back(genpart.at(j)->Phi);
-                    el2_q_truth.push_back(genpart.at(j)->Charge);
-                }
-            }
-            //Muons
-            else if (fabs(genpart.at(j)->PID) == 13){
-                if (mu1_pt_truth.size() == 0){
-                    mu1_pt_truth.push_back(genpart.at(j)->PT);
-                    mu1_eta_truth.push_back(genpart.at(j)->Eta);
-                    mu1_phi_truth.push_back(genpart.at(j)->Phi);
-                    mu1_q_truth.push_back(genpart.at(j)->Charge);
-                }else if (mu2_pt_truth.size() == 0){
-                    mu2_pt_truth.push_back(genpart.at(j)->PT);
-                    mu2_eta_truth.push_back(genpart.at(j)->Eta);
-                    mu2_phi_truth.push_back(genpart.at(j)->Phi);
-                    mu2_q_truth.push_back(genpart.at(j)->Charge);
-                }
-            }
-        }
+        // FIXME: The genpart vector is not sorted by pt, hence I'm filling here
+        // random particles instead of the hardest ones; later I do sort them,
+        // but at this point I might already have missed the hardest leptons
+        //// Fill unmatched truth leptons
+        //for (size_t j=0; j<genpart.size(); ++j){
+        //    // Select only particles from hard process
+        //    if (genpart.at(j)->Status != 1){ continue; }
+        //    // Electrons
+        //    if (fabs(genpart.at(j)->PID) == 11){
+        //        if (el1_pt_truth.size() == 0){
+        //            el1_pt_truth.push_back(genpart.at(j)->PT);
+        //            el1_eta_truth.push_back(genpart.at(j)->Eta);
+        //            el1_phi_truth.push_back(genpart.at(j)->Phi);
+        //            el1_q_truth.push_back(genpart.at(j)->Charge);
+        //        }else if (el2_pt_truth.size() == 0){
+        //            el2_pt_truth.push_back(genpart.at(j)->PT);
+        //            el2_eta_truth.push_back(genpart.at(j)->Eta);
+        //            el2_phi_truth.push_back(genpart.at(j)->Phi);
+        //            el2_q_truth.push_back(genpart.at(j)->Charge);
+        //        }
+        //    }
+        //    //Muons
+        //    else if (fabs(genpart.at(j)->PID) == 13){
+        //        if (mu1_pt_truth.size() == 0){
+        //            mu1_pt_truth.push_back(genpart.at(j)->PT);
+        //            mu1_eta_truth.push_back(genpart.at(j)->Eta);
+        //            mu1_phi_truth.push_back(genpart.at(j)->Phi);
+        //            mu1_q_truth.push_back(genpart.at(j)->Charge);
+        //        }else if (mu2_pt_truth.size() == 0){
+        //            mu2_pt_truth.push_back(genpart.at(j)->PT);
+        //            mu2_eta_truth.push_back(genpart.at(j)->Eta);
+        //            mu2_phi_truth.push_back(genpart.at(j)->Phi);
+        //            mu2_q_truth.push_back(genpart.at(j)->Charge);
+        //        }
+        //    }
+        //}
 
-        // Fill unmatched truth leptons
-        // Put pT and eta into vector of vector for sorting
-        hasSFOS_truth = hasSoftSFOS_truth = false;
-        std::vector<std::vector<double>> lepvec_truth;
-        if (el1_pt_truth.size() != 0){
-            lepvec_truth.push_back({el1_pt_truth.at(0), el1_eta_truth.at(0), el1_phi_truth.at(0), mass_el});
-        }
-        if (el2_pt_truth.size() != 0){
-            lepvec_truth.push_back({el2_pt_truth.at(0), el2_eta_truth.at(0), el2_phi_truth.at(0), mass_el});
-            // Do we have a SFOS in truth?
-            if (el1_q_truth.at(0) * el2_q_truth.at(0) < 0){
-                hasSFOS_truth = true;
-                // Is the SFOS soft?
-                if (el1_pt_truth.at(0) > 5 && el1_pt_truth.at(0) < 30 && el2_pt_truth.at(0) > 5 && el2_pt_truth.at(0) < 30){
-                    hasSoftSFOS_truth = true;
-                }
-            }
-        }
-        if (mu1_pt_truth.size() != 0){
-            lepvec_truth.push_back({mu1_pt_truth.at(0), mu1_eta_truth.at(0), mu1_phi_truth.at(0), mass_mu});
-        }
-        if (mu2_pt_truth.size() != 0){
-            lepvec_truth.push_back({mu2_pt_truth.at(0), mu2_eta_truth.at(0), mu2_phi_truth.at(0), mass_mu});
-            // Do we have a SFOS in truth?
-            if (mu1_q_truth.at(0) * mu2_q_truth.at(0) < 0){
-                hasSFOS_truth = true;
-                // Is the SFOS soft?
-                if (mu1_pt_truth.at(0) > 5 && mu1_pt_truth.at(0) < 30 && mu2_pt_truth.at(0) > 5 && mu2_pt_truth.at(0) < 30){
-                    hasSoftSFOS_truth = true;
-                }
-            }
-        }
-        nLep_truth = lepvec_truth.size();
-        // By definition, this sorts by the first element of the vector (in this case pT)
-        if (lepvec_truth.size() > 1){
-            std::sort(begin(lepvec_truth), end(lepvec_truth));
-            std::reverse(begin(lepvec_truth), end(lepvec_truth));
-        }
-        if (lepvec_truth.size() >= 1){
-            lep1_pt_truth.push_back(lepvec_truth[0][0]);
-            lep1_eta_truth.push_back(lepvec_truth[0][1]);
-            lep1_phi_truth.push_back(lepvec_truth[0][2]);
-            lep1_mass_truth.push_back(lepvec_truth[0][3]);
-        }
-        if (lepvec_truth.size() >= 2){
-            lep2_pt_truth.push_back(lepvec_truth[1][0]);
-            lep2_eta_truth.push_back(lepvec_truth[1][1]);
-            lep2_phi_truth.push_back(lepvec_truth[1][2]);
-            lep2_mass_truth.push_back(lepvec_truth[1][3]);
-        }
-        lepvec_truth.clear();
+        //// Fill unmatched truth leptons
+        //// Put pT and eta into vector of vector for sorting
+        //hasSFOS_truth = hasSoftSFOS_truth = false;
+        //std::vector<std::vector<double>> lepvec_truth;
+        //if (el1_pt_truth.size() != 0){
+        //    lepvec_truth.push_back({el1_pt_truth.at(0), el1_eta_truth.at(0), el1_phi_truth.at(0), mass_el});
+        //}
+        //if (el2_pt_truth.size() != 0){
+        //    lepvec_truth.push_back({el2_pt_truth.at(0), el2_eta_truth.at(0), el2_phi_truth.at(0), mass_el});
+        //    // Do we have a SFOS in truth?
+        //    if (el1_q_truth.at(0) * el2_q_truth.at(0) < 0){
+        //        hasSFOS_truth = true;
+        //        // Is the SFOS soft?
+        //        if (el1_pt_truth.at(0) > 5 && el1_pt_truth.at(0) < 30 && el2_pt_truth.at(0) > 5 && el2_pt_truth.at(0) < 30){
+        //            hasSoftSFOS_truth = true;
+        //        }
+        //    }
+        //}
+        //if (mu1_pt_truth.size() != 0){
+        //    lepvec_truth.push_back({mu1_pt_truth.at(0), mu1_eta_truth.at(0), mu1_phi_truth.at(0), mass_mu});
+        //}
+        //if (mu2_pt_truth.size() != 0){
+        //    lepvec_truth.push_back({mu2_pt_truth.at(0), mu2_eta_truth.at(0), mu2_phi_truth.at(0), mass_mu});
+        //    // Do we have a SFOS in truth?
+        //    if (mu1_q_truth.at(0) * mu2_q_truth.at(0) < 0){
+        //        hasSFOS_truth = true;
+        //        // Is the SFOS soft?
+        //        if (mu1_pt_truth.at(0) > 5 && mu1_pt_truth.at(0) < 30 && mu2_pt_truth.at(0) > 5 && mu2_pt_truth.at(0) < 30){
+        //            hasSoftSFOS_truth = true;
+        //        }
+        //    }
+        //}
+        //nLep_truth = lepvec_truth.size();
+        //// By definition, this sorts by the first element of the vector (in this case pT)
+        //if (lepvec_truth.size() > 1){
+        //    std::sort(begin(lepvec_truth), end(lepvec_truth));
+        //    std::reverse(begin(lepvec_truth), end(lepvec_truth));
+        //}
+        //if (lepvec_truth.size() >= 1){
+        //    lep1_pt_truth.push_back(lepvec_truth[0][0]);
+        //    lep1_eta_truth.push_back(lepvec_truth[0][1]);
+        //    lep1_phi_truth.push_back(lepvec_truth[0][2]);
+        //    lep1_mass_truth.push_back(lepvec_truth[0][3]);
+        //}
+        //if (lepvec_truth.size() >= 2){
+        //    lep2_pt_truth.push_back(lepvec_truth[1][0]);
+        //    lep2_eta_truth.push_back(lepvec_truth[1][1]);
+        //    lep2_phi_truth.push_back(lepvec_truth[1][2]);
+        //    lep2_mass_truth.push_back(lepvec_truth[1][3]);
+        //}
+        //lepvec_truth.clear();
 
         // Fill jets
         for (size_t i=0; i<jetpuppi.size(); ++i){
