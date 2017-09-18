@@ -354,8 +354,8 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 if (genpart.at(i)->Status == 1){
                     nGenLepPts.push_back(genpart.at(i)->PT);
                 }
-                // Count status 23 particles
-                if (genpart.at(i)->Status == 23){
+                // Count status 23 particles with pT > 2 GeV
+                if (genpart.at(i)->Status == 23 && genpart.at(i)->PT > 2){
                     if (fabs(genpart.at(i)->PID) == 11){
                         nGenElStatus23++;
                     }else if (fabs(genpart.at(i)->PID) == 13){
