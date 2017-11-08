@@ -299,6 +299,32 @@ void SUSY_Upgrade_Skimmer::effOnTopMuon(d_ana::dBranchHandler<Muon>& muontight){
     }
 }
 
+void SUSY_Upgrade_Skimmer::effOnTopElec(d_ana::dBranchHandler<Electron>& elecs){
+    // Efficiencies are multiplied ON TOP of efficiencies in Delphes cards
+    // In an optimal world, all values here would be 1
+    // https://github.com/delphes/delphes/blob/3.4.2pre05/cards/CMS_PhaseII/CMS_PhaseII_Substructure_PIX4022_200PU.tcl#L1137-L1179
+    for (size_t i=0; i<elecs.size(); ++i){
+
+        double pt = elecs.at(i)->PT;
+        //double eta = elecs.at(i)->Eta;
+        Float_t* ppt = &elecs.at(i)->PT;
+
+        if (pt < 2){
+            passRandomEfficiency(.156, ppt);
+        }else if (pt < 4){
+            passRandomEfficiency(.389, ppt);
+        }else if (pt < 6){
+            passRandomEfficiency(.529, ppt);
+        }else if (pt < 8){
+            passRandomEfficiency(.663, ppt);
+        }else if (pt < 10){
+            passRandomEfficiency(.765, ppt);
+        }else if (pt < 100){
+            passRandomEfficiency(.888, ppt);
+        }
+    }
+}
+
 void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for printouts */){
 
     d_ana::dBranchHandler<HepMCEvent> event(tree(),"Event");
@@ -345,7 +371,8 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         nTot = (getXsec()*3000.)/getNorm();
         xs = getXsec();
 
-        // Muon on-the-fly efficiencies
+        // Lepton on-the-fly efficiencies
+        effOnTopElec(elecs);
         effOnTopMuon(muontight);
 
         // Cutflow variables

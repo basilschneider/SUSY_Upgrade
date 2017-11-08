@@ -30,6 +30,7 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         double DeltaR(double eta1, double eta2, double phi1, double phi2);
         double DeltaPhi(double phi1, double phi2);
         bool isOverlap(const Jet* jet, d_ana::dBranchHandler<Electron>& elecs, d_ana::dBranchHandler<Muon>& muons);
+        void effOnTopElec(d_ana::dBranchHandler<Electron>& elecs);
         void effOnTopMuon(d_ana::dBranchHandler<Muon>& muontight);
         void passRandomEfficiency(double eff, Float_t*& ppt);
 
