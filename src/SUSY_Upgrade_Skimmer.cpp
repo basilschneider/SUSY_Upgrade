@@ -262,6 +262,43 @@ bool SUSY_Upgrade_Skimmer::isOverlap(const Jet* jet, d_ana::dBranchHandler<Elect
     return false;
 }
 
+void SUSY_Upgrade_Skimmer::passRandomEfficiency(double eff, Float_t*& ppt){
+    // Throw random number to decide if lepton can be reconstructed
+    // (to mimic real world detector effects)
+    if ((rand() % 1000) > 1000*eff){
+        // Oops! We lost that lepton!
+        // Instead of deleting this object, we set pT to -1, it will then
+        // fail any selection
+        *ppt = -1.;
+    }
+}
+
+void SUSY_Upgrade_Skimmer::effOnTopMuon(d_ana::dBranchHandler<Muon>& muontight){
+    // Efficiencies are multiplied ON TOP of efficiencies in Delphes cards
+    // In an optimal world, all values here would be 1
+    // https://github.com/delphes/delphes/blob/3.4.2pre05/cards/CMS_PhaseII/muonTightId.tcl
+    for (size_t i=0; i<muontight.size(); ++i){
+
+        double pt = muontight.at(i)->PT;
+        //double eta = muontight.at(i)->Eta;
+        Float_t* ppt = &muontight.at(i)->PT;
+
+        if (pt < 2){
+            passRandomEfficiency(.260, ppt);
+        }else if (pt < 4){
+            passRandomEfficiency(.648, ppt);
+        }else if (pt < 6){
+            passRandomEfficiency(.881, ppt);
+        }else if (pt < 8){
+            passRandomEfficiency(.939, ppt);
+        }else if (pt < 10){
+            passRandomEfficiency(.941, ppt);
+        }else if (pt < 100){
+            passRandomEfficiency(.980, ppt);
+        }
+    }
+}
+
 void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for printouts */){
 
     d_ana::dBranchHandler<HepMCEvent> event(tree(),"Event");
@@ -307,6 +344,9 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
         nTot = (getXsec()*3000.)/getNorm();
         xs = getXsec();
+
+        // Muon on-the-fly efficiencies
+        effOnTopMuon(muontight);
 
         // Cutflow variables
         nLep = nEl = nMu = 0;
