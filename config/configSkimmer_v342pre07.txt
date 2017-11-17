@@ -1,0 +1,61 @@
+[config-begin]
+
+    $Outputdir  = root://eoscms.cern.ch//store/user/bschneid/SUSY_Upgrade_Skimmer/output11/
+    Outputdir = /afs/cern.ch/work/b/bschneid/DAFproduction/production107/
+    Outputfile = outputfile.root
+
+    $Samplesdir = root://eoscms.cern.ch//store/user/bschneid/upgrade/samples/
+    Samplesdir = root://cmseos.fnal.gov//store/user/snowmass/noreplica/LHEGEN_SMbackgrounds/Delphes342pre07_hadd/
+    $Samplesdir = root://cmseos.fnal.gov//store/user/snowmass/noreplica/DelphesFromLHE_342pre05_2017July/
+
+    Lumi       = 3000
+    Testmode   = false
+    Maxchilds  = 12
+    RunOnOutputOnly = false
+
+[config-end]
+
+[inputfiles-begin]
+
+DYToLL-M-50_0J_14TeV-madgraphMLM-pythia8_200PU/                              , DYToLL-M-50_0J , 820 , 1 , auto , 1 , false
+DYToLL-M-50_1J_14TeV-madgraphMLM-pythia8_200PU/                              , DYToLL-M-50_1J , 820 , 1 , auto , 1 , false
+DYToLL-M-50_2J_14TeV-madgraphMLM-pythia8_200PU/                              , DYToLL-M-50_2J , 820 , 1 , auto , 1 , false
+DYToLL-M-50_3J_14TeV-madgraphMLM-pythia8_200PU/                              , DYToLL-M-50_3J , 820 , 1 , auto , 1 , false
+$SMP-PhaseIISummer17wmLHEGENOnly-00002_200PU/                                 ,
+$SMP-PhaseIISummer17wmLHEGENOnly-00004_200PU/                                 ,
+$SMP-PhaseIISummer17wmLHEGENOnly-00005_200PU/                                 ,
+$SMP-PhaseIISummer17wmLHEGENOnly-00007_200PU/                                 ,
+$SMP-PhaseIISummer17wmLHEGENOnly-00008_200PU/                                 ,
+$SMP-PhaseIISummer17wmLHEGENOnly-00009_200PU/                                 ,
+$ST_s-channel_4f_InclusiveDecays_14TeV-amcatnlo-pythia8_200PU/                ,
+$ST_s-channel_4f_leptonic_14TeV-amcatnlo-pythia8_200PU/                       ,
+$ST_tch_14TeV_antitop_incl-powheg-pythia8-madspin_200PU/                      ,
+$ST_tch_14TeV_top_incl-powheg-pythia8-madspin_200PU/                          ,
+$TGJets_leptonic_14TeV-amcatnlo-madspin-pythia8_200PU/                        ,
+$TOP-PhaseIISummer17wmLHEGENOnly-00021_200PU/                                 ,
+$TOP-PhaseIISummer17wmLHEGENOnly-00024_200PU/                                 ,
+$TOP-PhaseIISummer17wmLHEGENOnly-00026_200PU/                                 ,
+$TOP-PhaseIISummer17wmLHEGENOnly-00027_200PU/                                 ,
+$TTGamma_Dilept_TuneCUETP8M2T4_14TeV-madgraph-pythia8_200PU/                  ,
+$TTGamma_Hadronic_TuneCUETP8M2T4_14TeV-madgraph-pythia8_200PU/                ,
+$TTGamma_SingleLeptFromTbar_TuneCUETP8M2T4_14TeV-madgraph-pythia8_200PU/      ,
+$TTGamma_SingleLeptFromT_TuneCUETP8M2T4_14TeV-madgraph-pythia8_200PU/         ,
+$TTHH_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                              ,
+$TTJets_DiLept_TuneCUETP8M1_14TeV-madgraphMLM-pythia8_200PU/                  ,
+$TTTJ_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                              ,
+$TTTT_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                              ,
+$TT_TuneCUETP8M2T4_14TeV-powheg-pythia8_200PU/                                ,
+$TTTW_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                              ,
+$TTWH_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                              ,
+$TTWJetsToLNu_TuneCUETP8M1_14TeV-amcatnloFXFX-madspin-pythia8_200PU/          ,
+$TTWW_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                              ,
+$TTWZ_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                              ,
+$TTZH_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                              ,
+$TTZJets_TuneCUETP8M2_14TeV_madgraphMLM-pythia8_200PU/                        ,
+$TTZZ_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                              ,
+$WTolNu01234Jets_5f_LO_MLM_madgraph_V5_2p4p2_200PU/                           ,
+$WToLNu_1J_14TeV-madgraphMLM-pythia8_200PU/                                   ,
+$WToLNu_2J_14TeV-madgraphMLM-pythia8_200PU/                                   ,
+$WToLNu_3J_14TeV-madgraphMLM-pythia8_200PU/                                   ,
+
+[inputfiles-end]
