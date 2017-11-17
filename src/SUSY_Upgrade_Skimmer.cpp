@@ -280,21 +280,59 @@ void SUSY_Upgrade_Skimmer::effOnTopMuon(d_ana::dBranchHandler<Muon>& muontight){
     for (size_t i=0; i<muontight.size(); ++i){
 
         double pt = muontight.at(i)->PT;
-        //double eta = muontight.at(i)->Eta;
+        double eta = fabs(muontight.at(i)->Eta);
         Float_t* ppt = &muontight.at(i)->PT;
 
-        if (pt < 2){
-            passRandomEfficiency(.260, ppt);
-        }else if (pt < 4){
-            passRandomEfficiency(.648, ppt);
-        }else if (pt < 6){
-            passRandomEfficiency(.881, ppt);
-        }else if (pt < 8){
-            passRandomEfficiency(.939, ppt);
-        }else if (pt < 10){
-            passRandomEfficiency(.941, ppt);
-        }else if (pt < 100){
-            passRandomEfficiency(.980, ppt);
+        if (eta >= 2.5){ passRandomEfficiency(.000, ppt); }
+        if (pt < 2.){ passRandomEfficiency(.000, ppt); }
+        else if (pt < 4.){
+            if      (eta < 0.5){ passRandomEfficiency(.100/.9, ppt); }
+            else if (eta < 1.0){ passRandomEfficiency(.130/.9, ppt); }
+            else if (eta < 1.5){ passRandomEfficiency(.440/.9, ppt); }
+            else if (eta < 2.0){ passRandomEfficiency(.880/.9, ppt); }
+            else if (eta < 2.5){ passRandomEfficiency(.740/.9, ppt); }
+        }else if (pt < 6.){
+            if      (eta < 0.5){ passRandomEfficiency(.850/.9, ppt); }
+            else if (eta < 1.0){ passRandomEfficiency(.950/.9, ppt); }
+            else if (eta < 1.5){ passRandomEfficiency(.980/.9, ppt); }
+            else if (eta < 2.0){ passRandomEfficiency(.940/.9, ppt); }
+            else if (eta < 2.5){ passRandomEfficiency(.810/.9, ppt); }
+        }else if (pt < 8.){
+            if      (eta < 0.5){ passRandomEfficiency(.950/.9, ppt); }
+            else if (eta < 1.0){ passRandomEfficiency(.940/.9, ppt); }
+            else if (eta < 1.5){ passRandomEfficiency(.950/.9, ppt); }
+            else if (eta < 2.0){ passRandomEfficiency(.980/.9, ppt); }
+            else if (eta < 2.5){ passRandomEfficiency(.910/.9, ppt); }
+        }else if (pt < 10.){
+            if      (eta < 0.5){ passRandomEfficiency(.960/.9, ppt); }
+            else if (eta < 1.0){ passRandomEfficiency(.950/.9, ppt); }
+            else if (eta < 1.5){ passRandomEfficiency(.950/.9, ppt); }
+            else if (eta < 2.0){ passRandomEfficiency(.980/.9, ppt); }
+            else if (eta < 2.5){ passRandomEfficiency(.790/.9, ppt); }
+        }else if (pt < 20.){
+            if      (eta < 0.5){ passRandomEfficiency(.960/.9, ppt); }
+            else if (eta < 1.0){ passRandomEfficiency(.950/.9, ppt); }
+            else if (eta < 1.5){ passRandomEfficiency(.980/.9, ppt); }
+            else if (eta < 2.0){ passRandomEfficiency(.980/.9, ppt); }
+            else if (eta < 2.5){ passRandomEfficiency(.810/.9, ppt); }
+        }else if (pt < 35.){
+            if      (eta < 0.5){ passRandomEfficiency(.970/.9, ppt); }
+            else if (eta < 1.0){ passRandomEfficiency(.990/.9, ppt); }
+            else if (eta < 1.5){ passRandomEfficiency(.980/.9, ppt); }
+            else if (eta < 2.0){ passRandomEfficiency(.999/.9, ppt); }
+            else if (eta < 2.5){ passRandomEfficiency(.830/.9, ppt); }
+        }else if (pt < 50.){
+            if      (eta < 0.5){ passRandomEfficiency(.960/.9, ppt); }
+            else if (eta < 1.0){ passRandomEfficiency(.970/.9, ppt); }
+            else if (eta < 1.5){ passRandomEfficiency(.980/.9, ppt); }
+            else if (eta < 2.0){ passRandomEfficiency(.980/.9, ppt); }
+            else if (eta < 2.5){ passRandomEfficiency(.870/.9, ppt); }
+        }else if (pt < 14000.){
+            if      (eta < 0.5){ passRandomEfficiency(.970/.9, ppt); }
+            else if (eta < 1.0){ passRandomEfficiency(.970/.9, ppt); }
+            else if (eta < 1.5){ passRandomEfficiency(.980/.9, ppt); }
+            else if (eta < 2.0){ passRandomEfficiency(.980/.9, ppt); }
+            else if (eta < 2.5){ passRandomEfficiency(.870/.9, ppt); }
         }
     }
 }
@@ -306,21 +344,59 @@ void SUSY_Upgrade_Skimmer::effOnTopElec(d_ana::dBranchHandler<Electron>& elecs){
     for (size_t i=0; i<elecs.size(); ++i){
 
         double pt = elecs.at(i)->PT;
-        //double eta = elecs.at(i)->Eta;
+        double eta = elecs.at(i)->Eta;
         Float_t* ppt = &elecs.at(i)->PT;
 
-        if (pt < 2){
-            passRandomEfficiency(.156, ppt);
-        }else if (pt < 4){
-            passRandomEfficiency(.389, ppt);
-        }else if (pt < 6){
-            passRandomEfficiency(.529, ppt);
-        }else if (pt < 8){
-            passRandomEfficiency(.663, ppt);
-        }else if (pt < 10){
-            passRandomEfficiency(.765, ppt);
-        }else if (pt < 100){
-            passRandomEfficiency(.888, ppt);
+        if (eta >= 2.5){ passRandomEfficiency(.000, ppt); }
+        if (pt < 2.){ passRandomEfficiency(.000, ppt); }
+        else if (pt < 4.){
+            if      (eta < 0.5){ passRandomEfficiency(.100/.9*.55, ppt); }
+            else if (eta < 1.0){ passRandomEfficiency(.130/.9*.55, ppt); }
+            else if (eta < 1.5){ passRandomEfficiency(.440/.9*.55, ppt); }
+            else if (eta < 2.0){ passRandomEfficiency(.880/.9*.55, ppt); }
+            else if (eta < 2.5){ passRandomEfficiency(.740/.9*.55, ppt); }
+        }else if (pt < 6.){
+            if      (eta < 0.5){ passRandomEfficiency(.850/.9*.55, ppt); }
+            else if (eta < 1.0){ passRandomEfficiency(.950/.9*.55, ppt); }
+            else if (eta < 1.5){ passRandomEfficiency(.980/.9*.55, ppt); }
+            else if (eta < 2.0){ passRandomEfficiency(.940/.9*.55, ppt); }
+            else if (eta < 2.5){ passRandomEfficiency(.810/.9*.55, ppt); }
+        }else if (pt < 8.){
+            if      (eta < 0.5){ passRandomEfficiency(.950/.9*.55, ppt); }
+            else if (eta < 1.0){ passRandomEfficiency(.940/.9*.55, ppt); }
+            else if (eta < 1.5){ passRandomEfficiency(.950/.9*.55, ppt); }
+            else if (eta < 2.0){ passRandomEfficiency(.980/.9*.55, ppt); }
+            else if (eta < 2.5){ passRandomEfficiency(.910/.9*.55, ppt); }
+        }else if (pt < 10.){
+            if      (eta < 0.5){ passRandomEfficiency(.960/.9*.55, ppt); }
+            else if (eta < 1.0){ passRandomEfficiency(.950/.9*.55, ppt); }
+            else if (eta < 1.5){ passRandomEfficiency(.950/.9*.55, ppt); }
+            else if (eta < 2.0){ passRandomEfficiency(.980/.9*.55, ppt); }
+            else if (eta < 2.5){ passRandomEfficiency(.790/.9*.55, ppt); }
+        }else if (pt < 20.){
+            if      (eta < 0.5){ passRandomEfficiency(.960/.9*.55, ppt); }
+            else if (eta < 1.0){ passRandomEfficiency(.950/.9*.55, ppt); }
+            else if (eta < 1.5){ passRandomEfficiency(.980/.9*.55, ppt); }
+            else if (eta < 2.0){ passRandomEfficiency(.980/.9*.55, ppt); }
+            else if (eta < 2.5){ passRandomEfficiency(.810/.9*.55, ppt); }
+        }else if (pt < 35.){
+            if      (eta < 0.5){ passRandomEfficiency(.970/.9*.55, ppt); }
+            else if (eta < 1.0){ passRandomEfficiency(.990/.9*.55, ppt); }
+            else if (eta < 1.5){ passRandomEfficiency(.980/.9*.55, ppt); }
+            else if (eta < 2.0){ passRandomEfficiency(.999/.9*.55, ppt); }
+            else if (eta < 2.5){ passRandomEfficiency(.830/.9*.55, ppt); }
+        }else if (pt < 50.){
+            if      (eta < 0.5){ passRandomEfficiency(.960/.9*.55, ppt); }
+            else if (eta < 1.0){ passRandomEfficiency(.970/.9*.55, ppt); }
+            else if (eta < 1.5){ passRandomEfficiency(.980/.9*.55, ppt); }
+            else if (eta < 2.0){ passRandomEfficiency(.980/.9*.55, ppt); }
+            else if (eta < 2.5){ passRandomEfficiency(.870/.9*.55, ppt); }
+        }else if (pt < 14000.){
+            if      (eta < 0.5){ passRandomEfficiency(.970/.9*.55, ppt); }
+            else if (eta < 1.0){ passRandomEfficiency(.970/.9*.55, ppt); }
+            else if (eta < 1.5){ passRandomEfficiency(.980/.9*.55, ppt); }
+            else if (eta < 2.0){ passRandomEfficiency(.980/.9*.55, ppt); }
+            else if (eta < 2.5){ passRandomEfficiency(.870/.9*.55, ppt); }
         }
     }
 }
