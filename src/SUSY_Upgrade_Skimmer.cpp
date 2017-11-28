@@ -447,6 +447,25 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         nTot = (getXsec()*3000.)/getNorm();
         xs = getXsec();
 
+        // If there is a tau in the event, skip the event 50 % of the time
+        // This mimics a tau veto, which cannot be implemented in Delphes
+        bool skipEvent = false;
+        for (size_t i=0; i<genpart.size(); ++i){
+            if (fabs(genpart.at(i)->PID) == 15){
+                if ((rand() % 1000) > 500){
+                    // Reject event
+                    skipEvent = true;
+                }
+                // If we found already a tau, break here, otherwise we get
+                // multiple shots at rejecting an event if the same tau is
+                // stored multiple times in truth
+                break;
+            }
+        }
+        if (skipEvent){
+            continue;
+        }
+
         // Lepton on-the-fly efficiencies
         effOnTopElec(elecs);
         effOnTopMuon(muontight);
