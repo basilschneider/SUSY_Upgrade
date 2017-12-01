@@ -33,6 +33,7 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         void effOnTopElec(d_ana::dBranchHandler<Electron>& elecs);
         void effOnTopMuon(d_ana::dBranchHandler<Muon>& muontight);
         void passRandomEfficiency(double eff, Float_t*& ppt);
+        unsigned short int getNghbr(int pid);
 
         // Tree
         TTree* myskim;
@@ -108,15 +109,17 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         bool hasSFOS, hasSoftSFOS, hasSFOS_truth, hasSoftSFOS_truth;
         std::vector<double> mllMin, mllMax, mt1, mt2, pt2l;
 
+        // Guess origin of leptons
+        TH2D* mu1_pt_origin_nghbr = new TH2D("mu1_pt_origin_nghbr", "mu1_pt_origin_nghbr", 6, 0., 30., 4, -.5, 3.5);
+        TH2D* mu1_pt_origin_cone = new TH2D("mu1_pt_origin_cone", "mu1_pt_origin_cone", 6, 0., 30., 4, -.5, 3.5);
+        TH2D* mu2_pt_origin_nghbr = new TH2D("mu2_pt_origin_nghbr", "mu2_pt_origin_nghbr", 6, 0., 30., 4, -.5, 3.5);
+        TH2D* mu2_pt_origin_cone = new TH2D("mu2_pt_origin_cone", "mu2_pt_origin_cone", 6, 0., 30., 4, -.5, 3.5);
+
         // Real lepton efficiency histograms
         TH2D* rle_el_num = new TH2D("rle_el_num", "rle_el_num", 6, 0., 30., 8, 0., 4.);
         TH2D* rle_el_den = new TH2D("rle_el_den", "rle_el_den", 6, 0., 30., 8, 0., 4.);
         TH2D* rle_mu_num = new TH2D("rle_mu_num", "rle_mu_num", 6, 0., 30., 8, 0., 4.);
         TH2D* rle_mu_den = new TH2D("rle_mu_den", "rle_mu_den", 6, 0., 30., 8, 0., 4.);
 };
-
-
-
-
 
 #endif /* SUSY_Upgrade_Skimmer_H_ */

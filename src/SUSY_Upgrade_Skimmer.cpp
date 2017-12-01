@@ -401,6 +401,24 @@ void SUSY_Upgrade_Skimmer::effOnTopElec(d_ana::dBranchHandler<Electron>& elecs){
     }
 }
 
+unsigned short int SUSY_Upgrade_Skimmer::getNghbr(int pid){
+    unsigned short int nghbr = 99;
+    if (fabs(pid) <= 4 || pid == 21){
+        // Light flavor
+        nghbr = 0;
+    }else if (fabs(pid) == 5){
+        // Heavy flavor
+        nghbr = 1;
+    }else if (fabs(pid) == 15){
+        // Tau
+        nghbr = 2;
+    }else{
+        // Others
+        nghbr = 3;
+    }
+    return nghbr;
+}
+
 void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for printouts */){
 
     d_ana::dBranchHandler<HepMCEvent> event(tree(),"Event");
@@ -760,6 +778,41 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             }
         }
 
+        // Guess origin of leptons
+        //printf("NEW EVENT\n");
+        double drMin = 99.;
+        unsigned int nghbr = 99;
+        for (size_t i=0; i<mu1_pt.size(); ++i){
+            for (size_t j=0; j<genpart.size(); ++j){
+                //printf("PID: %d - Status: %d\n", genpart.at(j)->PID, genpart.at(j)->Status);
+                double dr = DeltaR(mu1_eta.at(0), genpart.at(j)->Eta, mu1_phi.at(0), genpart.at(j)->Phi);
+                if (dr < drMin){
+                    drMin = dr;
+                    nghbr = getNghbr(genpart.at(j)->PID);
+                }
+                if (dr < .5){
+                    mu1_pt_origin_cone->Fill(mu1_pt.at(0), getNghbr(genpart.at(j)->PID));
+                }
+            }
+            mu1_pt_origin_nghbr->Fill(mu1_pt.at(0), nghbr);
+        }
+        drMin = 99.;
+        nghbr = 99;
+        for (size_t i=0; i<mu2_pt.size(); ++i){
+            for (size_t j=0; j<genpart.size(); ++j){
+                //printf("PID: %d - Status: %d\n", genpart.at(j)->PID, genpart.at(j)->Status);
+                double dr = DeltaR(mu2_eta.at(0), genpart.at(j)->Eta, mu2_phi.at(0), genpart.at(j)->Phi);
+                if (dr < drMin){
+                    drMin = dr;
+                    nghbr = getNghbr(genpart.at(j)->PID);
+                }
+                if (dr < .5){
+                    mu2_pt_origin_cone->Fill(mu2_pt.at(0), getNghbr(genpart.at(j)->PID));
+                }
+            }
+            mu2_pt_origin_nghbr->Fill(mu2_pt.at(0), nghbr);
+        }
+
         // Fill leptons
         // Put pT and eta into vector of vector for sorting
         std::vector<std::vector<double>> lepvec;
@@ -977,6 +1030,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
         myskim->Fill();
     }
+
+    mu1_pt_origin_nghbr->Write();
+    mu1_pt_origin_cone->Write();
+    mu2_pt_origin_nghbr->Write();
+    mu2_pt_origin_cone->Write();
 
     if (fill_rle){
         rle_el_num->Write();
