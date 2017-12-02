@@ -136,6 +136,9 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("mt1", &mt1);
     myskim->Branch("mt2", &mt2);
     myskim->Branch("pt2l", &pt2l);
+    myskim->Branch("drLep1Lep2", &drLep1Lep2);
+    myskim->Branch("drLep1Jet1", &drLep1Jet1);
+    myskim->Branch("drLep2Jet1", &drLep2Jet1);
 }
 
 void SUSY_Upgrade_Skimmer::clearVectors(){
@@ -226,6 +229,9 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     mt1.clear();
     mt2.clear();
     pt2l.clear();
+    drLep1Lep2.clear();
+    drLep1Jet1.clear();
+    drLep2Jet1.clear();
 }
 
 template <typename T> bool SUSY_Upgrade_Skimmer::isIsolated(const T particle){
@@ -1013,6 +1019,18 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             if (jetpuppi.at(i)->PT > jet_pt_lo){
                 ht += jetpuppi.at(i)->PT;
             }
+        }
+
+        // dr variables
+        if (mu2_pt.size() != 0 && jet1_puppi_pt.size() != 0){
+            drLep1Lep2.push_back(DeltaR(mu1_eta.at(0), mu2_eta.at(0), mu1_phi.at(0), mu2_phi.at(0)));
+            drLep1Jet1.push_back(DeltaR(mu1_eta.at(0), jet1_puppi_eta.at(0), mu1_phi.at(0), jet1_puppi_phi.at(0)));
+            drLep2Jet1.push_back(DeltaR(mu1_eta.at(0), jet1_puppi_eta.at(0), mu1_phi.at(0), jet1_puppi_phi.at(0)));
+        }
+        if (el2_pt.size() != 0 && jet1_puppi_pt.size() != 0){
+            drLep1Lep2.push_back(DeltaR(el1_eta.at(0), el2_eta.at(0), el1_phi.at(0), el2_phi.at(0)));
+            drLep1Jet1.push_back(DeltaR(el1_eta.at(0), jet1_puppi_eta.at(0), el1_phi.at(0), jet1_puppi_phi.at(0)));
+            drLep2Jet1.push_back(DeltaR(el1_eta.at(0), jet1_puppi_eta.at(0), el1_phi.at(0), jet1_puppi_phi.at(0)));
         }
 
         // Transverse mass of leading two leptons
