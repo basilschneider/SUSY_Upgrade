@@ -408,21 +408,19 @@ void SUSY_Upgrade_Skimmer::effOnTopElec(d_ana::dBranchHandler<Electron>& elecs){
 }
 
 unsigned short int SUSY_Upgrade_Skimmer::getNghbr(int pid){
-    unsigned short int nghbr = 99;
     if (fabs(pid) <= 4 || pid == 21){
         // Light flavor
-        nghbr = 0;
+        return 0;
     }else if (fabs(pid) == 5){
         // Heavy flavor
-        nghbr = 1;
+        return 1;
     }else if (fabs(pid) == 15){
         // Tau
-        nghbr = 2;
+        return 2;
     }else{
         // Others
-        nghbr = 3;
+        return 3;
     }
-    return nghbr;
 }
 
 void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for printouts */){
@@ -476,7 +474,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         bool skipEvent = false;
         for (size_t i=0; i<genpart.size(); ++i){
             if (fabs(genpart.at(i)->PID) == 15){
-                if ((rand() % 1000) > 500){
+                if ((rand() % 1000) > prob_tau_veto){
                     // Reject event
                     skipEvent = true;
                 }
@@ -784,13 +782,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             }
         }
 
-        // Guess origin of leptons
-        //printf("NEW EVENT\n");
+        // Guess origin of leptons and
         double drMin = 99.;
         unsigned int nghbr = 99;
         for (size_t i=0; i<mu1_pt.size(); ++i){
             for (size_t j=0; j<genpart.size(); ++j){
-                //printf("PID: %d - Status: %d\n", genpart.at(j)->PID, genpart.at(j)->Status);
                 double dr = DeltaR(mu1_eta.at(0), genpart.at(j)->Eta, mu1_phi.at(0), genpart.at(j)->Phi);
                 if (dr < drMin){
                     drMin = dr;
@@ -801,12 +797,22 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 }
             }
             mu1_pt_origin_nghbr->Fill(mu1_pt.at(0), nghbr);
+
+            // Neighbor veto: veto leptons with a light flavor object as nearest
+            // truth neighbor, since these are likely fakes and can be suppressed
+            // with a smart choice of ID
+            if ((rand() % 1000) > prob_lf_veto){
+                // Reject event
+                skipEvent = true;
+            }
+        }
+        if (skipEvent){
+            continue;
         }
         drMin = 99.;
         nghbr = 99;
         for (size_t i=0; i<mu2_pt.size(); ++i){
             for (size_t j=0; j<genpart.size(); ++j){
-                //printf("PID: %d - Status: %d\n", genpart.at(j)->PID, genpart.at(j)->Status);
                 double dr = DeltaR(mu2_eta.at(0), genpart.at(j)->Eta, mu2_phi.at(0), genpart.at(j)->Phi);
                 if (dr < drMin){
                     drMin = dr;
@@ -817,6 +823,19 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 }
             }
             mu2_pt_origin_nghbr->Fill(mu2_pt.at(0), nghbr);
+
+            // Neighbor veto: veto leptons with a light flavor object as nearest
+            // truth neighbor, since these are likely fakes and can be suppressed
+            // with a smart choice of ID
+            if (nghbr == 0){
+                if ((rand() % 1000) > prob_lf_veto){
+                    // Reject event
+                    skipEvent = true;
+                }
+            }
+        }
+        if (skipEvent){
+            continue;
         }
 
         // Fill leptons
