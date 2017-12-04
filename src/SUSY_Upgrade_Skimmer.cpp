@@ -801,9 +801,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             // Neighbor veto: veto leptons with a light flavor object as nearest
             // truth neighbor, since these are likely fakes and can be suppressed
             // with a smart choice of ID
-            if ((rand() % 1000) > prob_lf_veto){
-                // Reject event
-                skipEvent = true;
+            if (nghbr == 0){
+                if ((rand() % 1000) > prob_lf_veto){
+                    // Reject event
+                    skipEvent = true;
+                }
             }
         }
         if (skipEvent){
