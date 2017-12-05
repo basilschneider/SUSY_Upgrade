@@ -18,7 +18,7 @@ $
 [config-begin]
 
     $Outputdir  = root://eoscms.cern.ch//store/user/bschneid/SUSY_Upgrade_Skimmer/output11/
-    Outputdir = /afs/cern.ch/work/b/bschneid/DAFproduction/production122/
+    Outputdir = /afs/cern.ch/work/b/bschneid/DAFproduction/production141/
     Outputfile = outputfile.root
 
 $ The luminosity is to be given to match the cross section values listed in the section "inputfiles"
@@ -36,14 +36,14 @@ $ correspond to the relative cross sections of the processes
 $ Maximum number of child processes that are spawned simultaneously, each running on a
 $ different input file.
 
-    Maxchilds  = 19
+    Maxchilds  = 23
 
 $ This Samplesdir can be a local directory or refer to off-site locations via xrootd
 
     $Samplesdir = root://eoscms.cern.ch//store/user/bschneid/upgrade/samples/
     $Samplesdir = root://cmseos.fnal.gov//store/user/snowmass/noreplica/DelphesFromLHE_342pre05hadd_2017Aug/
     $Samplesdir = root://cmseos.fnal.gov//store/user/vdutta/delphes/DelphesFromLHE_342pre07/102717/merged/
-    Samplesdir = root://cmseos.fnal.gov//store/user/kulkarni/MC_grid/Delphised_C1N2/
+    Samplesdir = root://cmseos.fnal.gov//store/user/kulkarni/MC_grid/Delphised_C1N2_merged/
     $Samplesdir = root://cmseos.fnal.gov//store/user/snowmass/noreplica/DelphesFromLHE_342pre05_2017July/
 
 $ The analyser will have a postProcess() function. This function should be used to
@@ -93,7 +93,7 @@ Decayed_C1N2_100_LSP_75_200PU/           , TChiWZ_100_75_Delphes_v08        , 61
 Decayed_C1N2_100_LSP_80_200PU/           , TChiWZ_100_80_Delphes_v08        , 616 ,      5873.10 ,     auto , 1 , true
 Decayed_C1N2_100_LSP_85_200PU/           , TChiWZ_100_85_Delphes_v08        , 616 ,      5873.10 ,     auto , 1 , true
 Decayed_C1N2_100_LSP_90_200PU/           , TChiWZ_100_90_Delphes_v08        , 616 ,      5873.10 ,     auto , 1 , true
-Decayed_C1N2_100_LSP_95_200PU/           , TChiWZ_100_95_Delphes_v08        , 616 ,      5873.10 ,     auto , 1 , true
+$Decayed_C1N2_100_LSP_95_200PU/           , TChiWZ_100_95_Delphes_v08        , 616 ,      5873.10 ,     auto , 1 , true
 
 Decayed_C1N2_150_LSP_110_200PU/          , TChiWZ_150_110_Delphes_v08       , 616 ,      1357.28 ,     auto , 1 , true
 Decayed_C1N2_150_LSP_115_200PU/          , TChiWZ_150_115_Delphes_v08       , 616 ,      1357.28 ,     auto , 1 , true
