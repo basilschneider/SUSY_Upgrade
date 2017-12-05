@@ -54,8 +54,8 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         static constexpr double jet_or_dr = .4;
         static constexpr double truth_match_diff_pt = 5.;
         static constexpr double truth_match_diff_eta = .1;
-        static constexpr double prob_tau_veto = 500; // permille
-        static constexpr double prob_lf_veto = 800; // permille
+        static constexpr double wght_tau_veto = .5; // permille
+        static constexpr double wght_lf_veto = .2; // permille
 
         // Event variables
         double genWeight, nTot, xs;

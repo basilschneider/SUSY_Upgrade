@@ -471,21 +471,14 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
         // If there is a tau in the event, skip the event 50 % of the time
         // This mimics a tau veto, which cannot be implemented in Delphes
-        bool skipEvent = false;
         for (size_t i=0; i<genpart.size(); ++i){
             if (fabs(genpart.at(i)->PID) == 15){
-                if ((rand() % 1000) > prob_tau_veto){
-                    // Reject event
-                    skipEvent = true;
-                }
+                genWeight *= wght_tau_veto;
                 // If we found already a tau, break here, otherwise we get
                 // multiple shots at rejecting an event if the same tau is
                 // stored multiple times in truth
                 break;
             }
-        }
-        if (skipEvent){
-            continue;
         }
 
         // Lepton on-the-fly efficiencies
@@ -782,7 +775,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             }
         }
 
-        // Guess origin of leptons and
+        // Guess origin of leptons
         double drMin = 99.;
         unsigned int nghbr = 99;
         for (size_t i=0; i<mu1_pt.size(); ++i){
@@ -802,14 +795,8 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             // truth neighbor, since these are likely fakes and can be suppressed
             // with a smart choice of ID
             if (nghbr == 0){
-                if ((rand() % 1000) > prob_lf_veto){
-                    // Reject event
-                    skipEvent = true;
-                }
+                genWeight *= wght_lf_veto;
             }
-        }
-        if (skipEvent){
-            continue;
         }
         drMin = 99.;
         nghbr = 99;
@@ -830,14 +817,8 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             // truth neighbor, since these are likely fakes and can be suppressed
             // with a smart choice of ID
             if (nghbr == 0){
-                if ((rand() % 1000) > prob_lf_veto){
-                    // Reject event
-                    skipEvent = true;
-                }
+                genWeight *= wght_lf_veto;
             }
-        }
-        if (skipEvent){
-            continue;
         }
 
         // Fill leptons
