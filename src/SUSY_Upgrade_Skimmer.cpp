@@ -795,10 +795,10 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                     nghbr = getNghbr(genpart.at(j)->PID);
                 }
                 if (dr < .5){
-                    mu1_pt_origin_cone->Fill(mu1_pt.at(i), getNghbr(genpart.at(j)->PID));
+                    mu1_pt_origin_cone->Fill(mu1_pt.at(i), getNghbr(genpart.at(j)->PID), genWeight);
                 }
             }
-            mu1_pt_origin_nghbr->Fill(mu1_pt.at(i), nghbr);
+            mu1_pt_origin_nghbr->Fill(mu1_pt.at(i), nghbr, genWeight);
 
             // Neighbor veto: veto leptons with a light flavor object as nearest
             // truth neighbor, since these are likely fakes and can be suppressed
@@ -819,10 +819,10 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                     nghbr = getNghbr(genpart.at(j)->PID);
                 }
                 if (dr < .5){
-                    mu2_pt_origin_cone->Fill(mu2_pt.at(i), getNghbr(genpart.at(j)->PID));
+                    mu2_pt_origin_cone->Fill(mu2_pt.at(i), getNghbr(genpart.at(j)->PID), genWeight);
                 }
             }
-            mu2_pt_origin_nghbr->Fill(mu2_pt.at(i), nghbr);
+            mu2_pt_origin_nghbr->Fill(mu2_pt.at(i), nghbr, genWeight);
 
             // Neighbor veto: veto leptons with a light flavor object as nearest
             // truth neighbor, since these are likely fakes and can be suppressed
