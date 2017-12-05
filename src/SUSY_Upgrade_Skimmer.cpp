@@ -104,10 +104,10 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("jet1_puppi_q", &jet1_puppi_q);
 
     // Truth jet variables
-    myskim->Branch("jet1_pt_truth_matched", &jet1_pt_truth_matched);
-    myskim->Branch("jet1_eta_truth_matched", &jet1_eta_truth_matched);
-    myskim->Branch("jet1_phi_truth_matched", &jet1_phi_truth_matched);
-    myskim->Branch("jet1_q_truth_matched", &jet1_q_truth_matched);
+    //myskim->Branch("jet1_pt_truth_matched", &jet1_pt_truth_matched);
+    //myskim->Branch("jet1_eta_truth_matched", &jet1_eta_truth_matched);
+    //myskim->Branch("jet1_phi_truth_matched", &jet1_phi_truth_matched);
+    //myskim->Branch("jet1_q_truth_matched", &jet1_q_truth_matched);
 
     // MET variables
     myskim->Branch("met", &met);
@@ -220,10 +220,10 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     jet1_puppi_eta.clear();
     jet1_puppi_phi.clear();
     jet1_puppi_q.clear();
-    jet1_pt_truth_matched.clear();
-    jet1_eta_truth_matched.clear();
-    jet1_phi_truth_matched.clear();
-    jet1_q_truth_matched.clear();
+    //jet1_pt_truth_matched.clear();
+    //jet1_eta_truth_matched.clear();
+    //jet1_phi_truth_matched.clear();
+    //jet1_q_truth_matched.clear();
     mllMin.clear();
     mllMax.clear();
     mt1.clear();
@@ -242,6 +242,16 @@ template <typename T> bool SUSY_Upgrade_Skimmer::isIsolated(const T particle){
         return false;
     }
     return true;
+}
+
+bool SUSY_Upgrade_Skimmer::isMatched(const GenParticle* truthParticle, const double pt, const double eta, const double phi){
+    if (fabs((truthParticle->PT - pt)/truthParticle->PT) > truth_match_diff_pt_rel){ return false; }
+    if (DeltaR(truthParticle->Eta, eta, truthParticle->Phi, phi) > truth_match_diff_dr){ return false; }
+    return true;
+}
+
+template <typename T> bool SUSY_Upgrade_Skimmer::isMatched(const GenParticle* truthParticle, const T particle){
+    return isMatched(truthParticle, particle->PT, particle->Eta, particle->Phi);
 }
 
 double SUSY_Upgrade_Skimmer::DeltaR(double eta1, double eta2, double phi1, double phi2){
@@ -577,8 +587,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                         if (!isIsolated(elecs.at(j))){ continue; }
                         // If we make it here, this is a proper reco electron
                         // Fill numerator histogram if it can be matched
-                        if (fabs(genpart.at(i)->PT - elecs.at(j)->PT) < truth_match_diff_pt \
-                                && fabs(genpart.at(i)->Eta - elecs.at(j)->Eta) < truth_match_diff_eta){
+                        if (isMatched(genpart.at(i), elecs.at(j))){
                             rle_el_num->Fill(genpart.at(i)->PT, fabs(genpart.at(i)->Eta));
                             break;
                         }
@@ -598,8 +607,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                         if (!isIsolated(muontight.at(j))){ continue; }
                         // If we make it here, this is a proper reco muon
                         // Fill numerator histogram if it can be matched
-                        if (fabs(genpart.at(i)->PT - muontight.at(j)->PT) < truth_match_diff_pt \
-                                && fabs(genpart.at(i)->Eta - muontight.at(j)->Eta) < truth_match_diff_eta){
+                        if (isMatched(genpart.at(i), muontight.at(j))){
                             rle_mu_num->Fill(genpart.at(i)->PT, fabs(genpart.at(i)->Eta));
                             break;
                         }
@@ -701,8 +709,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 if (genpart.at(j)->Status != 1){ continue; }
                 if (fabs(genpart.at(j)->PID) != 11){ continue; }
                 // Truth matching
-                if (fabs(genpart.at(j)->PT - el1_pt.at(i)) > truth_match_diff_pt){ continue; }
-                if (fabs(genpart.at(j)->Eta - el1_eta.at(i)) > truth_match_diff_eta){ continue; }
+                if (!isMatched(genpart.at(j), el1_pt.at(i), el1_eta.at(i), el1_phi.at(i))){ continue; }
                 // If we make it here, the particle has been matched
                 el1_pt_truth_matched.push_back(genpart.at(j)->PT);
                 el1_eta_truth_matched.push_back(genpart.at(j)->Eta);
@@ -716,8 +723,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 if (genpart.at(j)->Status != 1){ continue; }
                 if (fabs(genpart.at(j)->PID) != 11){ continue; }
                 // Truth matching
-                if (fabs(genpart.at(j)->PT - el2_pt.at(i)) > truth_match_diff_pt){ continue; }
-                if (fabs(genpart.at(j)->Eta - el2_eta.at(i)) > truth_match_diff_eta){ continue; }
+                if (!isMatched(genpart.at(j), el2_pt.at(i), el2_eta.at(i), el2_phi.at(i))){ continue; }
                 // If we make it here, the particle has been matched
                 el2_pt_truth_matched.push_back(genpart.at(j)->PT);
                 el2_eta_truth_matched.push_back(genpart.at(j)->Eta);
@@ -752,8 +758,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 if (genpart.at(j)->Status != 1){ continue; }
                 if (fabs(genpart.at(j)->PID) != 13){ continue; }
                 // Truth matching
-                if (fabs(genpart.at(j)->PT - mu1_pt.at(i)) > truth_match_diff_pt){ continue; }
-                if (fabs(genpart.at(j)->Eta - mu1_eta.at(i)) > truth_match_diff_eta){ continue; }
+                if (!isMatched(genpart.at(j), mu1_pt.at(i), mu1_eta.at(i), mu1_phi.at(i))){ continue; }
                 // If we make it here, the particle has been matched
                 mu1_pt_truth_matched.push_back(genpart.at(j)->PT);
                 mu1_eta_truth_matched.push_back(genpart.at(j)->Eta);
@@ -767,8 +772,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 if (genpart.at(j)->Status != 1){ continue; }
                 if (fabs(genpart.at(j)->PID) != 13){ continue; }
                 // Truth matching
-                if (fabs(genpart.at(j)->PT - mu2_pt.at(i)) > truth_match_diff_pt){ continue; }
-                if (fabs(genpart.at(j)->Eta - mu2_eta.at(i)) > truth_match_diff_eta){ continue; }
+                if (!isMatched(genpart.at(j), mu2_pt.at(i), mu2_eta.at(i), mu2_phi.at(i))){ continue; }
                 // If we make it here, the particle has been matched
                 mu2_pt_truth_matched.push_back(genpart.at(j)->PT);
                 mu2_eta_truth_matched.push_back(genpart.at(j)->Eta);
@@ -783,16 +787,18 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         unsigned int nghbr = 99;
         for (size_t i=0; i<mu1_pt.size(); ++i){
             for (size_t j=0; j<genpart.size(); ++j){
-                double dr = DeltaR(mu1_eta.at(0), genpart.at(j)->Eta, mu1_phi.at(0), genpart.at(j)->Phi);
+                // Remove muon itself
+                if (isMatched(genpart.at(j), mu1_pt.at(i), mu1_eta.at(i), mu1_phi.at(i))){ continue; }
+                double dr = DeltaR(mu1_eta.at(i), genpart.at(j)->Eta, mu1_phi.at(i), genpart.at(j)->Phi);
                 if (dr < drMin){
                     drMin = dr;
                     nghbr = getNghbr(genpart.at(j)->PID);
                 }
                 if (dr < .5){
-                    mu1_pt_origin_cone->Fill(mu1_pt.at(0), getNghbr(genpart.at(j)->PID));
+                    mu1_pt_origin_cone->Fill(mu1_pt.at(i), getNghbr(genpart.at(j)->PID));
                 }
             }
-            mu1_pt_origin_nghbr->Fill(mu1_pt.at(0), nghbr);
+            mu1_pt_origin_nghbr->Fill(mu1_pt.at(i), nghbr);
 
             // Neighbor veto: veto leptons with a light flavor object as nearest
             // truth neighbor, since these are likely fakes and can be suppressed
@@ -805,16 +811,18 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         nghbr = 99;
         for (size_t i=0; i<mu2_pt.size(); ++i){
             for (size_t j=0; j<genpart.size(); ++j){
-                double dr = DeltaR(mu2_eta.at(0), genpart.at(j)->Eta, mu2_phi.at(0), genpart.at(j)->Phi);
+                // Remove muon itself
+                if (isMatched(genpart.at(j), mu2_pt.at(i), mu2_eta.at(i), mu2_phi.at(i))){ continue; }
+                double dr = DeltaR(mu2_eta.at(i), genpart.at(j)->Eta, mu2_phi.at(i), genpart.at(j)->Phi);
                 if (dr < drMin){
                     drMin = dr;
                     nghbr = getNghbr(genpart.at(j)->PID);
                 }
                 if (dr < .5){
-                    mu2_pt_origin_cone->Fill(mu2_pt.at(0), getNghbr(genpart.at(j)->PID));
+                    mu2_pt_origin_cone->Fill(mu2_pt.at(i), getNghbr(genpart.at(j)->PID));
                 }
             }
-            mu2_pt_origin_nghbr->Fill(mu2_pt.at(0), nghbr);
+            mu2_pt_origin_nghbr->Fill(mu2_pt.at(i), nghbr);
 
             // Neighbor veto: veto leptons with a light flavor object as nearest
             // truth neighbor, since these are likely fakes and can be suppressed
@@ -992,20 +1000,20 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             break;
         }
 
-        // Fill truth jets
-        for (size_t i=0; i<jet1_puppi_pt.size(); ++i){
-            for (size_t j=0; j<genjet.size(); ++j){
-                // Truth matching
-                if (fabs(genjet.at(j)->PT - jet1_puppi_pt.at(i)) > truth_match_diff_pt){ continue; }
-                if (fabs(genjet.at(j)->Eta - jet1_puppi_eta.at(i) > truth_match_diff_eta)){ continue; }
-                // If we make it here, the particle has been matched
-                jet1_pt_truth_matched.push_back(genjet.at(j)->PT);
-                jet1_eta_truth_matched.push_back(genjet.at(j)->Eta);
-                jet1_phi_truth_matched.push_back(genjet.at(j)->Phi);
-                jet1_q_truth_matched.push_back(genjet.at(j)->Charge);
-                break;
-            }
-        }
+        //// Fill truth jets
+        //for (size_t i=0; i<jet1_puppi_pt.size(); ++i){
+        //    for (size_t j=0; j<genjet.size(); ++j){
+        //        // Truth matching
+        //        if (fabs(genjet.at(j)->PT - jet1_puppi_pt.at(i)) > truth_match_diff_pt){ continue; }
+        //        if (fabs(genjet.at(j)->Eta - jet1_puppi_eta.at(i) > truth_match_diff_eta)){ continue; }
+        //        // If we make it here, the particle has been matched
+        //        jet1_pt_truth_matched.push_back(genjet.at(j)->PT);
+        //        jet1_eta_truth_matched.push_back(genjet.at(j)->Eta);
+        //        jet1_phi_truth_matched.push_back(genjet.at(j)->Phi);
+        //        jet1_q_truth_matched.push_back(genjet.at(j)->Charge);
+        //        break;
+        //    }
+        //}
 
         // Fill MET
         try{

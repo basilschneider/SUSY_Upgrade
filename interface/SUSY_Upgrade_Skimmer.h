@@ -34,6 +34,8 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         void effOnTopMuon(d_ana::dBranchHandler<Muon>& muontight);
         void passRandomEfficiency(double eff, Float_t*& ppt);
         unsigned short int getNghbr(int pid);
+        template <typename T> bool isMatched(const GenParticle* truthParticle, const T particle);
+        bool isMatched(const GenParticle* truthParticle, const double pt, const double eta, const double phi);
 
         // Tree
         TTree* myskim;
@@ -52,8 +54,8 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         static constexpr double iso_cut_rel = .0;
         static constexpr double iso_cut_abs = 0.;
         static constexpr double jet_or_dr = .4;
-        static constexpr double truth_match_diff_pt = 5.;
-        static constexpr double truth_match_diff_eta = .1;
+        static constexpr double truth_match_diff_pt_rel = .5;
+        static constexpr double truth_match_diff_dr = .1;
         static constexpr double wght_tau_veto = .5; // permille
         static constexpr double wght_lf_veto = .2; // permille
 
@@ -97,9 +99,9 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         std::vector<double> jet1_puppi_pt, jet1_puppi_eta, jet1_puppi_phi;
         std::vector<int> jet1_puppi_q;
 
-        // Matched truth jet variables
-        std::vector<double> jet1_pt_truth_matched, jet1_eta_truth_matched, jet1_phi_truth_matched;
-        std::vector<int> jet1_q_truth_matched;
+        //// Matched truth jet variables
+        //std::vector<double> jet1_pt_truth_matched, jet1_eta_truth_matched, jet1_phi_truth_matched;
+        //std::vector<int> jet1_q_truth_matched;
 
         // MET variables
         double met, met_eta, met_phi;
