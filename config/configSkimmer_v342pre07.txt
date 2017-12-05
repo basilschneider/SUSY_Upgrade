@@ -1,7 +1,7 @@
 [config-begin]
 
     $Outputdir  = root://eoscms.cern.ch//store/user/bschneid/SUSY_Upgrade_Skimmer/output11/
-    Outputdir = /afs/cern.ch/work/b/bschneid/DAFproduction/production119/
+    Outputdir = /afs/cern.ch/work/b/bschneid/DAFproduction/production124/
     Outputfile = outputfile.root
 
     $Samplesdir = root://eoscms.cern.ch//store/user/bschneid/upgrade/samples/
@@ -18,41 +18,42 @@
 [inputfiles-begin]
 
 $DYJetsToLL_M-100_5f_14TeV-madgraphMLM-pythia8_200PU/                          , DYToLL_M-100           , 820 , 1 , auto , 1 , false
-$DYToLL-M-50_0J_14TeV-madgraphMLM-pythia8_200PU/                               , DYToLL_M-50_0J         , 820 , 1 , auto , 1 , false
-$DYToLL-M-50_1J_14TeV-madgraphMLM-pythia8_200PU/                               , DYToLL_M-50_1J         , 820 , 1 , auto , 1 , false
-$DYToLL-M-50_2J_14TeV-madgraphMLM-pythia8_200PU/                               , DYToLL_M-50_2J         , 820 , 1 , auto , 1 , false
-$DYToLL-M-50_3J_14TeV-madgraphMLM-pythia8_200PU/                               , DYToLL_M-50_3J         , 820 , 1 , auto , 1 , false
+DYToLL-M-50_0J_14TeV-madgraphMLM-pythia8_200PU/                               , DYToLL_M-50_0J         , 820 , 1 , auto , 1 , false
+DYToLL-M-50_1J_14TeV-madgraphMLM-pythia8_200PU/                               , DYToLL_M-50_1J         , 820 , 1 , auto , 1 , false
+DYToLL-M-50_2J_14TeV-madgraphMLM-pythia8_200PU/                               , DYToLL_M-50_2J         , 820 , 1 , auto , 1 , false
+DYToLL-M-50_3J_14TeV-madgraphMLM-pythia8_200PU/                               , DYToLL_M-50_3J         , 820 , 1 , auto , 1 , false
+DYJetsToLL_M-10to50_TuneCUETP8M1_14TeV-madgraphMLM-pythia8_200PU/             , DYToLL_M-10to50        , 820 , 1 , auto , 1 , false
 $ST_s-channel_4f_InclusiveDecays_14TeV-amcatnlo-pythia8_200PU/                 , ST_s-channel_inclusive , 820 , 1 , auto , 1 , false
 $ST_s-channel_4f_leptonic_14TeV-amcatnlo-pythia8_200PU/                        , ST_s-channel_leptonic  , 820 , 1 , auto , 1 , false
 $ST_tch_14TeV_antitop_incl-powheg-pythia8-madspin_200PU/                       , ST_t-channel_antitop   , 820 , 1 , auto , 1 , false
 $ST_tch_14TeV_top_incl-powheg-pythia8-madspin_200PU/                           , ST_t-channel_top       , 820 , 1 , auto , 1 , false
-$$TGGJets_leptonic_14TeV-amcatnlo-madspin-pythia8_200PU/                        , TGGJets_leptonic       , 820 , 1 , auto , 1 , false
-$$TGJets_14TeV-amcatnlo-madspin-pythia8_200PU/                                  , TGJets                 , 820 , 1 , auto , 1 , false
-$$TGJets_lept_14TeV-amcatnlo-madspin-pythia8_200PU/                             , TGJets_leptonic        , 820 , 1 , auto , 1 , false
-$$TGJets_leptonic_14TeV-amcatnlo-madspin-pythia8_200PU/                         , TGJets_leptonic        , 820 , 1 , auto , 1 , false
-$$TTGamma_Dilept_TuneCUETP8M2T4_14TeV-madgraph-pythia8_200PU/                   , TTGamma_Dilept         , 820 , 1 , auto , 1 , false
-$$TTGamma_Hadronic_TuneCUETP8M2T4_14TeV-madgraph-pythia8_200PU/                 , TTGamma_Hadronic       , 820 , 1 , auto , 1 , false
-$$TTGamma_SingleLeptFromTbar_TuneCUETP8M2T4_14TeV-madgraph-pythia8_200PU/       , TTGamma_SingleLeptTbar , 820 , 1 , auto , 1 , false
-$$TTGamma_SingleLeptFromT_TuneCUETP8M2T4_14TeV-madgraph-pythia8_200PU/          , TTGamma_SingleLeptT    , 820 , 1 , auto , 1 , false
-$$TTHH_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                               , TTHH                   , 820 , 1 , auto , 1 , false
-$$TTJets_DiLept_TuneCUETP8M1_14TeV-madgraphMLM-pythia8_200PU/                   , TT_Dilept              , 820 , 1 , auto , 1 , false
-$$TTTJ_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                               , TTTJ                   , 820 , 1 , auto , 1 , false
-$$TTTT_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                               , TTTT                   , 820 , 1 , auto , 1 , false
-$$TT_TuneCUETP8M2T4_14TeV-powheg-pythia8_200PU/                                 , TT                     , 820 , 1 , auto , 1 , false
-$$TTTW_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                               , TTTW                   , 820 , 1 , auto , 1 , false
-$$TTWH_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                               , TTWH                   , 820 , 1 , auto , 1 , false
-$$TTWJetsToLNu_TuneCUETP8M1_14TeV-amcatnloFXFX-madspin-pythia8_200PU/           , TTWJetsToLNu           , 820 , 1 , auto , 1 , false
-$$TTWW_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                               , TTWW                   , 820 , 1 , auto , 1 , false
-$$TTWZ_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                               , TTWZ                   , 820 , 1 , auto , 1 , false
-$$TTZH_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                               , TTZH                   , 820 , 1 , auto , 1 , false
-$$TTZJets_TuneCUETP8M2_14TeV_madgraphMLM-pythia8_200PU/                         , TTZJets                , 820 , 1 , auto , 1 , false
-$$TTZZ_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                               , TTZZ                   , 820 , 1 , auto , 1 , false
+$TGGJets_leptonic_14TeV-amcatnlo-madspin-pythia8_200PU/                        , TGGJets_leptonic       , 820 , 1 , auto , 1 , false
+$TGJets_14TeV-amcatnlo-madspin-pythia8_200PU/                                  , TGJets                 , 820 , 1 , auto , 1 , false
+$TGJets_lept_14TeV-amcatnlo-madspin-pythia8_200PU/                             , TGJets_leptonic        , 820 , 1 , auto , 1 , false
+$TGJets_leptonic_14TeV-amcatnlo-madspin-pythia8_200PU/                         , TGJets_leptonic        , 820 , 1 , auto , 1 , false
+$TTGamma_Dilept_TuneCUETP8M2T4_14TeV-madgraph-pythia8_200PU/                   , TTGamma_Dilept         , 820 , 1 , auto , 1 , false
+$TTGamma_Hadronic_TuneCUETP8M2T4_14TeV-madgraph-pythia8_200PU/                 , TTGamma_Hadronic       , 820 , 1 , auto , 1 , false
+$TTGamma_SingleLeptFromTbar_TuneCUETP8M2T4_14TeV-madgraph-pythia8_200PU/       , TTGamma_SingleLeptTbar , 820 , 1 , auto , 1 , false
+$TTGamma_SingleLeptFromT_TuneCUETP8M2T4_14TeV-madgraph-pythia8_200PU/          , TTGamma_SingleLeptT    , 820 , 1 , auto , 1 , false
+$TTHH_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                               , TTHH                   , 820 , 1 , auto , 1 , false
+TTJets_DiLept_TuneCUETP8M1_14TeV-madgraphMLM-pythia8_200PU/                   , TT_Dilept              , 820 , 1 , auto , 1 , false
+$TTTJ_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                               , TTTJ                   , 820 , 1 , auto , 1 , false
+$TTTT_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                               , TTTT                   , 820 , 1 , auto , 1 , false
+TT_TuneCUETP8M2T4_14TeV-powheg-pythia8_200PU/                                 , TTbar                  , 820 , 1 , auto , 1 , false
+$TTTW_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                               , TTTW                   , 820 , 1 , auto , 1 , false
+$TTWH_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                               , TTWH                   , 820 , 1 , auto , 1 , false
+$TTWJetsToLNu_TuneCUETP8M1_14TeV-amcatnloFXFX-madspin-pythia8_200PU/           , TTWJetsToLNu           , 820 , 1 , auto , 1 , false
+$TTWW_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                               , TTWW                   , 820 , 1 , auto , 1 , false
+$TTWZ_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                               , TTWZ                   , 820 , 1 , auto , 1 , false
+$TTZH_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                               , TTZH                   , 820 , 1 , auto , 1 , false
+$TTZJets_TuneCUETP8M2_14TeV_madgraphMLM-pythia8_200PU/                         , TTZJets                , 820 , 1 , auto , 1 , false
+$TTZZ_TuneCUETP8M2_14TeV-madgraph-pythia8_200PU/                               , TTZZ                   , 820 , 1 , auto , 1 , false
 $tZq_ll_4f_14TeV-amcatnlo-madspin-pythia8_200PU/                               , tZq_ll                 , 820 , 1 , auto , 1 , false
 $tZq_nunu_4f_14TeV-amcatnlo-madspin-pythia8_200PU/                             , tZq_nunu               , 820 , 1 , auto , 1 , false
-$WTolNu01234Jets_5f_LO_MLM_madgraph_V5_2p4p2_200PU/                            , WToLNu_01234J          , 820 , 1 , auto , 1 , false
-$WToLNu_0J_14TeV-madgraphMLM-pythia8_200PU/                                    , WToLNu_0J              , 820 , 1 , auto , 1 , false
-$WToLNu_1J_14TeV-madgraphMLM-pythia8_200PU/                                    , WToLNu_1J              , 820 , 1 , auto , 1 , false
-$WToLNu_2J_14TeV-madgraphMLM-pythia8_200PU/                                    , WToLNu_2J              , 820 , 1 , auto , 1 , false
-$WToLNu_3J_14TeV-madgraphMLM-pythia8_200PU/                                    , WToLNu_3J              , 820 , 1 , auto , 1 , false
+WTolNu01234Jets_5f_LO_MLM_madgraph_V5_2p4p2_200PU/                            , WToLNu_01234J          , 820 , 1 , auto , 1 , false
+WToLNu_0J_14TeV-madgraphMLM-pythia8_200PU/                                    , WToLNu_0J              , 820 , 1 , auto , 1 , false
+WToLNu_1J_14TeV-madgraphMLM-pythia8_200PU/                                    , WToLNu_1J              , 820 , 1 , auto , 1 , false
+WToLNu_2J_14TeV-madgraphMLM-pythia8_200PU/                                    , WToLNu_2J              , 820 , 1 , auto , 1 , false
+WToLNu_3J_14TeV-madgraphMLM-pythia8_200PU/                                    , WToLNu_3J              , 820 , 1 , auto , 1 , false
 
 [inputfiles-end]
