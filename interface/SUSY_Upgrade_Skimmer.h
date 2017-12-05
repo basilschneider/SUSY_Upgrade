@@ -113,10 +113,10 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         std::vector<double> drLep1Lep2, drLep1Jet1, drLep2Jet1;
 
         // Guess origin of leptons
-        TH2D* mu1_pt_origin_nghbr = new TH2D("mu1_pt_origin_nghbr", "mu1_pt_origin_nghbr", 6, 0., 30., 4, -.5, 3.5);
-        TH2D* mu1_pt_origin_cone = new TH2D("mu1_pt_origin_cone", "mu1_pt_origin_cone", 6, 0., 30., 4, -.5, 3.5);
-        TH2D* mu2_pt_origin_nghbr = new TH2D("mu2_pt_origin_nghbr", "mu2_pt_origin_nghbr", 6, 0., 30., 4, -.5, 3.5);
-        TH2D* mu2_pt_origin_cone = new TH2D("mu2_pt_origin_cone", "mu2_pt_origin_cone", 6, 0., 30., 4, -.5, 3.5);
+        TH2D* mu1_pt_origin_nghbr = new TH2D("mu1_pt_origin_nghbr", "mu1_pt_origin_nghbr", 6, 0., 30., 5, -.5, 4.5);
+        TH2D* mu1_pt_origin_cone = new TH2D("mu1_pt_origin_cone", "mu1_pt_origin_cone", 6, 0., 30., 5, -.5, 4.5);
+        TH2D* mu2_pt_origin_nghbr = new TH2D("mu2_pt_origin_nghbr", "mu2_pt_origin_nghbr", 6, 0., 30., 5, -.5, 4.5);
+        TH2D* mu2_pt_origin_cone = new TH2D("mu2_pt_origin_cone", "mu2_pt_origin_cone", 6, 0., 30., 5, -.5, 4.5);
 
         // Real lepton efficiency histograms
         TH2D* rle_el_num = new TH2D("rle_el_num", "rle_el_num", 6, 0., 30., 8, 0., 4.);

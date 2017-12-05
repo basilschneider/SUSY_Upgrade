@@ -408,18 +408,21 @@ void SUSY_Upgrade_Skimmer::effOnTopElec(d_ana::dBranchHandler<Electron>& elecs){
 }
 
 unsigned short int SUSY_Upgrade_Skimmer::getNghbr(int pid){
-    if (fabs(pid) <= 4 || pid == 21){
+    if (fabs(pid) <= 3 || pid == 21){
         // Light flavor
         return 0;
+    }else if (fabs(pid) == 4){
+        // c
+        return 1;
     }else if (fabs(pid) == 5){
         // Heavy flavor
-        return 1;
+        return 2;
     }else if (fabs(pid) == 15){
         // Tau
-        return 2;
+        return 3;
     }else{
         // Others
-        return 3;
+        return 4;
     }
 }
 
