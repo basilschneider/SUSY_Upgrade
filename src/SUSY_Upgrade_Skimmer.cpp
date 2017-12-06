@@ -139,6 +139,10 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("drLep1Lep2", &drLep1Lep2);
     myskim->Branch("drLep1Jet1", &drLep1Jet1);
     myskim->Branch("drLep2Jet1", &drLep2Jet1);
+    myskim->Branch("mu_pt5to10_origin_nghbr", &mu_pt5to10_origin_nghbr);
+    myskim->Branch("mu_pt5to10_origin_cone", &mu_pt5to10_origin_cone);
+    myskim->Branch("mu_pt10to30_origin_nghbr", &mu_pt10to30_origin_nghbr);
+    myskim->Branch("mu_pt10to30_origin_cone", &mu_pt10to30_origin_cone);
 }
 
 void SUSY_Upgrade_Skimmer::clearVectors(){
@@ -232,6 +236,10 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     drLep1Lep2.clear();
     drLep1Jet1.clear();
     drLep2Jet1.clear();
+    mu_pt5to10_origin_nghbr.clear();
+    mu_pt5to10_origin_cone.clear();
+    mu_pt10to30_origin_nghbr.clear();
+    mu_pt10to30_origin_cone.clear();
 }
 
 template <typename T> bool SUSY_Upgrade_Skimmer::isIsolated(const T particle){
