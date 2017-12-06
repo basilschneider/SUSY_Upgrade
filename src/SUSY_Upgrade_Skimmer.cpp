@@ -418,6 +418,7 @@ void SUSY_Upgrade_Skimmer::effOnTopElec(d_ana::dBranchHandler<Electron>& elecs){
 }
 
 unsigned short int SUSY_Upgrade_Skimmer::getNghbr(int pid){
+    return fabs(pid);
     if (fabs(pid) <= 3 || pid == 21){
         // Light flavor
         return 0;
