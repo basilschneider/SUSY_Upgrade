@@ -816,21 +816,31 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                     nghbr = getNghbr(genpart.at(j)->PID);
                 }
                 if (dr < .5){
-                    mu1_pt_origin_cone->Fill(mu1_pt.at(i), getNghbr(genpart.at(j)->PID), genWeight);
+                    //mu1_pt_origin_cone->Fill(mu1_pt.at(i), getNghbr(genpart.at(j)->PID), genWeight);
+                    if (mu1_pt.at(i) > 5 && mu1_pt.at(i) < 10){
+                        mu_pt5to10_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+                    }else if (mu1_pt.at(i) < 30){
+                        mu_pt10to30_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+                    }
                     filledPid.push_back(genpart.at(j)->PID);
                     filledPt.push_back(genpart.at(j)->PT);
                     filledEta.push_back(genpart.at(j)->Eta);
                     filledPhi.push_back(genpart.at(j)->Phi);
                 }
             }
-            mu1_pt_origin_nghbr->Fill(mu1_pt.at(i), nghbr, genWeight);
+            //mu1_pt_origin_nghbr->Fill(mu1_pt.at(i), nghbr, genWeight);
+            if (mu1_pt.at(i) > 5 && mu1_pt.at(i) < 10){
+                mu_pt5to10_origin_nghbr.push_back(nghbr);
+            }else if (mu1_pt.at(i) < 30){
+                mu_pt10to30_origin_nghbr.push_back(nghbr);
+            }
 
             // Neighbor veto: veto leptons with a light flavor object as nearest
             // truth neighbor, since these are likely fakes and can be suppressed
             // with a smart choice of ID
-            if (nghbr == 0){
-                genWeight *= wght_lf_veto;
-            }
+            //if (nghbr == 0){
+            //    genWeight *= wght_lf_veto;
+            //}
         }
         drMin = 99.;
         nghbr = 99;
@@ -865,21 +875,31 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                     nghbr = getNghbr(genpart.at(j)->PID);
                 }
                 if (dr < .5){
-                    mu2_pt_origin_cone->Fill(mu2_pt.at(i), getNghbr(genpart.at(j)->PID), genWeight);
+                    //mu2_pt_origin_cone->Fill(mu2_pt.at(i), getNghbr(genpart.at(j)->PID), genWeight);
+                    if (mu2_pt.at(i) > 5 && mu2_pt.at(i) < 10){
+                        mu_pt5to10_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+                    }else if (mu2_pt.at(i) < 30){
+                        mu_pt10to30_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+                    }
                     filledPid.push_back(genpart.at(j)->PID);
                     filledPt.push_back(genpart.at(j)->PT);
                     filledEta.push_back(genpart.at(j)->Eta);
                     filledPhi.push_back(genpart.at(j)->Phi);
                 }
             }
-            mu2_pt_origin_nghbr->Fill(mu2_pt.at(i), nghbr, genWeight);
+            //mu2_pt_origin_nghbr->Fill(mu2_pt.at(i), nghbr, genWeight);
+            if (mu2_pt.at(i) > 5 && mu2_pt.at(i) < 10){
+                mu_pt5to10_origin_nghbr.push_back(nghbr);
+            }else if (mu2_pt.at(i) < 30){
+                mu_pt10to30_origin_nghbr.push_back(nghbr);
+            }
 
             // Neighbor veto: veto leptons with a light flavor object as nearest
             // truth neighbor, since these are likely fakes and can be suppressed
             // with a smart choice of ID
-            if (nghbr == 0){
-                genWeight *= wght_lf_veto;
-            }
+            //if (nghbr == 0){
+            //    genWeight *= wght_lf_veto;
+            //}
         }
 
         // Fill leptons
@@ -1112,10 +1132,10 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         myskim->Fill();
     }
 
-    mu1_pt_origin_nghbr->Write();
-    mu1_pt_origin_cone->Write();
-    mu2_pt_origin_nghbr->Write();
-    mu2_pt_origin_cone->Write();
+    //mu1_pt_origin_nghbr->Write();
+    //mu1_pt_origin_cone->Write();
+    //mu2_pt_origin_nghbr->Write();
+    //mu2_pt_origin_cone->Write();
 
     if (fill_rle){
         rle_el_num->Write();
