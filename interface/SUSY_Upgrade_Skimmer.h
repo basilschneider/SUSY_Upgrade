@@ -33,7 +33,7 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         void effOnTopElec(d_ana::dBranchHandler<Electron>& elecs);
         void effOnTopMuon(d_ana::dBranchHandler<Muon>& muontight);
         void passRandomEfficiency(double eff, Float_t*& ppt);
-        unsigned short int getNghbr(int pid);
+        int getNghbr(int pid);
         template <typename T> bool isMatched(const GenParticle* truthParticle, const T particle);
         bool isMatched(const GenParticle* truthParticle, const double pt, const double eta, const double phi);
 
