@@ -34,6 +34,7 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         void effOnTopMuon(d_ana::dBranchHandler<Muon>& muontight);
         void passRandomEfficiency(double eff, Float_t*& ppt);
         int getNghbr(int pid);
+        double coneVeto(double pt, double eta, double phi, d_ana::dBranchHandler<GenParticle>& genpart);
         template <typename T> bool isMatched(const GenParticle* truthParticle, const T particle);
         bool isMatched(const GenParticle* truthParticle, const double pt, const double eta, const double phi);
 
@@ -56,8 +57,8 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         static constexpr double jet_or_dr = .4;
         static constexpr double truth_match_diff_pt_rel = .5;
         static constexpr double truth_match_diff_dr = .1;
-        static constexpr double wght_tau_veto = .5; // permille
-        static constexpr double wght_lf_veto = .2; // permille
+        static constexpr double wght_tau_veto = .05;
+        static constexpr double wght_hf_veto = .005;
 
         // Event variables
         double genWeight, nTot, xs;

@@ -446,6 +446,85 @@ int SUSY_Upgrade_Skimmer::getNghbr(int pid){
     }
 }
 
+double SUSY_Upgrade_Skimmer::coneVeto(double pt, double eta, double phi, d_ana::dBranchHandler<GenParticle>& genpart){
+
+    int nghbr = 99;
+    double drMin = 99.;
+    double drBMin = 99.;
+    double drTauMin = 99.;
+
+    const double cone = .5;
+
+    // Vectors with particles that have already been filled
+    // These are used to not fill the same particle twice
+    std::vector<int> filledPid;
+    std::vector<double> filledPt;
+    std::vector<double> filledEta;
+    std::vector<double> filledPhi;
+
+    for (size_t j=0; j<genpart.size(); ++j){
+
+        // Remove muon itself
+        if (isMatched(genpart.at(j), pt, eta, phi)){ continue; }
+
+        // Check if this particle has been filled before
+        // This needs to be checked since similar copies of truth
+        // particles are stored
+        bool skipParticle = false;
+        for (size_t k=0; k<filledPid.size(); ++k){
+            // PID needs to be the same and the particles need to match
+            if ((genpart.at(j)->PID == filledPid.at(k)) && isMatched(genpart.at(j), filledPt.at(k), filledEta.at(k), filledPhi.at(k))){
+                skipParticle = true;
+                break;
+            }
+        }
+        if (skipParticle){ continue; }
+
+        double dr = DeltaR(eta, genpart.at(j)->Eta, phi, genpart.at(j)->Phi);
+
+        // Check b's
+        if (fabs(genpart.at(j)->PID) == 5 && dr < drBMin){
+            drBMin = dr;
+        }
+
+        // Check taus
+        if (fabs(genpart.at(j)->PID) == 15 && dr < drTauMin){
+            drTauMin = dr;
+        }
+
+        if (dr < drMin){
+            drMin = dr;
+            nghbr = getNghbr(genpart.at(j)->PID);
+        }
+        if (dr < cone){
+            if (pt > 5 && pt < 10){
+                mu_pt5to10_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+            }else if (pt < 30){
+                mu_pt10to30_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+            }
+            filledPid.push_back(genpart.at(j)->PID);
+            filledPt.push_back(genpart.at(j)->PT);
+            filledEta.push_back(genpart.at(j)->Eta);
+            filledPhi.push_back(genpart.at(j)->Phi);
+        }
+    }
+
+    if (pt > 5 && pt < 10){
+        mu_pt5to10_origin_nghbr.push_back(nghbr);
+    }else if (pt < 30){
+        mu_pt10to30_origin_nghbr.push_back(nghbr);
+    }
+
+    // Return no weight, b veto weight or tau veto weight
+    if (drBMin > cone && drTauMin > cone){
+        return 1.;
+    }else if (drBMin < drTauMin){
+        return wght_hf_veto;
+    }else{
+        return wght_tau_veto;
+    }
+}
+
 void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for printouts */){
 
     d_ana::dBranchHandler<HepMCEvent> event(tree(),"Event");
@@ -492,17 +571,17 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         nTot = (getXsec()*3000.)/getNorm();
         xs = getXsec();
 
-        // If there is a tau in the event, skip the event 50 % of the time
-        // This mimics a tau veto, which cannot be implemented in Delphes
-        for (size_t i=0; i<genpart.size(); ++i){
-            if (fabs(genpart.at(i)->PID) == 15){
-                genWeight *= wght_tau_veto;
-                // If we found already a tau, break here, otherwise we get
-                // multiple shots at rejecting an event if the same tau is
-                // stored multiple times in truth
-                break;
-            }
-        }
+        //// If there is a tau in the event, skip the event 50 % of the time
+        //// This mimics a tau veto, which cannot be implemented in Delphes
+        //for (size_t i=0; i<genpart.size(); ++i){
+        //    if (fabs(genpart.at(i)->PID) == 15){
+        //        genWeight *= wght_tau_veto;
+        //        // If we found already a tau, break here, otherwise we get
+        //        // multiple shots at rejecting an event if the same tau is
+        //        // stored multiple times in truth
+        //        break;
+        //    }
+        //}
 
         // Lepton on-the-fly efficiencies
         effOnTopElec(elecs);
@@ -793,125 +872,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
 
         // Guess origin of leptons
-        double drMin = 99.;
-        int nghbr = 99;
-        //for (size_t i=0; i<mu1_pt.size(); ++i){
-        //    if (mu1_q.at(i) > 0){ continue; }
-        //    // Vectors with particles that have already been filled
-        //    // These are used to not fill the same particle twice
-        //    std::vector<int> filledPid;
-        //    std::vector<double> filledPt;
-        //    std::vector<double> filledEta;
-        //    std::vector<double> filledPhi;
-        //    for (size_t j=0; j<genpart.size(); ++j){
-
-        //        // Remove muon itself
-        //        if (isMatched(genpart.at(j), mu1_pt.at(i), mu1_eta.at(i), mu1_phi.at(i))){ continue; }
-
-        //        // Check if this particle has been filled before
-        //        // This needs to be checked since similar copies of truth
-        //        // particles are stored
-        //        bool skipParticle = false;
-        //        for (size_t k=0; k<filledPid.size(); ++k){
-        //            // PID needs to be the same and the particles need to match
-        //            if ((genpart.at(j)->PID == filledPid.at(k)) && isMatched(genpart.at(j), filledPt.at(k), filledEta.at(k), filledPhi.at(k))){
-        //                skipParticle = true;
-        //                break;
-        //            }
-        //        }
-        //        if (skipParticle){ continue; }
-
-        //        double dr = DeltaR(mu1_eta.at(i), genpart.at(j)->Eta, mu1_phi.at(i), genpart.at(j)->Phi);
-        //        if (dr < drMin){
-        //            drMin = dr;
-        //            nghbr = getNghbr(genpart.at(j)->PID);
-        //        }
-        //        if (dr < .5){
-        //            //mu1_pt_origin_cone->Fill(mu1_pt.at(i), getNghbr(genpart.at(j)->PID), genWeight);
-        //            if (mu1_pt.at(i) > 5 && mu1_pt.at(i) < 10){
-        //                mu_pt5to10_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
-        //            }else if (mu1_pt.at(i) < 30){
-        //                mu_pt10to30_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
-        //            }
-        //            filledPid.push_back(genpart.at(j)->PID);
-        //            filledPt.push_back(genpart.at(j)->PT);
-        //            filledEta.push_back(genpart.at(j)->Eta);
-        //            filledPhi.push_back(genpart.at(j)->Phi);
-        //        }
-        //    }
-        //    //mu1_pt_origin_nghbr->Fill(mu1_pt.at(i), nghbr, genWeight);
-        //    if (mu1_pt.at(i) > 5 && mu1_pt.at(i) < 10){
-        //        mu_pt5to10_origin_nghbr.push_back(nghbr);
-        //    }else if (mu1_pt.at(i) < 30){
-        //        mu_pt10to30_origin_nghbr.push_back(nghbr);
-        //    }
-
-        //    // Neighbor veto: veto leptons with a light flavor object as nearest
-        //    // truth neighbor, since these are likely fakes and can be suppressed
-        //    // with a smart choice of ID
-        //    //if (nghbr == 0){
-        //    //    genWeight *= wght_lf_veto;
-        //    //}
-        //}
-        drMin = 99.;
-        nghbr = 99;
+        for (size_t i=0; i<mu1_pt.size(); ++i){
+            genWeight *= coneVeto(mu1_pt.at(i), mu1_eta.at(i), mu1_phi.at(i), genpart);
+        }
         for (size_t i=0; i<mu2_pt.size(); ++i){
-            if (mu2_q.at(i) > 0){ continue; }
-            // Vectors with particles that have already been filled
-            // These are used to not fill the same particle twice
-            std::vector<int> filledPid;
-            std::vector<double> filledPt;
-            std::vector<double> filledEta;
-            std::vector<double> filledPhi;
-            for (size_t j=0; j<genpart.size(); ++j){
-
-                // Remove muon itself
-                if (isMatched(genpart.at(j), mu2_pt.at(i), mu2_eta.at(i), mu2_phi.at(i))){ continue; }
-
-                // Check if this particle has been filled before
-                // This needs to be checked since similar copies of truth
-                // particles are stored
-                bool skipParticle = false;
-                for (size_t k=0; k<filledPid.size(); ++k){
-                    // PID needs to be the same and the particles need to match
-                    if ((genpart.at(j)->PID == filledPid.at(k)) && isMatched(genpart.at(j), filledPt.at(k), filledEta.at(k), filledPhi.at(k))){
-                        skipParticle = true;
-                        break;
-                    }
-                }
-                if (skipParticle){ continue; }
-
-                double dr = DeltaR(mu2_eta.at(i), genpart.at(j)->Eta, mu2_phi.at(i), genpart.at(j)->Phi);
-                if (dr < drMin){
-                    drMin = dr;
-                    nghbr = getNghbr(genpart.at(j)->PID);
-                }
-                if (dr < .5){
-                    //mu2_pt_origin_cone->Fill(mu2_pt.at(i), getNghbr(genpart.at(j)->PID), genWeight);
-                    if (mu2_pt.at(i) > 5 && mu2_pt.at(i) < 10){
-                        mu_pt5to10_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
-                    }else if (mu2_pt.at(i) < 30){
-                        mu_pt10to30_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
-                    }
-                    filledPid.push_back(genpart.at(j)->PID);
-                    filledPt.push_back(genpart.at(j)->PT);
-                    filledEta.push_back(genpart.at(j)->Eta);
-                    filledPhi.push_back(genpart.at(j)->Phi);
-                }
-            }
-            //mu2_pt_origin_nghbr->Fill(mu2_pt.at(i), nghbr, genWeight);
-            if (mu2_pt.at(i) > 5 && mu2_pt.at(i) < 10){
-                mu_pt5to10_origin_nghbr.push_back(nghbr);
-            }else if (mu2_pt.at(i) < 30){
-                mu_pt10to30_origin_nghbr.push_back(nghbr);
-            }
-
-            // Neighbor veto: veto leptons with a light flavor object as nearest
-            // truth neighbor, since these are likely fakes and can be suppressed
-            // with a smart choice of ID
-            //if (nghbr == 0){
-            //    genWeight *= wght_lf_veto;
-            //}
+            genWeight *= coneVeto(mu2_pt.at(i), mu2_eta.at(i), mu2_phi.at(i), genpart);
         }
 
         // Fill leptons
