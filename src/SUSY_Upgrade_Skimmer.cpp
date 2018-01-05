@@ -450,10 +450,12 @@ double SUSY_Upgrade_Skimmer::coneVeto(double pt, double eta, double phi, d_ana::
 
     int nghbr = 99;
     double drMin = 99.;
-    double drBMin = 99.;
+    double drHfMin = 99.;
     double drTauMin = 99.;
 
-    const double cone = .5;
+    double iso = 0.;
+
+    const double cone = .9;
 
     // Vectors with particles that have already been filled
     // These are used to not fill the same particle twice
@@ -483,8 +485,8 @@ double SUSY_Upgrade_Skimmer::coneVeto(double pt, double eta, double phi, d_ana::
         double dr = DeltaR(eta, genpart.at(j)->Eta, phi, genpart.at(j)->Phi);
 
         // Check b's
-        if (fabs(genpart.at(j)->PID) == 5 && dr < drBMin){
-            drBMin = dr;
+        if ((fabs(genpart.at(j)->PID) == 4 || fabs(genpart.at(j)->PID == 5)) && dr < drHfMin){
+            drHfMin = dr;
         }
 
         // Check taus
@@ -506,6 +508,7 @@ double SUSY_Upgrade_Skimmer::coneVeto(double pt, double eta, double phi, d_ana::
             filledPt.push_back(genpart.at(j)->PT);
             filledEta.push_back(genpart.at(j)->Eta);
             filledPhi.push_back(genpart.at(j)->Phi);
+            iso += genpart.at(j)->PT;
         }
     }
 
@@ -515,14 +518,20 @@ double SUSY_Upgrade_Skimmer::coneVeto(double pt, double eta, double phi, d_ana::
         mu_pt10to30_origin_nghbr.push_back(nghbr);
     }
 
-    // Return no weight, b veto weight or tau veto weight
-    if (drBMin > cone && drTauMin > cone){
-        return 1.;
-    }else if (drBMin < drTauMin){
-        return wght_hf_veto;
+    // Weight to be returned
+    // Here I finally sell my scientific soul to the gods of publish or perish
+    //double wght = 1./(1. + wght_gen_iso*iso/pt);
+    // Or maybe not?
+    double wght = 1.;
+    if (drHfMin > cone && drTauMin > cone){
+        ;
+    }else if (drHfMin < drTauMin){
+        wght *= wght_hf_veto;
     }else{
-        return wght_tau_veto;
+        wght *= wght_tau_veto;
     }
+
+    return wght;
 }
 
 void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for printouts */){
