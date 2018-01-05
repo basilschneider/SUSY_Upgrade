@@ -289,7 +289,7 @@ bool SUSY_Upgrade_Skimmer::isOverlap(const Jet* jet, d_ana::dBranchHandler<Elect
 void SUSY_Upgrade_Skimmer::passRandomEfficiency(double eff, Float_t*& ppt){
     // Throw random number to decide if lepton can be reconstructed
     // (to mimic real world detector effects)
-    if ((rand() % 1000) > 1000*eff){
+    if ((rand() % 1000) >= 1000*eff){
         // Oops! We lost that lepton!
         // Instead of deleting this object, we set pT to -1, it will then
         // fail any selection
