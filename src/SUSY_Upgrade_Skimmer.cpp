@@ -368,7 +368,7 @@ void SUSY_Upgrade_Skimmer::effOnTopElec(d_ana::dBranchHandler<Electron>& elecs){
     for (size_t i=0; i<elecs.size(); ++i){
 
         double pt = elecs.at(i)->PT;
-        double eta = elecs.at(i)->Eta;
+        double eta = fabs(elecs.at(i)->Eta);
         Float_t* ppt = &elecs.at(i)->PT;
 
         if (eta >= 2.5){ passRandomEfficiency(.000, ppt); }
