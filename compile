@@ -4,8 +4,8 @@ set -e -o pipefail
 
 make 2>&1 | tee make.out
 
-#./SUSY_Upgrade_Skimmer config/configSkimmer_v333pre16.txt
-#./SUSY_Upgrade_Skimmer config/configSkimmer_v342pre05.txt
-#./SUSY_Upgrade_Skimmer config/configSkimmer_v342pre07.txt
-./SUSY_Upgrade_Skimmer config/configSkimmer_v342pre07_signal.txt
-#./SUSY_Upgrade_Skimmer config/configSkimmer_v342pre07_run2.txt
+#./SUSY_Upgrade_Skimmer config/configSkimmer_v333pre16.txt 2>&1 | tee run.out
+#./SUSY_Upgrade_Skimmer config/configSkimmer_v342pre05.txt 2>&1 | tee run.out
+#./SUSY_Upgrade_Skimmer config/configSkimmer_v342pre07.txt 2>&1 | tee run.out
+#./SUSY_Upgrade_Skimmer config/configSkimmer_v342pre07_signal.txt 2>&1 | tee run.out
+./SUSY_Upgrade_Skimmer config/configSkimmer_v342pre07_run2.txt 2>&1 | tee run.out
