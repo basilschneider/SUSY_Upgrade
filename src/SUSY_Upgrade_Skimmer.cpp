@@ -243,6 +243,7 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
 }
 
 template <typename T> bool SUSY_Upgrade_Skimmer::isIsolated(const T particle){
+    return true;
     if (particle->IsolationVarRhoCorr > iso_cut_rel){
         return false;
     }
