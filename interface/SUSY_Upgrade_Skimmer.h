@@ -70,33 +70,33 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         std::vector<int> el1_q, el2_q;
 
         // Matched truth electron variables
-        std::vector<double> el1_pt_truth_matched, el1_eta_truth_matched, el1_phi_truth_matched, el2_pt_truth_matched, el2_eta_truth_matched, el2_phi_truth_matched;
-        std::vector<int> el1_q_truth_matched, el2_q_truth_matched;
+        //std::vector<double> el1_pt_truth_matched, el1_eta_truth_matched, el1_phi_truth_matched, el2_pt_truth_matched, el2_eta_truth_matched, el2_phi_truth_matched;
+        //std::vector<int> el1_q_truth_matched, el2_q_truth_matched;
 
         // Unmatched truth electron vectors
-        std::vector<double> el1_pt_truth, el1_eta_truth, el1_phi_truth, el2_pt_truth, el2_eta_truth, el2_phi_truth;
-        std::vector<int> el1_q_truth, el2_q_truth;
+        //std::vector<double> el1_pt_truth, el1_eta_truth, el1_phi_truth, el2_pt_truth, el2_eta_truth, el2_phi_truth;
+        //std::vector<int> el1_q_truth, el2_q_truth;
 
         // Muon variables
         std::vector<double> mu1_pt, mu1_eta, mu1_phi, mu2_pt, mu2_eta, mu2_phi;
         std::vector<int> mu1_q, mu2_q;
 
         // Matched truth muon variables
-        std::vector<double> mu1_pt_truth_matched, mu1_eta_truth_matched, mu1_phi_truth_matched, mu2_pt_truth_matched, mu2_eta_truth_matched, mu2_phi_truth_matched;
-        std::vector<int> mu1_q_truth_matched, mu2_q_truth_matched;
+        //std::vector<double> mu1_pt_truth_matched, mu1_eta_truth_matched, mu1_phi_truth_matched, mu2_pt_truth_matched, mu2_eta_truth_matched, mu2_phi_truth_matched;
+        //std::vector<int> mu1_q_truth_matched, mu2_q_truth_matched;
 
         // Unmatched truth muon vectors
-        std::vector<double> mu1_pt_truth, mu1_eta_truth, mu1_phi_truth, mu2_pt_truth, mu2_eta_truth, mu2_phi_truth;
-        std::vector<int> mu1_q_truth, mu2_q_truth;
+        //std::vector<double> mu1_pt_truth, mu1_eta_truth, mu1_phi_truth, mu2_pt_truth, mu2_eta_truth, mu2_phi_truth;
+        //std::vector<int> mu1_q_truth, mu2_q_truth;
 
         // Lepton variables
         std::vector<double> lep1_pt, lep1_eta, lep1_phi, lep1_mass, lep2_pt, lep2_eta, lep2_phi, lep2_mass;
 
         // Matched truth lepton variables
-        std::vector<double> lep1_pt_truth_matched, lep1_eta_truth_matched, lep1_phi_truth_matched, lep1_mass_truth_matched, lep2_pt_truth_matched, lep2_eta_truth_matched, lep2_phi_truth_matched, lep2_mass_truth_matched;
+        //std::vector<double> lep1_pt_truth_matched, lep1_eta_truth_matched, lep1_phi_truth_matched, lep1_mass_truth_matched, lep2_pt_truth_matched, lep2_eta_truth_matched, lep2_phi_truth_matched, lep2_mass_truth_matched;
 
         // Unmatched truth lepton variables
-        std::vector<double> lep1_pt_truth, lep1_eta_truth, lep1_phi_truth, lep1_mass_truth, lep2_pt_truth, lep2_eta_truth, lep2_phi_truth, lep2_mass_truth;
+        //std::vector<double> lep1_pt_truth, lep1_eta_truth, lep1_phi_truth, lep1_mass_truth, lep2_pt_truth, lep2_eta_truth, lep2_phi_truth, lep2_mass_truth;
 
         // Jet variables
         std::vector<double> jet1_puppi_pt, jet1_puppi_eta, jet1_puppi_phi;

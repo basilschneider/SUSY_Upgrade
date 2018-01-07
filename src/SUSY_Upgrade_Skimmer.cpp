@@ -17,25 +17,25 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("el2_phi", &el2_phi);
     myskim->Branch("el2_q", &el2_q);
 
-    // Matched truth electron variables
-    myskim->Branch("el1_pt_truth_matched", &el1_pt_truth_matched);
-    myskim->Branch("el1_eta_truth_matched", &el1_eta_truth_matched);
-    myskim->Branch("el1_phi_truth_matched", &el1_phi_truth_matched);
-    myskim->Branch("el1_q_truth_matched", &el1_q_truth_matched);
-    myskim->Branch("el2_pt_truth_matched", &el2_pt_truth_matched);
-    myskim->Branch("el2_eta_truth_matched", &el2_eta_truth_matched);
-    myskim->Branch("el2_phi_truth_matched", &el2_phi_truth_matched);
-    myskim->Branch("el2_q_truth_matched", &el2_q_truth_matched);
+    //// Matched truth electron variables
+    //myskim->Branch("el1_pt_truth_matched", &el1_pt_truth_matched);
+    //myskim->Branch("el1_eta_truth_matched", &el1_eta_truth_matched);
+    //myskim->Branch("el1_phi_truth_matched", &el1_phi_truth_matched);
+    //myskim->Branch("el1_q_truth_matched", &el1_q_truth_matched);
+    //myskim->Branch("el2_pt_truth_matched", &el2_pt_truth_matched);
+    //myskim->Branch("el2_eta_truth_matched", &el2_eta_truth_matched);
+    //myskim->Branch("el2_phi_truth_matched", &el2_phi_truth_matched);
+    //myskim->Branch("el2_q_truth_matched", &el2_q_truth_matched);
 
-    // Unmatched truth electron variables
-    myskim->Branch("el1_pt_truth", &el1_pt_truth);
-    myskim->Branch("el1_eta_truth", &el1_eta_truth);
-    myskim->Branch("el1_phi_truth", &el1_phi_truth);
-    myskim->Branch("el1_q_truth", &el1_q_truth);
-    myskim->Branch("el2_pt_truth", &el2_pt_truth);
-    myskim->Branch("el2_eta_truth", &el2_eta_truth);
-    myskim->Branch("el2_phi_truth", &el2_phi_truth);
-    myskim->Branch("el2_q_truth", &el2_q_truth);
+    //// Unmatched truth electron variables
+    //myskim->Branch("el1_pt_truth", &el1_pt_truth);
+    //myskim->Branch("el1_eta_truth", &el1_eta_truth);
+    //myskim->Branch("el1_phi_truth", &el1_phi_truth);
+    //myskim->Branch("el1_q_truth", &el1_q_truth);
+    //myskim->Branch("el2_pt_truth", &el2_pt_truth);
+    //myskim->Branch("el2_eta_truth", &el2_eta_truth);
+    //myskim->Branch("el2_phi_truth", &el2_phi_truth);
+    //myskim->Branch("el2_q_truth", &el2_q_truth);
 
     // Muon variables
     myskim->Branch("mu1_pt", &mu1_pt);
@@ -47,25 +47,25 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("mu2_phi", &mu2_phi);
     myskim->Branch("mu2_q", &mu2_q);
 
-    // Matched truth muon variables
-    myskim->Branch("mu1_pt_truth_matched", &mu1_pt_truth_matched);
-    myskim->Branch("mu1_eta_truth_matched", &mu1_eta_truth_matched);
-    myskim->Branch("mu1_phi_truth_matched", &mu1_phi_truth_matched);
-    myskim->Branch("mu1_q_truth_matched", &mu1_q_truth_matched);
-    myskim->Branch("mu2_pt_truth_matched", &mu2_pt_truth_matched);
-    myskim->Branch("mu2_eta_truth_matched", &mu2_eta_truth_matched);
-    myskim->Branch("mu2_phi_truth_matched", &mu2_phi_truth_matched);
-    myskim->Branch("mu2_q_truth_matched", &mu2_q_truth_matched);
+    //// Matched truth muon variables
+    //myskim->Branch("mu1_pt_truth_matched", &mu1_pt_truth_matched);
+    //myskim->Branch("mu1_eta_truth_matched", &mu1_eta_truth_matched);
+    //myskim->Branch("mu1_phi_truth_matched", &mu1_phi_truth_matched);
+    //myskim->Branch("mu1_q_truth_matched", &mu1_q_truth_matched);
+    //myskim->Branch("mu2_pt_truth_matched", &mu2_pt_truth_matched);
+    //myskim->Branch("mu2_eta_truth_matched", &mu2_eta_truth_matched);
+    //myskim->Branch("mu2_phi_truth_matched", &mu2_phi_truth_matched);
+    //myskim->Branch("mu2_q_truth_matched", &mu2_q_truth_matched);
 
-    // Matched truth muon variables
-    myskim->Branch("mu1_pt_truth", &mu1_pt_truth);
-    myskim->Branch("mu1_eta_truth", &mu1_eta_truth);
-    myskim->Branch("mu1_phi_truth", &mu1_phi_truth);
-    myskim->Branch("mu1_q_truth", &mu1_q_truth);
-    myskim->Branch("mu2_pt_truth", &mu2_pt_truth);
-    myskim->Branch("mu2_eta_truth", &mu2_eta_truth);
-    myskim->Branch("mu2_phi_truth", &mu2_phi_truth);
-    myskim->Branch("mu2_q_truth", &mu2_q_truth);
+    //// Matched truth muon variables
+    //myskim->Branch("mu1_pt_truth", &mu1_pt_truth);
+    //myskim->Branch("mu1_eta_truth", &mu1_eta_truth);
+    //myskim->Branch("mu1_phi_truth", &mu1_phi_truth);
+    //myskim->Branch("mu1_q_truth", &mu1_q_truth);
+    //myskim->Branch("mu2_pt_truth", &mu2_pt_truth);
+    //myskim->Branch("mu2_eta_truth", &mu2_eta_truth);
+    //myskim->Branch("mu2_phi_truth", &mu2_phi_truth);
+    //myskim->Branch("mu2_q_truth", &mu2_q_truth);
 
     // Lepton variables
     myskim->Branch("lep1_pt", &lep1_pt);
@@ -77,25 +77,25 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("lep2_phi", &lep2_phi);
     myskim->Branch("lep2_mass", &lep2_mass);
 
-    // Matched truth lepton variables
-    myskim->Branch("lep1_pt_truth_matched", &lep1_pt_truth_matched);
-    myskim->Branch("lep1_eta_truth_matched", &lep1_eta_truth_matched);
-    myskim->Branch("lep1_phi_truth_matched", &lep1_phi_truth_matched);
-    myskim->Branch("lep1_mass_truth_matched", &lep1_mass_truth_matched);
-    myskim->Branch("lep2_pt_truth_matched", &lep2_pt_truth_matched);
-    myskim->Branch("lep2_eta_truth_matched", &lep2_eta_truth_matched);
-    myskim->Branch("lep2_phi_truth_matched", &lep2_phi_truth_matched);
-    myskim->Branch("lep2_mass_truth_matched", &lep2_mass_truth_matched);
+    //// Matched truth lepton variables
+    //myskim->Branch("lep1_pt_truth_matched", &lep1_pt_truth_matched);
+    //myskim->Branch("lep1_eta_truth_matched", &lep1_eta_truth_matched);
+    //myskim->Branch("lep1_phi_truth_matched", &lep1_phi_truth_matched);
+    //myskim->Branch("lep1_mass_truth_matched", &lep1_mass_truth_matched);
+    //myskim->Branch("lep2_pt_truth_matched", &lep2_pt_truth_matched);
+    //myskim->Branch("lep2_eta_truth_matched", &lep2_eta_truth_matched);
+    //myskim->Branch("lep2_phi_truth_matched", &lep2_phi_truth_matched);
+    //myskim->Branch("lep2_mass_truth_matched", &lep2_mass_truth_matched);
 
-    // Unmatched truth lepton variables
-    myskim->Branch("lep1_pt_truth", &lep1_pt_truth);
-    myskim->Branch("lep1_eta_truth", &lep1_eta_truth);
-    myskim->Branch("lep1_phi_truth", &lep1_phi_truth);
-    myskim->Branch("lep1_mass_truth", &lep1_mass_truth);
-    myskim->Branch("lep2_pt_truth", &lep2_pt_truth);
-    myskim->Branch("lep2_eta_truth", &lep2_eta_truth);
-    myskim->Branch("lep2_phi_truth", &lep2_phi_truth);
-    myskim->Branch("lep2_mass_truth", &lep2_mass_truth);
+    //// Unmatched truth lepton variables
+    //myskim->Branch("lep1_pt_truth", &lep1_pt_truth);
+    //myskim->Branch("lep1_eta_truth", &lep1_eta_truth);
+    //myskim->Branch("lep1_phi_truth", &lep1_phi_truth);
+    //myskim->Branch("lep1_mass_truth", &lep1_mass_truth);
+    //myskim->Branch("lep2_pt_truth", &lep2_pt_truth);
+    //myskim->Branch("lep2_eta_truth", &lep2_eta_truth);
+    //myskim->Branch("lep2_phi_truth", &lep2_phi_truth);
+    //myskim->Branch("lep2_mass_truth", &lep2_mass_truth);
 
     // Jet variables
     myskim->Branch("jet1_puppi_pt", &jet1_puppi_pt);
@@ -165,22 +165,22 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     el2_eta.clear();
     el2_phi.clear();
     el2_q.clear();
-    el1_pt_truth_matched.clear();
-    el1_eta_truth_matched.clear();
-    el1_phi_truth_matched.clear();
-    el1_q_truth_matched.clear();
-    el2_pt_truth_matched.clear();
-    el2_eta_truth_matched.clear();
-    el2_phi_truth_matched.clear();
-    el2_q_truth_matched.clear();
-    el1_pt_truth.clear();
-    el1_eta_truth.clear();
-    el1_phi_truth.clear();
-    el1_q_truth.clear();
-    el2_pt_truth.clear();
-    el2_eta_truth.clear();
-    el2_phi_truth.clear();
-    el2_q_truth.clear();
+    //el1_pt_truth_matched.clear();
+    //el1_eta_truth_matched.clear();
+    //el1_phi_truth_matched.clear();
+    //el1_q_truth_matched.clear();
+    //el2_pt_truth_matched.clear();
+    //el2_eta_truth_matched.clear();
+    //el2_phi_truth_matched.clear();
+    //el2_q_truth_matched.clear();
+    //el1_pt_truth.clear();
+    //el1_eta_truth.clear();
+    //el1_phi_truth.clear();
+    //el1_q_truth.clear();
+    //el2_pt_truth.clear();
+    //el2_eta_truth.clear();
+    //el2_phi_truth.clear();
+    //el2_q_truth.clear();
     mu1_pt.clear();
     mu1_eta.clear();
     mu1_phi.clear();
@@ -189,22 +189,22 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     mu2_eta.clear();
     mu2_phi.clear();
     mu2_q.clear();
-    mu1_pt_truth_matched.clear();
-    mu1_eta_truth_matched.clear();
-    mu1_phi_truth_matched.clear();
-    mu1_q_truth_matched.clear();
-    mu2_pt_truth_matched.clear();
-    mu2_eta_truth_matched.clear();
-    mu2_phi_truth_matched.clear();
-    mu2_q_truth_matched.clear();
-    mu1_pt_truth.clear();
-    mu1_eta_truth.clear();
-    mu1_phi_truth.clear();
-    mu1_q_truth.clear();
-    mu2_pt_truth.clear();
-    mu2_eta_truth.clear();
-    mu2_phi_truth.clear();
-    mu2_q_truth.clear();
+    //mu1_pt_truth_matched.clear();
+    //mu1_eta_truth_matched.clear();
+    //mu1_phi_truth_matched.clear();
+    //mu1_q_truth_matched.clear();
+    //mu2_pt_truth_matched.clear();
+    //mu2_eta_truth_matched.clear();
+    //mu2_phi_truth_matched.clear();
+    //mu2_q_truth_matched.clear();
+    //mu1_pt_truth.clear();
+    //mu1_eta_truth.clear();
+    //mu1_phi_truth.clear();
+    //mu1_q_truth.clear();
+    //mu2_pt_truth.clear();
+    //mu2_eta_truth.clear();
+    //mu2_phi_truth.clear();
+    //mu2_q_truth.clear();
     lep1_pt.clear();
     lep1_eta.clear();
     lep1_phi.clear();
@@ -213,22 +213,22 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     lep2_eta.clear();
     lep2_phi.clear();
     lep2_mass.clear();
-    lep1_pt_truth_matched.clear();
-    lep1_eta_truth_matched.clear();
-    lep1_phi_truth_matched.clear();
-    lep1_mass_truth_matched.clear();
-    lep2_pt_truth_matched.clear();
-    lep2_eta_truth_matched.clear();
-    lep2_phi_truth_matched.clear();
-    lep2_mass_truth_matched.clear();
-    lep1_pt_truth.clear();
-    lep1_eta_truth.clear();
-    lep1_phi_truth.clear();
-    lep1_mass_truth.clear();
-    lep2_pt_truth.clear();
-    lep2_eta_truth.clear();
-    lep2_phi_truth.clear();
-    lep2_mass_truth.clear();
+    //lep1_pt_truth_matched.clear();
+    //lep1_eta_truth_matched.clear();
+    //lep1_phi_truth_matched.clear();
+    //lep1_mass_truth_matched.clear();
+    //lep2_pt_truth_matched.clear();
+    //lep2_eta_truth_matched.clear();
+    //lep2_phi_truth_matched.clear();
+    //lep2_mass_truth_matched.clear();
+    //lep1_pt_truth.clear();
+    //lep1_eta_truth.clear();
+    //lep1_phi_truth.clear();
+    //lep1_mass_truth.clear();
+    //lep2_pt_truth.clear();
+    //lep2_eta_truth.clear();
+    //lep2_phi_truth.clear();
+    //lep2_mass_truth.clear();
     jet1_puppi_pt.clear();
     jet1_puppi_eta.clear();
     jet1_puppi_phi.clear();
@@ -872,35 +872,35 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             }
         }
 
-        // Fill truth electrons
-        for (size_t i=0; i<el1_pt.size(); ++i){
-            for (size_t j=0; j<genpart.size(); ++j){
-                if (genpart.at(j)->Status != 1){ continue; }
-                if (fabs(genpart.at(j)->PID) != 11){ continue; }
-                // Truth matching
-                if (!isMatched(genpart.at(j), el1_pt.at(i), el1_eta.at(i), el1_phi.at(i))){ continue; }
-                // If we make it here, the particle has been matched
-                el1_pt_truth_matched.push_back(genpart.at(j)->PT);
-                el1_eta_truth_matched.push_back(genpart.at(j)->Eta);
-                el1_phi_truth_matched.push_back(genpart.at(j)->Phi);
-                el1_q_truth_matched.push_back(genpart.at(j)->Charge);
-                break;
-            }
-        }
-        for (size_t i=0; i<el2_pt.size(); ++i){
-            for (size_t j=0; j<genpart.size(); ++j){
-                if (genpart.at(j)->Status != 1){ continue; }
-                if (fabs(genpart.at(j)->PID) != 11){ continue; }
-                // Truth matching
-                if (!isMatched(genpart.at(j), el2_pt.at(i), el2_eta.at(i), el2_phi.at(i))){ continue; }
-                // If we make it here, the particle has been matched
-                el2_pt_truth_matched.push_back(genpart.at(j)->PT);
-                el2_eta_truth_matched.push_back(genpart.at(j)->Eta);
-                el2_phi_truth_matched.push_back(genpart.at(j)->Phi);
-                el2_q_truth_matched.push_back(genpart.at(j)->Charge);
-                break;
-            }
-        }
+        //// Fill truth electrons
+        //for (size_t i=0; i<el1_pt.size(); ++i){
+        //    for (size_t j=0; j<genpart.size(); ++j){
+        //        if (genpart.at(j)->Status != 1){ continue; }
+        //        if (fabs(genpart.at(j)->PID) != 11){ continue; }
+        //        // Truth matching
+        //        if (!isMatched(genpart.at(j), el1_pt.at(i), el1_eta.at(i), el1_phi.at(i))){ continue; }
+        //        // If we make it here, the particle has been matched
+        //        el1_pt_truth_matched.push_back(genpart.at(j)->PT);
+        //        el1_eta_truth_matched.push_back(genpart.at(j)->Eta);
+        //        el1_phi_truth_matched.push_back(genpart.at(j)->Phi);
+        //        el1_q_truth_matched.push_back(genpart.at(j)->Charge);
+        //        break;
+        //    }
+        //}
+        //for (size_t i=0; i<el2_pt.size(); ++i){
+        //    for (size_t j=0; j<genpart.size(); ++j){
+        //        if (genpart.at(j)->Status != 1){ continue; }
+        //        if (fabs(genpart.at(j)->PID) != 11){ continue; }
+        //        // Truth matching
+        //        if (!isMatched(genpart.at(j), el2_pt.at(i), el2_eta.at(i), el2_phi.at(i))){ continue; }
+        //        // If we make it here, the particle has been matched
+        //        el2_pt_truth_matched.push_back(genpart.at(j)->PT);
+        //        el2_eta_truth_matched.push_back(genpart.at(j)->Eta);
+        //        el2_phi_truth_matched.push_back(genpart.at(j)->Phi);
+        //        el2_q_truth_matched.push_back(genpart.at(j)->Charge);
+        //        break;
+        //    }
+        //}
 
         // Fill muons
         for (size_t i=0; i<muontight.size(); ++i){
@@ -921,35 +921,35 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             }
         }
 
-        // Fill truth muons
-        for (size_t i=0; i<mu1_pt.size(); ++i){
-            for (size_t j=0; j<genpart.size(); ++j){
-                if (genpart.at(j)->Status != 1){ continue; }
-                if (fabs(genpart.at(j)->PID) != 13){ continue; }
-                // Truth matching
-                if (!isMatched(genpart.at(j), mu1_pt.at(i), mu1_eta.at(i), mu1_phi.at(i))){ continue; }
-                // If we make it here, the particle has been matched
-                mu1_pt_truth_matched.push_back(genpart.at(j)->PT);
-                mu1_eta_truth_matched.push_back(genpart.at(j)->Eta);
-                mu1_phi_truth_matched.push_back(genpart.at(j)->Phi);
-                mu1_q_truth_matched.push_back(genpart.at(j)->Charge);
-                break;
-            }
-        }
-        for (size_t i=0; i<mu2_pt.size(); ++i){
-            for (size_t j=0; j<genpart.size(); ++j){
-                if (genpart.at(j)->Status != 1){ continue; }
-                if (fabs(genpart.at(j)->PID) != 13){ continue; }
-                // Truth matching
-                if (!isMatched(genpart.at(j), mu2_pt.at(i), mu2_eta.at(i), mu2_phi.at(i))){ continue; }
-                // If we make it here, the particle has been matched
-                mu2_pt_truth_matched.push_back(genpart.at(j)->PT);
-                mu2_eta_truth_matched.push_back(genpart.at(j)->Eta);
-                mu2_phi_truth_matched.push_back(genpart.at(j)->Phi);
-                mu2_q_truth_matched.push_back(genpart.at(j)->Charge);
-                break;
-            }
-        }
+        //// Fill truth muons
+        //for (size_t i=0; i<mu1_pt.size(); ++i){
+        //    for (size_t j=0; j<genpart.size(); ++j){
+        //        if (genpart.at(j)->Status != 1){ continue; }
+        //        if (fabs(genpart.at(j)->PID) != 13){ continue; }
+        //        // Truth matching
+        //        if (!isMatched(genpart.at(j), mu1_pt.at(i), mu1_eta.at(i), mu1_phi.at(i))){ continue; }
+        //        // If we make it here, the particle has been matched
+        //        mu1_pt_truth_matched.push_back(genpart.at(j)->PT);
+        //        mu1_eta_truth_matched.push_back(genpart.at(j)->Eta);
+        //        mu1_phi_truth_matched.push_back(genpart.at(j)->Phi);
+        //        mu1_q_truth_matched.push_back(genpart.at(j)->Charge);
+        //        break;
+        //    }
+        //}
+        //for (size_t i=0; i<mu2_pt.size(); ++i){
+        //    for (size_t j=0; j<genpart.size(); ++j){
+        //        if (genpart.at(j)->Status != 1){ continue; }
+        //        if (fabs(genpart.at(j)->PID) != 13){ continue; }
+        //        // Truth matching
+        //        if (!isMatched(genpart.at(j), mu2_pt.at(i), mu2_eta.at(i), mu2_phi.at(i))){ continue; }
+        //        // If we make it here, the particle has been matched
+        //        mu2_pt_truth_matched.push_back(genpart.at(j)->PT);
+        //        mu2_eta_truth_matched.push_back(genpart.at(j)->Eta);
+        //        mu2_phi_truth_matched.push_back(genpart.at(j)->Phi);
+        //        mu2_q_truth_matched.push_back(genpart.at(j)->Charge);
+        //        break;
+        //    }
+        //}
 
         // Guess origin of leptons
         for (size_t i=0; i<mu1_pt.size(); ++i){
@@ -993,39 +993,39 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
         lepvec.clear();
 
-        // Fill matched truth leptons
-        // Put pT and eta into vector of vector for sorting
-        std::vector<std::vector<double>> lepvec_truth_matched;
-        if (el1_pt_truth_matched.size() != 0){
-            lepvec_truth_matched.push_back({el1_pt_truth_matched.at(0), el1_eta_truth_matched.at(0), el1_phi_truth_matched.at(0), mass_el});
-        }
-        if (el2_pt_truth_matched.size() != 0){
-            lepvec_truth_matched.push_back({el2_pt_truth_matched.at(0), el2_eta_truth_matched.at(0), el2_phi_truth_matched.at(0), mass_el});
-        }
-        if (mu1_pt_truth_matched.size() != 0){
-            lepvec_truth_matched.push_back({mu1_pt_truth_matched.at(0), mu1_eta_truth_matched.at(0), mu1_phi_truth_matched.at(0), mass_mu});
-        }
-        if (mu2_pt_truth_matched.size() != 0){
-            lepvec_truth_matched.push_back({mu2_pt_truth_matched.at(0), mu2_eta_truth_matched.at(0), mu2_phi_truth_matched.at(0), mass_mu});
-        }
-        // By definition, this sorts by the first element of the vector (in this case pT)
-        if (lepvec_truth_matched.size() > 1){
-            std::sort(begin(lepvec_truth_matched), end(lepvec_truth_matched));
-            std::reverse(begin(lepvec_truth_matched), end(lepvec_truth_matched));
-        }
-        if (lepvec_truth_matched.size() >= 1){
-            lep1_pt_truth_matched.push_back(lepvec_truth_matched[0][0]);
-            lep1_eta_truth_matched.push_back(lepvec_truth_matched[0][1]);
-            lep1_phi_truth_matched.push_back(lepvec_truth_matched[0][2]);
-            lep1_mass_truth_matched.push_back(lepvec_truth_matched[0][3]);
-        }
-        if (lepvec_truth_matched.size() >= 2){
-            lep2_pt_truth_matched.push_back(lepvec_truth_matched[1][0]);
-            lep2_eta_truth_matched.push_back(lepvec_truth_matched[1][1]);
-            lep2_phi_truth_matched.push_back(lepvec_truth_matched[1][2]);
-            lep2_mass_truth_matched.push_back(lepvec_truth_matched[1][3]);
-        }
-        lepvec_truth_matched.clear();
+        //// Fill matched truth leptons
+        //// Put pT and eta into vector of vector for sorting
+        //std::vector<std::vector<double>> lepvec_truth_matched;
+        //if (el1_pt_truth_matched.size() != 0){
+        //    lepvec_truth_matched.push_back({el1_pt_truth_matched.at(0), el1_eta_truth_matched.at(0), el1_phi_truth_matched.at(0), mass_el});
+        //}
+        //if (el2_pt_truth_matched.size() != 0){
+        //    lepvec_truth_matched.push_back({el2_pt_truth_matched.at(0), el2_eta_truth_matched.at(0), el2_phi_truth_matched.at(0), mass_el});
+        //}
+        //if (mu1_pt_truth_matched.size() != 0){
+        //    lepvec_truth_matched.push_back({mu1_pt_truth_matched.at(0), mu1_eta_truth_matched.at(0), mu1_phi_truth_matched.at(0), mass_mu});
+        //}
+        //if (mu2_pt_truth_matched.size() != 0){
+        //    lepvec_truth_matched.push_back({mu2_pt_truth_matched.at(0), mu2_eta_truth_matched.at(0), mu2_phi_truth_matched.at(0), mass_mu});
+        //}
+        //// By definition, this sorts by the first element of the vector (in this case pT)
+        //if (lepvec_truth_matched.size() > 1){
+        //    std::sort(begin(lepvec_truth_matched), end(lepvec_truth_matched));
+        //    std::reverse(begin(lepvec_truth_matched), end(lepvec_truth_matched));
+        //}
+        //if (lepvec_truth_matched.size() >= 1){
+        //    lep1_pt_truth_matched.push_back(lepvec_truth_matched[0][0]);
+        //    lep1_eta_truth_matched.push_back(lepvec_truth_matched[0][1]);
+        //    lep1_phi_truth_matched.push_back(lepvec_truth_matched[0][2]);
+        //    lep1_mass_truth_matched.push_back(lepvec_truth_matched[0][3]);
+        //}
+        //if (lepvec_truth_matched.size() >= 2){
+        //    lep2_pt_truth_matched.push_back(lepvec_truth_matched[1][0]);
+        //    lep2_eta_truth_matched.push_back(lepvec_truth_matched[1][1]);
+        //    lep2_phi_truth_matched.push_back(lepvec_truth_matched[1][2]);
+        //    lep2_mass_truth_matched.push_back(lepvec_truth_matched[1][3]);
+        //}
+        //lepvec_truth_matched.clear();
 
         // FIXME: The genpart vector is not sorted by pt, hence I'm filling here
         // random particles instead of the hardest ones; later I do sort them,
