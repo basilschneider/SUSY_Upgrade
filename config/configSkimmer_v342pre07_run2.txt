@@ -1,6 +1,6 @@
 [config-begin]
 
-    Outputdir = /afs/cern.ch/work/b/bschneid/DAFproduction/production169/
+    Outputdir = /afs/cern.ch/work/b/bschneid/DAFproduction/production174/
     Outputfile = outputfile.root
 
     Samplesdir = root://cmseos.fnal.gov//store/user/snowmass/noreplica/Run2MiniAOD_SMbackgrounds/Delphes342pre07_hadd/
