@@ -126,7 +126,8 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         //TH2D* mu2_pt_origin_nghbr = new TH2D("mu2_pt_origin_nghbr", "mu2_pt_origin_nghbr", 6, 0., 30., 5, -.5, 4.5);
         //TH2D* mu2_pt_origin_cone = new TH2D("mu2_pt_origin_cone", "mu2_pt_origin_cone", 6, 0., 30., 5, -.5, 4.5);
         std::vector<double> mu_pt5to10_origin_nghbr, mu_pt5to10_origin_cone;
-        std::vector<double> mu_pt10to30_origin_nghbr, mu_pt10to30_origin_cone;
+        std::vector<double> mu_pt10to20_origin_nghbr, mu_pt10to20_origin_cone;
+        std::vector<double> mu_pt20to30_origin_nghbr, mu_pt20to30_origin_cone;
 
         // Real lepton efficiency histograms
         TH2D* rle_el_num = new TH2D("rle_el_num", "rle_el_num", 6, 0., 30., 8, 0., 4.);

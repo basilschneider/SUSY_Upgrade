@@ -150,8 +150,10 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("drLep2Jet1", &drLep2Jet1);
     myskim->Branch("mu_pt5to10_origin_nghbr", &mu_pt5to10_origin_nghbr);
     myskim->Branch("mu_pt5to10_origin_cone", &mu_pt5to10_origin_cone);
-    myskim->Branch("mu_pt10to30_origin_nghbr", &mu_pt10to30_origin_nghbr);
-    myskim->Branch("mu_pt10to30_origin_cone", &mu_pt10to30_origin_cone);
+    myskim->Branch("mu_pt10to20_origin_nghbr", &mu_pt10to20_origin_nghbr);
+    myskim->Branch("mu_pt10to20_origin_cone", &mu_pt10to20_origin_cone);
+    myskim->Branch("mu_pt20to30_origin_nghbr", &mu_pt20to30_origin_nghbr);
+    myskim->Branch("mu_pt20to30_origin_cone", &mu_pt20to30_origin_cone);
 }
 
 void SUSY_Upgrade_Skimmer::clearVectors(){
@@ -247,8 +249,10 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     drLep2Jet1.clear();
     mu_pt5to10_origin_nghbr.clear();
     mu_pt5to10_origin_cone.clear();
-    mu_pt10to30_origin_nghbr.clear();
-    mu_pt10to30_origin_cone.clear();
+    mu_pt10to20_origin_nghbr.clear();
+    mu_pt10to20_origin_cone.clear();
+    mu_pt20to30_origin_nghbr.clear();
+    mu_pt20to30_origin_cone.clear();
 }
 
 template <typename T> bool SUSY_Upgrade_Skimmer::isIsolated(const T particle){
@@ -511,11 +515,13 @@ double SUSY_Upgrade_Skimmer::coneVeto(double pt, double eta, double phi, d_ana::
             drMin = dr;
             nghbr = getNghbr(genpart.at(j)->PID);
         }
-        if (dr < cone){
-            if (pt > 5 && pt < 10){
+        if (dr < cone && pt > 5){
+            if (pt < 10){
                 mu_pt5to10_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+            }else if (pt < 20){
+                mu_pt10to20_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
             }else if (pt < 30){
-                mu_pt10to30_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+                mu_pt20to30_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
             }
             filledPid.push_back(genpart.at(j)->PID);
             filledPt.push_back(genpart.at(j)->PT);
@@ -525,10 +531,14 @@ double SUSY_Upgrade_Skimmer::coneVeto(double pt, double eta, double phi, d_ana::
         }
     }
 
-    if (pt > 5 && pt < 10){
-        mu_pt5to10_origin_nghbr.push_back(nghbr);
-    }else if (pt < 30){
-        mu_pt10to30_origin_nghbr.push_back(nghbr);
+    if (pt > 5){
+        if (pt < 10){
+            mu_pt5to10_origin_nghbr.push_back(nghbr);
+        }else if (pt < 20){
+            mu_pt10to20_origin_nghbr.push_back(nghbr);
+        }else if (pt < 30){
+            mu_pt20to30_origin_nghbr.push_back(nghbr);
+        }
     }
 
     // Weight to be returned
