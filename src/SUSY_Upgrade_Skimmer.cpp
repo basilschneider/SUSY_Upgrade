@@ -566,6 +566,9 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     d_ana::dBranchHandler<MissingET> puppimet(tree(), "PuppiMissingET");
     d_ana::dBranchHandler<GenParticle> genpart(tree(),"Particle");
     d_ana::dBranchHandler<Jet> genjet(tree(),"GenJet");
+    d_ana::dBranchHandler<MissingET> PFmeth(tree(), "MissingET");
+    d_ana::dBranchHandler<MissingET> genmeth(tree(), "GenMissingET");
+    d_ana::dBranchHandler<MissingET> genpumeth(tree(), "GenPileUpMissingET");
     //d_ana::dBranchHandler<Weight> rwgt(tree(), "Rwgt");
     //d_ana::dBranchHandler<ScalarHT> scalarht(tree(), "ScalarHT");
     //d_ana::dBranchHandler<Photon> photon(tree(),"Photon");
@@ -1165,27 +1168,27 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             return;
         }
         try{
-            met = puppimet.at(0)->MET;
-            met_eta = puppimet.at(0)->Eta;
-            met_phi = puppimet.at(0)->Phi;
+            PFmet = PFmeth.at(0)->MET;
+            PFmet_eta = PFmeth.at(0)->Eta;
+            PFmet_phi = PFmeth.at(0)->Phi;
         }catch (const std::out_of_range& oor){
-            std::cerr << "Out of range error when accessing MET vector: " << oor.what() << std::endl;
+            std::cerr << "Out of range error when accessing PF MET vector: " << oor.what() << std::endl;
             return;
         }
         try{
-            met = puppimet.at(0)->MET;
-            met_eta = puppimet.at(0)->Eta;
-            met_phi = puppimet.at(0)->Phi;
+            genmet = genmeth.at(0)->MET;
+            genmet_eta = genmeth.at(0)->Eta;
+            genmet_phi = genmeth.at(0)->Phi;
         }catch (const std::out_of_range& oor){
-            std::cerr << "Out of range error when accessing MET vector: " << oor.what() << std::endl;
+            std::cerr << "Out of range error when accessing Gen MET vector: " << oor.what() << std::endl;
             return;
         }
         try{
-            met = puppimet.at(0)->MET;
-            met_eta = puppimet.at(0)->Eta;
-            met_phi = puppimet.at(0)->Phi;
+            genpumet = genpumeth.at(0)->MET;
+            genpumet_eta = genpumeth.at(0)->Eta;
+            genpumet_phi = genpumeth.at(0)->Phi;
         }catch (const std::out_of_range& oor){
-            std::cerr << "Out of range error when accessing MET vector: " << oor.what() << std::endl;
+            std::cerr << "Out of range error when accessing Gen PU MET vector: " << oor.what() << std::endl;
             return;
         }
 

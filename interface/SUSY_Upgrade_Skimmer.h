@@ -111,6 +111,9 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         //double mht, mht_eta, mht_phi;
         //double mlt, mlt_eta, mlt_phi;
         //double mhlt, mhlt_eta, mhlt_phi;
+        double PFmet, PFmet_eta, PFmet_phi;
+        double genmet, genmet_eta, genmet_phi;
+        double genpumet, genpumet_eta, genpumet_phi;
 
         // Other variables
         int nLep, nEl, nMu, nSoftLep, nSoftEl, nSoftMu, nJet, nBJet, nW, nZ;
