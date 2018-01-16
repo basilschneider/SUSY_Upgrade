@@ -122,6 +122,15 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     //myskim->Branch("mhlt", &mhlt);
     //myskim->Branch("mhlt_eta", &mhlt_eta);
     //myskim->Branch("mhlt_phi", &mhlt_phi);
+    myskim->Branch("PFmet", &PFmet);
+    myskim->Branch("PFmet_eta", &PFmet_eta);
+    myskim->Branch("PFmet_phi", &PFmet_phi);
+    myskim->Branch("genmet", &genmet);
+    myskim->Branch("genmet_eta", &genmet_eta);
+    myskim->Branch("genmet_phi", &genmet_phi);
+    myskim->Branch("genpumet", &genpumet);
+    myskim->Branch("genpumet_eta", &genpumet_eta);
+    myskim->Branch("genpumet_phi", &genpumet_phi);
 
     // Other variables
     myskim->Branch("nLep", &nLep);
