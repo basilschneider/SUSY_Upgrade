@@ -12,10 +12,12 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("el1_eta", &el1_eta);
     myskim->Branch("el1_phi", &el1_phi);
     myskim->Branch("el1_q", &el1_q);
+    myskim->Branch("el1_sumPt", &el1_sumPt);
     myskim->Branch("el2_pt", &el2_pt);
     myskim->Branch("el2_eta", &el2_eta);
     myskim->Branch("el2_phi", &el2_phi);
     myskim->Branch("el2_q", &el2_q);
+    myskim->Branch("el2_sumPt", &el2_sumPt);
 
     //// Matched truth electron variables
     //myskim->Branch("el1_pt_truth_matched", &el1_pt_truth_matched);
@@ -42,10 +44,12 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("mu1_eta", &mu1_eta);
     myskim->Branch("mu1_phi", &mu1_phi);
     myskim->Branch("mu1_q", &mu1_q);
+    myskim->Branch("mu1_sumPt", &mu1_sumPt);
     myskim->Branch("mu2_pt", &mu2_pt);
     myskim->Branch("mu2_eta", &mu2_eta);
     myskim->Branch("mu2_phi", &mu2_phi);
     myskim->Branch("mu2_q", &mu2_q);
+    myskim->Branch("mu2_sumPt", &mu2_sumPt);
 
     //// Matched truth muon variables
     //myskim->Branch("mu1_pt_truth_matched", &mu1_pt_truth_matched);
@@ -172,10 +176,12 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     el1_eta.clear();
     el1_phi.clear();
     el1_q.clear();
+    el1_sumPt.clear();
     el2_pt.clear();
     el2_eta.clear();
     el2_phi.clear();
     el2_q.clear();
+    el2_sumPt.clear();
     //el1_pt_truth_matched.clear();
     //el1_eta_truth_matched.clear();
     //el1_phi_truth_matched.clear();
@@ -196,10 +202,12 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     mu1_eta.clear();
     mu1_phi.clear();
     mu1_q.clear();
+    mu1_sumPt.clear();
     mu2_pt.clear();
     mu2_eta.clear();
     mu2_phi.clear();
     mu2_q.clear();
+    mu2_sumPt.clear();
     //mu1_pt_truth_matched.clear();
     //mu1_eta_truth_matched.clear();
     //mu1_phi_truth_matched.clear();
@@ -887,12 +895,14 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 el1_eta.push_back(elecs.at(i)->Eta);
                 el1_phi.push_back(elecs.at(i)->Phi);
                 el1_q.push_back(elecs.at(i)->Charge);
+                el1_sumPt.push_back(elecs.at(i)->SumPt);
             }else{
                 // Otherwise fill second vector and break
                 el2_pt.push_back(elecs.at(i)->PT);
                 el2_eta.push_back(elecs.at(i)->Eta);
                 el2_phi.push_back(elecs.at(i)->Phi);
                 el2_q.push_back(elecs.at(i)->Charge);
+                el2_sumPt.push_back(elecs.at(i)->SumPt);
                 break;
             }
         }
@@ -936,12 +946,14 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 mu1_eta.push_back(muontight.at(i)->Eta);
                 mu1_phi.push_back(muontight.at(i)->Phi);
                 mu1_q.push_back(muontight.at(i)->Charge);
+                mu1_sumPt.push_back(elecs.at(i)->SumPt);
             }else{
                 // Otherwise fill second vector and break
                 mu2_pt.push_back(muontight.at(i)->PT);
                 mu2_eta.push_back(muontight.at(i)->Eta);
                 mu2_phi.push_back(muontight.at(i)->Phi);
                 mu2_q.push_back(muontight.at(i)->Charge);
+                mu2_sumPt.push_back(elecs.at(i)->SumPt);
                 break;
             }
         }
