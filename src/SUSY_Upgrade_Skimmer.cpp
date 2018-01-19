@@ -408,53 +408,69 @@ void SUSY_Upgrade_Skimmer::effOnTopElec(d_ana::dBranchHandler<Electron>& elecs){
         if (eta >= 2.5){ passRandomEfficiency(.000, ppt); }
         if (pt < 2.){ passRandomEfficiency(.000, ppt); }
         else if (pt < 4.){
-            if      (eta < 0.5){ passRandomEfficiency(.100/.9*.55, ppt); }
-            else if (eta < 1.0){ passRandomEfficiency(.130/.9*.55, ppt); }
-            else if (eta < 1.5){ passRandomEfficiency(.440/.9*.55, ppt); }
-            else if (eta < 2.0){ passRandomEfficiency(.880/.9*.55, ppt); }
-            else if (eta < 2.5){ passRandomEfficiency(.740/.9*.55, ppt); }
+            if      (eta < 0.50){ passRandomEfficiency(0., ppt); }
+            else if (eta < 1.00){ passRandomEfficiency(0., ppt); }
+            else if (eta < 1.45){ passRandomEfficiency(0., ppt); }
+            else if (eta < 1.55){ passRandomEfficiency(0., ppt); }
+            else if (eta < 2.00){ passRandomEfficiency(0., ppt); }
+            else if (eta < 2.50){ passRandomEfficiency(0., ppt); }
+            else if (eta < 3.00){ passRandomEfficiency(0., ppt); }
         }else if (pt < 6.){
-            if      (eta < 0.5){ passRandomEfficiency(.850/.9*.55, ppt); }
-            else if (eta < 1.0){ passRandomEfficiency(.950/.9*.55, ppt); }
-            else if (eta < 1.5){ passRandomEfficiency(.980/.9*.55, ppt); }
-            else if (eta < 2.0){ passRandomEfficiency(.940/.9*.55, ppt); }
-            else if (eta < 2.5){ passRandomEfficiency(.810/.9*.55, ppt); }
+            if      (eta < 0.50){ passRandomEfficiency(.018/.50, ppt); }
+            else if (eta < 1.00){ passRandomEfficiency(.016/.50, ppt); }
+            else if (eta < 1.45){ passRandomEfficiency(.005/.50, ppt); }
+            else if (eta < 1.55){ passRandomEfficiency(.026/.35, ppt); }
+            else if (eta < 2.00){ passRandomEfficiency(.061/.75, ppt); }
+            else if (eta < 2.50){ passRandomEfficiency(.100/.65, ppt); }
+            else if (eta < 3.00){ passRandomEfficiency(.049/.65, ppt); }
         }else if (pt < 8.){
-            if      (eta < 0.5){ passRandomEfficiency(.950/.9*.55, ppt); }
-            else if (eta < 1.0){ passRandomEfficiency(.940/.9*.55, ppt); }
-            else if (eta < 1.5){ passRandomEfficiency(.950/.9*.55, ppt); }
-            else if (eta < 2.0){ passRandomEfficiency(.980/.9*.55, ppt); }
-            else if (eta < 2.5){ passRandomEfficiency(.910/.9*.55, ppt); }
+            if      (eta < 0.50){ passRandomEfficiency(.252/.50, ppt); }
+            else if (eta < 1.00){ passRandomEfficiency(.198/.50, ppt); }
+            else if (eta < 1.45){ passRandomEfficiency(.029/.50, ppt); }
+            else if (eta < 1.55){ passRandomEfficiency(.045/.35, ppt); }
+            else if (eta < 2.00){ passRandomEfficiency(.191/.75, ppt); }
+            else if (eta < 2.50){ passRandomEfficiency(.223/.65, ppt); }
+            else if (eta < 3.00){ passRandomEfficiency(.152/.65, ppt); }
         }else if (pt < 10.){
-            if      (eta < 0.5){ passRandomEfficiency(.960/.9*.55, ppt); }
-            else if (eta < 1.0){ passRandomEfficiency(.950/.9*.55, ppt); }
-            else if (eta < 1.5){ passRandomEfficiency(.950/.9*.55, ppt); }
-            else if (eta < 2.0){ passRandomEfficiency(.980/.9*.55, ppt); }
-            else if (eta < 2.5){ passRandomEfficiency(.790/.9*.55, ppt); }
+            if      (eta < 0.50){ passRandomEfficiency(.480/.50, ppt); }
+            else if (eta < 1.00){ passRandomEfficiency(.446/.50, ppt); }
+            else if (eta < 1.45){ passRandomEfficiency(.108/.50, ppt); }
+            else if (eta < 1.55){ passRandomEfficiency(.133/.35, ppt); }
+            else if (eta < 2.00){ passRandomEfficiency(.337/.75, ppt); }
+            else if (eta < 2.50){ passRandomEfficiency(.427/.65, ppt); }
+            else if (eta < 3.00){ passRandomEfficiency(.436/.65, ppt); }
         }else if (pt < 20.){
-            if      (eta < 0.5){ passRandomEfficiency(.960/.9*.55, ppt); }
-            else if (eta < 1.0){ passRandomEfficiency(.950/.9*.55, ppt); }
-            else if (eta < 1.5){ passRandomEfficiency(.980/.9*.55, ppt); }
-            else if (eta < 2.0){ passRandomEfficiency(.980/.9*.55, ppt); }
-            else if (eta < 2.5){ passRandomEfficiency(.810/.9*.55, ppt); }
+            if      (eta < 0.50){ passRandomEfficiency(.681/.94, ppt); }
+            else if (eta < 1.00){ passRandomEfficiency(.598/.94, ppt); }
+            else if (eta < 1.45){ passRandomEfficiency(.289/.94, ppt); }
+            else if (eta < 1.55){ passRandomEfficiency(.411/.40, ppt); }
+            else if (eta < 2.00){ passRandomEfficiency(.475/.85, ppt); }
+            else if (eta < 2.50){ passRandomEfficiency(.590/.75, ppt); }
+            else if (eta < 3.00){ passRandomEfficiency(.679/.75, ppt); }
         }else if (pt < 35.){
-            if      (eta < 0.5){ passRandomEfficiency(.970/.9*.55, ppt); }
-            else if (eta < 1.0){ passRandomEfficiency(.990/.9*.55, ppt); }
-            else if (eta < 1.5){ passRandomEfficiency(.980/.9*.55, ppt); }
-            else if (eta < 2.0){ passRandomEfficiency(.999/.9*.55, ppt); }
-            else if (eta < 2.5){ passRandomEfficiency(.830/.9*.55, ppt); }
+            if      (eta < 0.50){ passRandomEfficiency(.792/.94, ppt); }
+            else if (eta < 1.00){ passRandomEfficiency(.759/.94, ppt); }
+            else if (eta < 1.45){ passRandomEfficiency(.570/.94, ppt); }
+            else if (eta < 1.55){ passRandomEfficiency(.629/.40, ppt); }
+            else if (eta < 2.00){ passRandomEfficiency(.605/.85, ppt); }
+            else if (eta < 2.50){ passRandomEfficiency(.720/.75, ppt); }
+            else if (eta < 3.00){ passRandomEfficiency(.778/.75, ppt); }
         }else if (pt < 50.){
-            if      (eta < 0.5){ passRandomEfficiency(.960/.9*.55, ppt); }
-            else if (eta < 1.0){ passRandomEfficiency(.970/.9*.55, ppt); }
-            else if (eta < 1.5){ passRandomEfficiency(.980/.9*.55, ppt); }
-            else if (eta < 2.0){ passRandomEfficiency(.980/.9*.55, ppt); }
-            else if (eta < 2.5){ passRandomEfficiency(.870/.9*.55, ppt); }
+            if      (eta < 0.50){ passRandomEfficiency(.862/.97, ppt); }
+            else if (eta < 1.00){ passRandomEfficiency(.847/.97, ppt); }
+            else if (eta < 1.45){ passRandomEfficiency(.743/.97, ppt); }
+            else if (eta < 1.55){ passRandomEfficiency(.761/.45, ppt); }
+            else if (eta < 2.00){ passRandomEfficiency(.713/.95, ppt); }
+            else if (eta < 2.50){ passRandomEfficiency(.800/.90, ppt); }
+            else if (eta < 3.00){ passRandomEfficiency(.830/.90, ppt); }
         }else if (pt < 14000.){
-            if      (eta < 0.5){ passRandomEfficiency(.970/.9*.55, ppt); }
-            else if (eta < 1.0){ passRandomEfficiency(.970/.9*.55, ppt); }
-            else if (eta < 1.5){ passRandomEfficiency(.980/.9*.55, ppt); }
-            else if (eta < 2.0){ passRandomEfficiency(.980/.9*.55, ppt); }
-            else if (eta < 2.5){ passRandomEfficiency(.870/.9*.55, ppt); }
+            if      (eta < 0.50){ passRandomEfficiency(.859/.99, ppt); }
+            else if (eta < 1.00){ passRandomEfficiency(.872/.99, ppt); }
+            else if (eta < 1.45){ passRandomEfficiency(.828/.99, ppt); }
+            else if (eta < 1.55){ passRandomEfficiency(.752/.50, ppt); }
+            else if (eta < 2.00){ passRandomEfficiency(.794/.98, ppt); }
+            else if (eta < 2.50){ passRandomEfficiency(.840/.90, ppt); }
+            else if (eta < 3.00){ passRandomEfficiency(.919/.90, ppt); }
         }
     }
 }
