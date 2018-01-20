@@ -962,14 +962,14 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 mu1_eta.push_back(muontight.at(i)->Eta);
                 mu1_phi.push_back(muontight.at(i)->Phi);
                 mu1_q.push_back(muontight.at(i)->Charge);
-                mu1_sumPt.push_back(elecs.at(i)->SumPt);
+                mu1_sumPt.push_back(muontight.at(i)->SumPt);
             }else{
                 // Otherwise fill second vector and break
                 mu2_pt.push_back(muontight.at(i)->PT);
                 mu2_eta.push_back(muontight.at(i)->Eta);
                 mu2_phi.push_back(muontight.at(i)->Phi);
                 mu2_q.push_back(muontight.at(i)->Charge);
-                mu2_sumPt.push_back(elecs.at(i)->SumPt);
+                mu2_sumPt.push_back(muontight.at(i)->SumPt);
                 break;
             }
         }
