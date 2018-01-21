@@ -89,41 +89,41 @@ $/  ,                       background3,  431, 12, auto, 5
 
 $ The last entry is an example for running over all input files in a directory
 
-TChiWZoff_C1N2_100_LSP_60_xqcut30_CMS_200PU_PhaseII.root           , TChiWZ_100_60_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
-TChiWZoff_C1N2_100_LSP_65_xqcut30_CMS_200PU_PhaseII.root           , TChiWZ_100_65_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
-TChiWZoff_C1N2_100_LSP_70_xqcut30_CMS_200PU_PhaseII.root           , TChiWZ_100_70_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
-TChiWZoff_C1N2_100_LSP_75_xqcut30_CMS_200PU_PhaseII.root           , TChiWZ_100_75_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
-TChiWZoff_C1N2_100_LSP_80_xqcut30_CMS_200PU_PhaseII.root           , TChiWZ_100_80_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
-TChiWZoff_C1N2_100_LSP_85_xqcut30_CMS_200PU_PhaseII.root           , TChiWZ_100_85_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
-TChiWZoff_C1N2_100_LSP_90_xqcut30_CMS_200PU_PhaseII.root           , TChiWZ_100_90_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
-TChiWZoff_C1N2_100_LSP_95_xqcut30_CMS_200PU_PhaseII.root           , TChiWZ_100_95_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
+TChiWZOff_C1N2_100_LSP_60/            , TChiWZ_100_60_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
+TChiWZOff_C1N2_100_LSP_65/            , TChiWZ_100_65_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
+TChiWZOff_C1N2_100_LSP_70/            , TChiWZ_100_70_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
+TChiWZOff_C1N2_100_LSP_75/            , TChiWZ_100_75_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
+TChiWZOff_C1N2_100_LSP_80/            , TChiWZ_100_80_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
+TChiWZOff_C1N2_100_LSP_85/            , TChiWZ_100_85_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
+TChiWZOff_C1N2_100_LSP_90/            , TChiWZ_100_90_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
+TChiWZOff_C1N2_100_LSP_95/            , TChiWZ_100_95_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
 
-TChiWZoff_C1N2_150_LSP_110_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_150_110_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
-TChiWZoff_C1N2_150_LSP_115_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_150_115_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
-TChiWZoff_C1N2_150_LSP_120_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_150_120_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
-TChiWZoff_C1N2_150_LSP_125_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_150_125_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
-TChiWZoff_C1N2_150_LSP_130_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_150_130_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
-TChiWZoff_C1N2_150_LSP_135_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_150_135_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
-TChiWZoff_C1N2_150_LSP_140_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_150_140_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
-TChiWZoff_C1N2_150_LSP_145_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_150_145_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
+TChiWZOff_C1N2_150_LSP_110/           , TChiWZ_150_110_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
+TChiWZOff_C1N2_150_LSP_115/           , TChiWZ_150_115_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
+TChiWZOff_C1N2_150_LSP_120/           , TChiWZ_150_120_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
+TChiWZOff_C1N2_150_LSP_125/           , TChiWZ_150_125_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
+TChiWZOff_C1N2_150_LSP_130/           , TChiWZ_150_130_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
+TChiWZOff_C1N2_150_LSP_135/           , TChiWZ_150_135_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
+TChiWZOff_C1N2_150_LSP_140/           , TChiWZ_150_140_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
+TChiWZOff_C1N2_150_LSP_145/           , TChiWZ_150_145_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
 
-TChiWZoff_C1N2_200_LSP_160_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_200_160_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
-TChiWZoff_C1N2_200_LSP_165_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_200_165_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
-TChiWZoff_C1N2_200_LSP_170_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_200_170_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
-TChiWZoff_C1N2_200_LSP_175_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_200_175_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
-TChiWZoff_C1N2_200_LSP_180_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_200_180_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
-TChiWZoff_C1N2_200_LSP_185_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_200_185_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
-TChiWZoff_C1N2_200_LSP_190_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_200_190_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
-TChiWZoff_C1N2_200_LSP_195_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_200_195_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
+TChiWZOff_C1N2_200_LSP_160/           , TChiWZ_200_160_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
+TChiWZOff_C1N2_200_LSP_165/           , TChiWZ_200_165_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
+TChiWZOff_C1N2_200_LSP_170/           , TChiWZ_200_170_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
+TChiWZOff_C1N2_200_LSP_175/           , TChiWZ_200_175_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
+TChiWZOff_C1N2_200_LSP_180/           , TChiWZ_200_180_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
+TChiWZOff_C1N2_200_LSP_185/           , TChiWZ_200_185_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
+TChiWZOff_C1N2_200_LSP_190/           , TChiWZ_200_190_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
+TChiWZOff_C1N2_200_LSP_195/           , TChiWZ_200_195_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
 
-TChiWZoff_C1N2_250_LSP_210_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_250_210_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
-TChiWZoff_C1N2_250_LSP_215_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_250_215_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
-TChiWZoff_C1N2_250_LSP_220_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_250_220_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
-TChiWZoff_C1N2_250_LSP_225_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_250_225_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
-TChiWZoff_C1N2_250_LSP_230_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_250_230_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
-TChiWZoff_C1N2_250_LSP_235_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_250_235_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
-TChiWZoff_C1N2_250_LSP_240_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_250_240_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
-TChiWZoff_C1N2_250_LSP_245_xqcut30_CMS_200PU_PhaseII.root          , TChiWZ_250_245_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
+TChiWZOff_C1N2_250_LSP_210/           , TChiWZ_250_210_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
+TChiWZOff_C1N2_250_LSP_215/           , TChiWZ_250_215_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
+TChiWZOff_C1N2_250_LSP_220/           , TChiWZ_250_220_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
+TChiWZOff_C1N2_250_LSP_225/           , TChiWZ_250_225_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
+TChiWZOff_C1N2_250_LSP_230/           , TChiWZ_250_230_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
+TChiWZOff_C1N2_250_LSP_235/           , TChiWZ_250_235_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
+TChiWZOff_C1N2_250_LSP_240/           , TChiWZ_250_240_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
+TChiWZOff_C1N2_250_LSP_245/           , TChiWZ_250_245_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
 
 $Decayed_C1N2_300_LSP_260_filtered_200PU/          , TChiWZ_300_260_Delphes_v09       , 616 ,       104.91 ,     auto , 1 , true
 $Decayed_C1N2_300_LSP_265_filtered_200PU/          , TChiWZ_300_265_Delphes_v09       , 616 ,       104.91 ,     auto , 1 , true
