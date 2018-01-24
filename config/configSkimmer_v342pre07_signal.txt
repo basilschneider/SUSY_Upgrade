@@ -125,6 +125,8 @@ TChiWZOff_C1N2_250_LSP_235/           , TChiWZ_250_235_Delphes_v09       , 616 ,
 TChiWZOff_C1N2_250_LSP_240/           , TChiWZ_250_240_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
 TChiWZOff_C1N2_250_LSP_245/           , TChiWZ_250_245_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
 
+TChiWZOff_C1N2_400_LSP_375/           , TChiWZ_400_375_Delphes_v09       , 616 ,        33.52 ,     auto , 1 , true
+
 $Decayed_C1N2_300_LSP_260_filtered_200PU/          , TChiWZ_300_260_Delphes_v09       , 616 ,       104.91 ,     auto , 1 , true
 $Decayed_C1N2_300_LSP_265_filtered_200PU/          , TChiWZ_300_265_Delphes_v09       , 616 ,       104.91 ,     auto , 1 , true
 $Decayed_C1N2_300_LSP_270_filtered_200PU/          , TChiWZ_300_270_Delphes_v09       , 616 ,       104.91 ,     auto , 1 , true
