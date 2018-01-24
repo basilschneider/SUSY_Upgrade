@@ -273,10 +273,10 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
 }
 
 template <typename T> bool SUSY_Upgrade_Skimmer::isIsolated(const T particle){
-    // For all samples except ttbar, don't apply isolation
-    if (getSampleFile()(0, 6) != "tt-4p-"){
-        return true;
-    }
+    //// For all samples except ttbar, don't apply isolation
+    //if (getSampleFile()(0, 6) != "tt-4p-"){
+    //    return true;
+    //}
     if (particle->IsolationVarRhoCorr > iso_cut_rel){
         return false;
     }
