@@ -125,7 +125,7 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("mht60", &mht60);
     myskim->Branch("mht100", &mht100);
     myskim->Branch("mht150", &mht150);
-    //myskim->Branch("mlt", &mlt);
+    myskim->Branch("mlt", &mlt);
     //myskim->Branch("mlt_eta", &mlt_eta);
     //myskim->Branch("mlt_phi", &mlt_phi);
     //myskim->Branch("mhlt", &mhlt);
@@ -1246,7 +1246,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
 
         //// Fill poor man's MET
-        //TLorentzVector mht4, mlt4, mhlt4;
+        TLorentzVector mht4, mlt4, mhlt4;
         //for (size_t i=0; i<jetpuppi.size(); ++i){
         //    if (jetpuppi.at(i)->PT < jet_pt_lo){ continue; }
         //    if (isOverlap(jetpuppi.at(i), elecs, muontight)){ continue; }
@@ -1255,24 +1255,24 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         //    mht4 += j4;
         //    mhlt4 += j4;
         //}
-        //for (size_t i=0; i<muontight.size(); ++i){
-        //    if (muontight.at(i)->PT < mu_pt_lo || !isIsolated(muontight.at(i))){ continue; }
-        //    TLorentzVector m4;
-        //    m4.SetPtEtaPhiM(muontight.at(i)->PT, muontight.at(i)->Eta, muontight.at(i)->Phi, mass_mu);
-        //    mlt4 += m4;
-        //    mhlt4 += m4;
-        //}
-        //for (size_t i=0; i<elecs.size(); ++i){
-        //    if (elecs.at(i)->PT < el_pt_lo || !isIsolated(elecs.at(i))){ continue; }
-        //    TLorentzVector e4;
-        //    e4.SetPtEtaPhiM(elecs.at(i)->PT, elecs.at(i)->Eta, elecs.at(i)->Phi, mass_el);
-        //    mlt4 += e4;
-        //    mhlt4 += e4;
-        //}
+        for (size_t i=0; i<muontight.size(); ++i){
+            if (muontight.at(i)->PT < mu_pt_lo || !isIsolated(muontight.at(i))){ continue; }
+            TLorentzVector m4;
+            m4.SetPtEtaPhiM(muontight.at(i)->PT, muontight.at(i)->Eta, muontight.at(i)->Phi, mass_mu);
+            mlt4 += m4;
+            mhlt4 += m4;
+        }
+        for (size_t i=0; i<elecs.size(); ++i){
+            if (elecs.at(i)->PT < el_pt_lo || !isIsolated(elecs.at(i))){ continue; }
+            TLorentzVector e4;
+            e4.SetPtEtaPhiM(elecs.at(i)->PT, elecs.at(i)->Eta, elecs.at(i)->Phi, mass_el);
+            mlt4 += e4;
+            mhlt4 += e4;
+        }
         //mht = mht4.Pt();
         //mht_eta = mht4.Eta();
         //mht_phi = mht4.Phi();
-        //mlt = mlt4.Pt();
+        mlt = mlt4.Pt();
         //mlt_eta = mlt4.Eta();
         //mlt_phi = mlt4.Phi();
         //mhlt = mhlt4.Pt();
