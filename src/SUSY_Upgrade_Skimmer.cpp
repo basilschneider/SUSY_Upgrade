@@ -1290,6 +1290,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             if (jetpuppi.at(i)->PT > 100.){ mht4v100 +=j4; }
             if (jetpuppi.at(i)->PT > 150.){ mht4v150 +=j4; }
         }
+        mht25 = mht4v25.Pt();
+        mht40 = mht4v40.Pt();
+        mht60 = mht4v60.Pt();
+        mht100 = mht4v100.Pt();
+        mht150 = mht4v150.Pt();
 
         // Fill HT
         ht25 = ht40 = ht60 = ht100 = ht150 = 0.;
