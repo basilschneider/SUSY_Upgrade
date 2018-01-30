@@ -120,6 +120,11 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     //myskim->Branch("mht", &mht);
     //myskim->Branch("mht_eta", &mht_eta);
     //myskim->Branch("mht_phi", &mht_phi);
+    myskim->Branch("mht25", &mht25);
+    myskim->Branch("mht40", &mht40);
+    myskim->Branch("mht60", &mht60);
+    myskim->Branch("mht100", &mht100);
+    myskim->Branch("mht150", &mht150);
     //myskim->Branch("mlt", &mlt);
     //myskim->Branch("mlt_eta", &mlt_eta);
     //myskim->Branch("mlt_phi", &mlt_phi);
@@ -144,11 +149,19 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("nSoftLep", &nSoftLep);
     myskim->Branch("nSoftEl", &nSoftEl);
     myskim->Branch("nSoftMu", &nSoftMu);
-    myskim->Branch("nJet", &nJet);
     myskim->Branch("nBJet", &nBJet);
     myskim->Branch("nW", &nW);
     myskim->Branch("nZ", &nZ);
-    myskim->Branch("ht", &ht);
+    myskim->Branch("nJet25", &nJet25);
+    myskim->Branch("nJet40", &nJet40);
+    myskim->Branch("nJet60", &nJet60);
+    myskim->Branch("nJet100", &nJet100);
+    myskim->Branch("nJet150", &nJet150);
+    myskim->Branch("ht25", &ht25);
+    myskim->Branch("ht40", &ht40);
+    myskim->Branch("ht60", &ht60);
+    myskim->Branch("ht100", &ht100);
+    myskim->Branch("ht150", &ht150);
     myskim->Branch("hasSFOS", &hasSFOS);
     myskim->Branch("hasSFOS_truth", &hasSFOS_truth);
     myskim->Branch("hasSoftSFOS", &hasSoftSFOS);
@@ -719,8 +732,9 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         // Cutflow variables
         nLep = nEl = nMu = 0;
         nSoftLep = nSoftEl = nSoftMu = 0;
-        nJet = nBJet = 0;
+        nBJet = 0;
         nW = nZ = 0;
+        nJet25 = nJet40 = nJet60 = nJet100 = nJet150 = 0;
         for (size_t i=0; i<elecs.size(); ++i){
             if (elecs.at(i)->PT < el_pt_lo || !isIsolated(elecs.at(i))){ continue; }
             nLep++;
@@ -742,11 +756,13 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         for (size_t i=0; i<jetpuppi.size(); ++i){
             if (isOverlap(jetpuppi.at(i), elecs, muontight)){ continue; }
             if (jetpuppi.at(i)->PT > jet_pt_lo){
-                nJet++;
-                if (jetpuppi.at(i)->BTag){
-                    nBJet++;
-                }
+                if (jetpuppi.at(i)->BTag){ nBJet++; }
             }
+            if (jetpuppi.at(i)->PT > 25.){ nJet25++; }
+            if (jetpuppi.at(i)->PT > 40.){ nJet40++; }
+            if (jetpuppi.at(i)->PT > 60.){ nJet60++; }
+            if (jetpuppi.at(i)->PT > 100.){ nJet100++; }
+            if (jetpuppi.at(i)->PT > 150.){ nJet150++; }
         }
 
         // Count particles with status 23 for real lepton efficiency histograms
@@ -1262,14 +1278,28 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         //mhlt = mhlt4.Pt();
         //mhlt_eta = mhlt4.Eta();
         //mhlt_phi = mhlt4.Phi();
+        TLorentzVector mht4v25, mht4v40, mht4v60, mht4v100, mht4v150;
+        for (size_t i=0; i<jetpuppi.size(); ++i){
+            if (jetpuppi.at(i)->PT < jet_pt_lo){ continue; }
+            if (isOverlap(jetpuppi.at(i), elecs, muontight)){ continue; }
+            TLorentzVector j4;
+            j4.SetPtEtaPhiM(jetpuppi.at(i)->PT, jetpuppi.at(i)->Eta, jetpuppi.at(i)->Phi, jetpuppi.at(i)->Mass);
+            if (jetpuppi.at(i)->PT > 25.){ mht4v25 +=j4; }
+            if (jetpuppi.at(i)->PT > 40.){ mht4v40 +=j4; }
+            if (jetpuppi.at(i)->PT > 60.){ mht4v60 +=j4; }
+            if (jetpuppi.at(i)->PT > 100.){ mht4v100 +=j4; }
+            if (jetpuppi.at(i)->PT > 150.){ mht4v150 +=j4; }
+        }
 
         // Fill HT
-        ht = 0.;
+        ht25 = ht40 = ht60 = ht100 = ht150 = 0.;
         for (size_t i=0; i<jetpuppi.size(); ++i){
             if (isOverlap(jetpuppi.at(i), elecs, muontight)){ continue; }
-            if (jetpuppi.at(i)->PT > jet_pt_lo){
-                ht += jetpuppi.at(i)->PT;
-            }
+            if (jetpuppi.at(i)->PT > 25.){ ht25 += jetpuppi.at(i)->PT; }
+            if (jetpuppi.at(i)->PT > 40.){ ht40 += jetpuppi.at(i)->PT; }
+            if (jetpuppi.at(i)->PT > 60.){ ht60 += jetpuppi.at(i)->PT; }
+            if (jetpuppi.at(i)->PT > 100.){ ht100 += jetpuppi.at(i)->PT; }
+            if (jetpuppi.at(i)->PT > 150.){ ht150 += jetpuppi.at(i)->PT; }
         }
 
         // dr variables
