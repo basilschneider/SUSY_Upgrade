@@ -1,8 +1,14 @@
 #!/usr/bin/env bash
 
 #set -e -o pipefail
+set -o pipefail
 
 make 2>&1 | tee make.out
+
+# Check if compilation succeeded
+if [ "$?" -ne 0 ]; then
+    exit 1
+fi
 
 rm run.out
 
