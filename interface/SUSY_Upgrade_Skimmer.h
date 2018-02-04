@@ -63,7 +63,7 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         static constexpr double wght_gen_iso = .25;
 
         // Event variables
-        double genWeight, nTot, xs;
+        double genWeight, nTot, xs, metSF;
 
         // Electron variables
         std::vector<double> el1_pt, el1_eta, el1_phi, el2_pt, el2_eta, el2_phi;

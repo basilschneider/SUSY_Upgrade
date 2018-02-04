@@ -6,6 +6,7 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("genWeight", &genWeight);
     myskim->Branch("nTot", &nTot);
     myskim->Branch("xs", &xs);
+    myskim->Branch("metSF", &metSF);
 
     // Electron variables
     myskim->Branch("el1_pt", &el1_pt);
@@ -1305,6 +1306,26 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             if (jetpuppi.at(i)->PT > 60.){ ht60 += jetpuppi.at(i)->PT; }
             if (jetpuppi.at(i)->PT > 100.){ ht100 += jetpuppi.at(i)->PT; }
             if (jetpuppi.at(i)->PT > 150.){ ht150 += jetpuppi.at(i)->PT; }
+        }
+
+        // MET HT scale factors
+        {
+            TFile* fSF = new TFile("sf/met_ht_fs.root");
+            TH1D* hSF = nullptr;
+            if (getSampleFile()(0, 6) == "tt-4p-"){
+                hSF = (TH1D*)fSF->Get("sf_met_ht200_coarse_varbin_tt_ratio");
+            }else if (getSampleFile()(0, 10) == "DYJetsToLL"){
+                hSF = (TH1D*)fSF->Get("sf_met_ht200_coarse_varbin_DY2_ratio");
+            }else if (getSampleFile()(0, 10) == "WJetsToLNu"){
+                hSF = (TH1D*)fSF->Get("sf_met_ht200_coarse_varbin_Wj2_ratio");
+            }else if (getSampleFile()(0, 9) == "TChiWZOff"){
+                hSF = (TH1D*)fSF->Get("sf_met_ht200_coarse_varbin_TChiWZ_400_375_Delphes_v09_ratio");
+            }
+            metSF = 1.;
+            if (hSF){
+                metSF = hSF->GetBinContent(hSF->FindBin(met));
+            }
+            fSF->Close();
         }
 
         // dr variables
