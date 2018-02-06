@@ -102,7 +102,7 @@ $Bjj-vbf-4p-0-700-v1510_14TEV_200PU/        , Bjj_ST0to700                    , 
 $Bjj-vbf-4p-700-1400-v1510_14TEV_200PU/     , Bjj_ST700to1400                 , 397 ,      4348.69 ,  7005309 , 1 , false
 $Bjj-vbf-4p-1400-2300-v1510_14TEV_200PU/    , Bjj_ST1400to2300                , 397 ,       324.65 ,  6040315 , 1 , false
 $Bjj-vbf-4p-2300-3400-v1510_14TEV_200PU/    , Bjj_ST2300to3400                , 397 ,        30.32 ,  5618875 , 1 , false
-$$Bjj-vbf-4p-3400-100000-v1510_14TEV_200PU/  , Bjj_ST3400toInf                 , 397 ,         3.13 ,     auto , 1 , false THIS SAMPLE IS MISSING!
+$Bjj-vbf-4p-3400-100000-v1510_14TEV_200PU/  , Bjj_ST3400toInf                 , 397 ,         3.13 ,     auto , 1 , false THIS SAMPLE IS MISSING!
 $H-4p-0-300-v1510_14TEV_200PU/              , H_ST0to300                      , 618 ,     21559.90 ,  6532466 , 1 , false
 $H-4p-300-800-v1510_14TEV_200PU/            , H_ST300to800                    , 618 ,      1112.82 ,  3788994 , 1 , false
 $H-4p-800-1500-v1510_14TEV_200PU/           , H_ST800to1500                   , 618 ,        91.88 ,  3064444 , 1 , false

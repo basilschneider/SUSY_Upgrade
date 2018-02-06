@@ -320,5 +320,5 @@ $ttB24_ntuple.root , ttB , 824 ,         2.09 , 23821464 , 1 , false
 $ttB25_ntuple.root , ttB , 824 ,         2.09 , 23821464 , 1 , false
 $ttB26_ntuple.root , ttB , 824 ,         2.09 , 23821464 , 1 , false
 $ttB27_ntuple.root , ttB , 824 ,         2.09 , 23821464 , 1 , false
-TChiWZ_300_2600_ntuple.root, TChiWZ_300_260, 616, 1, 5000,1, true
+$TChiWZ_300_2600_ntuple.root, TChiWZ_300_260, 616, 1, 5000,1, true
 [inputfiles-end]

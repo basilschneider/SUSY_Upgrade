@@ -83,61 +83,61 @@ $/  ,                       background3,  431, 12, auto, 5
 
 $ The last entry is an example for running over all input files in a directory
 
-$$B-4p-0-1-v1510_14TEV_200PU/                , B_ST0to1                        , 820 , 200944681.29 ,  3862102 , 1 , false
+$B-4p-0-1-v1510_14TEV_200PU/                , B_ST0to1                        , 820 , 200944681.29 ,  3862102 , 1 , false
 $BB-4p-0-300-v1510_14TEV_200PU/             , BB_ST0to300                     , 600 ,    249977.10 , 18694015 , 1 , false
 $BB-4p-300-700-v1510_14TEV_200PU/           , BB_ST300to700                   , 600 ,     35230.62 , 12950849 , 1 , false
 $BB-4p-700-1300-v1510_14TEV_200PU/          , BB_ST700to1300                  , 600 ,      4137.43 , 11246581 , 1 , false
 $BB-4p-1300-2100-v1510_14TEV_200PU/         , BB_ST1300to2100                 , 600 ,       417.02 , 11336172 , 1 , false
 $BB-4p-2100-100000-v1510_14TEV_200PU/       , BB_ST2100toInf                  , 600 ,        47.70 ,  9846939 , 1 , false
-$$BBB-4p-0-600-v1510_14TEV_200PU/            , BBB_ST0to600                    , 632 ,      2573.04 , 13427545 , 1 , false
-$$BBB-4p-600-1300-v1510_14TEV_200PU/         , BBB_ST600to1300                 , 632 ,       149.35 , 14793534 , 1 , false
-$$BBB-4p-1300-100000-v1510_14TEV_200PU/      , BBB_ST1300toInf                 , 632 ,        12.74 , 16050239 , 1 , false
-Bj-4p-0-300-v1510_14TEV_200PU/             , Bj_ST0to300                     , 867 ,  34409923.39 ,  2812183 , 1 , false
-Bj-4p-300-600-v1510_14TEV_200PU/           , Bj_ST300to600                   , 867 ,   2642853.09 , 12850796 , 1 , false
-Bj-4p-600-1100-v1510_14TEV_200PU/          , Bj_ST600to1100                  , 867 ,    294123.11 ,  4642217 , 1 , false
-Bj-4p-1100-1800-v1510_14TEV_200PU/         , Bj_ST1100to1800                 , 867 ,     25950.00 ,  5656013 , 1 , false
-Bj-4p-1800-2700-v1510_14TEV_200PU/         , Bj_ST1800to2700                 , 867 ,      2421.11 ,  5536713 , 1 , false
-Bj-4p-2700-3700-v1510_14TEV_200PU/         , Bj_ST2700to3700                 , 867 ,       226.90 ,  4579441 , 1 , false
-Bj-4p-3700-100000-v1510_14TEV_200PU/       , Bj_ST3700toInfo                 , 867 ,        27.67 ,  4844495 , 1 , false
+$BBB-4p-0-600-v1510_14TEV_200PU/            , BBB_ST0to600                    , 632 ,      2573.04 , 13427545 , 1 , false
+$BBB-4p-600-1300-v1510_14TEV_200PU/         , BBB_ST600to1300                 , 632 ,       149.35 , 14793534 , 1 , false
+$BBB-4p-1300-100000-v1510_14TEV_200PU/      , BBB_ST1300toInf                 , 632 ,        12.74 , 16050239 , 1 , false
+$Bj-4p-0-300-v1510_14TEV_200PU/             , Bj_ST0to300                     , 867 ,  34409923.39 ,  2812183 , 1 , false
+$Bj-4p-300-600-v1510_14TEV_200PU/           , Bj_ST300to600                   , 867 ,   2642853.09 , 12850796 , 1 , false
+$Bj-4p-600-1100-v1510_14TEV_200PU/          , Bj_ST600to1100                  , 867 ,    294123.11 ,  4642217 , 1 , false
+$Bj-4p-1100-1800-v1510_14TEV_200PU/         , Bj_ST1100to1800                 , 867 ,     25950.00 ,  5656013 , 1 , false
+$Bj-4p-1800-2700-v1510_14TEV_200PU/         , Bj_ST1800to2700                 , 867 ,      2421.11 ,  5536713 , 1 , false
+$Bj-4p-2700-3700-v1510_14TEV_200PU/         , Bj_ST2700to3700                 , 867 ,       226.90 ,  4579441 , 1 , false
+$Bj-4p-3700-100000-v1510_14TEV_200PU/       , Bj_ST3700toInfo                 , 867 ,        27.67 ,  4844495 , 1 , false
 $Bjj-vbf-4p-0-700-v1510_14TEV_200PU/        , Bjj_ST0to700                    , 397 ,     86456.04 ,  5754001 , 1 , false
 $Bjj-vbf-4p-700-1400-v1510_14TEV_200PU/     , Bjj_ST700to1400                 , 397 ,      4348.69 ,  7006677 , 1 , false
 $Bjj-vbf-4p-1400-2300-v1510_14TEV_200PU/    , Bjj_ST1400to2300                , 397 ,       324.65 ,  6041331 , 1 , false
 $Bjj-vbf-4p-2300-3400-v1510_14TEV_200PU/    , Bjj_ST2300to3400                , 397 ,        30.32 ,  5622269 , 1 , false
-$$Bjj-vbf-4p-3400-100000-v1510_14TEV_200PU/  , Bjj_ST3400toInf                 , 397 ,         3.13 ,     auto , 1 , false THIS SAMPLE IS MISSING!
-$$H-4p-0-300-v1510_14TEV_200PU/              , H_ST0to300                      , 618 ,     21559.90 ,  6532624 , 1 , false
-$$H-4p-300-800-v1510_14TEV_200PU/            , H_ST300to800                    , 618 ,      1112.82 ,  3788502 , 1 , false
-$$H-4p-800-1500-v1510_14TEV_200PU/           , H_ST800to1500                   , 618 ,        91.88 ,  3064107 , 1 , false
-$$H-4p-1500-100000-v1510_14TEV_200PU/        , H_ST1500toInf                   , 618 ,        10.09 ,  2811858 , 1 , false
+$Bjj-vbf-4p-3400-100000-v1510_14TEV_200PU/  , Bjj_ST3400toInf                 , 397 ,         3.13 ,     auto , 1 , false THIS SAMPLE IS MISSING!
+$H-4p-0-300-v1510_14TEV_200PU/              , H_ST0to300                      , 618 ,     21559.90 ,  6532624 , 1 , false
+$H-4p-300-800-v1510_14TEV_200PU/            , H_ST300to800                    , 618 ,      1112.82 ,  3788502 , 1 , false
+$H-4p-800-1500-v1510_14TEV_200PU/           , H_ST800to1500                   , 618 ,        91.88 ,  3064107 , 1 , false
+$H-4p-1500-100000-v1510_14TEV_200PU/        , H_ST1500toInf                   , 618 ,        10.09 ,  2811858 , 1 , false
 $LL-4p-0-100-v1510_14TEV_200PU/             , LL_ST0to100                     , 418 ,   1341369.23 ,  7258028 , 1 , false
 $LL-4p-100-200-v1510_14TEV_200PU/           , LL_ST100to200                   , 418 ,    156295.34 ,  9196901 , 1 , false
 $LL-4p-200-500-v1510_14TEV_200PU/           , LL_ST200to500                   , 418 ,     42401.32 ,  6636641 , 1 , false
 $LL-4p-500-900-v1510_14TEV_200PU/           , LL_ST500to900                   , 418 ,      2843.73 ,  6424629 , 1 , false
 $LL-4p-900-1400-v1510_14TEV_200PU/          , LL_ST900to1400                  , 418 ,       209.14 ,  7075031 , 1 , false
 $LL-4p-1400-100000-v1510_14TEV_200PU/       , LL_ST1400toInf                  , 418 ,        28.91 ,  7020242 , 1 , false
-$$LLB-4p-0-400-v1510_14TEV_200PU/            , LLB_ST0to400                    , 807 ,      2973.80 ,  7697855 , 1 , false
-$$LLB-4p-400-900-v1510_14TEV_200PU/          , LLB_ST400to900                  , 807 ,       228.54 ,  6473145 , 1 , false
-$$LLB-4p-900-100000-v1510_14TEV_200PU/       , LLB_ST900toInf                  , 807 ,        20.80 , 15964732 , 1 , false
-$$tB-4p-0-500-v1510_14TEV_200PU/             , tB_ST0to500                     , 882 ,     63889.23 ,  8217158 , 1 , false
-$$tB-4p-500-900-v1510_14TEV_200PU/           , tB_ST500to900                   , 882 ,      7121.72 ,  6078502 , 1 , false
-$$tB-4p-900-1500-v1510_14TEV_200PU/          , tB_ST900to1500                  , 882 ,       980.30 ,  6100082 , 1 , false
-$$tB-4p-1500-2200-v1510_14TEV_200PU/         , tB_ST1500to2200                 , 882 ,        83.91 ,  6221516 , 1 , false
-$$tB-4p-2200-100000-v1510_14TEV_200PU/       , tB_ST2200toInf                  , 882 ,         9.53 ,  6383268 , 1 , false
+$LLB-4p-0-400-v1510_14TEV_200PU/            , LLB_ST0to400                    , 807 ,      2973.80 ,  7697855 , 1 , false
+$LLB-4p-400-900-v1510_14TEV_200PU/          , LLB_ST400to900                  , 807 ,       228.54 ,  6473145 , 1 , false
+$LLB-4p-900-100000-v1510_14TEV_200PU/       , LLB_ST900toInf                  , 807 ,        20.80 , 15964732 , 1 , false
+$tB-4p-0-500-v1510_14TEV_200PU/             , tB_ST0to500                     , 882 ,     63889.23 ,  8217158 , 1 , false
+$tB-4p-500-900-v1510_14TEV_200PU/           , tB_ST500to900                   , 882 ,      7121.72 ,  6078502 , 1 , false
+$tB-4p-900-1500-v1510_14TEV_200PU/          , tB_ST900to1500                  , 882 ,       980.30 ,  6100082 , 1 , false
+$tB-4p-1500-2200-v1510_14TEV_200PU/         , tB_ST1500to2200                 , 882 ,        83.91 ,  6221516 , 1 , false
+$tB-4p-2200-100000-v1510_14TEV_200PU/       , tB_ST2200toInf                  , 882 ,         9.53 ,  6383268 , 1 , false
 $tj-4p-0-500-v1510_14TEV_200PU/             , tj_ST0to500                     , 420 ,    109736.02 ,  6434482 , 1 , false
 $tj-4p-500-1000-v1510_14TEV_200PU/          , tj_ST500to1000                  , 420 ,      5993.25 ,  4083791 , 1 , false
 $tj-4p-1000-1600-v1510_14TEV_200PU/         , tj_ST1000to1600                 , 420 ,       376.80 ,  3771345 , 1 , false
 $tj-4p-1600-2400-v1510_14TEV_200PU/         , tj_ST1600to2400                 , 420 ,        34.62 ,  4104847 , 1 , false
 $tj-4p-2400-100000-v1510_14TEV_200PU/       , tj_ST2400toInf                  , 420 ,         3.12 ,  4169635 , 1 , false
-tt-4p-0-600-v1510_14TEV_200PU/             , tt_ST0to600                     , 801 ,    530893.58 ,  6606111 , 1 , false
-tt-4p-600-1100-v1510_14TEV_200PU/          , tt_ST600to1100                  , 801 ,     42553.51 ,  4291563 , 1 , false
-tt-4p-1100-1700-v1510_14TEV_200PU/         , tt_ST1100to1700                 , 801 ,      4482.09 ,  4210295 , 1 , false
-tt-4p-1700-2500-v1510_14TEV_200PU/         , tt_ST1700to2500                 , 801 ,       527.95 ,  4075339 , 1 , false
-tt-4p-2500-100000-v1510_14TEV_200PU/       , tt_ST2500toInf                  , 801 ,        54.49 ,  4289479 , 1 , false
-$$ttB-4p-0-900-v1510_14TEV_200PU/            , ttB_ST0to900                    , 824 ,      2667.30 ,  9064127 , 1 , false
-$$ttB-4p-900-1600-v1510_14TEV_200PU/         , ttB_ST900to1600                 , 824 ,       250.47 ,  8223575 , 1 , false
-$$ttB-4p-1600-2500-v1510_14TEV_200PU/        , ttB_ST1600to2500                , 824 ,        23.74 ,  8963510 , 1 , false
-$$ttB-4p-2500-100000-v1510_14TEV_200PU/      , ttB_ST2500toInf                 , 824 ,         2.09 , 23866875 , 1 , false
+$tt-4p-0-600-v1510_14TEV_200PU/             , tt_ST0to600                     , 801 ,    530893.58 ,  6606111 , 1 , false
+$tt-4p-600-1100-v1510_14TEV_200PU/          , tt_ST600to1100                  , 801 ,     42553.51 ,  4291563 , 1 , false
+$tt-4p-1100-1700-v1510_14TEV_200PU/         , tt_ST1100to1700                 , 801 ,      4482.09 ,  4210295 , 1 , false
+$tt-4p-1700-2500-v1510_14TEV_200PU/         , tt_ST1700to2500                 , 801 ,       527.95 ,  4075339 , 1 , false
+$tt-4p-2500-100000-v1510_14TEV_200PU/       , tt_ST2500toInf                  , 801 ,        54.49 ,  4289479 , 1 , false
+$ttB-4p-0-900-v1510_14TEV_200PU/            , ttB_ST0to900                    , 824 ,      2667.30 ,  9064127 , 1 , false
+$ttB-4p-900-1600-v1510_14TEV_200PU/         , ttB_ST900to1600                 , 824 ,       250.47 ,  8223575 , 1 , false
+$ttB-4p-1600-2500-v1510_14TEV_200PU/        , ttB_ST1600to2500                , 824 ,        23.74 ,  8963510 , 1 , false
+$ttB-4p-2500-100000-v1510_14TEV_200PU/      , ttB_ST2500toInf                 , 824 ,         2.09 , 23866875 , 1 , false
 
-$$TChiWZ_300_260_Delphes/                    , TChiWZ_300_260_Delphes          , 616 ,       451.45 ,     auto , 1 , true THIS SAMPLE HAS LOW STATS!
+$TChiWZ_300_260_Delphes/                    , TChiWZ_300_260_Delphes          , 616 ,       451.45 ,     auto , 1 , true THIS SAMPLE HAS LOW STATS!
 $TChiWZ_400_375_Delphes/                    , TChiWZ_400_375_Delphes          , 616 ,       144.26 ,     auto , 1 , true
 $TChiWZ_300_250_Delphes/                    , TChiWZ_300_250_Delphes          , 616 ,       451.45 ,     auto , 1 , true
 $TChiWZ_300_293_Delphes/                    , TChiWZ_300_293_Delphes          , 616 ,       451.45 ,     auto , 1 , true
@@ -145,6 +145,6 @@ $TChiWZ_300_250_v342pre03/                  , TChiWZ_300_250_v342pre03        , 
 $TChiWZ_300_293_v333pre15/                  , TChiWZ_300_293_v333pre15        , 616 ,       451.45 ,     auto , 1 , true
 $TChiWZ_300_293_v342pre05/                  , TChiWZ_300_293_v342pre05        , 616 ,       451.45 ,     auto , 1 , true
 $TChiWZ_300_250_Delphes_v05_0PU/            , TChiWZ_300_250_Delphes_v05_0PU  , 616 ,       451.45 ,     auto , 1 , true
-$$C2N4/                                      , C2N4_X_Y_Delphes               , 616 ,      1000.00 ,     auto , 1 , true
+$C2N4/                                      , C2N4_X_Y_Delphes               , 616 ,      1000.00 ,     auto , 1 , true
 
 [inputfiles-end]
