@@ -34,17 +34,17 @@ $WJetsToLNu_HT-1200To2500_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/         
 $WJetsToLNu_HT-2500ToInf_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/           , WJetsToLNu_HT2500toInf       , 820 , 1 ,      2637821 , 1 , false
 $WWTo2L2Nu_13TeV-powheg_200PU/                                                   , WWTo2L2Nu                    , 820 , 1 ,      1999000 , 1 , false
 
-$DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/                   , DYToLL_M-50_nJ               , 820 , 1 ,        auto , 1 , false
-$DY1JetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/                  , DYToLL_M-50_1J               , 820 , 1 ,        auto , 1 , false
-$DY2JetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/                  , DYToLL_M-50_2J               , 820 , 1 ,        auto , 1 , false
-$DY3JetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/                  , DYToLL_M-50_3J               , 820 , 1 ,        auto , 1 , false
-$DY4JetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/                  , DYToLL_M-50_4J               , 820 , 1 ,        auto , 1 , false
-$WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/                        , WjetsToLNu_nJ                , 820 , 1 ,        auto , 1 , false
-$W1JetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/                       , WjetsToLNu_1J                , 820 , 1 ,        auto , 1 , false
-$W2JetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/                       , WjetsToLNu_2J                , 820 , 1 ,        auto , 1 , false
-$W3JetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/                       , WjetsToLNu_3J                , 820 , 1 ,        auto , 1 , false
-$W4JetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/                       , WjetsToLNu_4J                , 820 , 1 ,        auto , 1 , false
-$WWTo4Q_13TeV-powheg_200PU/                                                      , WWTo4Q                       , 820 , 1 ,        auto , 1 , false
-$WWToLNuQQ_13TeV-powheg_200PU/                                                   , WWToLNuQQ                    , 820 , 1 ,        auto , 1 , false
+$$DYJetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/                   , DYToLL_M-50_nJ               , 820 , 1 ,        auto , 1 , false
+$$DY1JetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/                  , DYToLL_M-50_1J               , 820 , 1 ,        auto , 1 , false
+$$DY2JetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/                  , DYToLL_M-50_2J               , 820 , 1 ,        auto , 1 , false
+$$DY3JetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/                  , DYToLL_M-50_3J               , 820 , 1 ,        auto , 1 , false
+$$DY4JetsToLL_M-50_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/                  , DYToLL_M-50_4J               , 820 , 1 ,        auto , 1 , false
+$$WJetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/                        , WjetsToLNu_nJ                , 820 , 1 ,        auto , 1 , false
+$$W1JetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/                       , WjetsToLNu_1J                , 820 , 1 ,        auto , 1 , false
+$$W2JetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/                       , WjetsToLNu_2J                , 820 , 1 ,        auto , 1 , false
+$$W3JetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/                       , WjetsToLNu_3J                , 820 , 1 ,        auto , 1 , false
+$$W4JetsToLNu_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/                       , WjetsToLNu_4J                , 820 , 1 ,        auto , 1 , false
+$$WWTo4Q_13TeV-powheg_200PU/                                                      , WWTo4Q                       , 820 , 1 ,        auto , 1 , false
+$$WWToLNuQQ_13TeV-powheg_200PU/                                                   , WWToLNuQQ                    , 820 , 1 ,        auto , 1 , false
 
 [inputfiles-end]
