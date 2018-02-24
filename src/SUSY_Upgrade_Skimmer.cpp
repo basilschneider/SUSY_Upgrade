@@ -673,41 +673,41 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             // DYJetsToLL_M-5to50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/
             for (size_t i=0; i<genpart.size(); ++i){
                 if ((fabs(genpart.at(i)->PT - 13.970113) < 1.e-6 && fabs(genpart.at(i)->Eta - 2.467708) < 1.e-6) ||
-                    (fabs(genpart.at(i)->PT - 20.706135) < 1.e-6 && fabs(genpart.at(i)->Eta + 2.117317) < 1.e-6) ||
-                    (fabs(genpart.at(i)->PT - 19.735157) < 1.e-6 && fabs(genpart.at(i)->Eta - 0.642992) < 1.e-6) ||
-                    (fabs(genpart.at(i)->PT - 29.951921) < 1.e-6 && fabs(genpart.at(i)->Eta + 0.918342) < 1.e-6) ||
-                    (fabs(genpart.at(i)->PT - 22.212555) < 1.e-6 && fabs(genpart.at(i)->Eta + 9.916969) < 1.e-6) ||
-                    (fabs(genpart.at(i)->PT -  6.281808) < 1.e-6 && fabs(genpart.at(i)->Eta + 0.363280) < 1.e-6) ||
-                    (fabs(genpart.at(i)->PT - 11.641006) < 1.e-6 && fabs(genpart.at(i)->Eta - 0.820936) < 1.e-6) ||
-                    (fabs(genpart.at(i)->PT - 16.675346) < 1.e-6 && fabs(genpart.at(i)->Eta + 1.859797) < 1.e-6) ||
-                    (fabs(genpart.at(i)->PT - 10.828916) < 1.e-6 && fabs(genpart.at(i)->Eta + 1.919281) < 1.e-6) ||
-                    (fabs(genpart.at(i)->PT - 21.267307) < 1.e-6 && fabs(genpart.at(i)->Eta + 0.721485) < 1.e-6)){
+                        (fabs(genpart.at(i)->PT - 20.706135) < 1.e-6 && fabs(genpart.at(i)->Eta + 2.117317) < 1.e-6) ||
+                        (fabs(genpart.at(i)->PT - 19.735157) < 1.e-6 && fabs(genpart.at(i)->Eta - 0.642992) < 1.e-6) ||
+                        (fabs(genpart.at(i)->PT - 29.951921) < 1.e-6 && fabs(genpart.at(i)->Eta + 0.918342) < 1.e-6) ||
+                        (fabs(genpart.at(i)->PT - 22.212555) < 1.e-6 && fabs(genpart.at(i)->Eta + 9.916969) < 1.e-6) ||
+                        (fabs(genpart.at(i)->PT -  6.281808) < 1.e-6 && fabs(genpart.at(i)->Eta + 0.363280) < 1.e-6) ||
+                        (fabs(genpart.at(i)->PT - 11.641006) < 1.e-6 && fabs(genpart.at(i)->Eta - 0.820936) < 1.e-6) ||
+                        (fabs(genpart.at(i)->PT - 16.675346) < 1.e-6 && fabs(genpart.at(i)->Eta + 1.859797) < 1.e-6) ||
+                        (fabs(genpart.at(i)->PT - 10.828916) < 1.e-6 && fabs(genpart.at(i)->Eta + 1.919281) < 1.e-6) ||
+                        (fabs(genpart.at(i)->PT - 21.267307) < 1.e-6 && fabs(genpart.at(i)->Eta + 0.721485) < 1.e-6)){
                     evtFnd = true;
                     printf("Foo99 Match: Idx: %lu/%lu; ID: %d; Status: %d; pt: %f; eta: %f; phi:%f\n",
-                           i+1, genpart.size(), genpart.at(i)->PID, genpart.at(i)->Status, genpart.at(i)->PT, genpart.at(i)->Eta, genpart.at(i)->Phi);
+                            i+1, genpart.size(), genpart.at(i)->PID, genpart.at(i)->Status, genpart.at(i)->PT, genpart.at(i)->Eta, genpart.at(i)->Phi);
                 }
             }
             if (evtFnd){
                 printf("NEW EVENT\n");
                 for (size_t i=0; i<genjet.size(); ++i){
                     printf("Foo00 Genjet: Idx: %lu/%lu; pt: %f; eta: %f\n",
-                           i+1, genjet.size(), genjet.at(i)->PT, genjet.at(i)->Eta);
+                            i+1, genjet.size(), genjet.at(i)->PT, genjet.at(i)->Eta);
                 }
                 for (size_t i=0; i<genpart.size(); ++i){
                     //if (genpart.at(i)->Status != 1 && genpart.at(i)->Status != 23){ continue; }
                     //if ((fabs(genpart.at(i)->PID) != 11) && (fabs(genpart.at(i)->PID) != 13)){ continue; }
                     printf("Foo01 GenPart: Idx: %lu/%lu; ID: %d; Status: %d; pt: %f; eta: %f\n",
-                           i+1, genpart.size(), genpart.at(i)->PID, genpart.at(i)->Status, genpart.at(i)->PT, genpart.at(i)->Eta);
+                            i+1, genpart.size(), genpart.at(i)->PID, genpart.at(i)->Status, genpart.at(i)->PT, genpart.at(i)->Eta);
                 }
                 for (size_t i=0; i<muontight.size(); ++i){
                     printf("Foo03 RecoMu: Idx: %lu/%lu; pt: %f; eta: %f; iso: %d; sumPt: %f\n",
-                           i+1, muontight.size(), muontight.at(i)->PT, muontight.at(i)->Eta,
-                           isIsolated(muontight.at(i)), muontight.at(i)->SumPt);
+                            i+1, muontight.size(), muontight.at(i)->PT, muontight.at(i)->Eta,
+                            isIsolated(muontight.at(i)), muontight.at(i)->SumPt);
                 }
                 for (size_t i=0; i<elecs.size(); ++i){
                     printf("Foo04 RecoEl: Idx: %lu/%lu; pt: %f; eta: %f; iso: %d; sumPt: %f\n",
-                           i+1, elecs.size(), elecs.at(i)->PT, elecs.at(i)->Eta,
-                           isIsolated(elecs.at(i)), elecs.at(i)->SumPt);
+                            i+1, elecs.size(), elecs.at(i)->PT, elecs.at(i)->Eta,
+                            isIsolated(elecs.at(i)), elecs.at(i)->SumPt);
                 }
             }
         }
@@ -720,13 +720,13 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             if (evtFnd){
                 for (size_t i=0; i<muontight.size(); ++i){
                     printf("Foo05 RecoMu: Idx: %lu/%lu; pt: %f; eta: %f; iso: %d; sumPt: %f\n",
-                           i+i, muontight.size(), muontight.at(i)->PT, muontight.at(i)->Eta,
-                           isIsolated(muontight.at(i)), muontight.at(i)->SumPt);
+                            i+i, muontight.size(), muontight.at(i)->PT, muontight.at(i)->Eta,
+                            isIsolated(muontight.at(i)), muontight.at(i)->SumPt);
                 }
                 for (size_t i=0; i<elecs.size(); ++i){
                     printf("Foo06 RecoEl: Idx: %lu/%lu; pt: %f; eta: %f; iso: %d; sumPt: %f\n",
-                           i+1, elecs.size(), elecs.at(i)->PT, elecs.at(i)->Eta,
-                           isIsolated(elecs.at(i)), elecs.at(i)->SumPt);
+                            i+1, elecs.size(), elecs.at(i)->PT, elecs.at(i)->Eta,
+                            isIsolated(elecs.at(i)), elecs.at(i)->SumPt);
                 }
                 std::cout << "==================================" << std::endl;
             }
