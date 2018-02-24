@@ -88,69 +88,69 @@ $/  ,                       background3,  431, 12, auto, 5
 
 $ The last entry is an example for running over all input files in a directory
 
-$TChiWZOff_C1N2_100_LSP_60/            , TChiWZ_100_60_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
-$TChiWZOff_C1N2_100_LSP_65/            , TChiWZ_100_65_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
-$TChiWZOff_C1N2_100_LSP_70/            , TChiWZ_100_70_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
-$TChiWZOff_C1N2_100_LSP_75/            , TChiWZ_100_75_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
-$TChiWZOff_C1N2_100_LSP_80/            , TChiWZ_100_80_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
-$TChiWZOff_C1N2_100_LSP_85/            , TChiWZ_100_85_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
-$TChiWZOff_C1N2_100_LSP_90/            , TChiWZ_100_90_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
-$TChiWZOff_C1N2_100_LSP_95/            , TChiWZ_100_95_Delphes_v09        , 616 ,      5873.10 ,     auto , 1 , true
+$TChiWZOff_C1N2_100_LSP_60/            , TChiWZ_100_60_Delphes_v09        , 616 ,      5873.10 ,   253424 , 1 , true
+$TChiWZOff_C1N2_100_LSP_65/            , TChiWZ_100_65_Delphes_v09        , 616 ,      5873.10 ,   255497 , 1 , true
+$TChiWZOff_C1N2_100_LSP_70/            , TChiWZ_100_70_Delphes_v09        , 616 ,      5873.10 ,   254317 , 1 , true
+$TChiWZOff_C1N2_100_LSP_75/            , TChiWZ_100_75_Delphes_v09        , 616 ,      5873.10 ,   252404 , 1 , true
+$TChiWZOff_C1N2_100_LSP_80/            , TChiWZ_100_80_Delphes_v09        , 616 ,      5873.10 ,   253263 , 1 , true
+$TChiWZOff_C1N2_100_LSP_85/            , TChiWZ_100_85_Delphes_v09        , 616 ,      5873.10 ,   254726 , 1 , true
+$TChiWZOff_C1N2_100_LSP_90/            , TChiWZ_100_90_Delphes_v09        , 616 ,      5873.10 ,   252688 , 1 , true
+$TChiWZOff_C1N2_100_LSP_95/            , TChiWZ_100_95_Delphes_v09        , 616 ,      5873.10 ,   255505 , 1 , true
 
-$TChiWZOff_C1N2_150_LSP_110/           , TChiWZ_150_110_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
-$TChiWZOff_C1N2_150_LSP_115/           , TChiWZ_150_115_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
-$TChiWZOff_C1N2_150_LSP_120/           , TChiWZ_150_120_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
-$TChiWZOff_C1N2_150_LSP_125/           , TChiWZ_150_125_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
-$TChiWZOff_C1N2_150_LSP_130/           , TChiWZ_150_130_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
-$TChiWZOff_C1N2_150_LSP_135/           , TChiWZ_150_135_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
-$TChiWZOff_C1N2_150_LSP_140/           , TChiWZ_150_140_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
-$TChiWZOff_C1N2_150_LSP_145/           , TChiWZ_150_145_Delphes_v09       , 616 ,      1357.28 ,     auto , 1 , true
+$TChiWZOff_C1N2_150_LSP_110/           , TChiWZ_150_110_Delphes_v09       , 616 ,      1357.28 ,   232060 , 1 , true
+$TChiWZOff_C1N2_150_LSP_115/           , TChiWZ_150_115_Delphes_v09       , 616 ,      1357.28 ,   231544 , 1 , true
+$TChiWZOff_C1N2_150_LSP_120/           , TChiWZ_150_120_Delphes_v09       , 616 ,      1357.28 ,   231035 , 1 , true
+$TChiWZOff_C1N2_150_LSP_125/           , TChiWZ_150_125_Delphes_v09       , 616 ,      1357.28 ,   232095 , 1 , true
+$TChiWZOff_C1N2_150_LSP_130/           , TChiWZ_150_130_Delphes_v09       , 616 ,      1357.28 ,   231503 , 1 , true
+$TChiWZOff_C1N2_150_LSP_135/           , TChiWZ_150_135_Delphes_v09       , 616 ,      1357.28 ,   231884 , 1 , true
+$TChiWZOff_C1N2_150_LSP_140/           , TChiWZ_150_140_Delphes_v09       , 616 ,      1357.28 ,   232683 , 1 , true
+$TChiWZOff_C1N2_150_LSP_145/           , TChiWZ_150_145_Delphes_v09       , 616 ,      1357.28 ,   232204 , 1 , true
 
-$TChiWZOff_C1N2_200_LSP_160/           , TChiWZ_200_160_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
-$TChiWZOff_C1N2_200_LSP_165/           , TChiWZ_200_165_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
-$TChiWZOff_C1N2_200_LSP_170/           , TChiWZ_200_170_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
-$TChiWZOff_C1N2_200_LSP_175/           , TChiWZ_200_175_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
-$TChiWZOff_C1N2_200_LSP_180/           , TChiWZ_200_180_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
-$TChiWZOff_C1N2_200_LSP_185/           , TChiWZ_200_185_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
-$TChiWZOff_C1N2_200_LSP_190/           , TChiWZ_200_190_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
-$TChiWZOff_C1N2_200_LSP_195/           , TChiWZ_200_195_Delphes_v09       , 616 ,       479.10 ,     auto , 1 , true
+$TChiWZOff_C1N2_200_LSP_160/           , TChiWZ_200_160_Delphes_v09       , 616 ,       479.10 ,   216067 , 1 , true
+$TChiWZOff_C1N2_200_LSP_165/           , TChiWZ_200_165_Delphes_v09       , 616 ,       479.10 ,   216722 , 1 , true
+$TChiWZOff_C1N2_200_LSP_170/           , TChiWZ_200_170_Delphes_v09       , 616 ,       479.10 ,   216501 , 1 , true
+$TChiWZOff_C1N2_200_LSP_175/           , TChiWZ_200_175_Delphes_v09       , 616 ,       479.10 ,   215758 , 1 , true
+$TChiWZOff_C1N2_200_LSP_180/           , TChiWZ_200_180_Delphes_v09       , 616 ,       479.10 ,   216628 , 1 , true
+$TChiWZOff_C1N2_200_LSP_185/           , TChiWZ_200_185_Delphes_v09       , 616 ,       479.10 ,   216869 , 1 , true
+$TChiWZOff_C1N2_200_LSP_190/           , TChiWZ_200_190_Delphes_v09       , 616 ,       479.10 ,   216130 , 1 , true
+$TChiWZOff_C1N2_200_LSP_195/           , TChiWZ_200_195_Delphes_v09       , 616 ,       479.10 ,   208326 , 1 , true
 
-$TChiWZOff_C1N2_250_LSP_210/           , TChiWZ_250_210_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
-$TChiWZOff_C1N2_250_LSP_215/           , TChiWZ_250_215_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
-$TChiWZOff_C1N2_250_LSP_220/           , TChiWZ_250_220_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
-$TChiWZOff_C1N2_250_LSP_225/           , TChiWZ_250_225_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
-$TChiWZOff_C1N2_250_LSP_230/           , TChiWZ_250_230_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
-$TChiWZOff_C1N2_250_LSP_235/           , TChiWZ_250_235_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
-$TChiWZOff_C1N2_250_LSP_240/           , TChiWZ_250_240_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
-$TChiWZOff_C1N2_250_LSP_245/           , TChiWZ_250_245_Delphes_v09       , 616 ,       209.89 ,     auto , 1 , true
+$TChiWZOff_C1N2_250_LSP_210/           , TChiWZ_250_210_Delphes_v09       , 616 ,       209.89 ,   204450 , 1 , true
+$TChiWZOff_C1N2_250_LSP_215/           , TChiWZ_250_215_Delphes_v09       , 616 ,       209.89 ,   205298 , 1 , true
+$TChiWZOff_C1N2_250_LSP_220/           , TChiWZ_250_220_Delphes_v09       , 616 ,       209.89 ,   204759 , 1 , true
+$TChiWZOff_C1N2_250_LSP_225/           , TChiWZ_250_225_Delphes_v09       , 616 ,       209.89 ,   205046 , 1 , true
+$TChiWZOff_C1N2_250_LSP_230/           , TChiWZ_250_230_Delphes_v09       , 616 ,       209.89 ,   202884 , 1 , true
+$TChiWZOff_C1N2_250_LSP_235/           , TChiWZ_250_235_Delphes_v09       , 616 ,       209.89 ,   203816 , 1 , true
+$TChiWZOff_C1N2_250_LSP_240/           , TChiWZ_250_240_Delphes_v09       , 616 ,       209.89 ,   205080 , 1 , true
+$TChiWZOff_C1N2_250_LSP_245/           , TChiWZ_250_245_Delphes_v09       , 616 ,       209.89 ,   196185 , 1 , true
 
-$TChiWZOff_C1N2_300_LSP_260/          , TChiWZ_300_260_Delphes_v09       , 616 ,       104.91 ,     auto , 1 , true
-$TChiWZOff_C1N2_300_LSP_265/          , TChiWZ_300_265_Delphes_v09       , 616 ,       104.91 ,     auto , 1 , true
-$TChiWZOff_C1N2_300_LSP_270/          , TChiWZ_300_270_Delphes_v09       , 616 ,       104.91 ,     auto , 1 , true
-$TChiWZOff_C1N2_300_LSP_275/          , TChiWZ_300_275_Delphes_v09       , 616 ,       104.91 ,     auto , 1 , true
-$TChiWZOff_C1N2_300_LSP_280/          , TChiWZ_300_280_Delphes_v09       , 616 ,       104.91 ,     auto , 1 , true
-$TChiWZOff_C1N2_300_LSP_285/          , TChiWZ_300_285_Delphes_v09       , 616 ,       104.91 ,     auto , 1 , true
-$TChiWZOff_C1N2_300_LSP_290/          , TChiWZ_300_290_Delphes_v09       , 616 ,       104.91 ,     auto , 1 , true
-$TChiWZOff_C1N2_300_LSP_295/          , TChiWZ_300_295_Delphes_v09       , 616 ,       104.91 ,     auto , 1 , true
+$TChiWZOff_C1N2_300_LSP_260/           , TChiWZ_300_260_Delphes_v09       , 616 ,       104.91 ,    98054 , 1 , true
+$TChiWZOff_C1N2_300_LSP_265/           , TChiWZ_300_265_Delphes_v09       , 616 ,       104.91 ,    97932 , 1 , true
+$TChiWZOff_C1N2_300_LSP_270/           , TChiWZ_300_270_Delphes_v09       , 616 ,       104.91 ,    98076 , 1 , true
+$TChiWZOff_C1N2_300_LSP_275/           , TChiWZ_300_275_Delphes_v09       , 616 ,       104.91 ,    97652 , 1 , true
+$TChiWZOff_C1N2_300_LSP_280/           , TChiWZ_300_280_Delphes_v09       , 616 ,       104.91 ,    98269 , 1 , true
+$TChiWZOff_C1N2_300_LSP_285/           , TChiWZ_300_285_Delphes_v09       , 616 ,       104.91 ,    98312 , 1 , true
+$TChiWZOff_C1N2_300_LSP_290/           , TChiWZ_300_290_Delphes_v09       , 616 ,       104.91 ,    97489 , 1 , true
+$TChiWZOff_C1N2_300_LSP_295/           , TChiWZ_300_295_Delphes_v09       , 616 ,       104.91 ,    98054 , 1 , true
 
-$TChiWZOff_C1N2_400_LSP_375/          , TChiWZ_400_375_Delphes_v09       , 616 ,        33.52 ,     auto , 1 , true
+$TChiWZOff_C1N2_400_LSP_375/           , TChiWZ_400_375_Delphes_v09       , 616 ,        33.52 ,    90507 , 1 , true
 
-$$TChiWZOff_C1N2_350_LSP_310/          , TChiWZ_350_310_Delphes_v09       , 616 ,        57.38 ,     auto , 1 , true
-$$TChiWZOff_C1N2_350_LSP_315/          , TChiWZ_350_315_Delphes_v09       , 616 ,        57.38 ,     auto , 1 , true
-$$TChiWZOff_C1N2_350_LSP_320/          , TChiWZ_350_320_Delphes_v09       , 616 ,        57.38 ,     auto , 1 , true
-$$TChiWZOff_C1N2_350_LSP_325/          , TChiWZ_350_325_Delphes_v09       , 616 ,        57.38 ,     auto , 1 , true
-$$TChiWZOff_C1N2_350_LSP_330/          , TChiWZ_350_330_Delphes_v09       , 616 ,        57.38 ,     auto , 1 , true
-$$TChiWZOff_C1N2_350_LSP_335/          , TChiWZ_350_335_Delphes_v09       , 616 ,        57.38 ,     auto , 1 , true
-$$TChiWZOff_C1N2_350_LSP_340/          , TChiWZ_350_340_Delphes_v09       , 616 ,        57.38 ,     auto , 1 , true
-$$TChiWZOff_C1N2_350_LSP_345/          , TChiWZ_350_345_Delphes_v09       , 616 ,        57.38 ,     auto , 1 , true
+$$TChiWZOff_C1N2_350_LSP_310/           , TChiWZ_350_310_Delphes_v09       , 616 ,        57.38 ,     auto , 1 , true
+$$TChiWZOff_C1N2_350_LSP_315/           , TChiWZ_350_315_Delphes_v09       , 616 ,        57.38 ,     auto , 1 , true
+$$TChiWZOff_C1N2_350_LSP_320/           , TChiWZ_350_320_Delphes_v09       , 616 ,        57.38 ,     auto , 1 , true
+$$TChiWZOff_C1N2_350_LSP_325/           , TChiWZ_350_325_Delphes_v09       , 616 ,        57.38 ,     auto , 1 , true
+$$TChiWZOff_C1N2_350_LSP_330/           , TChiWZ_350_330_Delphes_v09       , 616 ,        57.38 ,     auto , 1 , true
+$$TChiWZOff_C1N2_350_LSP_335/           , TChiWZ_350_335_Delphes_v09       , 616 ,        57.38 ,     auto , 1 , true
+$$TChiWZOff_C1N2_350_LSP_340/           , TChiWZ_350_340_Delphes_v09       , 616 ,        57.38 ,     auto , 1 , true
+$$TChiWZOff_C1N2_350_LSP_345/           , TChiWZ_350_345_Delphes_v09       , 616 ,        57.38 ,     auto , 1 , true
 
-$$TChiWZOff_C1N2_400_LSP_360/          , TChiWZ_400_360_Delphes_v09       , 616 ,        33.52 ,     auto , 1 , true
-$$TChiWZOff_C1N2_400_LSP_365/          , TChiWZ_400_365_Delphes_v09       , 616 ,        33.52 ,     auto , 1 , true
-$$TChiWZOff_C1N2_400_LSP_370/          , TChiWZ_400_370_Delphes_v09       , 616 ,        33.52 ,     auto , 1 , true
-$$TChiWZOff_C1N2_400_LSP_375/          , TChiWZ_400_375_Delphes_v09       , 616 ,        33.52 ,     auto , 1 , true
-$$TChiWZOff_C1N2_400_LSP_380/          , TChiWZ_400_380_Delphes_v09       , 616 ,        33.52 ,     auto , 1 , true
-$$TChiWZOff_C1N2_400_LSP_385/          , TChiWZ_400_385_Delphes_v09       , 616 ,        33.52 ,     auto , 1 , true
-$$TChiWZOff_C1N2_400_LSP_390/          , TChiWZ_400_390_Delphes_v09       , 616 ,        33.52 ,     auto , 1 , true
-$$TChiWZOff_C1N2_400_LSP_395/          , TChiWZ_400_395_Delphes_v09       , 616 ,        33.52 ,     auto , 1 , true
+$$TChiWZOff_C1N2_400_LSP_360/           , TChiWZ_400_360_Delphes_v09       , 616 ,        33.52 ,     auto , 1 , true
+$$TChiWZOff_C1N2_400_LSP_365/           , TChiWZ_400_365_Delphes_v09       , 616 ,        33.52 ,     auto , 1 , true
+$$TChiWZOff_C1N2_400_LSP_370/           , TChiWZ_400_370_Delphes_v09       , 616 ,        33.52 ,     auto , 1 , true
+$$TChiWZOff_C1N2_400_LSP_375/           , TChiWZ_400_375_Delphes_v09       , 616 ,        33.52 ,     auto , 1 , true
+$$TChiWZOff_C1N2_400_LSP_380/           , TChiWZ_400_380_Delphes_v09       , 616 ,        33.52 ,     auto , 1 , true
+$$TChiWZOff_C1N2_400_LSP_385/           , TChiWZ_400_385_Delphes_v09       , 616 ,        33.52 ,     auto , 1 , true
+$$TChiWZOff_C1N2_400_LSP_390/           , TChiWZ_400_390_Delphes_v09       , 616 ,        33.52 ,     auto , 1 , true
+$$TChiWZOff_C1N2_400_LSP_395/           , TChiWZ_400_395_Delphes_v09       , 616 ,        33.52 ,     auto , 1 , true
 
 [inputfiles-end]
