@@ -1,0 +1,19 @@
+[config-begin]
+
+    Outputdir = /uscms/home/bschneid/analysis/upgrade/DAF/production/production999/
+    Outputfile = outputfile.root
+
+    Samplesdir = root://cmseos.fnal.gov//store/user/snowmass/noreplica/Run2MiniAOD_SMbackgrounds/Delphes342pre07_hadd/
+
+    Lumi       = 3000
+    Testmode   = true
+    Maxchilds  = 23
+    RunOnOutputOnly = false
+
+[config-end]
+
+[inputfiles-begin]
+
+DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/       , DYToLL_M-50_HT100to200       , 820 , 1 ,     10607207 , 1 , false
+
+[inputfiles-end]
