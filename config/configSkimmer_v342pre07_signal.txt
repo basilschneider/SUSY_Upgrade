@@ -133,6 +133,8 @@ $TChiWZOff_C1N2_300_LSP_285/          , TChiWZ_300_285_Delphes_v09       , 616 ,
 $TChiWZOff_C1N2_300_LSP_290/          , TChiWZ_300_290_Delphes_v09       , 616 ,       104.91 ,     auto , 1 , true
 $TChiWZOff_C1N2_300_LSP_295/          , TChiWZ_300_295_Delphes_v09       , 616 ,       104.91 ,     auto , 1 , true
 
+$TChiWZOff_C1N2_400_LSP_375/          , TChiWZ_400_375_Delphes_v09       , 616 ,        33.52 ,     auto , 1 , true
+
 $$TChiWZOff_C1N2_350_LSP_310/          , TChiWZ_350_310_Delphes_v09       , 616 ,        57.38 ,     auto , 1 , true
 $$TChiWZOff_C1N2_350_LSP_315/          , TChiWZ_350_315_Delphes_v09       , 616 ,        57.38 ,     auto , 1 , true
 $$TChiWZOff_C1N2_350_LSP_320/          , TChiWZ_350_320_Delphes_v09       , 616 ,        57.38 ,     auto , 1 , true
