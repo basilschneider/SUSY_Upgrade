@@ -124,6 +124,7 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         int nJet25, nJet40, nJet60, nJet100, nJet150;
         int nLep_truth;
         double ht25, ht40, ht60, ht100, ht150;
+        double genht25, genht40;
         bool hasSFOS, hasSoftSFOS, hasSFOS_truth, hasSoftSFOS_truth;
         std::vector<double> mllMin, mllMax, mt1, mt2, pt2l;
         std::vector<double> drLep1Lep2, drLep1Jet1, drLep2Jet1;

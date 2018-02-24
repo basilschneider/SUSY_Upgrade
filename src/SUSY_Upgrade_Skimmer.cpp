@@ -163,6 +163,8 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("ht60", &ht60);
     myskim->Branch("ht100", &ht100);
     myskim->Branch("ht150", &ht150);
+    myskim->Branch("genht25", &genht25);
+    myskim->Branch("genht40", &genht40);
     myskim->Branch("hasSFOS", &hasSFOS);
     myskim->Branch("hasSFOS_truth", &hasSFOS_truth);
     myskim->Branch("hasSoftSFOS", &hasSoftSFOS);
@@ -1306,6 +1308,17 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             if (jetpuppi.at(i)->PT > 60.){ ht60 += jetpuppi.at(i)->PT; }
             if (jetpuppi.at(i)->PT > 100.){ ht100 += jetpuppi.at(i)->PT; }
             if (jetpuppi.at(i)->PT > 150.){ ht150 += jetpuppi.at(i)->PT; }
+        }
+
+        // Fill GenHT
+        genht25 = genht40 = 0.;
+        for (size_t i=0; i<genjet.size(); ++i){
+            if (genjet.at(i)->PT > 25.){
+                genht25 += genjet.at(i)->PT;
+            }
+            if (genjet.at(i)->PT > 40.){
+                genht40 += genjet.at(i)->PT;
+            }
         }
 
         // MET HT scale factors
