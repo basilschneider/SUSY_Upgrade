@@ -177,6 +177,7 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("drLep1Lep2", &drLep1Lep2);
     myskim->Branch("drLep1Jet1", &drLep1Jet1);
     myskim->Branch("drLep2Jet1", &drLep2Jet1);
+    myskim->Branch("ZtoLL", &ZtoLL);
     myskim->Branch("mu_pt5to10_origin_nghbr", &mu_pt5to10_origin_nghbr);
     myskim->Branch("mu_pt5to10_origin_cone", &mu_pt5to10_origin_cone);
     myskim->Branch("mu_pt10to20_origin_nghbr", &mu_pt10to20_origin_nghbr);
@@ -1319,6 +1320,36 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             if (genjet.at(i)->PT > 40.){
                 genht40 += genjet.at(i)->PT;
             }
+        }
+
+        // In DYtoLL events, figure out what LL is
+        unsigned int n11 = 0;
+        unsigned int n13 = 0;
+        unsigned int n15 = 0;
+        for (size_t i=0; i<genpart.size(); ++i){
+            // Only consider particles with a pT of at least 2 GeV
+            if (genpart.at(i)->PID < 2){ continue; }
+            // Count leptons (disregard status)
+            if (fabs(genpart.at(i)->PID) == 11){
+                n11++;
+            }else if (fabs(genpart.at(i)->PID) == 13){
+                n13++;
+            }else if (fabs(genpart.at(i)->PID) == 15){
+                n15++;
+            }
+        }
+        // If there's at least one tau, it's a Z --> tautau event
+        // Else, if there are more electrons than muons, it's a Z --> ee event
+        // Else, if there are more muons than electrons, it's a Z --> mm event
+        // Else, I don't know
+        if (n15 >= 1){
+            ZtoLL = 15;
+        }else if (n11 > n13){
+            ZtoLL = 11;
+        }else if (n13 > n11){
+            ZtoLL = 13;
+        }else{
+            ZtoLL = 999;
         }
 
         // MET HT scale factors
