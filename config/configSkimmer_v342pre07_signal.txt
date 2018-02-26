@@ -45,8 +45,7 @@ $ This Samplesdir can be a local directory or refer to off-site locations via xr
     $Samplesdir = root://cmseos.fnal.gov//store/user/kulkarni/MC_grid/Delphised_C1N2_filtered/
     $Samplesdir = root://cmseos.fnal.gov//store/user/kulkarni/MC_grid/Delphised_C1N2_new/
     $Samplesdir = root://cmseos.fnal.gov//store/user/snowmass/noreplica/DelphesFromLHE_342pre05_2017July/
-    $Samplesdir = root://cmseos.fnal.gov//eos/uscms/store/user/bschneid/analysis/upgrade/tempsignal/
-    Samplesdir = root://cmseos.fnal.gov//eos/uscms/store/user/bschneid/analysis/upgrade/tempsignal/hadded/
+    Samplesdir = root://cmseos.fnal.gov//store/user/bschneid/analysis/upgrade/tempsignal/hadded/
 
 $ The analyser will have a postProcess() function. This function should be used to
 $ extract parameters from the filled histograms, do additional calculations, etc.
