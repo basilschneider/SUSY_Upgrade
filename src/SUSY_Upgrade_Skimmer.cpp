@@ -671,24 +671,40 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         bool evtFnd = false;
         if (event_by_event_comparison){
             // The hardcoded numbers are to be used with the following sample:
-            // DYJetsToLL_M-5to50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/
+            // root://cmsxrootd.fnal.gov//store/mc/PhaseIITDRFall17MiniAOD/DYJetsToLL_M-10to50_TuneCUETP8M1_14TeV-madgraphMLM-pythia8/MINIAODSIM/PU200_93X_upgrade2023_realistic_v2-v2/150000/02D196DB-60C0-E711-8C46-24BE05CE2D41.root
             for (size_t i=0; i<genpart.size(); ++i){
-                if ((fabs(genpart.at(i)->PT - 13.970113) < 1.e-6 && fabs(genpart.at(i)->Eta - 2.467708) < 1.e-6) ||
-                        (fabs(genpart.at(i)->PT - 20.706135) < 1.e-6 && fabs(genpart.at(i)->Eta + 2.117317) < 1.e-6) ||
-                        (fabs(genpart.at(i)->PT - 19.735157) < 1.e-6 && fabs(genpart.at(i)->Eta - 0.642992) < 1.e-6) ||
-                        (fabs(genpart.at(i)->PT - 29.951921) < 1.e-6 && fabs(genpart.at(i)->Eta + 0.918342) < 1.e-6) ||
-                        (fabs(genpart.at(i)->PT - 22.212555) < 1.e-6 && fabs(genpart.at(i)->Eta + 9.916969) < 1.e-6) ||
-                        (fabs(genpart.at(i)->PT -  6.281808) < 1.e-6 && fabs(genpart.at(i)->Eta + 0.363280) < 1.e-6) ||
-                        (fabs(genpart.at(i)->PT - 11.641006) < 1.e-6 && fabs(genpart.at(i)->Eta - 0.820936) < 1.e-6) ||
-                        (fabs(genpart.at(i)->PT - 16.675346) < 1.e-6 && fabs(genpart.at(i)->Eta + 1.859797) < 1.e-6) ||
-                        (fabs(genpart.at(i)->PT - 10.828916) < 1.e-6 && fabs(genpart.at(i)->Eta + 1.919281) < 1.e-6) ||
-                        (fabs(genpart.at(i)->PT - 21.267307) < 1.e-6 && fabs(genpart.at(i)->Eta + 0.721485) < 1.e-6)){
+                if ((fabs(genpart.at(i)->PT -  9.343750) < 1.e-6 && fabs(genpart.at(i)->Eta - 3.948608) < 1.e-6) ||
+                        (fabs(genpart.at(i)->PT - 11.757812) < 1.e-6 && fabs(genpart.at(i)->Eta - 0.839775) < 1.e-6) ||
+                        (fabs(genpart.at(i)->PT -  7.476562) < 1.e-6 && fabs(genpart.at(i)->Eta - 2.270211) < 1.e-6) ||
+                        (fabs(genpart.at(i)->PT -  7.230469) < 1.e-6 && fabs(genpart.at(i)->Eta + 0.100905) < 1.e-6) ||
+                        (fabs(genpart.at(i)->PT - 10.335938) < 1.e-6 && fabs(genpart.at(i)->Eta - 3.225501) < 1.e-6)){
                     evtFnd = true;
-                    printf("Foo99 Match: Idx: %lu/%lu; ID: %d; Status: %d; pt: %f; eta: %f; phi:%f\n",
+                    printf("Event by event comparison. Compare event %d with weight %f.\n", event.at(0)->Number, event.at(0)->Weight);
+                    printProps(genpart, true);
+                    printf("Matched truth particle with FullSim: Idx: %lu/%lu; ID: %d; Status: %d; pt: %f; eta: %f; phi:%f\n",
                             i+1, genpart.size(), genpart.at(i)->PID, genpart.at(i)->Status, genpart.at(i)->PT, genpart.at(i)->Eta, genpart.at(i)->Phi);
                 }
             }
+            //// The hardcoded numbers are to be used with the following sample:
+            //// DYJetsToLL_M-5to50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/
+            //for (size_t i=0; i<genpart.size(); ++i){
+            //    if ((fabs(genpart.at(i)->PT - 13.970113) < 1.e-6 && fabs(genpart.at(i)->Eta - 2.467708) < 1.e-6) ||
+            //            (fabs(genpart.at(i)->PT - 20.706135) < 1.e-6 && fabs(genpart.at(i)->Eta + 2.117317) < 1.e-6) ||
+            //            (fabs(genpart.at(i)->PT - 19.735157) < 1.e-6 && fabs(genpart.at(i)->Eta - 0.642992) < 1.e-6) ||
+            //            (fabs(genpart.at(i)->PT - 29.951921) < 1.e-6 && fabs(genpart.at(i)->Eta + 0.918342) < 1.e-6) ||
+            //            (fabs(genpart.at(i)->PT - 22.212555) < 1.e-6 && fabs(genpart.at(i)->Eta + 9.916969) < 1.e-6) ||
+            //            (fabs(genpart.at(i)->PT -  6.281808) < 1.e-6 && fabs(genpart.at(i)->Eta + 0.363280) < 1.e-6) ||
+            //            (fabs(genpart.at(i)->PT - 11.641006) < 1.e-6 && fabs(genpart.at(i)->Eta - 0.820936) < 1.e-6) ||
+            //            (fabs(genpart.at(i)->PT - 16.675346) < 1.e-6 && fabs(genpart.at(i)->Eta + 1.859797) < 1.e-6) ||
+            //            (fabs(genpart.at(i)->PT - 10.828916) < 1.e-6 && fabs(genpart.at(i)->Eta + 1.919281) < 1.e-6) ||
+            //            (fabs(genpart.at(i)->PT - 21.267307) < 1.e-6 && fabs(genpart.at(i)->Eta + 0.721485) < 1.e-6)){
+            //        evtFnd = true;
+            //    }
+            //}
             if (evtFnd){
+
+
+
                 printf("NEW EVENT\n");
                 for (size_t i=0; i<genjet.size(); ++i){
                     printf("Foo00 Genjet: Idx: %lu/%lu; pt: %f; eta: %f\n",

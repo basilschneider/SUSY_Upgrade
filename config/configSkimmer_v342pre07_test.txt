@@ -3,10 +3,11 @@
     Outputdir = /uscms/home/bschneid/analysis/upgrade/DAF/production/production999/
     Outputfile = outputfile.root
 
-    Samplesdir = root://cmseos.fnal.gov//store/user/snowmass/noreplica/Run2MiniAOD_SMbackgrounds/Delphes342pre07_hadd/
+    $Samplesdir = root://cmseos.fnal.gov//store/user/snowmass/noreplica/Run2MiniAOD_SMbackgrounds/Delphes342pre07_hadd/
+    Samplesdir = root://cmseos.fnal.gov//store/user/snowmass/noreplica/LHEGEN_SMbackgrounds/Delphes342pre07_hadd/
 
     Lumi       = 3000
-    Testmode   = true
+    Testmode   = false
     Maxchilds  = 23
     RunOnOutputOnly = false
 
@@ -14,6 +15,7 @@
 
 [inputfiles-begin]
 
-DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/       , DYToLL_M-50_HT100to200       , 820 , 1 ,     10607207 , 1 , false
+$DYJetsToLL_M-50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/       , DYToLL_M-50_HT100to200       , 820 , 1 ,     10607207 , 1 , false
+DYJetsToLL_M-10to50_TuneCUETP8M1_14TeV-madgraphMLM-pythia8_200PU/DYJetsToLL_M-10to50_TuneCUETP8M1_14TeV-madgraphMLM-pythia8_200PU_1.root             , DYToLL_M-10to50        , 820 , 1 , 661313 , 1 , false
 
 [inputfiles-end]
