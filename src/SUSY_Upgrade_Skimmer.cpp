@@ -738,7 +738,12 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 }
                 // Reco muons
                 for (size_t j=0; j<muontight.size(); ++j){
-                    printParticleProps("Reco muons", j, muontight.size(), muontight.at(j), muontight.at(j)->Charge>0 ? -13: 13, 1);
+                    // Additionally print SumPt
+                    char SumPt[20];
+                    snprintf(SumPt, sizeof SumPt, "%f", muontight.at(j)->SumPt);
+                    char addText[60] = "sumPt: ";
+                    strcat(addText, SumPt);
+                    printParticleProps("Reco muons", j, muontight.size(), muontight.at(j), muontight.at(j)->Charge>0 ? -13: 13, 1, addText);
                 }
                 // Reco jets
                 for (size_t j=0; j<jetpuppi.size(); ++j){
