@@ -680,6 +680,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         //}
 
         if (event_by_event_comparison){
+            bool evtFound = false;
             // The hardcoded numbers are to be used with the following sample:
             // root://cmsxrootd.fnal.gov//store/mc/PhaseIITDRFall17MiniAOD/DYJetsToLL_M-10to50_TuneCUETP8M1_14TeV-madgraphMLM-pythia8/MINIAODSIM/PU200_93X_upgrade2023_realistic_v2-v2/150000/02D196DB-60C0-E711-8C46-24BE05CE2D41.root
             for (size_t i=0; i<genpart.size(); ++i){
@@ -693,53 +694,59 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                     printf("Event by event comparison. Compare event %lld with weight %f:\n", event.at(0)->Number, event.at(0)->Weight);
                     printParticlePropsWpidWstatus("Matched with FullSim", i, genpart.size(), genpart.at(i));
 
-                    // Truth objects
-                    printf("%20s\n", "Truth objects");
-                    // Truth electrons
-                    for (size_t j=0; j<genpart.size(); ++j){
-                        if (fabs(genpart.at(j)->PID) != 11){ continue; }
-                            printParticlePropsWpidWstatus("Truth electrons", j, genpart.size(), genpart.at(j));
-                    }
-                    // Truth muons
-                    for (size_t j=0; j<genpart.size(); ++j){
-                        if (fabs(genpart.at(j)->PID) != 13){ continue; }
-                            printParticlePropsWpidWstatus("Truth muons", j, genpart.size(), genpart.at(j));
-                    }
-                    // Truth particles (all)
-                    for (size_t j=0; j<genpart.size(); ++j){
-                        printParticlePropsWpidWstatus("Truth particles", j, genpart.size(), genpart.at(j));
-                    }
-                    // Truth jets
-                    for (size_t j=0; j<genjet.size(); ++j){
-                        printParticleProps("Truth jets", j, genjet.size(), genjet.at(j), -1, -1);
-                    }
-                    // Truth MET
-                    printf("%20s: Idx: %3d/%3d; ID: %8s; Status: %3s; pt: %8.3f; eta: %6.3f; phi: %6.3f\n",
-                            "Truth MET", 1, 1, "-", "-", genmeth.at(0)->MET, genmeth.at(0)->Eta, genmeth.at(0)->Phi);
-
-                    // Reco objects
-                    printf("%20s\n", "Reco objects");
-                    // Reco electrons
-                    for (size_t j=0; j<elecs.size(); ++j){
-                        // Additionally print SumPt
-                        char SumPt[20];
-                        snprintf(SumPt, sizeof SumPt, "%f", elecs.at(j)->SumPt);
-                        char addText[60] = "sumPt: ";
-                        strcat(addText, SumPt);
-                        printParticleProps("Reco electrons", j, elecs.size(), elecs.at(j), elecs.at(j)->Charge>0 ? -11: 11, 1, addText);
-                    }
-                    // Reco muons
-                    for (size_t j=0; j<muontight.size(); ++j){
-                        printParticleProps("Reco muons", j, muontight.size(), muontight.at(j), muontight.at(j)->Charge>0 ? -13: 13, 1);
-                    }
-                    // Reco jets
-                    for (size_t j=0; j<jetpuppi.size(); ++j){
-                        printParticleProps("Reco jets", j, jetpuppi.size(), jetpuppi.at(j), -1, -1);
-                    }
-                    // Reco MET
-                    printf("%20s: Idx: %3d/%3d; ID: %8s; Status: %3s; pt: %8.3f; eta: %6.3f; phi: %6.3f\n",
-                            "Reco MET", 1, 1, "-", "-", puppimet.at(0)->MET, puppimet.at(0)->Eta, puppimet.at(0)->Phi);
+                    evtFound = true;
+                    break;
                 }
+            }
+
+            if (evtFound){
+
+                // Truth objects
+                printf("%s\n", "Truth objects");
+                // Truth electrons
+                for (size_t j=0; j<genpart.size(); ++j){
+                    if (fabs(genpart.at(j)->PID) != 11){ continue; }
+                    printParticlePropsWpidWstatus("Truth electrons", j, genpart.size(), genpart.at(j));
+                }
+                // Truth muons
+                for (size_t j=0; j<genpart.size(); ++j){
+                    if (fabs(genpart.at(j)->PID) != 13){ continue; }
+                    printParticlePropsWpidWstatus("Truth muons", j, genpart.size(), genpart.at(j));
+                }
+                // Truth particles (all)
+                for (size_t j=0; j<genpart.size(); ++j){
+                    printParticlePropsWpidWstatus("Truth particles", j, genpart.size(), genpart.at(j));
+                }
+                // Truth jets
+                for (size_t j=0; j<genjet.size(); ++j){
+                    printParticleProps("Truth jets", j, genjet.size(), genjet.at(j), -1, -1);
+                }
+                // Truth MET
+                printf("%s: Idx: %3d/%3d; ID: %8s; Status: %3s; pt: %8.3f; eta: %6.3f; phi: %6.3f\n",
+                        "Truth MET", 1, 1, "-", "-", genmeth.at(0)->MET, genmeth.at(0)->Eta, genmeth.at(0)->Phi);
+
+                // Reco objects
+                printf("%s\n", "Reco objects");
+                // Reco electrons
+                for (size_t j=0; j<elecs.size(); ++j){
+                    // Additionally print SumPt
+                    char SumPt[20];
+                    snprintf(SumPt, sizeof SumPt, "%f", elecs.at(j)->SumPt);
+                    char addText[60] = "sumPt: ";
+                    strcat(addText, SumPt);
+                    printParticleProps("Reco electrons", j, elecs.size(), elecs.at(j), elecs.at(j)->Charge>0 ? -11: 11, 1, addText);
+                }
+                // Reco muons
+                for (size_t j=0; j<muontight.size(); ++j){
+                    printParticleProps("Reco muons", j, muontight.size(), muontight.at(j), muontight.at(j)->Charge>0 ? -13: 13, 1);
+                }
+                // Reco jets
+                for (size_t j=0; j<jetpuppi.size(); ++j){
+                    printParticleProps("Reco jets", j, jetpuppi.size(), jetpuppi.at(j), -1, -1);
+                }
+                // Reco MET
+                printf("%20s: Idx: %3d/%3d; ID: %8s; Status: %3s; pt: %8.3f; eta: %6.3f; phi: %6.3f\n",
+                        "Reco MET", 1, 1, "-", "-", puppimet.at(0)->MET, puppimet.at(0)->Eta, puppimet.at(0)->Phi);
             }
         }
 
