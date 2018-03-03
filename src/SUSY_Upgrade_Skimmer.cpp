@@ -704,22 +704,22 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 // Truth objects
                 printf("%s\n", "Truth objects");
                 // Truth electrons
-                for (size_t j=0; j<genpart.size(); ++j){
-                    if (fabs(genpart.at(j)->PID) != 11){ continue; }
-                    printParticlePropsWpidWstatus("Truth electrons", j, genpart.size(), genpart.at(j));
+                for (size_t i=0; i<genpart.size(); ++i){
+                    if (fabs(genpart.at(i)->PID) != 11){ continue; }
+                    printParticlePropsWpidWstatus("Truth electrons", i, genpart.size(), genpart.at(i));
                 }
                 // Truth muons
-                for (size_t j=0; j<genpart.size(); ++j){
-                    if (fabs(genpart.at(j)->PID) != 13){ continue; }
-                    printParticlePropsWpidWstatus("Truth muons", j, genpart.size(), genpart.at(j));
+                for (size_t i=0; i<genpart.size(); ++i){
+                    if (fabs(genpart.at(i)->PID) != 13){ continue; }
+                    printParticlePropsWpidWstatus("Truth muons", i, genpart.size(), genpart.at(i));
                 }
                 // Truth particles (all)
-                for (size_t j=0; j<genpart.size(); ++j){
-                    printParticlePropsWpidWstatus("Truth particles", j, genpart.size(), genpart.at(j));
+                for (size_t i=0; i<genpart.size(); ++i){
+                    printParticlePropsWpidWstatus("Truth particles", i, genpart.size(), genpart.at(i));
                 }
                 // Truth jets
-                for (size_t j=0; j<genjet.size(); ++j){
-                    printParticleProps("Truth jets", j, genjet.size(), genjet.at(j), -1, -1);
+                for (size_t i=0; i<genjet.size(); ++i){
+                    printParticleProps("Truth jets", i, genjet.size(), genjet.at(i), -1, -1);
                 }
                 // Truth MET
                 printf("%s: Idx: %3d/%3d; ID: %8s; Status: %3s; pt: %8.3f; eta: %6.3f; phi: %6.3f\n",
@@ -728,26 +728,26 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 // Reco objects
                 printf("%s\n", "Reco objects");
                 // Reco electrons
-                for (size_t j=0; j<elecs.size(); ++j){
+                for (size_t i=0; i<elecs.size(); ++i){
                     // Additionally print SumPt
                     char SumPt[20];
-                    snprintf(SumPt, sizeof SumPt, "%f", elecs.at(j)->SumPt);
+                    snprintf(SumPt, sizeof SumPt, "%f", elecs.at(i)->SumPt);
                     char addText[60] = "sumPt: ";
                     strcat(addText, SumPt);
-                    printParticleProps("Reco electrons", j, elecs.size(), elecs.at(j), elecs.at(j)->Charge>0 ? -11: 11, 1, addText);
+                    printParticleProps("Reco electrons", i, elecs.size(), elecs.at(i), elecs.at(i)->Charge>0 ? -11: 11, 1, addText);
                 }
                 // Reco muons
-                for (size_t j=0; j<muontight.size(); ++j){
+                for (size_t i=0; i<muontight.size(); ++i){
                     // Additionally print SumPt
                     char SumPt[20];
-                    snprintf(SumPt, sizeof SumPt, "%f", muontight.at(j)->SumPt);
+                    snprintf(SumPt, sizeof SumPt, "%f", muontight.at(i)->SumPt);
                     char addText[60] = "sumPt: ";
                     strcat(addText, SumPt);
-                    printParticleProps("Reco muons", j, muontight.size(), muontight.at(j), muontight.at(j)->Charge>0 ? -13: 13, 1, addText);
+                    printParticleProps("Reco muons", i, muontight.size(), muontight.at(i), muontight.at(i)->Charge>0 ? -13: 13, 1, addText);
                 }
                 // Reco jets
-                for (size_t j=0; j<jetpuppi.size(); ++j){
-                    printParticleProps("Reco jets", j, jetpuppi.size(), jetpuppi.at(j), -1, -1);
+                for (size_t i=0; i<jetpuppi.size(); ++i){
+                    printParticleProps("Reco jets", i, jetpuppi.size(), jetpuppi.at(i), -1, -1);
                 }
                 // Reco MET
                 printf("%20s: Idx: %3d/%3d; ID: %8s; Status: %3s; pt: %8.3f; eta: %6.3f; phi: %6.3f\n",
