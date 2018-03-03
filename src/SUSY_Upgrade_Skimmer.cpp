@@ -607,6 +607,17 @@ double SUSY_Upgrade_Skimmer::coneVeto(double pt, double eta, double phi, d_ana::
     return wght;
 }
 
+// Print properties of particle
+template <typename T> void SUSY_Upgrade_Skimmer::printParticlePropsWpidWstatus(const char* text, const size_t idx, const size_t noParticles, const T particle, const char* addText) const {
+    printParticleProps(text, idx, noParticles, particle, particle->PID, particle->Status, addText);
+}
+
+template <typename T> void SUSY_Upgrade_Skimmer::printParticleProps(const char* text, const size_t idx, const size_t noParticles, const T particle, const int pid, const int status, const char* addText) const {
+    printf("%20s: Idx: %3lu/%3lu; ID: %8d; Status: %3d; pt: %8.3f; eta: %6.3f; phi: %6.3f; %s\n",
+            text, idx, noParticles, pid, status, particle->PT, particle->Eta, particle->Phi, addText);
+    fflush(stdout);
+}
+
 void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for printouts */){
 
     d_ana::dBranchHandler<HepMCEvent> event(tree(),"Event");
@@ -668,7 +679,6 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         //    }
         //}
 
-        bool evtFnd = false;
         if (event_by_event_comparison){
             // The hardcoded numbers are to be used with the following sample:
             // root://cmsxrootd.fnal.gov//store/mc/PhaseIITDRFall17MiniAOD/DYJetsToLL_M-10to50_TuneCUETP8M1_14TeV-madgraphMLM-pythia8/MINIAODSIM/PU200_93X_upgrade2023_realistic_v2-v2/150000/02D196DB-60C0-E711-8C46-24BE05CE2D41.root
@@ -678,53 +688,57 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                         (fabs(genpart.at(i)->PT -  7.476562) < 1.e-6 && fabs(genpart.at(i)->Eta - 2.270211) < 1.e-6) ||
                         (fabs(genpart.at(i)->PT -  7.230469) < 1.e-6 && fabs(genpart.at(i)->Eta + 0.100905) < 1.e-6) ||
                         (fabs(genpart.at(i)->PT - 10.335938) < 1.e-6 && fabs(genpart.at(i)->Eta - 3.225501) < 1.e-6)){
-                    evtFnd = true;
-                    printf("Event by event comparison. Compare event %d with weight %f.\n", event.at(0)->Number, event.at(0)->Weight);
-                    printProps(genpart, true);
-                    printf("Matched truth particle with FullSim: Idx: %lu/%lu; ID: %d; Status: %d; pt: %f; eta: %f; phi:%f\n",
-                            i+1, genpart.size(), genpart.at(i)->PID, genpart.at(i)->Status, genpart.at(i)->PT, genpart.at(i)->Eta, genpart.at(i)->Phi);
-                }
-            }
-            //// The hardcoded numbers are to be used with the following sample:
-            //// DYJetsToLL_M-5to50_HT-100to200_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/
-            //for (size_t i=0; i<genpart.size(); ++i){
-            //    if ((fabs(genpart.at(i)->PT - 13.970113) < 1.e-6 && fabs(genpart.at(i)->Eta - 2.467708) < 1.e-6) ||
-            //            (fabs(genpart.at(i)->PT - 20.706135) < 1.e-6 && fabs(genpart.at(i)->Eta + 2.117317) < 1.e-6) ||
-            //            (fabs(genpart.at(i)->PT - 19.735157) < 1.e-6 && fabs(genpart.at(i)->Eta - 0.642992) < 1.e-6) ||
-            //            (fabs(genpart.at(i)->PT - 29.951921) < 1.e-6 && fabs(genpart.at(i)->Eta + 0.918342) < 1.e-6) ||
-            //            (fabs(genpart.at(i)->PT - 22.212555) < 1.e-6 && fabs(genpart.at(i)->Eta + 9.916969) < 1.e-6) ||
-            //            (fabs(genpart.at(i)->PT -  6.281808) < 1.e-6 && fabs(genpart.at(i)->Eta + 0.363280) < 1.e-6) ||
-            //            (fabs(genpart.at(i)->PT - 11.641006) < 1.e-6 && fabs(genpart.at(i)->Eta - 0.820936) < 1.e-6) ||
-            //            (fabs(genpart.at(i)->PT - 16.675346) < 1.e-6 && fabs(genpart.at(i)->Eta + 1.859797) < 1.e-6) ||
-            //            (fabs(genpart.at(i)->PT - 10.828916) < 1.e-6 && fabs(genpart.at(i)->Eta + 1.919281) < 1.e-6) ||
-            //            (fabs(genpart.at(i)->PT - 21.267307) < 1.e-6 && fabs(genpart.at(i)->Eta + 0.721485) < 1.e-6)){
-            //        evtFnd = true;
-            //    }
-            //}
-            if (evtFnd){
 
+                    // Found FullSim truth particle! Event matched!
+                    printf("Event by event comparison. Compare event %lld with weight %f:\n", event.at(0)->Number, event.at(0)->Weight);
+                    printParticlePropsWpidWstatus("Matched with FullSim", i, genpart.size(), genpart.at(i));
 
+                    // Truth objects
+                    printf("%20s\n", "Truth objects");
+                    // Truth electrons
+                    for (size_t j=0; j<genpart.size(); ++j){
+                        if (fabs(genpart.at(j)->PID) != 11){ continue; }
+                            printParticlePropsWpidWstatus("Truth electrons", j, genpart.size(), genpart.at(j));
+                    }
+                    // Truth muons
+                    for (size_t j=0; j<genpart.size(); ++j){
+                        if (fabs(genpart.at(j)->PID) != 13){ continue; }
+                            printParticlePropsWpidWstatus("Truth muons", j, genpart.size(), genpart.at(j));
+                    }
+                    // Truth particles (all)
+                    for (size_t j=0; j<genpart.size(); ++j){
+                        printParticlePropsWpidWstatus("Truth particles", j, genpart.size(), genpart.at(j));
+                    }
+                    // Truth jets
+                    for (size_t j=0; j<genjet.size(); ++j){
+                        printParticleProps("Truth jets", j, genjet.size(), genjet.at(j), -1, -1);
+                    }
+                    // Truth MET
+                    printf("%20s: Idx: %3d/%3d; ID: %8s; Status: %3s; pt: %8.3f; eta: %6.3f; phi: %6.3f\n",
+                            "Truth MET", 1, 1, "-", "-", genmeth.at(0)->MET, genmeth.at(0)->Eta, genmeth.at(0)->Phi);
 
-                printf("NEW EVENT\n");
-                for (size_t i=0; i<genjet.size(); ++i){
-                    printf("Foo00 Genjet: Idx: %lu/%lu; pt: %f; eta: %f\n",
-                            i+1, genjet.size(), genjet.at(i)->PT, genjet.at(i)->Eta);
-                }
-                for (size_t i=0; i<genpart.size(); ++i){
-                    //if (genpart.at(i)->Status != 1 && genpart.at(i)->Status != 23){ continue; }
-                    //if ((fabs(genpart.at(i)->PID) != 11) && (fabs(genpart.at(i)->PID) != 13)){ continue; }
-                    printf("Foo01 GenPart: Idx: %lu/%lu; ID: %d; Status: %d; pt: %f; eta: %f\n",
-                            i+1, genpart.size(), genpart.at(i)->PID, genpart.at(i)->Status, genpart.at(i)->PT, genpart.at(i)->Eta);
-                }
-                for (size_t i=0; i<muontight.size(); ++i){
-                    printf("Foo03 RecoMu: Idx: %lu/%lu; pt: %f; eta: %f; iso: %d; sumPt: %f\n",
-                            i+1, muontight.size(), muontight.at(i)->PT, muontight.at(i)->Eta,
-                            isIsolated(muontight.at(i)), muontight.at(i)->SumPt);
-                }
-                for (size_t i=0; i<elecs.size(); ++i){
-                    printf("Foo04 RecoEl: Idx: %lu/%lu; pt: %f; eta: %f; iso: %d; sumPt: %f\n",
-                            i+1, elecs.size(), elecs.at(i)->PT, elecs.at(i)->Eta,
-                            isIsolated(elecs.at(i)), elecs.at(i)->SumPt);
+                    // Reco objects
+                    printf("%20s\n", "Reco objects");
+                    // Reco electrons
+                    for (size_t j=0; j<elecs.size(); ++j){
+                        // Additionally print SumPt
+                        char SumPt[20];
+                        snprintf(SumPt, sizeof SumPt, "%f", elecs.at(j)->SumPt);
+                        char addText[60] = "sumPt: ";
+                        strcat(addText, SumPt);
+                        printParticleProps("Reco electrons", j, elecs.size(), elecs.at(j), elecs.at(j)->Charge>0 ? -11: 11, 1, addText);
+                    }
+                    // Reco muons
+                    for (size_t j=0; j<muontight.size(); ++j){
+                        printParticleProps("Reco muons", j, muontight.size(), muontight.at(j), muontight.at(j)->Charge>0 ? -13: 13, 1);
+                    }
+                    // Reco jets
+                    for (size_t j=0; j<jetpuppi.size(); ++j){
+                        printParticleProps("Reco jets", j, jetpuppi.size(), jetpuppi.at(j), -1, -1);
+                    }
+                    // Reco MET
+                    printf("%20s: Idx: %3d/%3d; ID: %8s; Status: %3s; pt: %8.3f; eta: %6.3f; phi: %6.3f\n",
+                            "Reco MET", 1, 1, "-", "-", puppimet.at(0)->MET, puppimet.at(0)->Eta, puppimet.at(0)->Phi);
                 }
             }
         }
@@ -732,22 +746,6 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         // Lepton on-the-fly efficiencies
         effOnTopElec(elecs);
         effOnTopMuon(muontight);
-
-        if (event_by_event_comparison){
-            if (evtFnd){
-                for (size_t i=0; i<muontight.size(); ++i){
-                    printf("Foo05 RecoMu: Idx: %lu/%lu; pt: %f; eta: %f; iso: %d; sumPt: %f\n",
-                            i+i, muontight.size(), muontight.at(i)->PT, muontight.at(i)->Eta,
-                            isIsolated(muontight.at(i)), muontight.at(i)->SumPt);
-                }
-                for (size_t i=0; i<elecs.size(); ++i){
-                    printf("Foo06 RecoEl: Idx: %lu/%lu; pt: %f; eta: %f; iso: %d; sumPt: %f\n",
-                            i+1, elecs.size(), elecs.at(i)->PT, elecs.at(i)->Eta,
-                            isIsolated(elecs.at(i)), elecs.at(i)->SumPt);
-                }
-                std::cout << "==================================" << std::endl;
-            }
-        }
 
         // Cutflow variables
         nLep = nEl = nMu = 0;

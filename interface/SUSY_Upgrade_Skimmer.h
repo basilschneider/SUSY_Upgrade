@@ -37,6 +37,8 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         double coneVeto(double pt, double eta, double phi, d_ana::dBranchHandler<GenParticle>& genpart);
         template <typename T> bool isMatched(const GenParticle* truthParticle, const T particle);
         bool isMatched(const GenParticle* truthParticle, const double pt, const double eta, const double phi);
+        template <typename T> void printParticleProps(const char* text, const size_t idx, const size_t noParticles, const T particle, const int pid, const int status, const char* addText="") const;
+        template <typename T> void printParticlePropsWpidWstatus(const char* text, const size_t idx, const size_t noParticles, const T particle, const char* addText="") const;
 
         // Tree
         TTree* myskim;
