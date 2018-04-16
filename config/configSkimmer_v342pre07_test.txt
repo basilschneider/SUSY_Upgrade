@@ -8,7 +8,7 @@
     Samplesdir = root://cmseos.fnal.gov//store/user/bschneid/analysis/delphes/test02/
 
     Lumi       = 3000
-    Testmode   = false
+    Testmode   = true
     Maxchilds  = 23
     RunOnOutputOnly = false
 
