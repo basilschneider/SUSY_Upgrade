@@ -82,6 +82,7 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
 
         // Muon variables
         std::vector<double> mu1_pt, mu1_eta, mu1_phi, mu2_pt, mu2_eta, mu2_phi;
+        std::vector<double> mu1_woIso_pt, mu1_woIso_eta, mu1_woIso_phi;
         std::vector<int> mu1_q, mu2_q;
         std::vector<double> mu1_sumPt, mu2_sumPt;
 

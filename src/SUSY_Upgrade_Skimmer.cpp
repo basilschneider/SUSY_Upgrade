@@ -51,6 +51,9 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("mu2_phi", &mu2_phi);
     myskim->Branch("mu2_q", &mu2_q);
     myskim->Branch("mu2_sumPt", &mu2_sumPt);
+    myskim->Branch("mu1_woIso_pt", &mu1_woIso_pt);
+    myskim->Branch("mu1_woIso_eta", &mu1_woIso_eta);
+    myskim->Branch("mu1_woIso_phi", &mu1_woIso_phi);
 
     //// Matched truth muon variables
     //myskim->Branch("mu1_pt_truth_matched", &mu1_pt_truth_matched);
@@ -225,6 +228,9 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     mu2_phi.clear();
     mu2_q.clear();
     mu2_sumPt.clear();
+    mu1_woIso_pt.clear();
+    mu1_woIso_eta.clear();
+    mu1_woIso_phi.clear();
     //mu1_pt_truth_matched.clear();
     //mu1_eta_truth_matched.clear();
     //mu1_phi_truth_matched.clear();
@@ -1001,7 +1007,13 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
         // Fill muons
         for (size_t i=0; i<muontight.size(); ++i){
-            if (muontight.at(i)->PT < mu_pt_lo || !isIsolated(muontight.at(i))){ continue; }
+            if (muontight.at(i)->PT < mu_pt_lo){ continue; }
+            if (mu1_woIso_pt.size() == 0){
+                mu1_woIso_pt.push_back(muontight.at(i)->PT);
+                mu1_woIso_eta.push_back(muontight.at(i)->Eta);
+                mu1_woIso_phi.push_back(muontight.at(i)->Phi);
+            }
+            if (!isIsolated(muontight.at(i))){ continue; }
             // Fill it if it hasn't been filled
             if (mu1_pt.size() == 0){
                 mu1_pt.push_back(muontight.at(i)->PT);
