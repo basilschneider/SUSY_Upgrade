@@ -130,7 +130,6 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         double genht25, genht40;
         bool hasSFOS, hasSoftSFOS, hasSFOS_truth, hasSoftSFOS_truth;
         std::vector<double> mllMin, mllMax, mt1, mt2, pt2l;
-        std::vector<double> drLep1Lep2, drLep1Jet1, drLep2Jet1;
         unsigned int ZtoLL;
 
         //// Guess origin of leptons
