@@ -104,8 +104,8 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         //std::vector<double> lep1_pt_truth, lep1_eta_truth, lep1_phi_truth, lep1_mass_truth, lep2_pt_truth, lep2_eta_truth, lep2_phi_truth, lep2_mass_truth;
 
         // Jet variables
-        std::vector<double> jet1_puppi_pt, jet1_puppi_eta, jet1_puppi_phi;
-        std::vector<int> jet1_puppi_q;
+        std::vector<double> jet1_pt, jet1_eta, jet1_phi;
+        std::vector<int> jet1_q;
 
         //// Matched truth jet variables
         //std::vector<double> jet1_pt_truth_matched, jet1_eta_truth_matched, jet1_phi_truth_matched;

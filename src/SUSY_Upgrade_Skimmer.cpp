@@ -106,10 +106,10 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     //myskim->Branch("lep2_mass_truth", &lep2_mass_truth);
 
     // Jet variables
-    myskim->Branch("jet1_puppi_pt", &jet1_puppi_pt);
-    myskim->Branch("jet1_puppi_eta", &jet1_puppi_eta);
-    myskim->Branch("jet1_puppi_phi", &jet1_puppi_phi);
-    myskim->Branch("jet1_puppi_q", &jet1_puppi_q);
+    myskim->Branch("jet1_pt", &jet1_pt);
+    myskim->Branch("jet1_eta", &jet1_eta);
+    myskim->Branch("jet1_phi", &jet1_phi);
+    myskim->Branch("jet1_q", &jet1_q);
 
     // Truth jet variables
     //myskim->Branch("jet1_pt_truth_matched", &jet1_pt_truth_matched);
@@ -268,10 +268,10 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     //lep2_eta_truth.clear();
     //lep2_phi_truth.clear();
     //lep2_mass_truth.clear();
-    jet1_puppi_pt.clear();
-    jet1_puppi_eta.clear();
-    jet1_puppi_phi.clear();
-    jet1_puppi_q.clear();
+    jet1_pt.clear();
+    jet1_eta.clear();
+    jet1_phi.clear();
+    jet1_q.clear();
     //jet1_pt_truth_matched.clear();
     //jet1_eta_truth_matched.clear();
     //jet1_phi_truth_matched.clear();
@@ -944,9 +944,9 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
 
         // Skim
-        if (nLep < 2){ continue; }
-        if (nSoftLep < 2){ continue; }
-        if (!hasSoftSFOS){ continue; }
+        //if (nLep < 2){ continue; }
+        //if (nSoftLep < 2){ continue; }
+        //if (!hasSoftSFOS){ continue; }
 
         // Fill electrons
         for (size_t i=0; i<elecs.size(); ++i){
@@ -1225,19 +1225,19 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         for (size_t i=0; i<jetpuppi.size(); ++i){
             if (jetpuppi.at(i)->PT < jet_pt_lo){ continue; }
             if (isOverlap(jetpuppi.at(i), elecs, muontight)){ continue; }
-            jet1_puppi_pt.push_back(jetpuppi.at(0)->PT);
-            jet1_puppi_eta.push_back(jetpuppi.at(0)->Eta);
-            jet1_puppi_phi.push_back(jetpuppi.at(0)->Phi);
-            jet1_puppi_q.push_back(jetpuppi.at(0)->Charge);
+            jet1_pt.push_back(jetpuppi.at(0)->PT);
+            jet1_eta.push_back(jetpuppi.at(0)->Eta);
+            jet1_phi.push_back(jetpuppi.at(0)->Phi);
+            jet1_q.push_back(jetpuppi.at(0)->Charge);
             break;
         }
 
         //// Fill truth jets
-        //for (size_t i=0; i<jet1_puppi_pt.size(); ++i){
+        //for (size_t i=0; i<jet1_pt.size(); ++i){
         //    for (size_t j=0; j<genjet.size(); ++j){
         //        // Truth matching
-        //        if (fabs(genjet.at(j)->PT - jet1_puppi_pt.at(i)) > truth_match_diff_pt){ continue; }
-        //        if (fabs(genjet.at(j)->Eta - jet1_puppi_eta.at(i) > truth_match_diff_eta)){ continue; }
+        //        if (fabs(genjet.at(j)->PT - jet1_pt.at(i)) > truth_match_diff_pt){ continue; }
+        //        if (fabs(genjet.at(j)->Eta - jet1_eta.at(i) > truth_match_diff_eta)){ continue; }
         //        // If we make it here, the particle has been matched
         //        jet1_pt_truth_matched.push_back(genjet.at(j)->PT);
         //        jet1_eta_truth_matched.push_back(genjet.at(j)->Eta);
