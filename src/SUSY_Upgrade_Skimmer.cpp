@@ -20,6 +20,13 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("el2_q", &el2_q);
     myskim->Branch("el2_sumPt", &el2_sumPt);
 
+    // Electron vectors
+    myskim->Branch("el_pt", &el_pt);
+    myskim->Branch("el_eta", &el_eta);
+    myskim->Branch("el_phi", &el_phi);
+    myskim->Branch("el_q", &el_q);
+    myskim->Branch("el_sumPt", &el_sumPt);
+
     // Electron truth vectors
     myskim->Branch("el_pt_truth", &el_pt_truth);
     myskim->Branch("el_eta_truth", &el_eta_truth);
@@ -59,6 +66,13 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("mu1_woIso_pt", &mu1_woIso_pt);
     myskim->Branch("mu1_woIso_eta", &mu1_woIso_eta);
     myskim->Branch("mu1_woIso_phi", &mu1_woIso_phi);
+
+    // Muon vectors
+    myskim->Branch("mu_pt", &mu_pt);
+    myskim->Branch("mu_eta", &mu_eta);
+    myskim->Branch("mu_phi", &mu_phi);
+    myskim->Branch("mu_q", &mu_q);
+    myskim->Branch("mu_sumPt", &mu_sumPt);
 
     // Muon truth vectors
     myskim->Branch("mu_pt_truth", &mu_pt_truth);
@@ -209,6 +223,11 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     el2_phi.clear();
     el2_q.clear();
     el2_sumPt.clear();
+    el_pt.clear();
+    el_eta.clear();
+    el_phi.clear();
+    el_q.clear();
+    el_sumPt.clear();
     el_pt_truth.clear();
     el_eta_truth.clear();
     el_phi_truth.clear();
@@ -241,6 +260,11 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     mu1_woIso_pt.clear();
     mu1_woIso_eta.clear();
     mu1_woIso_phi.clear();
+    mu_pt.clear();
+    mu_eta.clear();
+    mu_phi.clear();
+    mu_q.clear();
+    mu_sumPt.clear();
     mu_pt_truth.clear();
     mu_eta_truth.clear();
     mu_phi_truth.clear();
@@ -969,6 +993,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         for (size_t i=0; i<elecs.size(); ++i){
             if (elecs.at(i)->PT < el_pt_lo || !isIsolated(elecs.at(i))){ continue; }
             // Fill it if it hasn't been filled
+            el_pt.push_back(elecs.at(i)->PT);
+            el_eta.push_back(elecs.at(i)->Eta);
+            el_phi.push_back(elecs.at(i)->Phi);
+            el_q.push_back(elecs.at(i)->Charge);
+            el_sumPt.push_back(elecs.at(i)->SumPt);
             if (el1_pt.size() == 0){
                 el1_pt.push_back(elecs.at(i)->PT);
                 el1_eta.push_back(elecs.at(i)->Eta);
@@ -1034,6 +1063,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 mu1_woIso_phi.push_back(muontight.at(i)->Phi);
             }
             if (!isIsolated(muontight.at(i))){ continue; }
+            mu_pt.push_back(muontight.at(i)->PT);
+            mu_eta.push_back(muontight.at(i)->Eta);
+            mu_phi.push_back(muontight.at(i)->Phi);
+            mu_q.push_back(muontight.at(i)->Charge);
+            mu_sumPt.push_back(muontight.at(i)->SumPt);
             // Fill it if it hasn't been filled
             if (mu1_pt.size() == 0){
                 mu1_pt.push_back(muontight.at(i)->PT);
