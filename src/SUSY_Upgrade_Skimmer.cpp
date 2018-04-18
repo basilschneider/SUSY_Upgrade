@@ -147,7 +147,7 @@ void SUSY_Upgrade_Skimmer::addBranches(){
 
     // Other variables
     myskim->Branch("nLep", &nLep);
-    myskim->Branch("nLep_truth", &nLep_truth);
+    //myskim->Branch("nLep_truth", &nLep_truth);
     myskim->Branch("nEl", &nEl);
     myskim->Branch("nMu", &nMu);
     myskim->Branch("nSoftLep", &nSoftLep);
