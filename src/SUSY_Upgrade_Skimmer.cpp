@@ -20,6 +20,11 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("el2_q", &el2_q);
     myskim->Branch("el2_sumPt", &el2_sumPt);
 
+    // Electron truth vectors
+    myskim->Branch("el_pt_truth", &el_pt_truth);
+    myskim->Branch("el_eta_truth", &el_eta_truth);
+    myskim->Branch("el_phi_truth", &el_phi_truth);
+
     //// Matched truth electron variables
     //myskim->Branch("el1_pt_truth_matched", &el1_pt_truth_matched);
     //myskim->Branch("el1_eta_truth_matched", &el1_eta_truth_matched);
@@ -54,6 +59,11 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("mu1_woIso_pt", &mu1_woIso_pt);
     myskim->Branch("mu1_woIso_eta", &mu1_woIso_eta);
     myskim->Branch("mu1_woIso_phi", &mu1_woIso_phi);
+
+    // Muon truth vectors
+    myskim->Branch("mu_pt_truth", &mu_pt_truth);
+    myskim->Branch("mu_eta_truth", &mu_eta_truth);
+    myskim->Branch("mu_phi_truth", &mu_phi_truth);
 
     //// Matched truth muon variables
     //myskim->Branch("mu1_pt_truth_matched", &mu1_pt_truth_matched);
@@ -199,6 +209,9 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     el2_phi.clear();
     el2_q.clear();
     el2_sumPt.clear();
+    el_pt_truth.clear();
+    el_eta_truth.clear();
+    el_phi_truth.clear();
     //el1_pt_truth_matched.clear();
     //el1_eta_truth_matched.clear();
     //el1_phi_truth_matched.clear();
@@ -228,6 +241,9 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     mu1_woIso_pt.clear();
     mu1_woIso_eta.clear();
     mu1_woIso_phi.clear();
+    mu_pt_truth.clear();
+    mu_eta_truth.clear();
+    mu_phi_truth.clear();
     //mu1_pt_truth_matched.clear();
     //mu1_eta_truth_matched.clear();
     //mu1_phi_truth_matched.clear();
@@ -970,7 +986,16 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             }
         }
 
-        //// Fill truth electrons
+        // Fill truth electrons
+        for (size_t i=0; i<genpart.size(); ++i){
+            if (genpart.at(i)->Status != 1){ continue; }
+            if (genpart.at(i)->PID != 11){ continue; }
+            if (genpart.at(i)->PT < el_pt_lo){ continue; }
+            el_pt_truth.push_back(genpart.at(i)->PT);
+            el_eta_truth.push_back(genpart.at(i)->Eta);
+            el_phi_truth.push_back(genpart.at(i)->Phi);
+        }
+
         //for (size_t i=0; i<el1_pt.size(); ++i){
         //    for (size_t j=0; j<genpart.size(); ++j){
         //        if (genpart.at(j)->Status != 1){ continue; }
@@ -1027,7 +1052,16 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             }
         }
 
-        //// Fill truth muons
+        // Fill truth muons
+        for (size_t i=0; i<genpart.size(); ++i){
+            if (genpart.at(i)->Status != 1){ continue; }
+            if (genpart.at(i)->PID != 13){ continue; }
+            if (genpart.at(i)->PT < mu_pt_lo){ continue; }
+            mu_pt_truth.push_back(genpart.at(i)->PT);
+            mu_eta_truth.push_back(genpart.at(i)->Eta);
+            mu_phi_truth.push_back(genpart.at(i)->Phi);
+        }
+
         //for (size_t i=0; i<mu1_pt.size(); ++i){
         //    for (size_t j=0; j<genpart.size(); ++j){
         //        if (genpart.at(j)->Status != 1){ continue; }

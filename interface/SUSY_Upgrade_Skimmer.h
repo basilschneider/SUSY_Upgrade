@@ -72,6 +72,9 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         std::vector<int> el1_q, el2_q;
         std::vector<double> el1_sumPt, el2_sumPt;
 
+        // Electron truth vectors
+        std::vector<double> el_pt_truth, el_eta_truth, el_phi_truth;
+
         // Matched truth electron variables
         //std::vector<double> el1_pt_truth_matched, el1_eta_truth_matched, el1_phi_truth_matched, el2_pt_truth_matched, el2_eta_truth_matched, el2_phi_truth_matched;
         //std::vector<int> el1_q_truth_matched, el2_q_truth_matched;
@@ -85,6 +88,9 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         std::vector<double> mu1_woIso_pt, mu1_woIso_eta, mu1_woIso_phi;
         std::vector<int> mu1_q, mu2_q;
         std::vector<double> mu1_sumPt, mu2_sumPt;
+
+        // Muon truth vectors
+        std::vector<double> mu_pt_truth, mu_eta_truth, mu_phi_truth;
 
         // Matched truth muon variables
         //std::vector<double> mu1_pt_truth_matched, mu1_eta_truth_matched, mu1_phi_truth_matched, mu2_pt_truth_matched, mu2_eta_truth_matched, mu2_phi_truth_matched;
