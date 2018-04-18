@@ -327,7 +327,6 @@ double SUSY_Upgrade_Skimmer::DeltaPhi(double phi1, double phi2){
 }
 
 bool SUSY_Upgrade_Skimmer::isOverlap(const Jet* jet, d_ana::dBranchHandler<Electron>& elecs, d_ana::dBranchHandler<Muon>& muons){
-    return false;
     for (size_t i=0; i<elecs.size(); ++i){
         if (DeltaR(jet->Eta, elecs.at(i)->Eta, jet->Phi, elecs.at(i)->Phi) < jet_or_dr){ return true; }
     }
