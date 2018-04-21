@@ -22,6 +22,11 @@ $DYToLL-M-50_1J_14TeV-madgraphMLM-pythia8_200PU/                               ,
 $DYToLL-M-50_2J_14TeV-madgraphMLM-pythia8_200PU/                               , DYToLL_M-50_2J         , 820 , 1 , 10430290 , 1 , false
 $DYToLL-M-50_3J_14TeV-madgraphMLM-pythia8_200PU/                               , DYToLL_M-50_3J         , 820 , 1 , 11794679 , 1 , false
 $DYJetsToLL_M-10to50_TuneCUETP8M1_14TeV-madgraphMLM-pythia8_200PU/             , DYToLL_M-10to50        , 820 , 1 , 661313 , 1 , false
+$DYToLL-M-50_0J_14TeV-madgraphMLM-pythia8_0PU/                                 , DYToLL_M-50_0J_0PU     , 820 , 1 , 19883879 , 1 , false
+$DYToLL-M-50_1J_14TeV-madgraphMLM-pythia8_0PU/                                 , DYToLL_M-50_1J_0PU     , 820 , 1 , 12880917 , 1 , false
+$DYToLL-M-50_2J_14TeV-madgraphMLM-pythia8_0PU/                                 , DYToLL_M-50_2J_0PU     , 820 , 1 , 10430290 , 1 , false
+$DYToLL-M-50_3J_14TeV-madgraphMLM-pythia8_0PU/                                 , DYToLL_M-50_3J_0PU     , 820 , 1 , 11794679 , 1 , false
+$DYJetsToLL_M-10to50_TuneCUETP8M1_14TeV-madgraphMLM-pythia8_0PU/               , DYToLL_M-10to50_0PU    , 820 , 1 , 661313 , 1 , false
 $ST_s-channel_4f_InclusiveDecays_14TeV-amcatnlo-pythia8_200PU/                 , ST_s-channel_inclusive , 820 , 1 , auto , 1 , false
 $ST_s-channel_4f_leptonic_14TeV-amcatnlo-pythia8_200PU/                        , ST_s-channel_leptonic  , 820 , 1 , auto , 1 , false
 $ST_tch_14TeV_antitop_incl-powheg-pythia8-madspin_200PU/                       , ST_t-channel_antitop   , 820 , 1 , auto , 1 , false
