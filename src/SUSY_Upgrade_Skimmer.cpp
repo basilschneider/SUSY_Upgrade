@@ -8,24 +8,17 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("xs", &xs);
     myskim->Branch("metSF", &metSF);
 
-    // Electron variables
-    myskim->Branch("el1_pt", &el1_pt);
-    myskim->Branch("el1_eta", &el1_eta);
-    myskim->Branch("el1_phi", &el1_phi);
-    myskim->Branch("el1_q", &el1_q);
-    myskim->Branch("el1_sumPt", &el1_sumPt);
-    myskim->Branch("el2_pt", &el2_pt);
-    myskim->Branch("el2_eta", &el2_eta);
-    myskim->Branch("el2_phi", &el2_phi);
-    myskim->Branch("el2_q", &el2_q);
-    myskim->Branch("el2_sumPt", &el2_sumPt);
-
     // Electron vectors
     myskim->Branch("el_pt", &el_pt);
     myskim->Branch("el_eta", &el_eta);
     myskim->Branch("el_phi", &el_phi);
     myskim->Branch("el_q", &el_q);
     myskim->Branch("el_sumPt", &el_sumPt);
+    myskim->Branch("el_woIso_pt", &el_woIso_pt);
+    myskim->Branch("el_woIso_eta", &el_woIso_eta);
+    myskim->Branch("el_woIso_phi", &el_woIso_phi);
+    myskim->Branch("el_woIso_q", &el_woIso_q);
+    myskim->Branch("el_woIso_sumPt", &el_woIso_sumPt);
 
     // Electron truth vectors
     myskim->Branch("el_pt_truth", &el_pt_truth);
@@ -52,27 +45,17 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     //myskim->Branch("el2_phi_truth", &el2_phi_truth);
     //myskim->Branch("el2_q_truth", &el2_q_truth);
 
-    // Muon variables
-    myskim->Branch("mu1_pt", &mu1_pt);
-    myskim->Branch("mu1_eta", &mu1_eta);
-    myskim->Branch("mu1_phi", &mu1_phi);
-    myskim->Branch("mu1_q", &mu1_q);
-    myskim->Branch("mu1_sumPt", &mu1_sumPt);
-    myskim->Branch("mu2_pt", &mu2_pt);
-    myskim->Branch("mu2_eta", &mu2_eta);
-    myskim->Branch("mu2_phi", &mu2_phi);
-    myskim->Branch("mu2_q", &mu2_q);
-    myskim->Branch("mu2_sumPt", &mu2_sumPt);
-    myskim->Branch("mu1_woIso_pt", &mu1_woIso_pt);
-    myskim->Branch("mu1_woIso_eta", &mu1_woIso_eta);
-    myskim->Branch("mu1_woIso_phi", &mu1_woIso_phi);
-
     // Muon vectors
     myskim->Branch("mu_pt", &mu_pt);
     myskim->Branch("mu_eta", &mu_eta);
     myskim->Branch("mu_phi", &mu_phi);
     myskim->Branch("mu_q", &mu_q);
     myskim->Branch("mu_sumPt", &mu_sumPt);
+    myskim->Branch("mu_woIso_pt", &mu_woIso_pt);
+    myskim->Branch("mu_woIso_eta", &mu_woIso_eta);
+    myskim->Branch("mu_woIso_phi", &mu_woIso_phi);
+    myskim->Branch("mu_woIso_q", &mu_woIso_q);
+    myskim->Branch("mu_woIso_sumPt", &mu_woIso_sumPt);
 
     // Muon truth vectors
     myskim->Branch("mu_pt_truth", &mu_pt_truth);
@@ -99,15 +82,11 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     //myskim->Branch("mu2_phi_truth", &mu2_phi_truth);
     //myskim->Branch("mu2_q_truth", &mu2_q_truth);
 
-    // Lepton variables
-    myskim->Branch("lep1_pt", &lep1_pt);
-    myskim->Branch("lep1_eta", &lep1_eta);
-    myskim->Branch("lep1_phi", &lep1_phi);
-    myskim->Branch("lep1_mass", &lep1_mass);
-    myskim->Branch("lep2_pt", &lep2_pt);
-    myskim->Branch("lep2_eta", &lep2_eta);
-    myskim->Branch("lep2_phi", &lep2_phi);
-    myskim->Branch("lep2_mass", &lep2_mass);
+    // Lepton vectors
+    myskim->Branch("lep_pt", &lep_pt);
+    myskim->Branch("lep_eta", &lep_eta);
+    myskim->Branch("lep_phi", &lep_phi);
+    myskim->Branch("lep_mass", &lep_mass);
 
     //// Matched truth lepton variables
     //myskim->Branch("lep1_pt_truth_matched", &lep1_pt_truth_matched);
@@ -130,10 +109,10 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     //myskim->Branch("lep2_mass_truth", &lep2_mass_truth);
 
     // Jet variables
-    myskim->Branch("jet1_pt", &jet1_pt);
-    myskim->Branch("jet1_eta", &jet1_eta);
-    myskim->Branch("jet1_phi", &jet1_phi);
-    myskim->Branch("jet1_q", &jet1_q);
+    myskim->Branch("jet_pt", &jet_pt);
+    myskim->Branch("jet_eta", &jet_eta);
+    myskim->Branch("jet_phi", &jet_phi);
+    myskim->Branch("jet_q", &jet_q);
 
     // Truth jet variables
     //myskim->Branch("jet1_pt_truth_matched", &jet1_pt_truth_matched);
@@ -202,32 +181,27 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("mt2", &mt2);
     myskim->Branch("pt2l", &pt2l);
     myskim->Branch("ZtoLL", &ZtoLL);
-    myskim->Branch("mu_pt5to10_origin_nghbr", &mu_pt5to10_origin_nghbr);
-    myskim->Branch("mu_pt5to10_origin_cone", &mu_pt5to10_origin_cone);
-    myskim->Branch("mu_pt10to20_origin_nghbr", &mu_pt10to20_origin_nghbr);
-    myskim->Branch("mu_pt10to20_origin_cone", &mu_pt10to20_origin_cone);
-    myskim->Branch("mu_pt20to30_origin_nghbr", &mu_pt20to30_origin_nghbr);
-    myskim->Branch("mu_pt20to30_origin_cone", &mu_pt20to30_origin_cone);
+    //myskim->Branch("mu_pt5to10_origin_nghbr", &mu_pt5to10_origin_nghbr);
+    //myskim->Branch("mu_pt5to10_origin_cone", &mu_pt5to10_origin_cone);
+    //myskim->Branch("mu_pt10to20_origin_nghbr", &mu_pt10to20_origin_nghbr);
+    //myskim->Branch("mu_pt10to20_origin_cone", &mu_pt10to20_origin_cone);
+    //myskim->Branch("mu_pt20to30_origin_nghbr", &mu_pt20to30_origin_nghbr);
+    //myskim->Branch("mu_pt20to30_origin_cone", &mu_pt20to30_origin_cone);
 }
 
 void SUSY_Upgrade_Skimmer::clearVectors(){
 
     // Clear vectors
-    el1_pt.clear();
-    el1_eta.clear();
-    el1_phi.clear();
-    el1_q.clear();
-    el1_sumPt.clear();
-    el2_pt.clear();
-    el2_eta.clear();
-    el2_phi.clear();
-    el2_q.clear();
-    el2_sumPt.clear();
     el_pt.clear();
     el_eta.clear();
     el_phi.clear();
     el_q.clear();
     el_sumPt.clear();
+    el_woIso_pt.clear();
+    el_woIso_eta.clear();
+    el_woIso_phi.clear();
+    el_woIso_q.clear();
+    el_woIso_sumPt.clear();
     el_pt_truth.clear();
     el_eta_truth.clear();
     el_phi_truth.clear();
@@ -247,24 +221,16 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     //el2_eta_truth.clear();
     //el2_phi_truth.clear();
     //el2_q_truth.clear();
-    mu1_pt.clear();
-    mu1_eta.clear();
-    mu1_phi.clear();
-    mu1_q.clear();
-    mu1_sumPt.clear();
-    mu2_pt.clear();
-    mu2_eta.clear();
-    mu2_phi.clear();
-    mu2_q.clear();
-    mu2_sumPt.clear();
-    mu1_woIso_pt.clear();
-    mu1_woIso_eta.clear();
-    mu1_woIso_phi.clear();
     mu_pt.clear();
     mu_eta.clear();
     mu_phi.clear();
     mu_q.clear();
     mu_sumPt.clear();
+    mu_woIso_pt.clear();
+    mu_woIso_eta.clear();
+    mu_woIso_phi.clear();
+    mu_woIso_q.clear();
+    mu_woIso_sumPt.clear();
     mu_pt_truth.clear();
     mu_eta_truth.clear();
     mu_phi_truth.clear();
@@ -284,14 +250,10 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     //mu2_eta_truth.clear();
     //mu2_phi_truth.clear();
     //mu2_q_truth.clear();
-    lep1_pt.clear();
-    lep1_eta.clear();
-    lep1_phi.clear();
-    lep1_mass.clear();
-    lep2_pt.clear();
-    lep2_eta.clear();
-    lep2_phi.clear();
-    lep2_mass.clear();
+    lep_pt.clear();
+    lep_eta.clear();
+    lep_phi.clear();
+    lep_mass.clear();
     //lep1_pt_truth_matched.clear();
     //lep1_eta_truth_matched.clear();
     //lep1_phi_truth_matched.clear();
@@ -308,10 +270,10 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     //lep2_eta_truth.clear();
     //lep2_phi_truth.clear();
     //lep2_mass_truth.clear();
-    jet1_pt.clear();
-    jet1_eta.clear();
-    jet1_phi.clear();
-    jet1_q.clear();
+    jet_pt.clear();
+    jet_eta.clear();
+    jet_phi.clear();
+    jet_q.clear();
     //jet1_pt_truth_matched.clear();
     //jet1_eta_truth_matched.clear();
     //jet1_phi_truth_matched.clear();
@@ -321,12 +283,12 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     mt1.clear();
     mt2.clear();
     pt2l.clear();
-    mu_pt5to10_origin_nghbr.clear();
-    mu_pt5to10_origin_cone.clear();
-    mu_pt10to20_origin_nghbr.clear();
-    mu_pt10to20_origin_cone.clear();
-    mu_pt20to30_origin_nghbr.clear();
-    mu_pt20to30_origin_cone.clear();
+    //mu_pt5to10_origin_nghbr.clear();
+    //mu_pt5to10_origin_cone.clear();
+    //mu_pt10to20_origin_nghbr.clear();
+    //mu_pt10to20_origin_cone.clear();
+    //mu_pt20to30_origin_nghbr.clear();
+    //mu_pt20to30_origin_cone.clear();
 }
 
 template <typename T> bool SUSY_Upgrade_Skimmer::isIsolated(const T particle){
@@ -554,99 +516,99 @@ int SUSY_Upgrade_Skimmer::getNghbr(int pid){
     }
 }
 
-double SUSY_Upgrade_Skimmer::coneVeto(double pt, double eta, double phi, d_ana::dBranchHandler<GenParticle>& genpart){
-
-    int nghbr = 99;
-    double drMin = 99.;
-    double drHfMin = 99.;
-    double drTauMin = 99.;
-
-    double iso = 0.;
-
-    const double cone = .9;
-
-    // Vectors with particles that have already been filled
-    // These are used to not fill the same particle twice
-    std::vector<int> filledPid;
-    std::vector<double> filledPt;
-    std::vector<double> filledEta;
-    std::vector<double> filledPhi;
-
-    for (size_t j=0; j<genpart.size(); ++j){
-
-        // Remove muon itself
-        if (isMatched(genpart.at(j), pt, eta, phi)){ continue; }
-
-        // Check if this particle has been filled before
-        // This needs to be checked since similar copies of truth
-        // particles are stored
-        bool skipParticle = false;
-        for (size_t k=0; k<filledPid.size(); ++k){
-            // PID needs to be the same and the particles need to match
-            if ((genpart.at(j)->PID == filledPid.at(k)) && isMatched(genpart.at(j), filledPt.at(k), filledEta.at(k), filledPhi.at(k))){
-                skipParticle = true;
-                break;
-            }
-        }
-        if (skipParticle){ continue; }
-
-        double dr = DeltaR(eta, genpart.at(j)->Eta, phi, genpart.at(j)->Phi);
-
-        // Check b's
-        if ((fabs(genpart.at(j)->PID) == 4 || fabs(genpart.at(j)->PID == 5)) && dr < drHfMin){
-            drHfMin = dr;
-        }
-
-        // Check taus
-        if (fabs(genpart.at(j)->PID) == 15 && dr < drTauMin){
-            drTauMin = dr;
-        }
-
-        if (dr < drMin){
-            drMin = dr;
-            nghbr = getNghbr(genpart.at(j)->PID);
-        }
-        if (dr < cone && pt > 5){
-            if (pt < 10){
-                mu_pt5to10_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
-            }else if (pt < 20){
-                mu_pt10to20_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
-            }else if (pt < 30){
-                mu_pt20to30_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
-            }
-            filledPid.push_back(genpart.at(j)->PID);
-            filledPt.push_back(genpart.at(j)->PT);
-            filledEta.push_back(genpart.at(j)->Eta);
-            filledPhi.push_back(genpart.at(j)->Phi);
-            iso += genpart.at(j)->PT;
-        }
-    }
-
-    if (pt > 5){
-        if (pt < 10){
-            mu_pt5to10_origin_nghbr.push_back(nghbr);
-        }else if (pt < 20){
-            mu_pt10to20_origin_nghbr.push_back(nghbr);
-        }else if (pt < 30){
-            mu_pt20to30_origin_nghbr.push_back(nghbr);
-        }
-    }
-
-    // Weight to be returned
-    // Here I finally sell my scientific soul to the gods of publish or perish
-    //double wght = 1./(1. + wght_gen_iso*iso/pt);
-    // Or maybe not?
-    double wght = 1.;
-    if (drHfMin > cone && drTauMin > cone){
-        ;
-    }else if (drHfMin < drTauMin){
-        wght *= wght_hf_veto;
-    }else{
-        wght *= wght_tau_veto;
-    }
-
-    return wght;
-}
+//double SUSY_Upgrade_Skimmer::coneVeto(double pt, double eta, double phi, d_ana::dBranchHandler<GenParticle>& genpart){
+//
+//    int nghbr = 99;
+//    double drMin = 99.;
+//    double drHfMin = 99.;
+//    double drTauMin = 99.;
+//
+//    double iso = 0.;
+//
+//    const double cone = .9;
+//
+//    // Vectors with particles that have already been filled
+//    // These are used to not fill the same particle twice
+//    std::vector<int> filledPid;
+//    std::vector<double> filledPt;
+//    std::vector<double> filledEta;
+//    std::vector<double> filledPhi;
+//
+//    for (size_t j=0; j<genpart.size(); ++j){
+//
+//        // Remove muon itself
+//        if (isMatched(genpart.at(j), pt, eta, phi)){ continue; }
+//
+//        // Check if this particle has been filled before
+//        // This needs to be checked since similar copies of truth
+//        // particles are stored
+//        bool skipParticle = false;
+//        for (size_t k=0; k<filledPid.size(); ++k){
+//            // PID needs to be the same and the particles need to match
+//            if ((genpart.at(j)->PID == filledPid.at(k)) && isMatched(genpart.at(j), filledPt.at(k), filledEta.at(k), filledPhi.at(k))){
+//                skipParticle = true;
+//                break;
+//            }
+//        }
+//        if (skipParticle){ continue; }
+//
+//        double dr = DeltaR(eta, genpart.at(j)->Eta, phi, genpart.at(j)->Phi);
+//
+//        // Check b's
+//        if ((fabs(genpart.at(j)->PID) == 4 || fabs(genpart.at(j)->PID == 5)) && dr < drHfMin){
+//            drHfMin = dr;
+//        }
+//
+//        // Check taus
+//        if (fabs(genpart.at(j)->PID) == 15 && dr < drTauMin){
+//            drTauMin = dr;
+//        }
+//
+//        if (dr < drMin){
+//            drMin = dr;
+//            nghbr = getNghbr(genpart.at(j)->PID);
+//        }
+//        if (dr < cone && pt > 5){
+//            if (pt < 10){
+//                mu_pt5to10_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+//            }else if (pt < 20){
+//                mu_pt10to20_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+//            }else if (pt < 30){
+//                mu_pt20to30_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+//            }
+//            filledPid.push_back(genpart.at(j)->PID);
+//            filledPt.push_back(genpart.at(j)->PT);
+//            filledEta.push_back(genpart.at(j)->Eta);
+//            filledPhi.push_back(genpart.at(j)->Phi);
+//            iso += genpart.at(j)->PT;
+//        }
+//    }
+//
+//    if (pt > 5){
+//        if (pt < 10){
+//            mu_pt5to10_origin_nghbr.push_back(nghbr);
+//        }else if (pt < 20){
+//            mu_pt10to20_origin_nghbr.push_back(nghbr);
+//        }else if (pt < 30){
+//            mu_pt20to30_origin_nghbr.push_back(nghbr);
+//        }
+//    }
+//
+//    // Weight to be returned
+//    // Here I finally sell my scientific soul to the gods of publish or perish
+//    //double wght = 1./(1. + wght_gen_iso*iso/pt);
+//    // Or maybe not?
+//    double wght = 1.;
+//    if (drHfMin > cone && drTauMin > cone){
+//        ;
+//    }else if (drHfMin < drTauMin){
+//        wght *= wght_hf_veto;
+//    }else{
+//        wght *= wght_tau_veto;
+//    }
+//
+//    return wght;
+//}
 
 // Print properties of particle
 template <typename T> void SUSY_Upgrade_Skimmer::printParticlePropsWpidWstatus(const char* text, const size_t idx, const size_t noParticles, const T particle, const char* addText) const {
@@ -991,27 +953,21 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
         // Fill electrons
         for (size_t i=0; i<elecs.size(); ++i){
-            if (elecs.at(i)->PT < el_pt_lo || !isIsolated(elecs.at(i))){ continue; }
-            // Fill it if it hasn't been filled
+            if (elecs.at(i)->PT < el_pt_lo){ continue; }
+
+            el_woIso_pt.push_back(elecs.at(i)->PT);
+            el_woIso_eta.push_back(elecs.at(i)->Eta);
+            el_woIso_phi.push_back(elecs.at(i)->Phi);
+            el_woIso_q.push_back(elecs.at(i)->Charge);
+            el_woIso_sumPt.push_back(elecs.at(i)->SumPt);
+
+            if (!isIsolated(elecs.at(i))){ continue; }
+
             el_pt.push_back(elecs.at(i)->PT);
             el_eta.push_back(elecs.at(i)->Eta);
             el_phi.push_back(elecs.at(i)->Phi);
             el_q.push_back(elecs.at(i)->Charge);
             el_sumPt.push_back(elecs.at(i)->SumPt);
-            if (el1_pt.size() == 0){
-                el1_pt.push_back(elecs.at(i)->PT);
-                el1_eta.push_back(elecs.at(i)->Eta);
-                el1_phi.push_back(elecs.at(i)->Phi);
-                el1_q.push_back(elecs.at(i)->Charge);
-                el1_sumPt.push_back(elecs.at(i)->SumPt);
-            }else{
-                // Otherwise fill second vector
-                el2_pt.push_back(elecs.at(i)->PT);
-                el2_eta.push_back(elecs.at(i)->Eta);
-                el2_phi.push_back(elecs.at(i)->Phi);
-                el2_q.push_back(elecs.at(i)->Charge);
-                el2_sumPt.push_back(elecs.at(i)->SumPt);
-            }
         }
 
         // Fill truth electrons
@@ -1056,32 +1012,22 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         // Fill muons
         for (size_t i=0; i<muontight.size(); ++i){
             if (muontight.at(i)->PT < mu_pt_lo){ continue; }
-            if (mu1_woIso_pt.size() == 0){
-                mu1_woIso_pt.push_back(muontight.at(i)->PT);
-                mu1_woIso_eta.push_back(muontight.at(i)->Eta);
-                mu1_woIso_phi.push_back(muontight.at(i)->Phi);
-            }
+
+            // Fill muon vector ignoring isolation
+            mu_woIso_pt.push_back(muontight.at(i)->PT);
+            mu_woIso_eta.push_back(muontight.at(i)->Eta);
+            mu_woIso_phi.push_back(muontight.at(i)->Phi);
+            mu_woIso_q.push_back(muontight.at(i)->Charge);
+            mu_woIso_sumPt.push_back(muontight.at(i)->SumPt);
+
             if (!isIsolated(muontight.at(i))){ continue; }
+
+            // Fill isolated muons
             mu_pt.push_back(muontight.at(i)->PT);
             mu_eta.push_back(muontight.at(i)->Eta);
             mu_phi.push_back(muontight.at(i)->Phi);
             mu_q.push_back(muontight.at(i)->Charge);
             mu_sumPt.push_back(muontight.at(i)->SumPt);
-            // Fill it if it hasn't been filled
-            if (mu1_pt.size() == 0){
-                mu1_pt.push_back(muontight.at(i)->PT);
-                mu1_eta.push_back(muontight.at(i)->Eta);
-                mu1_phi.push_back(muontight.at(i)->Phi);
-                mu1_q.push_back(muontight.at(i)->Charge);
-                mu1_sumPt.push_back(muontight.at(i)->SumPt);
-            }else{
-                // Otherwise fill second vector
-                mu2_pt.push_back(muontight.at(i)->PT);
-                mu2_eta.push_back(muontight.at(i)->Eta);
-                mu2_phi.push_back(muontight.at(i)->Phi);
-                mu2_q.push_back(muontight.at(i)->Charge);
-                mu2_sumPt.push_back(muontight.at(i)->SumPt);
-            }
         }
 
         // Fill truth muons
@@ -1123,45 +1069,36 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         //    }
         //}
 
-        // Guess origin of leptons
-        for (size_t i=0; i<mu1_pt.size(); ++i){
-            genWeight *= coneVeto(mu1_pt.at(i), mu1_eta.at(i), mu1_phi.at(i), genpart);
-        }
-        for (size_t i=0; i<mu2_pt.size(); ++i){
-            genWeight *= coneVeto(mu2_pt.at(i), mu2_eta.at(i), mu2_phi.at(i), genpart);
-        }
+        //// Guess origin of leptons
+        //for (size_t i=0; i<mu1_pt.size(); ++i){
+        //    genWeight *= coneVeto(mu1_pt.at(i), mu1_eta.at(i), mu1_phi.at(i), genpart);
+        //}
+        //for (size_t i=0; i<mu2_pt.size(); ++i){
+        //    genWeight *= coneVeto(mu2_pt.at(i), mu2_eta.at(i), mu2_phi.at(i), genpart);
+        //}
 
         // Fill leptons
-        // Put pT and eta into vector of vector for sorting
+        // Put pT and eta into vector of vector for simultaneous sorting
         std::vector<std::vector<double>> lepvec;
-        if (el1_pt.size() != 0){
-            lepvec.push_back({el1_pt.at(0), el1_eta.at(0), el1_phi.at(0), mass_el});
+        for (size_t i=0; i<el_pt.size(); ++i){
+            lepvec.push_back({el_pt.at(i), el_eta.at(i), el_phi.at(i), mass_el});
         }
-        if (el2_pt.size() != 0){
-            lepvec.push_back({el2_pt.at(0), el2_eta.at(0), el2_phi.at(0), mass_el});
+        for (size_t i=0; i<mu_pt.size(); ++i){
+            lepvec.push_back({mu_pt.at(i), mu_eta.at(i), mu_phi.at(i), mass_mu});
         }
-        if (mu1_pt.size() != 0){
-            lepvec.push_back({mu1_pt.at(0), mu1_eta.at(0), mu1_phi.at(0), mass_mu});
-        }
-        if (mu2_pt.size() != 0){
-            lepvec.push_back({mu2_pt.at(0), mu2_eta.at(0), mu2_phi.at(0), mass_mu});
-        }
+
         // By definition, this sorts by the first element of the vector (in this case pT)
         if (lepvec.size() > 1){
             std::sort(begin(lepvec), end(lepvec));
             std::reverse(begin(lepvec), end(lepvec));
         }
-        if (lepvec.size() >= 1){
-            lep1_pt.push_back(lepvec[0][0]);
-            lep1_eta.push_back(lepvec[0][1]);
-            lep1_phi.push_back(lepvec[0][2]);
-            lep1_mass.push_back(lepvec[0][3]);
-        }
-        if (lepvec.size() >= 2){
-            lep2_pt.push_back(lepvec[1][0]);
-            lep2_eta.push_back(lepvec[1][1]);
-            lep2_phi.push_back(lepvec[1][2]);
-            lep2_mass.push_back(lepvec[1][3]);
+
+        // Fill specific vectors
+        for (size_t i=0; i<lepvec.size(); ++i){
+            lep_pt.push_back(lepvec[i][0]);
+            lep_eta.push_back(lepvec[i][1]);
+            lep_phi.push_back(lepvec[i][2]);
+            lep_mass.push_back(lepvec[i][3]);
         }
         lepvec.clear();
 
@@ -1292,11 +1229,10 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         for (size_t i=0; i<jetpuppi.size(); ++i){
             if (jetpuppi.at(i)->PT < jet_pt_lo){ continue; }
             if (isOverlap(jetpuppi.at(i), elecs, muontight)){ continue; }
-            jet1_pt.push_back(jetpuppi.at(0)->PT);
-            jet1_eta.push_back(jetpuppi.at(0)->Eta);
-            jet1_phi.push_back(jetpuppi.at(0)->Phi);
-            jet1_q.push_back(jetpuppi.at(0)->Charge);
-            break;
+            jet_pt.push_back(jetpuppi.at(0)->PT);
+            jet_eta.push_back(jetpuppi.at(0)->Eta);
+            jet_phi.push_back(jetpuppi.at(0)->Phi);
+            jet_q.push_back(jetpuppi.at(0)->Charge);
         }
 
         //// Fill truth jets
@@ -1472,15 +1408,15 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
 
         // Transverse mass of leading two leptons
-        if (lep1_pt.size() >= 1){
-            mt1.push_back(std::sqrt(2*lep1_pt.at(0)*met*(1-std::cos(lep1_phi.at(0)-met_phi))));
+        if (lep_pt.size() >= 1){
+            mt1.push_back(std::sqrt(2*lep_pt.at(0)*met*(1-std::cos(lep_phi.at(0)-met_phi))));
         }
-        if (lep2_pt.size() >= 1){
-            mt2.push_back(std::sqrt(2*lep2_pt.at(0)*met*(1-std::cos(lep2_phi.at(0)-met_phi))));
+        if (lep_pt.size() >= 2){
+            mt2.push_back(std::sqrt(2*lep_pt.at(1)*met*(1-std::cos(lep_phi.at(1)-met_phi))));
             // Fill pt of two leptons
             TLorentzVector l1, l2;
-            l1.SetPtEtaPhiM(lep1_pt[0], lep1_eta[0], lep1_phi[0], lep1_mass[0]);
-            l2.SetPtEtaPhiM(lep2_pt[0], lep2_eta[0], lep2_phi[0], lep2_mass[0]);
+            l1.SetPtEtaPhiM(lep_pt[0], lep_eta[0], lep_phi[0], lep_mass[0]);
+            l2.SetPtEtaPhiM(lep_pt[1], lep_eta[1], lep_phi[1], lep_mass[1]);
             pt2l.push_back((l1 + l2).Pt());
         }
 

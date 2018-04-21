@@ -67,14 +67,11 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         // Event variables
         double genWeight, nTot, xs, metSF;
 
-        // Electron variables
-        std::vector<double> el1_pt, el1_eta, el1_phi, el2_pt, el2_eta, el2_phi;
-        std::vector<int> el1_q, el2_q;
-        std::vector<double> el1_sumPt, el2_sumPt;
-
         // Electron vectors
         std::vector<double> el_pt, el_eta, el_phi, el_sumPt;
         std::vector<int> el_q;
+        std::vector<double> el_woIso_pt, el_woIso_eta, el_woIso_phi, el_woIso_sumPt;
+        std::vector<int> el_woIso_q;
 
         // Electron truth vectors
         std::vector<double> el_pt_truth, el_eta_truth, el_phi_truth;
@@ -87,15 +84,12 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         //std::vector<double> el1_pt_truth, el1_eta_truth, el1_phi_truth, el2_pt_truth, el2_eta_truth, el2_phi_truth;
         //std::vector<int> el1_q_truth, el2_q_truth;
 
-        // Muon variables
-        std::vector<double> mu1_pt, mu1_eta, mu1_phi, mu2_pt, mu2_eta, mu2_phi;
-        std::vector<double> mu1_woIso_pt, mu1_woIso_eta, mu1_woIso_phi;
-        std::vector<int> mu1_q, mu2_q;
-        std::vector<double> mu1_sumPt, mu2_sumPt;
 
         // Muon vectors
         std::vector<double> mu_pt, mu_eta, mu_phi, mu_sumPt;
         std::vector<int> mu_q;
+        std::vector<double> mu_woIso_pt, mu_woIso_eta, mu_woIso_phi, mu_woIso_sumPt;
+        std::vector<int> mu_woIso_q;
 
         // Muon truth vectors
         std::vector<double> mu_pt_truth, mu_eta_truth, mu_phi_truth;
@@ -108,8 +102,8 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         //std::vector<double> mu1_pt_truth, mu1_eta_truth, mu1_phi_truth, mu2_pt_truth, mu2_eta_truth, mu2_phi_truth;
         //std::vector<int> mu1_q_truth, mu2_q_truth;
 
-        // Lepton variables
-        std::vector<double> lep1_pt, lep1_eta, lep1_phi, lep1_mass, lep2_pt, lep2_eta, lep2_phi, lep2_mass;
+        // Lepton vectors
+        std::vector<double> lep_pt, lep_eta, lep_phi, lep_mass;
 
         // Matched truth lepton variables
         //std::vector<double> lep1_pt_truth_matched, lep1_eta_truth_matched, lep1_phi_truth_matched, lep1_mass_truth_matched, lep2_pt_truth_matched, lep2_eta_truth_matched, lep2_phi_truth_matched, lep2_mass_truth_matched;
@@ -117,9 +111,9 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         // Unmatched truth lepton variables
         //std::vector<double> lep1_pt_truth, lep1_eta_truth, lep1_phi_truth, lep1_mass_truth, lep2_pt_truth, lep2_eta_truth, lep2_phi_truth, lep2_mass_truth;
 
-        // Jet variables
-        std::vector<double> jet1_pt, jet1_eta, jet1_phi;
-        std::vector<int> jet1_q;
+        // Jet vectors
+        std::vector<double> jet_pt, jet_eta, jet_phi;
+        std::vector<int> jet_q;
 
         //// Matched truth jet variables
         //std::vector<double> jet1_pt_truth_matched, jet1_eta_truth_matched, jet1_phi_truth_matched;
@@ -151,9 +145,9 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         //TH2D* mu1_pt_origin_cone = new TH2D("mu1_pt_origin_cone", "mu1_pt_origin_cone", 6, 0., 30., 5, -.5, 4.5);
         //TH2D* mu2_pt_origin_nghbr = new TH2D("mu2_pt_origin_nghbr", "mu2_pt_origin_nghbr", 6, 0., 30., 5, -.5, 4.5);
         //TH2D* mu2_pt_origin_cone = new TH2D("mu2_pt_origin_cone", "mu2_pt_origin_cone", 6, 0., 30., 5, -.5, 4.5);
-        std::vector<double> mu_pt5to10_origin_nghbr, mu_pt5to10_origin_cone;
-        std::vector<double> mu_pt10to20_origin_nghbr, mu_pt10to20_origin_cone;
-        std::vector<double> mu_pt20to30_origin_nghbr, mu_pt20to30_origin_cone;
+        //std::vector<double> mu_pt5to10_origin_nghbr, mu_pt5to10_origin_cone;
+        //std::vector<double> mu_pt10to20_origin_nghbr, mu_pt10to20_origin_cone;
+        //std::vector<double> mu_pt20to30_origin_nghbr, mu_pt20to30_origin_cone;
 
         // Real lepton efficiency histograms
         TH2D* rle_el_num = new TH2D("rle_el_num", "rle_el_num", 6, 0., 30., 8, 0., 4.);
