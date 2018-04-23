@@ -139,6 +139,7 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         bool hasSFOS, hasSoftSFOS, hasSFOS_truth, hasSoftSFOS_truth;
         std::vector<double> mllMin, mllMax, mt1, mt2, pt2l;
         unsigned int ZtoLL;
+        bool crazyMuon50, crazyMuon200, crazyMuon500;
 
         //// Guess origin of leptons
         //TH2D* mu1_pt_origin_nghbr = new TH2D("mu1_pt_origin_nghbr", "mu1_pt_origin_nghbr", 6, 0., 30., 5, -.5, 4.5);

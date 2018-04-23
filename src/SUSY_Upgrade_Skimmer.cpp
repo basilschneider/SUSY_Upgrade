@@ -181,6 +181,9 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("mt2", &mt2);
     myskim->Branch("pt2l", &pt2l);
     myskim->Branch("ZtoLL", &ZtoLL);
+    myskim->Branch("crazyMuon50", &crazyMuon50);
+    myskim->Branch("crazyMuon200", &crazyMuon200);
+    myskim->Branch("crazyMuon500", &crazyMuon500);
     //myskim->Branch("mu_pt5to10_origin_nghbr", &mu_pt5to10_origin_nghbr);
     //myskim->Branch("mu_pt5to10_origin_cone", &mu_pt5to10_origin_cone);
     //myskim->Branch("mu_pt10to20_origin_nghbr", &mu_pt10to20_origin_nghbr);
@@ -1386,6 +1389,9 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }else{
             ZtoLL = 999;
         }
+
+        // Crazy muon filters (not used, for compatibility with FS)
+        crazyMuon50 = crazyMuon200 = crazyMuon500 = false;
 
         // MET HT scale factors
         {
