@@ -133,11 +133,14 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("mht100", &mht100);
     myskim->Branch("mht150", &mht150);
     myskim->Branch("mlt", &mlt);
-    //myskim->Branch("mlt_eta", &mlt_eta);
-    //myskim->Branch("mlt_phi", &mlt_phi);
-    //myskim->Branch("mhlt", &mhlt);
-    //myskim->Branch("mhlt_eta", &mhlt_eta);
-    //myskim->Branch("mhlt_phi", &mhlt_phi);
+    myskim->Branch("mlt_eta", &mlt_eta);
+    myskim->Branch("mlt_phi", &mlt_phi);
+    myskim->Branch("mhlt25", &mhlt25);
+    myskim->Branch("mhlt25_eta", &mhlt25_eta);
+    myskim->Branch("mhlt25_phi", &mhlt25_phi);
+    myskim->Branch("mhlt40", &mhlt40);
+    myskim->Branch("mhlt40_eta", &mhlt40_eta);
+    myskim->Branch("mhlt40_phi", &mhlt40_phi);
     myskim->Branch("PFmet", &PFmet);
     myskim->Branch("PFmet_eta", &PFmet_eta);
     myskim->Branch("PFmet_phi", &PFmet_phi);
@@ -1288,55 +1291,50 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
 
         //// Fill poor man's MET
-        TLorentzVector mht4, mlt4, mhlt4;
-        //for (size_t i=0; i<jetpuppi.size(); ++i){
-        //    if (jetpuppi.at(i)->PT < jet_pt_lo){ continue; }
-        //    if (isOverlap(jetpuppi.at(i), elecs, muontight)){ continue; }
-        //    TLorentzVector j4;
-        //    j4.SetPtEtaPhiM(jetpuppi.at(i)->PT, jetpuppi.at(i)->Eta, jetpuppi.at(i)->Phi, jetpuppi.at(i)->Mass);
-        //    mht4 += j4;
-        //    mhlt4 += j4;
-        //}
+        TLorentzVector mlt4;
+        TLorentzVector mht4v25, mht4v40, mht4v60, mht4v100, mht4v150;
+        TLorentzVector mhlt4v25, mhlt4v40;
         for (size_t i=0; i<muontight.size(); ++i){
             if (muontight.at(i)->PT < mu_pt_lo || !isIsolated(muontight.at(i))){ continue; }
             TLorentzVector m4;
             m4.SetPtEtaPhiM(muontight.at(i)->PT, muontight.at(i)->Eta, muontight.at(i)->Phi, mass_mu);
             mlt4 += m4;
-            mhlt4 += m4;
+            mhlt4v25 += m4;
+            mhlt4v40 += m4;
         }
         for (size_t i=0; i<elecs.size(); ++i){
             if (elecs.at(i)->PT < el_pt_lo || !isIsolated(elecs.at(i))){ continue; }
             TLorentzVector e4;
             e4.SetPtEtaPhiM(elecs.at(i)->PT, elecs.at(i)->Eta, elecs.at(i)->Phi, mass_el);
             mlt4 += e4;
-            mhlt4 += e4;
+            mhlt4v25 += e4;
+            mhlt4v40 += e4;
         }
-        //mht = mht4.Pt();
-        //mht_eta = mht4.Eta();
-        //mht_phi = mht4.Phi();
-        mlt = mlt4.Pt();
-        //mlt_eta = mlt4.Eta();
-        //mlt_phi = mlt4.Phi();
-        //mhlt = mhlt4.Pt();
-        //mhlt_eta = mhlt4.Eta();
-        //mhlt_phi = mhlt4.Phi();
-        TLorentzVector mht4v25, mht4v40, mht4v60, mht4v100, mht4v150;
         for (size_t i=0; i<jetpuppi.size(); ++i){
             if (jetpuppi.at(i)->PT < jet_pt_lo){ continue; }
             if (isOverlap(jetpuppi.at(i), elecs, muontight)){ continue; }
             TLorentzVector j4;
             j4.SetPtEtaPhiM(jetpuppi.at(i)->PT, jetpuppi.at(i)->Eta, jetpuppi.at(i)->Phi, jetpuppi.at(i)->Mass);
-            if (jetpuppi.at(i)->PT > 25.){ mht4v25 +=j4; }
-            if (jetpuppi.at(i)->PT > 40.){ mht4v40 +=j4; }
-            if (jetpuppi.at(i)->PT > 60.){ mht4v60 +=j4; }
-            if (jetpuppi.at(i)->PT > 100.){ mht4v100 +=j4; }
-            if (jetpuppi.at(i)->PT > 150.){ mht4v150 +=j4; }
+            if (jetpuppi.at(i)->PT > 25.){ mht4v25 += j4; mhlt4v25 += j4; }
+            if (jetpuppi.at(i)->PT > 40.){ mht4v40 += j4; mhlt4v40 += j4; }
+            if (jetpuppi.at(i)->PT > 60.){ mht4v60 += j4; }
+            if (jetpuppi.at(i)->PT > 100.){ mht4v100 += j4; }
+            if (jetpuppi.at(i)->PT > 150.){ mht4v150 += j4; }
         }
+        mlt = mlt4.Pt();
+        mlt_eta = mlt4.Eta();
+        mlt_phi = mlt4.Phi();
         mht25 = mht4v25.Pt();
         mht40 = mht4v40.Pt();
         mht60 = mht4v60.Pt();
         mht100 = mht4v100.Pt();
         mht150 = mht4v150.Pt();
+        mhlt25 = mhlt4v25.Pt();
+        mhlt25_eta = mhlt4v25.Eta();
+        mhlt25_phi = mhlt4v25.Phi();
+        mhlt40 = mhlt4v40.Pt();
+        mhlt40_eta = mhlt4v40.Eta();
+        mhlt40_phi = mhlt4v40.Phi();
 
         // Fill HT
         ht25 = ht40 = ht60 = ht100 = ht150 = 0.;
