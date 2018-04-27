@@ -1235,10 +1235,10 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         for (size_t i=0; i<jetpuppi.size(); ++i){
             if (jetpuppi.at(i)->PT < jet_pt_lo){ continue; }
             if (isOverlap(jetpuppi.at(i), elecs, muontight)){ continue; }
-            jet_pt.push_back(jetpuppi.at(0)->PT);
-            jet_eta.push_back(jetpuppi.at(0)->Eta);
-            jet_phi.push_back(jetpuppi.at(0)->Phi);
-            jet_q.push_back(jetpuppi.at(0)->Charge);
+            jet_pt.push_back(jetpuppi.at(i)->PT);
+            jet_eta.push_back(jetpuppi.at(i)->Eta);
+            jet_phi.push_back(jetpuppi.at(i)->Phi);
+            jet_q.push_back(jetpuppi.at(i)->Charge);
         }
 
         //// Fill truth jets
