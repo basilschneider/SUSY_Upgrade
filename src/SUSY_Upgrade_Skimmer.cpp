@@ -617,11 +617,11 @@ int SUSY_Upgrade_Skimmer::getNghbr(int pid){
 //}
 
 // Print properties of particle
-template <typename T> void SUSY_Upgrade_Skimmer::printParticlePropsWpidWstatus(const char* text, const size_t idx, const size_t noParticles, const T particle, const char* addText) const {
-    printParticleProps(text, idx, noParticles, particle, particle->PID, particle->Status, addText);
+template <typename T> void SUSY_Upgrade_Skimmer::pppWpidWstatus(const char* text, const size_t idx, const size_t noParticles, const T particle, const char* addText) const {
+    ppp(text, idx, noParticles, particle, particle->PID, particle->Status, addText);
 }
 
-template <typename T> void SUSY_Upgrade_Skimmer::printParticleProps(const char* text, const size_t idx, const size_t noParticles, const T particle, const int pid, const int status, const char* addText) const {
+template <typename T> void SUSY_Upgrade_Skimmer::ppp(const char* text, const size_t idx, const size_t noParticles, const T particle, const int pid, const int status, const char* addText) const {
     printf("%20s: Idx: %3lu/%3lu; ID: %8d; Status: %3d; pt: %8.3f; eta: %6.3f; phi: %6.3f; %s\n",
             text, idx, noParticles, pid, status, particle->PT, particle->Eta, particle->Phi, addText);
     fflush(stdout);
@@ -701,7 +701,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
                     // Found FullSim truth particle! Event matched!
                     printf("Event by event comparison. Compare event %lld with weight %f:\n", event.at(0)->Number, event.at(0)->Weight);
-                    printParticlePropsWpidWstatus("Matched with FullSim", i, genpart.size(), genpart.at(i));
+                    pppWpidWstatus("Matched with FullSim", i, genpart.size(), genpart.at(i));
 
                     evtFound = true;
                     break;
@@ -715,20 +715,20 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 // Truth electrons
                 for (size_t i=0; i<genpart.size(); ++i){
                     if (fabs(genpart.at(i)->PID) != 11){ continue; }
-                    printParticlePropsWpidWstatus("Truth electrons", i, genpart.size(), genpart.at(i));
+                    pppWpidWstatus("Truth electrons", i, genpart.size(), genpart.at(i));
                 }
                 // Truth muons
                 for (size_t i=0; i<genpart.size(); ++i){
                     if (fabs(genpart.at(i)->PID) != 13){ continue; }
-                    printParticlePropsWpidWstatus("Truth muons", i, genpart.size(), genpart.at(i));
+                    pppWpidWstatus("Truth muons", i, genpart.size(), genpart.at(i));
                 }
                 // Truth particles (all)
                 for (size_t i=0; i<genpart.size(); ++i){
-                    printParticlePropsWpidWstatus("Truth particles", i, genpart.size(), genpart.at(i));
+                    pppWpidWstatus("Truth particles", i, genpart.size(), genpart.at(i));
                 }
                 // Truth jets
                 for (size_t i=0; i<genjet.size(); ++i){
-                    printParticleProps("Truth jets", i, genjet.size(), genjet.at(i), -1, -1);
+                    ppp("Truth jets", i, genjet.size(), genjet.at(i), -1, -1);
                 }
                 // Truth MET
                 printf("%s: Idx: %3d/%3d; ID: %8s; Status: %3s; pt: %8.3f; eta: %6.3f; phi: %6.3f\n",
@@ -743,7 +743,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                     snprintf(SumPt, sizeof SumPt, "%f", elecs.at(i)->SumPt);
                     char addText[60] = "sumPt: ";
                     strcat(addText, SumPt);
-                    printParticleProps("Reco electrons", i, elecs.size(), elecs.at(i), elecs.at(i)->Charge>0 ? -11: 11, 1, addText);
+                    ppp("Reco electrons", i, elecs.size(), elecs.at(i), elecs.at(i)->Charge>0 ? -11: 11, 1, addText);
                 }
                 // Reco muons
                 for (size_t i=0; i<muontight.size(); ++i){
@@ -752,11 +752,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                     snprintf(SumPt, sizeof SumPt, "%f", muontight.at(i)->SumPt);
                     char addText[60] = "sumPt: ";
                     strcat(addText, SumPt);
-                    printParticleProps("Reco muons", i, muontight.size(), muontight.at(i), muontight.at(i)->Charge>0 ? -13: 13, 1, addText);
+                    ppp("Reco muons", i, muontight.size(), muontight.at(i), muontight.at(i)->Charge>0 ? -13: 13, 1, addText);
                 }
                 // Reco jets
                 for (size_t i=0; i<jetpuppi.size(); ++i){
-                    printParticleProps("Reco jets", i, jetpuppi.size(), jetpuppi.at(i), -1, -1);
+                    ppp("Reco jets", i, jetpuppi.size(), jetpuppi.at(i), -1, -1);
                 }
                 // Reco MET
                 printf("%20s: Idx: %3d/%3d; ID: %8s; Status: %3s; pt: %8.3f; eta: %6.3f; phi: %6.3f\n",
