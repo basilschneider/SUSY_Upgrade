@@ -688,6 +688,25 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         //    }
         //}
 
+        if (dump_genpart){
+            std::cout << std::endl;
+            for (size_t i=0; i<genpart.size(); ++i){
+                std::cout << "N: " << i
+                          << ", St: " << genpart.at(i)->Status
+                          << ", PID: " << genpart.at(i)->PID
+                          << ", E: " << genpart.at(i)->E
+                          << ", Px: " << genpart.at(i)->Px
+                          << ", Py: " << genpart.at(i)->Py
+                          << ", Pz: " << genpart.at(i)->Pz
+                          << ", M: " << genpart.at(i)->Mass
+                          << ", M1: " << genpart.at(i)->M1
+                          << ", M2: " << genpart.at(i)->M2
+                          << ", D1: " << genpart.at(i)->D1
+                          << ", D2: " << genpart.at(i)->D2 << std::endl;
+            }
+            continue;
+        }
+
         if (event_by_event_comparison){
             bool evtFound = false;
             // The hardcoded numbers are to be used with the following sample:
