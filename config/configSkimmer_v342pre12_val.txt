@@ -1,0 +1,26 @@
+[config-begin]
+
+    Outputdir = /uscms/home/bschneid/analysis/upgrade/DAF/production/production999/
+    Outputfile = outputfile.root
+
+    $Samplesdir = root://cmseos.fnal.gov//store/user/snowmass/noreplica/Run2MiniAOD_SMbackgrounds/Delphes342pre07_hadd/
+    $Samplesdir = root://cmseos.fnal.gov//store/user/snowmass/noreplica/LHEGEN_SMbackgrounds/Delphes342pre07_hadd/
+    $Samplesdir = root://cmseos.fnal.gov//store/user/bschneid/analysis/delphes/test02/
+    Samplesdir = root://cmseos.fnal.gov//store/user/bschneid/analysis/delphes/delphes_v342pre12_full-gen-info-validation/
+
+    Lumi       = 3000
+    Testmode   = false
+    Maxchilds  = 23
+    RunOnOutputOnly = false
+
+[config-end]
+
+[inputfiles-begin]
+
+$DYJetsToLL_M-10to50_TuneCUETP8M1_14TeV-madgraphMLM-pythia8_200PU/             , DYToLL_M-10to50_200PU        , 820 , 1 ,  572059 , 1 , false
+$DYToLL-M-50_0J_14TeV-madgraphMLM-pythia8_200PU/                               , DYToLL_M-50_0J_200PU         , 820 , 1 , 1940771 , 1 , false
+$DYToLL-M-50_1J_14TeV-madgraphMLM-pythia8_200PU/                               , DYToLL_M-50_1J_200PU         , 820 , 1 , 2067415 , 1 , false
+$DYToLL-M-50_2J_14TeV-madgraphMLM-pythia8_200PU/                               , DYToLL_M-50_2J_200PU         , 820 , 1 , 2002642 , 1 , false
+$DYToLL-M-50_3J_14TeV-madgraphMLM-pythia8_200PU/                               , DYToLL_M-50_3J_200PU         , 820 , 1 ,  710413 , 1 , false
+
+[inputfiles-end]
