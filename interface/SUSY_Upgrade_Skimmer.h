@@ -89,6 +89,7 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         // Muon vectors
         std::vector<double> mu_pt, mu_eta, mu_phi, mu_sumPt;
         std::vector<int> mu_q;
+        std::vector<bool> mu_matched, mu_st20to30;
         std::vector<double> mu_woIso_pt, mu_woIso_eta, mu_woIso_phi, mu_woIso_sumPt;
         std::vector<int> mu_woIso_q;
 
