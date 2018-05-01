@@ -693,48 +693,47 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         //}
 
         if (dump_genpart){
-            std::vector<unsigned int> fsMu;
-            for (size_t i=0; i<genpart.size(); ++i){
-                // Find status 1 muons
-                if (fabs(genpart.at(i)->PID) == 13 && genpart.at(i)->Status == 1){
-                    fsMu.push_back(i);
-                }
-            }
-
-            // Loop through vector until it's empty
             std::cout << "NEWEVENT" << std::endl;
-            while (fsMu.size() > 0){
-
-                std::cout << "Foo01: " << fsMu[0] << "; PID: " << genpart.at(fsMu[0])->PID << "; pT: " << std::sqrt(fabs(genpart.at(fsMu[0])->Px*genpart.at(fsMu[0])->Py)) << std::endl;
-
-                int m1 = genpart.at(fsMu[0])->M1;
-                int m2 = genpart.at(fsMu[0])->M2;
-
-                if (m1 >= 0. && (std::find(fsMu.begin(), fsMu.end(), m1)) == std::end(fsMu)){
-                    fsMu.push_back(m1);
-                }
-                if (m2 >= 0. && (std::find(fsMu.begin(), fsMu.end(), m2)) == std::end(fsMu)){
-                    fsMu.push_back(m2);
-                }
-                fsMu.erase(fsMu.begin());
-            }
-            continue;
-
-            //std::cout << std::endl;
+            //std::vector<unsigned int> fsMu;
             //for (size_t i=0; i<genpart.size(); ++i){
-            //    std::cout << "N: " << i
-            //              << ", St: " << genpart.at(i)->Status
-            //              << ", PID: " << genpart.at(i)->PID
-            //              << ", E: " << genpart.at(i)->E
-            //              << ", Px: " << genpart.at(i)->Px
-            //              << ", Py: " << genpart.at(i)->Py
-            //              << ", Pz: " << genpart.at(i)->Pz
-            //              << ", M: " << genpart.at(i)->Mass
-            //              << ", M1: " << genpart.at(i)->M1
-            //              << ", M2: " << genpart.at(i)->M2
-            //              << ", D1: " << genpart.at(i)->D1
-            //              << ", D2: " << genpart.at(i)->D2 << std::endl;
+            //    // Find status 1 muons
+            //    if (fabs(genpart.at(i)->PID) == 13 && genpart.at(i)->Status == 1){
+            //        fsMu.push_back(i);
+            //    }
             //}
+
+            //// Loop through vector until it's empty
+            //while (fsMu.size() > 0){
+
+            //    std::cout << "Foo01: " << fsMu[0] << "; PID: " << genpart.at(fsMu[0])->PID << "; pT: " << std::sqrt(fabs(genpart.at(fsMu[0])->Px*genpart.at(fsMu[0])->Py)) << std::endl;
+
+            //    int m1 = genpart.at(fsMu[0])->M1;
+            //    int m2 = genpart.at(fsMu[0])->M2;
+
+            //    if (m1 >= 0. && (std::find(fsMu.begin(), fsMu.end(), m1)) == std::end(fsMu)){
+            //        fsMu.push_back(m1);
+            //    }
+            //    if (m2 >= 0. && (std::find(fsMu.begin(), fsMu.end(), m2)) == std::end(fsMu)){
+            //        fsMu.push_back(m2);
+            //    }
+            //    fsMu.erase(fsMu.begin());
+            //}
+
+            for (size_t i=0; i<genpart.size(); ++i){
+                std::cout << "N: " << i
+                          << ", St: " << genpart.at(i)->Status
+                          << ", PID: " << genpart.at(i)->PID
+                          << ", E: " << genpart.at(i)->E
+                          << ", Px: " << genpart.at(i)->Px
+                          << ", Py: " << genpart.at(i)->Py
+                          << ", Pz: " << genpart.at(i)->Pz
+                          << ", M: " << genpart.at(i)->Mass
+                          << ", M1: " << genpart.at(i)->M1
+                          << ", M2: " << genpart.at(i)->M2
+                          << ", D1: " << genpart.at(i)->D1
+                          << ", D2: " << genpart.at(i)->D2 << std::endl;
+            }
+            std::cout << std::endl;
             //continue;
         }
 
@@ -1088,11 +1087,12 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 // Truth matching
                 if (isMatched(genpart.at(j), muontight.at(i)->PT, muontight.at(i)->Eta, muontight.at(i)->Phi)){
                     match = true;
-                    fsMu.push_back(i);
+                    fsMu.push_back(j);
 
                     // Loop through vector until it's empty
                     while (fsMu.size() > 0){
-                        if (genpart.at(fsMu[0])->Status >= 20 && genpart.at(fsMu[0])->Status <= 30){
+                        // Check if it is a muon with status between 20 and 30
+                        if (fabs(genpart.at(fsMu[0])->PID) == 13 && genpart.at(fsMu[0])->Status >= 20 && genpart.at(fsMu[0])->Status <= 30){
                             st20to30 = true;
                             break;
                         }
