@@ -1091,7 +1091,8 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                             for (size_t k=0; k<fsMu.size(); ++k){
                                 fprintf(stderr, "%u; ", fsMu[k]);
                             }
-                            fprintf(stderr, "now inspecting first element: %u.\n", fsMu[0]);
+                            fprintf(stderr, "now inspecting first element: %u (PDGID: %d; Status: %d).\n",
+                                    fsMu[0], genpart.at(fsMu[0])->PID, genpart.at(fsMu[0])->Status);
                             //fprintf(stderr, "Ancestor of muon: %d.\n", fsMu[0]);
                         }
 
@@ -1134,7 +1135,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             }
 
             if (logdebug){
-                fprintf(stderr, "Write to vector: match: %d; st20to30: %d; mother: %d\n", match, st20to30, mother);
+                fprintf(stderr, "Write to output: match: %d; st20to30: %d; mother: %d\n", match, st20to30, mother);
             }
 
             // Fill isolated muons
