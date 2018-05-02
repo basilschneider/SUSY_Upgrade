@@ -53,6 +53,7 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("mu_sumPt", &mu_sumPt);
     myskim->Branch("mu_matched", &mu_matched);
     myskim->Branch("mu_st20to30", &mu_st20to30);
+    myskim->Branch("mu_mother", &mu_mother);
     myskim->Branch("mu_woIso_pt", &mu_woIso_pt);
     myskim->Branch("mu_woIso_eta", &mu_woIso_eta);
     myskim->Branch("mu_woIso_phi", &mu_woIso_phi);
@@ -236,6 +237,7 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     mu_sumPt.clear();
     mu_matched.clear();
     mu_st20to30.clear();
+    mu_mother.clear();
     mu_woIso_pt.clear();
     mu_woIso_eta.clear();
     mu_woIso_phi.clear();
