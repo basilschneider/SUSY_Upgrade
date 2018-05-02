@@ -46,7 +46,8 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         // Cutflow control
         static constexpr bool fill_rle = false;
         static constexpr bool event_by_event_comparison = false;
-        static constexpr bool dump_genpart = false;
+        static constexpr bool dump_genpart = true;
+        static constexpr bool logdebug = true;
 
         // Cut variables
         static constexpr double el_pt_lo = 2.;
@@ -90,6 +91,9 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         std::vector<double> mu_pt, mu_eta, mu_phi, mu_sumPt;
         std::vector<int> mu_q;
         std::vector<bool> mu_matched, mu_st20to30;
+        std::vector<int> mu_mother;
+
+        // Muon vectors before isolation
         std::vector<double> mu_woIso_pt, mu_woIso_eta, mu_woIso_phi, mu_woIso_sumPt;
         std::vector<int> mu_woIso_q;
 
