@@ -1122,8 +1122,10 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                             }
 
                             if (logdebug){
-                                fprintf(stderr, "Enable read-only mode.\n");
-                                readonly = true;
+                                if (!readonly){
+                                    fprintf(stderr, "Enable read-only mode.\n");
+                                    readonly = true;
+                                }
                             }else{
                                 break;
                             }
