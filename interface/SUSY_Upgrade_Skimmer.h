@@ -46,8 +46,8 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         // Cutflow control
         static constexpr bool fill_rle = false;
         static constexpr bool event_by_event_comparison = false;
-        static constexpr bool dump_genpart = true;
-        static constexpr bool logdebug = true;
+        static constexpr bool dump_genpart = false;
+        static constexpr bool logdebug = false;
 
         // Cut variables
         static constexpr double el_pt_lo = 2.;
