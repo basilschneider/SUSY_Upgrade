@@ -1102,7 +1102,6 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                             if (logdebug){
                                 fprintf(stderr, "Muon with status between 20 and 30 found.\n");
                             }
-                            //break;
                         }
 
                         // Check if ancestor of muon is final
@@ -1112,6 +1111,8 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                             if (logdebug){
                                 fprintf(stderr, "Found final mother of muon: %d.\n", genpart.at(fsMu[0])->PID);
                             }
+
+                            break;
                         }
 
                         // Add mothers from particle to vector (and inspect them
