@@ -1127,8 +1127,13 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                         fsMu.erase(fsMu.begin());
                     }
 
+                    // break free from genpart loop, since reco particle has been matched
                     break;
                 }
+            }
+
+            if (logdebug){
+                fprintf(stderr, "Write to vector: match: %d; st20to30: %d; mother: %d\n", match, st20to30, mother);
             }
 
             // Fill isolated muons
