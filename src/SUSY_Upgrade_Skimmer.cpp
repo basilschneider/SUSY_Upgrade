@@ -1067,7 +1067,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
             // Absolute values of PDGID's that are considered as final ancestors from muons;
             // in other words: once one of these ancestors is found, no more ancestors are checked
-            const std::vector<int> mu_mother_final = {3, 4, 5, 21, 2212};
+            const std::vector<int> mu_mother_final = {3, 4, 5, 22, 23, 24, 25, 2212};
 
             // Check if you can match the muon
             for (size_t j=0; j<genpart.size(); ++j){
