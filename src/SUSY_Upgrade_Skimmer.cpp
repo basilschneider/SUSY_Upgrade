@@ -1065,6 +1065,12 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             // vector to store *index* of truth matched final state muon and all its ancestors
             std::vector<unsigned int> fsMu;
 
+            // If readonly is true, no variables that are written to the output n-tuple are going to be changed;
+            // this is helpful for better understanding an event, without changing the output;
+            // for example, a b-quark is a final particle and what happened before that will not change the output,
+            // but it can still be helpful to further inspect the event
+            bool readonly = false;
+
             // Absolute values of PDGID's that are considered as final ancestors from muons;
             // in other words: once one of these ancestors is found, no more ancestors are checked
             const std::vector<int> mu_mother_final = {3, 4, 5, 22, 23, 24, 25, 2212};
@@ -1075,7 +1081,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 if (fabs(genpart.at(j)->PID) != 13){ continue; }
                 // Truth matching
                 if (isMatched(genpart.at(j), muontight.at(i)->PT, muontight.at(i)->Eta, muontight.at(i)->Phi)){
-                    match = true;
+                    if (!readonly){ match = true; }
                     fsMu.push_back(j);
 
                     if (logdebug){
@@ -1098,7 +1104,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
                         // Check if it is a muon with status between 20 and 30
                         if (fabs(genpart.at(fsMu[0])->PID) == 13 && genpart.at(fsMu[0])->Status >= 20 && genpart.at(fsMu[0])->Status <= 30){
-                            st20to30 = true;
+                            if (!readonly){ st20to30 = true; }
 
                             if (logdebug){
                                 fprintf(stderr, "Muon with status between 20 and 30 found.\n");
@@ -1107,13 +1113,18 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
                         // Check if ancestor of muon is final
                         if (std::find(mu_mother_final.begin(), mu_mother_final.end(), fabs(genpart.at(fsMu[0])->PID)) != std::end(mu_mother_final)){
-                            mother = genpart.at(fsMu[0])->PID;
+                            if (!readonly){ mother = genpart.at(fsMu[0])->PID; }
 
                             if (logdebug){
                                 fprintf(stderr, "Found final mother of muon: %d.\n", genpart.at(fsMu[0])->PID);
                             }
 
-                            break;
+                            if (logdebug){
+                                fprintf(stderr, "Enable read-only mode.\n");
+                                readonly = true;
+                            }else{
+                                break;
+                            }
                         }
 
                         // Add mothers from particle to vector (and inspect them
