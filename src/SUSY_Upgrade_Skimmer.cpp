@@ -923,25 +923,26 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 if (elecs.at(j)->PT < el_pt_lo || !isIsolated(elecs.at(j))){ continue; }
                 if (elecs.at(i)->Charge*elecs.at(j)->Charge < 0){
                     hasSFOS = true;
+
+                    // Mll for soft SFOS
+                    TLorentzVector l1, l2;
+                    l1.SetPtEtaPhiM(elecs.at(i)->PT, elecs.at(i)->Eta, elecs.at(i)->Phi, mass_el);
+                    l2.SetPtEtaPhiM(elecs.at(j)->PT, elecs.at(j)->Eta, elecs.at(j)->Phi, mass_el);
+                    double mll = (l1+l2).M();
+                    if (mllMin.size() == 0){
+                        mllMin.push_back(mll);
+                    }else if (mllMin.at(0) > mll){
+                        mllMin.at(0) = mll;
+                    }
+                    if (mllMax.size() == 0){
+                        mllMax.push_back(mll);
+                    }else if (mllMax.at(0) < mll){
+                        mllMax.at(0) = mll;
+                    }
+
                     // Check if both particles are soft
                     if (elecs.at(i)->PT < el_pt_hi && elecs.at(j)->PT < el_pt_hi){
                         hasSoftSFOS = true;
-
-                        // Mll for soft SFOS
-                        TLorentzVector l1, l2;
-                        l1.SetPtEtaPhiM(elecs.at(i)->PT, elecs.at(i)->Eta, elecs.at(i)->Phi, mass_el);
-                        l2.SetPtEtaPhiM(elecs.at(j)->PT, elecs.at(j)->Eta, elecs.at(j)->Phi, mass_el);
-                        double mll = (l1+l2).M();
-                        if (mllMin.size() == 0){
-                            mllMin.push_back(mll);
-                        }else if (mllMin.at(0) > mll){
-                            mllMin.at(0) = mll;
-                        }
-                        if (mllMax.size() == 0){
-                            mllMax.push_back(mll);
-                        }else if (mllMax.at(0) < mll){
-                            mllMax.at(0) = mll;
-                        }
                     }
                 }
             }
@@ -1075,7 +1076,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
             // Absolute values of PDGID's that are considered as final ancestors from muons;
             // in other words: once one of these ancestors is found, no more ancestors are checked
-            const std::vector<int> mu_mother_final = {3, 4, 5, 22, 23, 24, 25, 2212};
+            const std::vector<int> mu_mother_final = {4, 5, 2212};
 
             // Check if you can match the muon
             for (size_t j=0; j<genpart.size(); ++j){
