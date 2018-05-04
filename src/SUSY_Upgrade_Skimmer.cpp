@@ -713,7 +713,27 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             std::cout << std::endl;
         }
 
-        if (event_by_event_comparison){
+        // Primary: Choose events here, find them in FullSim
+        if (event_by_event_comparison_primary){
+            bool evtFound = false;
+            for (size_t i=0; i<muontight.size(); ++i){
+                if (muontight.at(i)->PT < mu_pt_lo){ continue; }
+                if (!isIsolated(muontight.at(i))){ continue; }
+                if (muontight.at(i)->PT > 5. && muontight.at(i)->PT < 10.){ evtFound = true; }
+            }
+            if (evtFound){
+                for (size_t i=0; i<genpart.size(); ++i){
+                    if (genpart.at(i)->Status != 1){ continue; }
+                    if (genpart.at(i)->PID != 13){ continue; }
+                    if (genpart.at(i)->PT < mu_pt_lo){ continue; }
+                    printf("Truth muon: pT: %f; Eta: %f; Phi: %f",
+                            genpart.at(i)->PT, genpart.at(i)->Eta, genpart.at(i)->Phi);
+                }
+            }
+        }
+
+        // Secondary: Choose events in FullSim, find them here
+        if (event_by_event_comparison_secondary){
             bool evtFound = false;
             // The hardcoded numbers are to be used with the following sample:
             // root://cmsxrootd.fnal.gov//store/mc/PhaseIITDRFall17MiniAOD/DYJetsToLL_M-10to50_TuneCUETP8M1_14TeV-madgraphMLM-pythia8/MINIAODSIM/PU200_93X_upgrade2023_realistic_v2-v2/150000/02D196DB-60C0-E711-8C46-24BE05CE2D41.root
