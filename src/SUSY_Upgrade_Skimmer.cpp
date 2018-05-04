@@ -715,18 +715,22 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
         // Primary: Choose events here, find them in FullSim
         if (event_by_event_comparison_primary){
+            std::cout << "\nNEW EVENT!" << std::endl;
             bool evtFound = false;
             for (size_t i=0; i<muontight.size(); ++i){
                 if (muontight.at(i)->PT < mu_pt_lo){ continue; }
                 if (!isIsolated(muontight.at(i))){ continue; }
-                if (muontight.at(i)->PT > 5. && muontight.at(i)->PT < 10.){ evtFound = true; }
+                if (muontight.at(i)->PT > 5. && muontight.at(i)->PT < 10.){
+                    evtFound = true;
+                    break;
+                }
             }
             if (evtFound){
                 for (size_t i=0; i<genpart.size(); ++i){
                     if (genpart.at(i)->Status != 1){ continue; }
                     if (genpart.at(i)->PID != 13){ continue; }
                     if (genpart.at(i)->PT < mu_pt_lo){ continue; }
-                    printf("Truth muon: pT: %f; Eta: %f; Phi: %f",
+                    printf("Truth muon: pT: %f; Eta: %f; Phi: %f\n",
                             genpart.at(i)->PT, genpart.at(i)->Eta, genpart.at(i)->Phi);
                 }
             }
@@ -735,14 +739,26 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         // Secondary: Choose events in FullSim, find them here
         if (event_by_event_comparison_secondary){
             bool evtFound = false;
-            // The hardcoded numbers are to be used with the following sample:
-            // root://cmsxrootd.fnal.gov//store/mc/PhaseIITDRFall17MiniAOD/DYJetsToLL_M-10to50_TuneCUETP8M1_14TeV-madgraphMLM-pythia8/MINIAODSIM/PU200_93X_upgrade2023_realistic_v2-v2/150000/02D196DB-60C0-E711-8C46-24BE05CE2D41.root
             for (size_t i=0; i<genpart.size(); ++i){
-                if ((fabs(genpart.at(i)->PT -  9.343750) < 1.e-6 && fabs(genpart.at(i)->Eta - 3.948608) < 1.e-6) ||
-                        (fabs(genpart.at(i)->PT - 11.757812) < 1.e-6 && fabs(genpart.at(i)->Eta - 0.839775) < 1.e-6) ||
-                        (fabs(genpart.at(i)->PT -  7.476562) < 1.e-6 && fabs(genpart.at(i)->Eta - 2.270211) < 1.e-6) ||
-                        (fabs(genpart.at(i)->PT -  7.230469) < 1.e-6 && fabs(genpart.at(i)->Eta + 0.100905) < 1.e-6) ||
-                        (fabs(genpart.at(i)->PT - 10.335938) < 1.e-6 && fabs(genpart.at(i)->Eta - 3.225501) < 1.e-6)){
+                // The hardcoded numbers are to be used with the following sample:
+                // root://cmsxrootd-site.fnal.gov//store/mc/PhaseIITDRFall17MiniAOD/DYJetsToLL_M-10to50_TuneCUETP8M1_14TeV-madgraphMLM-pythia8/MINIAODSIM/PU200_93X_upgrade2023_realistic_v2-v2/20000/90BAA1C7-24C0-E711-9537-3417EBE64B9D.root
+                if (genpart.at(i)->Status != 1){ continue; }
+                if (fabs(genpart.at(i)->PID) != 13){ continue; }
+                // It's a final state muon!
+                double mupt = genpart.at(i)->PT;
+                double mueta = genpart.at(i)->Eta;
+                double muphi = genpart.at(i)->Phi;
+                if (((fabs(mupt-6.882438) < 1.e-3) && (fabs(mueta-1.476477)) < 1.e-3 && (fabs(muphi-0.460743) < 1.e-3)) ||
+                        ((fabs(mupt-6.789154) < 1.e-3) && (fabs(mueta-1.970843)) < 1.e-3 && (fabs(muphi+2.242026) < 1.e-3)) ||
+                        ((fabs(mupt-8.218305) < 1.e-3) && (fabs(mueta-2.705792)) < 1.e-3 && (fabs(muphi-0.584903) < 1.e-3))){
+
+                    //// The hardcoded numbers are to be used with the following sample:
+                    //// root://cmsxrootd.fnal.gov//store/mc/PhaseIITDRFall17MiniAOD/DYJetsToLL_M-10to50_TuneCUETP8M1_14TeV-madgraphMLM-pythia8/MINIAODSIM/PU200_93X_upgrade2023_realistic_v2-v2/150000/02D196DB-60C0-E711-8C46-24BE05CE2D41.root
+                    //if ((fabs(genpart.at(i)->PT -  9.343750) < 1.e-6 && fabs(genpart.at(i)->Eta - 3.948608) < 1.e-6) ||
+                    //        (fabs(genpart.at(i)->PT - 11.757812) < 1.e-6 && fabs(genpart.at(i)->Eta - 0.839775) < 1.e-6) ||
+                    //        (fabs(genpart.at(i)->PT -  7.476562) < 1.e-6 && fabs(genpart.at(i)->Eta - 2.270211) < 1.e-6) ||
+                    //        (fabs(genpart.at(i)->PT -  7.230469) < 1.e-6 && fabs(genpart.at(i)->Eta + 0.100905) < 1.e-6) ||
+                    //        (fabs(genpart.at(i)->PT - 10.335938) < 1.e-6 && fabs(genpart.at(i)->Eta - 3.225501) < 1.e-6))(curly brace; removed to not break vim indenting)
 
                     // Found FullSim truth particle! Event matched!
                     printf("Event by event comparison. Compare event %lld with weight %f:\n", event.at(0)->Number, event.at(0)->Weight);
