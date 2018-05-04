@@ -628,7 +628,7 @@ template <typename T> void SUSY_Upgrade_Skimmer::pppWpidWstatus(const char* text
 }
 
 template <typename T> void SUSY_Upgrade_Skimmer::ppp(const char* text, const size_t idx, const size_t noParticles, const T particle, const int pid, const int status, const char* addText) const {
-    printf("%20s: Idx: %3lu/%3lu; ID: %8d; Status: %3d; pt: %8.3f; eta: %6.3f; phi: %6.3f; %s\n",
+    printf("%20s: Idx: %4lu/%4lu; ID: %8d; Status: %3d; pt: %8.3f; eta: %6.3f; phi: %6.3f; %s\n",
             text, idx, noParticles, pid, status, particle->PT, particle->Eta, particle->Phi, addText);
     fflush(stdout);
 }
@@ -756,7 +756,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                     ppp("Truth jets", i, genjet.size(), genjet.at(i), -1, -1);
                 }
                 // Truth MET
-                printf("%s: Idx: %3d/%3d; ID: %8s; Status: %3s; pt: %8.3f; eta: %6.3f; phi: %6.3f\n",
+                printf("%s: Idx: %4d/%4d; ID: %8s; Status: %3s; pt: %8.3f; eta: %6.3f; phi: %6.3f\n",
                         "Truth MET", 1, 1, "-", "-", genmeth.at(0)->MET, genmeth.at(0)->Eta, genmeth.at(0)->Phi);
 
                 // Reco objects
@@ -784,7 +784,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                     ppp("Reco jets", i, jetpuppi.size(), jetpuppi.at(i), -1, -1);
                 }
                 // Reco MET
-                printf("%20s: Idx: %3d/%3d; ID: %8s; Status: %3s; pt: %8.3f; eta: %6.3f; phi: %6.3f\n",
+                printf("%20s: Idx: %4d/%4d; ID: %8s; Status: %3s; pt: %8.3f; eta: %6.3f; phi: %6.3f\n",
                         "Reco MET", 1, 1, "-", "-", puppimet.at(0)->MET, puppimet.at(0)->Eta, puppimet.at(0)->Phi);
             }
         }
