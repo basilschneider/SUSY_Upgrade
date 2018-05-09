@@ -957,29 +957,28 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             if (elecs.at(i)->PT < el_pt_lo || !isIsolated(elecs.at(i))){ continue; }
             for (size_t j=i+1; j<elecs.size(); ++j){
                 if (elecs.at(j)->PT < el_pt_lo || !isIsolated(elecs.at(j))){ continue; }
-                if (elecs.at(i)->Charge*elecs.at(j)->Charge < 0){
-                    hasSFOS = true;
+                if (elecs.at(i)->Charge*elecs.at(j)->Charge > 0){ continue; }
+                hasSFOS = true;
 
-                    // Mll for soft SFOS
-                    TLorentzVector l1, l2;
-                    l1.SetPtEtaPhiM(elecs.at(i)->PT, elecs.at(i)->Eta, elecs.at(i)->Phi, mass_el);
-                    l2.SetPtEtaPhiM(elecs.at(j)->PT, elecs.at(j)->Eta, elecs.at(j)->Phi, mass_el);
-                    double mll = (l1+l2).M();
-                    if (mllMin.size() == 0){
-                        mllMin.push_back(mll);
-                    }else if (mllMin.at(0) > mll){
-                        mllMin.at(0) = mll;
-                    }
-                    if (mllMax.size() == 0){
-                        mllMax.push_back(mll);
-                    }else if (mllMax.at(0) < mll){
-                        mllMax.at(0) = mll;
-                    }
+                // Mll for soft SFOS
+                TLorentzVector l1, l2;
+                l1.SetPtEtaPhiM(elecs.at(i)->PT, elecs.at(i)->Eta, elecs.at(i)->Phi, mass_el);
+                l2.SetPtEtaPhiM(elecs.at(j)->PT, elecs.at(j)->Eta, elecs.at(j)->Phi, mass_el);
+                double mll = (l1+l2).M();
+                if (mllMin.size() == 0){
+                    mllMin.push_back(mll);
+                }else if (mllMin.at(0) > mll){
+                    mllMin.at(0) = mll;
+                }
+                if (mllMax.size() == 0){
+                    mllMax.push_back(mll);
+                }else if (mllMax.at(0) < mll){
+                    mllMax.at(0) = mll;
+                }
 
-                    // Check if both particles are soft
-                    if (elecs.at(i)->PT < el_pt_hi && elecs.at(j)->PT < el_pt_hi){
-                        hasSoftSFOS = true;
-                    }
+                // Check if both particles are soft
+                if (elecs.at(i)->PT < el_pt_hi && elecs.at(j)->PT < el_pt_hi){
+                    hasSoftSFOS = true;
                 }
             }
         }
@@ -988,28 +987,28 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             if (muontight.at(i)->PT < mu_pt_lo || !isIsolated(muontight.at(i))){ continue; }
             for (size_t j=i+1; j<muontight.size(); ++j){
                 if (muontight.at(j)->PT < mu_pt_lo || !isIsolated(muontight.at(j))){ continue; }
-                if (muontight.at(i)->Charge*muontight.at(j)->Charge < 0){
-                    hasSFOS = true;
-                    // Check if both particles are soft
-                    if (muontight.at(i)->PT < mu_pt_hi && muontight.at(j)->PT < mu_pt_hi){
-                        hasSoftSFOS = true;
+                if (muontight.at(i)->Charge*muontight.at(j)->Charge > 0){ continue; }
+                hasSFOS = true;
 
-                        // Mll for SFOS (only first found pair considered; this could potentially overwrite e+e- Mll)
-                        TLorentzVector l1, l2;
-                        l1.SetPtEtaPhiM(muontight.at(i)->PT, muontight.at(i)->Eta, muontight.at(i)->Phi, mass_mu);
-                        l2.SetPtEtaPhiM(muontight.at(j)->PT, muontight.at(j)->Eta, muontight.at(j)->Phi, mass_mu);
-                        double mll = (l1+l2).M();
-                        if (mllMin.size() == 0){
-                            mllMin.push_back(mll);
-                        }else if (mllMin.at(0) > mll){
-                            mllMin.at(0) = mll;
-                        }
-                        if (mllMax.size() == 0){
-                            mllMax.push_back(mll);
-                        }else if (mllMax.at(0) < mll){
-                            mllMax.at(0) = mll;
-                        }
-                    }
+                // Mll for SFOS (only first found pair considered; this could potentially overwrite e+e- Mll)
+                TLorentzVector l1, l2;
+                l1.SetPtEtaPhiM(muontight.at(i)->PT, muontight.at(i)->Eta, muontight.at(i)->Phi, mass_mu);
+                l2.SetPtEtaPhiM(muontight.at(j)->PT, muontight.at(j)->Eta, muontight.at(j)->Phi, mass_mu);
+                double mll = (l1+l2).M();
+                if (mllMin.size() == 0){
+                    mllMin.push_back(mll);
+                }else if (mllMin.at(0) > mll){
+                    mllMin.at(0) = mll;
+                }
+                if (mllMax.size() == 0){
+                    mllMax.push_back(mll);
+                }else if (mllMax.at(0) < mll){
+                    mllMax.at(0) = mll;
+                }
+
+                // Check if both particles are soft
+                if (muontight.at(i)->PT < mu_pt_hi && muontight.at(j)->PT < mu_pt_hi){
+                    hasSoftSFOS = true;
                 }
             }
         }
