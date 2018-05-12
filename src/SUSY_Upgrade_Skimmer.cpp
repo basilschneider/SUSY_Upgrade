@@ -1095,98 +1095,104 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
             if (!isIsolated(muontight.at(i))){ continue; }
 
-            // Default variables to eventually be changed and filled into vectors
-            bool match = false;
-            bool st20to30 = false;
-            int mother = -999;
+            if (use_full_truth){
+                // Default variables to eventually be changed and filled into vectors
+                bool match = false;
+                bool st20to30 = false;
+                int mother = -999;
 
-            // vector to store *index* of truth matched final state muon and all its ancestors
-            std::vector<unsigned int> fsMu;
+                // vector to store *index* of truth matched final state muon and all its ancestors
+                std::vector<unsigned int> fsMu;
 
-            // If readonly is true, no variables that are written to the output n-tuple are going to be changed;
-            // this is helpful for better understanding an event, without changing the output;
-            // for example, a b-quark is a final particle and what happened before that will not change the output,
-            // but it can still be helpful to further inspect the event
-            bool readonly = false;
+                // If readonly is true, no variables that are written to the output n-tuple are going to be changed;
+                // this is helpful for better understanding an event, without changing the output;
+                // for example, a b-quark is a final particle and what happened before that will not change the output,
+                // but it can still be helpful to further inspect the event
+                bool readonly = false;
 
-            // Absolute values of PDGID's that are considered as final ancestors from muons;
-            // in other words: once one of these ancestors is found, no more ancestors are checked
-            const std::vector<int> mu_mother_final = {4, 5, 2212};
+                // Absolute values of PDGID's that are considered as final ancestors from muons;
+                // in other words: once one of these ancestors is found, no more ancestors are checked
+                const std::vector<int> mu_mother_final = {4, 5, 2212};
 
-            // Check if you can match the muon
-            for (size_t j=0; j<genpart.size(); ++j){
-                if (genpart.at(j)->Status != 1){ continue; }
-                if (fabs(genpart.at(j)->PID) != 13){ continue; }
-                // Truth matching
-                if (isMatched(genpart.at(j), muontight.at(i)->PT, muontight.at(i)->Eta, muontight.at(i)->Phi)){
-                    if (!readonly){ match = true; }
-                    fsMu.push_back(j);
-
-                    if (logdebug){
-                        fprintf(stderr, "Matched with truth muon (pT: %f; eta: %f; phi: %f)\n",
-                                genpart.at(j)->PT, genpart.at(j)->Eta, genpart.at(j)->Phi);
-                    }
-
-                    // Loop through vector until it's empty
-                    while (fsMu.size() > 0){
+                // Check if you can match the muon
+                for (size_t j=0; j<genpart.size(); ++j){
+                    if (genpart.at(j)->Status != 1){ continue; }
+                    if (fabs(genpart.at(j)->PID) != 13){ continue; }
+                    // Truth matching
+                    if (isMatched(genpart.at(j), muontight.at(i)->PT, muontight.at(i)->Eta, muontight.at(i)->Phi)){
+                        if (!readonly){ match = true; }
+                        fsMu.push_back(j);
 
                         if (logdebug){
-                            fprintf(stderr, "Content of muon vector: ");
-                            for (size_t k=0; k<fsMu.size(); ++k){
-                                fprintf(stderr, "%u; ", fsMu[k]);
-                            }
-                            fprintf(stderr, "now inspecting first element: %u (PDGID: %d; Status: %d).\n",
-                                    fsMu[0], genpart.at(fsMu[0])->PID, genpart.at(fsMu[0])->Status);
-                            //fprintf(stderr, "Ancestor of muon: %d.\n", fsMu[0]);
+                            fprintf(stderr, "Matched with truth muon (pT: %f; eta: %f; phi: %f)\n",
+                                    genpart.at(j)->PT, genpart.at(j)->Eta, genpart.at(j)->Phi);
                         }
 
-                        // Check if it is a muon with status between 20 and 30
-                        if (fabs(genpart.at(fsMu[0])->PID) == 13 && genpart.at(fsMu[0])->Status >= 20 && genpart.at(fsMu[0])->Status <= 30){
-                            if (!readonly){ st20to30 = true; }
+                        // Loop through vector until it's empty
+                        while (fsMu.size() > 0){
 
                             if (logdebug){
-                                fprintf(stderr, "Muon with status between 20 and 30 found.\n");
-                            }
-                        }
-
-                        // Check if ancestor of muon is final
-                        if (std::find(mu_mother_final.begin(), mu_mother_final.end(), fabs(genpart.at(fsMu[0])->PID)) != std::end(mu_mother_final)){
-                            if (!readonly){ mother = genpart.at(fsMu[0])->PID; }
-
-                            if (logdebug){
-                                fprintf(stderr, "Found final mother of muon: %d.\n", genpart.at(fsMu[0])->PID);
-                            }
-
-                            if (logdebug){
-                                if (!readonly){
-                                    fprintf(stderr, "Enable read-only mode.\n");
-                                    readonly = true;
+                                fprintf(stderr, "Content of muon vector: ");
+                                for (size_t k=0; k<fsMu.size(); ++k){
+                                    fprintf(stderr, "%u; ", fsMu[k]);
                                 }
-                            }else{
-                                break;
+                                fprintf(stderr, "now inspecting first element: %u (PDGID: %d; Status: %d).\n",
+                                        fsMu[0], genpart.at(fsMu[0])->PID, genpart.at(fsMu[0])->Status);
+                                //fprintf(stderr, "Ancestor of muon: %d.\n", fsMu[0]);
                             }
+
+                            // Check if it is a muon with status between 20 and 30
+                            if (fabs(genpart.at(fsMu[0])->PID) == 13 && genpart.at(fsMu[0])->Status >= 20 && genpart.at(fsMu[0])->Status <= 30){
+                                if (!readonly){ st20to30 = true; }
+
+                                if (logdebug){
+                                    fprintf(stderr, "Muon with status between 20 and 30 found.\n");
+                                }
+                            }
+
+                            // Check if ancestor of muon is final
+                            if (std::find(mu_mother_final.begin(), mu_mother_final.end(), fabs(genpart.at(fsMu[0])->PID)) != std::end(mu_mother_final)){
+                                if (!readonly){ mother = genpart.at(fsMu[0])->PID; }
+
+                                if (logdebug){
+                                    fprintf(stderr, "Found final mother of muon: %d.\n", genpart.at(fsMu[0])->PID);
+                                }
+
+                                if (logdebug){
+                                    if (!readonly){
+                                        fprintf(stderr, "Enable read-only mode.\n");
+                                        readonly = true;
+                                    }
+                                }else{
+                                    break;
+                                }
+                            }
+
+                            // Add mothers from particle to vector (and inspect them
+                            // in the next iteration of the loop
+                            int m1 = genpart.at(fsMu[0])->M1;
+                            int m2 = genpart.at(fsMu[0])->M2;
+                            if (m1 >= 0. && (std::find(fsMu.begin(), fsMu.end(), m1)) == std::end(fsMu)){
+                                fsMu.push_back(m1);
+                            }
+                            if (m2 >= 0. && (std::find(fsMu.begin(), fsMu.end(), m2)) == std::end(fsMu)){
+                                fsMu.push_back(m2);
+                            }
+                            fsMu.erase(fsMu.begin());
                         }
 
-                        // Add mothers from particle to vector (and inspect them
-                        // in the next iteration of the loop
-                        int m1 = genpart.at(fsMu[0])->M1;
-                        int m2 = genpart.at(fsMu[0])->M2;
-                        if (m1 >= 0. && (std::find(fsMu.begin(), fsMu.end(), m1)) == std::end(fsMu)){
-                            fsMu.push_back(m1);
-                        }
-                        if (m2 >= 0. && (std::find(fsMu.begin(), fsMu.end(), m2)) == std::end(fsMu)){
-                            fsMu.push_back(m2);
-                        }
-                        fsMu.erase(fsMu.begin());
+                        // break free from genpart loop, since reco particle has been matched
+                        break;
                     }
-
-                    // break free from genpart loop, since reco particle has been matched
-                    break;
                 }
-            }
 
-            if (logdebug){
-                fprintf(stderr, "Write to output: match: %d; st20to30: %d; mother: %d\n", match, st20to30, mother);
+                if (logdebug){
+                    fprintf(stderr, "Write to output: match: %d; st20to30: %d; mother: %d\n", match, st20to30, mother);
+                }
+
+                mu_matched.push_back(match);
+                mu_st20to30.push_back(st20to30);
+                mu_mother.push_back(mother);
             }
 
             // Fill isolated muons
@@ -1195,9 +1201,6 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             mu_phi.push_back(muontight.at(i)->Phi);
             mu_q.push_back(muontight.at(i)->Charge);
             mu_sumPt.push_back(muontight.at(i)->SumPt);
-            mu_matched.push_back(match);
-            mu_st20to30.push_back(st20to30);
-            mu_mother.push_back(mother);
         }
 
         // Fill truth muons

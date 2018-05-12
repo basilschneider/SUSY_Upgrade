@@ -48,6 +48,7 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         static constexpr bool event_by_event_comparison_primary = false;
         static constexpr bool event_by_event_comparison_secondary = false;
         static constexpr bool dump_genpart = false;
+        static constexpr bool use_full_truth = false;
         static constexpr bool logdebug = false;
 
         // Cut variables
