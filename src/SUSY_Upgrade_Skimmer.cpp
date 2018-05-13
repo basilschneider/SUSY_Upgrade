@@ -1017,6 +1017,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         if (nLep < 2){ continue; }
         if (nSoftLep < 2){ continue; }
         if (!hasSoftSFOS){ continue; }
+        if (met < 300){ continue; }
 
         // Fill electrons
         for (size_t i=0; i<elecs.size(); ++i){
