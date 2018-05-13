@@ -1013,12 +1013,6 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             }
         }
 
-        // Skim
-        if (nLep < 2){ continue; }
-        if (nSoftLep < 2){ continue; }
-        if (!hasSoftSFOS){ continue; }
-        if (met < 300){ continue; }
-
         // Fill electrons
         for (size_t i=0; i<elecs.size(); ++i){
             if (elecs.at(i)->PT < el_pt_lo){ continue; }
@@ -1525,6 +1519,12 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 genht40 += genjet.at(i)->PT;
             }
         }
+
+        // Skim
+        if (nLep < 2){ continue; }
+        if (nSoftLep < 2){ continue; }
+        if (!hasSoftSFOS){ continue; }
+        if (met < 300){ continue; }
 
         // In DYtoLL events, figure out what LL is
         unsigned int n11 = 0;
