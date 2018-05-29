@@ -74,6 +74,10 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         // Electron vectors
         std::vector<double> el_pt, el_eta, el_phi, el_sumPt;
         std::vector<int> el_q;
+        std::vector<bool> el_matched, el_st20to30;
+        std::vector<int> el_mother;
+
+        // Electron vectors before isolation
         std::vector<double> el_woIso_pt, el_woIso_eta, el_woIso_phi, el_woIso_sumPt;
         std::vector<int> el_woIso_q;
 
@@ -87,7 +91,6 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         // Unmatched truth electron vectors
         //std::vector<double> el1_pt_truth, el1_eta_truth, el1_phi_truth, el2_pt_truth, el2_eta_truth, el2_phi_truth;
         //std::vector<int> el1_q_truth, el2_q_truth;
-
 
         // Muon vectors
         std::vector<double> mu_pt, mu_eta, mu_phi, mu_sumPt;

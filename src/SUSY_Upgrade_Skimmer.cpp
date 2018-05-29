@@ -14,6 +14,9 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("el_phi", &el_phi);
     myskim->Branch("el_q", &el_q);
     myskim->Branch("el_sumPt", &el_sumPt);
+    myskim->Branch("el_matched", &el_matched);
+    myskim->Branch("el_st20to30", &el_st20to30);
+    myskim->Branch("el_mother", &el_mother);
     myskim->Branch("el_woIso_pt", &el_woIso_pt);
     myskim->Branch("el_woIso_eta", &el_woIso_eta);
     myskim->Branch("el_woIso_phi", &el_woIso_phi);
@@ -206,6 +209,9 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     el_phi.clear();
     el_q.clear();
     el_sumPt.clear();
+    el_matched.clear();
+    el_st20to30.clear();
+    el_mother.clear();
     el_woIso_pt.clear();
     el_woIso_eta.clear();
     el_woIso_phi.clear();
@@ -1015,8 +1021,15 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
         // Fill electrons
         for (size_t i=0; i<elecs.size(); ++i){
+
+            if (logdebug){
+                fprintf(stderr, "Inspect reco electron (pT: %f; eta: %f; phi: %f) [Electron #%lu of %lu].\n",
+                        elecs.at(i)->PT, elecs.at(i)->Eta, elecs.at(i)->Phi, i+1, elecs.size());
+            }
+
             if (elecs.at(i)->PT < el_pt_lo){ continue; }
 
+            // Fill electron vector ignoring isolation
             el_woIso_pt.push_back(elecs.at(i)->PT);
             el_woIso_eta.push_back(elecs.at(i)->Eta);
             el_woIso_phi.push_back(elecs.at(i)->Phi);
@@ -1025,6 +1038,121 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
             if (!isIsolated(elecs.at(i))){ continue; }
 
+            if (use_full_truth){
+                // Default variables to eventually be changed and filled into vectors
+                bool match = false;
+                bool st20to30 = false;
+                int mother = -999;
+
+                // vector to store *index* of truth matched final state electron and all its ancestors
+                std::vector<unsigned int> fsEl;
+
+                // If readonly is true, no variables that are written to the output n-tuple are going to be changed;
+                // this is helpful for better understanding an event, without changing the output;
+                // for example, a b-quark is a final particle and what happened before that will not change the output,
+                // but it can still be helpful to further inspect the event
+                bool readonly = false;
+
+                // Absolute values of PDGID's that are considered as final ancestors from electrons;
+                // in other words: once one of these ancestors is found, no more ancestors are checked
+                const std::vector<int> el_mother_final = {4, 5, 2212};
+
+                // Check if you can match the electron
+                for (size_t j=0; j<genpart.size(); ++j){
+                    if (genpart.at(j)->Status != 1){ continue; }
+                    if (fabs(genpart.at(j)->PID) != 11){ continue; }
+                    // Truth matching
+                    if (isMatched(genpart.at(j), elecs.at(i)->PT, elecs.at(i)->Eta, elecs.at(i)->Phi)){
+                        if (!readonly){ match = true; }
+                        fsEl.push_back(j);
+
+                        if (logdebug){
+                            fprintf(stderr, "Matched with truth electron (pT: %f; eta: %f; phi: %f)\n",
+                                    genpart.at(j)->PT, genpart.at(j)->Eta, genpart.at(j)->Phi);
+                        }
+
+                        // Loop through vector until it's empty
+                        while (fsEl.size() > 0){
+
+                            if (logdebug){
+                                fprintf(stderr, "Content of electron vector: ");
+                                for (size_t k=0; k<fsEl.size(); ++k){
+                                    fprintf(stderr, "%u; ", fsEl[k]);
+                                }
+                                fprintf(stderr, "now inspecting first element: %u (PDGID: %d; Status: %d).\n",
+                                        fsEl[0], genpart.at(fsEl[0])->PID, genpart.at(fsEl[0])->Status);
+                                //fprintf(stderr, "Ancestor of electron: %d.\n", fsEl[0]);
+                            }
+
+                            // Check if it is a electron with status between 20 and 30
+                            if (fabs(genpart.at(fsEl[0])->PID) == 11 && genpart.at(fsEl[0])->Status >= 20 && genpart.at(fsEl[0])->Status <= 30){
+                                if (!readonly){ st20to30 = true; }
+
+                                if (logdebug){
+                                    fprintf(stderr, "Electron with status between 20 and 30 found.\n");
+                                }
+                            }
+
+                            // Check if ancestor of electron is final
+                            if (std::find(el_mother_final.begin(), el_mother_final.end(), fabs(genpart.at(fsEl[0])->PID)) != std::end(el_mother_final)){
+                                if (!readonly){ mother = genpart.at(fsEl[0])->PID; }
+
+                                if (logdebug){
+                                    fprintf(stderr, "Found final mother of electron: %d.\n", genpart.at(fsEl[0])->PID);
+                                }
+
+                                if (logdebug){
+                                    if (!readonly){
+                                        fprintf(stderr, "Enable read-only mode.\n");
+                                        readonly = true;
+                                    }
+                                }else{
+                                    break;
+                                }
+                            }
+
+                            // Add mothers from particle to vector (and inspect them
+                            // in the next iteration of the loop
+                            int m1 = genpart.at(fsEl[0])->M1;
+                            int m2 = genpart.at(fsEl[0])->M2;
+                            if (m1 >= 0. && (std::find(fsEl.begin(), fsEl.end(), m1)) == std::end(fsEl)){
+                                fsEl.push_back(m1);
+                            }
+                            if (m2 >= 0. && (std::find(fsEl.begin(), fsEl.end(), m2)) == std::end(fsEl)){
+                                fsEl.push_back(m2);
+                            }
+                            fsEl.erase(fsEl.begin());
+                        }
+
+                        // break free from genpart loop, since reco particle has been matched
+                        break;
+                    }
+                }
+
+                if (logdebug){
+                    fprintf(stderr, "Write to output: match: %d; st20to30: %d; mother: %d\n", match, st20to30, mother);
+                }
+
+                el_matched.push_back(match);
+                el_st20to30.push_back(st20to30);
+                el_mother.push_back(mother);
+
+            }else{     // if there is not the full truth table
+                // Check if you can match the electron
+                bool match = false;
+                for (size_t j=0; j<genpart.size(); ++j){
+                    if (genpart.at(j)->Status != 1){ continue; }
+                    if (fabs(genpart.at(j)->PID) != 11){ continue; }
+                    // Truth matching
+                    if (isMatched(genpart.at(j), elecs.at(i)->PT, elecs.at(i)->Eta, elecs.at(i)->Phi)){
+                        match = true;
+                        break;
+                    }
+                }
+                el_matched.push_back(match);
+            }
+
+            // Fill isolated electrons
             el_pt.push_back(elecs.at(i)->PT);
             el_eta.push_back(elecs.at(i)->Eta);
             el_phi.push_back(elecs.at(i)->Phi);
