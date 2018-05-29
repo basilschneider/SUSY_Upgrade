@@ -1535,10 +1535,10 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
 
         // Skim
-        if (nLep < 2){ continue; }
-        if (nSoftLep < 2){ continue; }
-        if (!hasSoftSFOS){ continue; }
-        if (met < 300){ continue; }
+        //if (nLep < 2){ continue; }
+        //if (nSoftLep < 2){ continue; }
+        //if (!hasSoftSFOS){ continue; }
+        //if (met < 300){ continue; }
 
         // In DYtoLL events, figure out what LL is
         unsigned int n11 = 0;
