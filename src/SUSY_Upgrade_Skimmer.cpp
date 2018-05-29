@@ -1188,6 +1188,20 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 mu_matched.push_back(match);
                 mu_st20to30.push_back(st20to30);
                 mu_mother.push_back(mother);
+
+            }else{     // if there is not the full truth table
+                // Check if you can match the muon
+                bool match = false;
+                for (size_t j=0; j<genpart.size(); ++j){
+                    if (genpart.at(j)->Status != 1){ continue; }
+                    if (fabs(genpart.at(j)->PID) != 13){ continue; }
+                    // Truth matching
+                    if (isMatched(genpart.at(j), muontight.at(i)->PT, muontight.at(i)->Eta, muontight.at(i)->Phi)){
+                        match = true;
+                        break;
+                    }
+                }
+                mu_matched.push_back(match);
             }
 
             // Fill isolated muons
