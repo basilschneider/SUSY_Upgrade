@@ -193,12 +193,22 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("crazyMuon50", &crazyMuon50);
     myskim->Branch("crazyMuon200", &crazyMuon200);
     myskim->Branch("crazyMuon500", &crazyMuon500);
+    myskim->Branch("mu_origin_nghbr", &mu_origin_nghbr);
+    myskim->Branch("mu_origin_cone", &mu_origin_cone);
     myskim->Branch("mu_pt5to10_origin_nghbr", &mu_pt5to10_origin_nghbr);
     myskim->Branch("mu_pt5to10_origin_cone", &mu_pt5to10_origin_cone);
     myskim->Branch("mu_pt10to20_origin_nghbr", &mu_pt10to20_origin_nghbr);
     myskim->Branch("mu_pt10to20_origin_cone", &mu_pt10to20_origin_cone);
     myskim->Branch("mu_pt20to30_origin_nghbr", &mu_pt20to30_origin_nghbr);
     myskim->Branch("mu_pt20to30_origin_cone", &mu_pt20to30_origin_cone);
+    myskim->Branch("el_origin_nghbr", &el_origin_nghbr);
+    myskim->Branch("el_origin_cone", &el_origin_cone);
+    myskim->Branch("el_pt5to10_origin_nghbr", &el_pt5to10_origin_nghbr);
+    myskim->Branch("el_pt5to10_origin_cone", &el_pt5to10_origin_cone);
+    myskim->Branch("el_pt10to20_origin_nghbr", &el_pt10to20_origin_nghbr);
+    myskim->Branch("el_pt10to20_origin_cone", &el_pt10to20_origin_cone);
+    myskim->Branch("el_pt20to30_origin_nghbr", &el_pt20to30_origin_nghbr);
+    myskim->Branch("el_pt20to30_origin_cone", &el_pt20to30_origin_cone);
 }
 
 void SUSY_Upgrade_Skimmer::clearVectors(){
@@ -301,12 +311,22 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     mt1.clear();
     mt2.clear();
     pt2l.clear();
+    mu_origin_nghbr.clear();
+    mu_origin_cone.clear();
     mu_pt5to10_origin_nghbr.clear();
     mu_pt5to10_origin_cone.clear();
     mu_pt10to20_origin_nghbr.clear();
     mu_pt10to20_origin_cone.clear();
     mu_pt20to30_origin_nghbr.clear();
     mu_pt20to30_origin_cone.clear();
+    el_origin_nghbr.clear();
+    el_origin_cone.clear();
+    el_pt5to10_origin_nghbr.clear();
+    el_pt5to10_origin_cone.clear();
+    el_pt10to20_origin_nghbr.clear();
+    el_pt10to20_origin_cone.clear();
+    el_pt20to30_origin_nghbr.clear();
+    el_pt20to30_origin_cone.clear();
 }
 
 template <typename T> bool SUSY_Upgrade_Skimmer::isIsolated(const T particle){
@@ -534,14 +554,14 @@ int SUSY_Upgrade_Skimmer::getNghbr(int pid){
     }
 }
 
-double SUSY_Upgrade_Skimmer::coneVeto(double pt, double eta, double phi, d_ana::dBranchHandler<GenParticle>& genpart){
+double SUSY_Upgrade_Skimmer::coneVeto(double pt, double eta, double phi, d_ana::dBranchHandler<GenParticle>& genpart, std::string particle){
 
     int nghbr = 99;
     double drMin = 99.;
     double drHfMin = 99.;
     double drTauMin = 99.;
 
-    double iso = 0.;
+    //double iso = 0.;
 
     const double cone = .9;
 
@@ -554,7 +574,7 @@ double SUSY_Upgrade_Skimmer::coneVeto(double pt, double eta, double phi, d_ana::
 
     for (size_t j=0; j<genpart.size(); ++j){
 
-        // Remove muon itself
+        // Remove lepton itself
         if (isMatched(genpart.at(j), pt, eta, phi)){ continue; }
 
         // Check if this particle has been filled before
@@ -587,29 +607,63 @@ double SUSY_Upgrade_Skimmer::coneVeto(double pt, double eta, double phi, d_ana::
             nghbr = getNghbr(genpart.at(j)->PID);
         }
         if (dr < cone && pt > 5){
+            if (particle == "mu"){
+                mu_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+            }else{
+                el_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+            }
             if (pt < 10){
-                mu_pt5to10_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+                if (particle == "mu"){
+                    mu_pt5to10_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+                }else{
+                    el_pt5to10_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+                }
             }else if (pt < 20){
-                mu_pt10to20_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+                if (particle == "mu"){
+                    mu_pt10to20_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+                }else{
+                    el_pt10to20_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+                }
             }else if (pt < 30){
-                mu_pt20to30_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+                if (particle == "mu"){
+                    mu_pt20to30_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+                }else{
+                    el_pt20to30_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+                }
             }
             filledPid.push_back(genpart.at(j)->PID);
             filledPt.push_back(genpart.at(j)->PT);
             filledEta.push_back(genpart.at(j)->Eta);
             filledPhi.push_back(genpart.at(j)->Phi);
-            iso += genpart.at(j)->PT;
+            //iso += genpart.at(j)->PT;
         }
     }
 
     if (pt > 5){
         if (pt < 10){
-            mu_pt5to10_origin_nghbr.push_back(nghbr);
+            if (particle == "mu"){
+                mu_pt5to10_origin_nghbr.push_back(nghbr);
+            }else{
+                el_pt5to10_origin_nghbr.push_back(nghbr);
+            }
         }else if (pt < 20){
-            mu_pt10to20_origin_nghbr.push_back(nghbr);
+            if (particle == "mu"){
+                mu_pt10to20_origin_nghbr.push_back(nghbr);
+            }else{
+                el_pt10to20_origin_nghbr.push_back(nghbr);
+            }
         }else if (pt < 30){
-            mu_pt20to30_origin_nghbr.push_back(nghbr);
+            if (particle == "mu"){
+                mu_pt20to30_origin_nghbr.push_back(nghbr);
+            }else{
+                el_pt20to30_origin_nghbr.push_back(nghbr);
+            }
         }
+    }
+    if (particle == "mu"){
+        mu_origin_nghbr.push_back(nghbr);
+    }else{
+        el_origin_nghbr.push_back(nghbr);
     }
 
     // Weight to be returned
@@ -1380,11 +1434,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         //}
 
         // Guess origin of leptons
-        for (size_t i=0; i<mu1_pt.size(); ++i){
-            genWeight *= coneVeto(mu1_pt.at(i), mu1_eta.at(i), mu1_phi.at(i), genpart);
+        for (size_t i=0; i<mu_pt.size(); ++i){
+            genWeight *= coneVeto(mu_pt.at(i), mu_eta.at(i), mu_phi.at(i), genpart, "mu");
         }
-        for (size_t i=0; i<mu2_pt.size(); ++i){
-            genWeight *= coneVeto(mu2_pt.at(i), mu2_eta.at(i), mu2_phi.at(i), genpart);
+        for (size_t i=0; i<el_pt.size(); ++i){
+            genWeight *= coneVeto(el_pt.at(i), el_eta.at(i), el_phi.at(i), genpart, "el");
         }
 
         // Fill leptons
