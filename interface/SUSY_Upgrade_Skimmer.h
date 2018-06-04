@@ -66,7 +66,7 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         static constexpr double truth_match_diff_dr = .1;
         static constexpr double wght_tau_veto = 1.;
         static constexpr double wght_hf_veto = 1.;
-        static constexpr double wght_gen_iso = .25;
+        static constexpr double wght_gen_iso = 1.;
 
         // Event variables
         double genWeight, nTot, xs, metSF;
@@ -157,9 +157,9 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         //TH2D* mu1_pt_origin_cone = new TH2D("mu1_pt_origin_cone", "mu1_pt_origin_cone", 6, 0., 30., 5, -.5, 4.5);
         //TH2D* mu2_pt_origin_nghbr = new TH2D("mu2_pt_origin_nghbr", "mu2_pt_origin_nghbr", 6, 0., 30., 5, -.5, 4.5);
         //TH2D* mu2_pt_origin_cone = new TH2D("mu2_pt_origin_cone", "mu2_pt_origin_cone", 6, 0., 30., 5, -.5, 4.5);
-        //std::vector<double> mu_pt5to10_origin_nghbr, mu_pt5to10_origin_cone;
-        //std::vector<double> mu_pt10to20_origin_nghbr, mu_pt10to20_origin_cone;
-        //std::vector<double> mu_pt20to30_origin_nghbr, mu_pt20to30_origin_cone;
+        std::vector<double> mu_pt5to10_origin_nghbr, mu_pt5to10_origin_cone;
+        std::vector<double> mu_pt10to20_origin_nghbr, mu_pt10to20_origin_cone;
+        std::vector<double> mu_pt20to30_origin_nghbr, mu_pt20to30_origin_cone;
 
         // Real lepton efficiency histograms
         TH2D* rle_el_num = new TH2D("rle_el_num", "rle_el_num", 6, 0., 30., 8, 0., 4.);

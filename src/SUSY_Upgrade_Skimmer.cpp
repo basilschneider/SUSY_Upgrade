@@ -193,12 +193,12 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("crazyMuon50", &crazyMuon50);
     myskim->Branch("crazyMuon200", &crazyMuon200);
     myskim->Branch("crazyMuon500", &crazyMuon500);
-    //myskim->Branch("mu_pt5to10_origin_nghbr", &mu_pt5to10_origin_nghbr);
-    //myskim->Branch("mu_pt5to10_origin_cone", &mu_pt5to10_origin_cone);
-    //myskim->Branch("mu_pt10to20_origin_nghbr", &mu_pt10to20_origin_nghbr);
-    //myskim->Branch("mu_pt10to20_origin_cone", &mu_pt10to20_origin_cone);
-    //myskim->Branch("mu_pt20to30_origin_nghbr", &mu_pt20to30_origin_nghbr);
-    //myskim->Branch("mu_pt20to30_origin_cone", &mu_pt20to30_origin_cone);
+    myskim->Branch("mu_pt5to10_origin_nghbr", &mu_pt5to10_origin_nghbr);
+    myskim->Branch("mu_pt5to10_origin_cone", &mu_pt5to10_origin_cone);
+    myskim->Branch("mu_pt10to20_origin_nghbr", &mu_pt10to20_origin_nghbr);
+    myskim->Branch("mu_pt10to20_origin_cone", &mu_pt10to20_origin_cone);
+    myskim->Branch("mu_pt20to30_origin_nghbr", &mu_pt20to30_origin_nghbr);
+    myskim->Branch("mu_pt20to30_origin_cone", &mu_pt20to30_origin_cone);
 }
 
 void SUSY_Upgrade_Skimmer::clearVectors(){
@@ -301,12 +301,12 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     mt1.clear();
     mt2.clear();
     pt2l.clear();
-    //mu_pt5to10_origin_nghbr.clear();
-    //mu_pt5to10_origin_cone.clear();
-    //mu_pt10to20_origin_nghbr.clear();
-    //mu_pt10to20_origin_cone.clear();
-    //mu_pt20to30_origin_nghbr.clear();
-    //mu_pt20to30_origin_cone.clear();
+    mu_pt5to10_origin_nghbr.clear();
+    mu_pt5to10_origin_cone.clear();
+    mu_pt10to20_origin_nghbr.clear();
+    mu_pt10to20_origin_cone.clear();
+    mu_pt20to30_origin_nghbr.clear();
+    mu_pt20to30_origin_cone.clear();
 }
 
 template <typename T> bool SUSY_Upgrade_Skimmer::isIsolated(const T particle){
@@ -534,99 +534,99 @@ int SUSY_Upgrade_Skimmer::getNghbr(int pid){
     }
 }
 
-//double SUSY_Upgrade_Skimmer::coneVeto(double pt, double eta, double phi, d_ana::dBranchHandler<GenParticle>& genpart){
-//
-//    int nghbr = 99;
-//    double drMin = 99.;
-//    double drHfMin = 99.;
-//    double drTauMin = 99.;
-//
-//    double iso = 0.;
-//
-//    const double cone = .9;
-//
-//    // Vectors with particles that have already been filled
-//    // These are used to not fill the same particle twice
-//    std::vector<int> filledPid;
-//    std::vector<double> filledPt;
-//    std::vector<double> filledEta;
-//    std::vector<double> filledPhi;
-//
-//    for (size_t j=0; j<genpart.size(); ++j){
-//
-//        // Remove muon itself
-//        if (isMatched(genpart.at(j), pt, eta, phi)){ continue; }
-//
-//        // Check if this particle has been filled before
-//        // This needs to be checked since similar copies of truth
-//        // particles are stored
-//        bool skipParticle = false;
-//        for (size_t k=0; k<filledPid.size(); ++k){
-//            // PID needs to be the same and the particles need to match
-//            if ((genpart.at(j)->PID == filledPid.at(k)) && isMatched(genpart.at(j), filledPt.at(k), filledEta.at(k), filledPhi.at(k))){
-//                skipParticle = true;
-//                break;
-//            }
-//        }
-//        if (skipParticle){ continue; }
-//
-//        double dr = DeltaR(eta, genpart.at(j)->Eta, phi, genpart.at(j)->Phi);
-//
-//        // Check b's
-//        if ((fabs(genpart.at(j)->PID) == 4 || fabs(genpart.at(j)->PID == 5)) && dr < drHfMin){
-//            drHfMin = dr;
-//        }
-//
-//        // Check taus
-//        if (fabs(genpart.at(j)->PID) == 15 && dr < drTauMin){
-//            drTauMin = dr;
-//        }
-//
-//        if (dr < drMin){
-//            drMin = dr;
-//            nghbr = getNghbr(genpart.at(j)->PID);
-//        }
-//        if (dr < cone && pt > 5){
-//            if (pt < 10){
-//                mu_pt5to10_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
-//            }else if (pt < 20){
-//                mu_pt10to20_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
-//            }else if (pt < 30){
-//                mu_pt20to30_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
-//            }
-//            filledPid.push_back(genpart.at(j)->PID);
-//            filledPt.push_back(genpart.at(j)->PT);
-//            filledEta.push_back(genpart.at(j)->Eta);
-//            filledPhi.push_back(genpart.at(j)->Phi);
-//            iso += genpart.at(j)->PT;
-//        }
-//    }
-//
-//    if (pt > 5){
-//        if (pt < 10){
-//            mu_pt5to10_origin_nghbr.push_back(nghbr);
-//        }else if (pt < 20){
-//            mu_pt10to20_origin_nghbr.push_back(nghbr);
-//        }else if (pt < 30){
-//            mu_pt20to30_origin_nghbr.push_back(nghbr);
-//        }
-//    }
-//
-//    // Weight to be returned
-//    // Here I finally sell my scientific soul to the gods of publish or perish
-//    //double wght = 1./(1. + wght_gen_iso*iso/pt);
-//    // Or maybe not?
-//    double wght = 1.;
-//    if (drHfMin > cone && drTauMin > cone){
-//        ;
-//    }else if (drHfMin < drTauMin){
-//        wght *= wght_hf_veto;
-//    }else{
-//        wght *= wght_tau_veto;
-//    }
-//
-//    return wght;
-//}
+double SUSY_Upgrade_Skimmer::coneVeto(double pt, double eta, double phi, d_ana::dBranchHandler<GenParticle>& genpart){
+
+    int nghbr = 99;
+    double drMin = 99.;
+    double drHfMin = 99.;
+    double drTauMin = 99.;
+
+    double iso = 0.;
+
+    const double cone = .9;
+
+    // Vectors with particles that have already been filled
+    // These are used to not fill the same particle twice
+    std::vector<int> filledPid;
+    std::vector<double> filledPt;
+    std::vector<double> filledEta;
+    std::vector<double> filledPhi;
+
+    for (size_t j=0; j<genpart.size(); ++j){
+
+        // Remove muon itself
+        if (isMatched(genpart.at(j), pt, eta, phi)){ continue; }
+
+        // Check if this particle has been filled before
+        // This needs to be checked since similar copies of truth
+        // particles are stored
+        bool skipParticle = false;
+        for (size_t k=0; k<filledPid.size(); ++k){
+            // PID needs to be the same and the particles need to match
+            if ((genpart.at(j)->PID == filledPid.at(k)) && isMatched(genpart.at(j), filledPt.at(k), filledEta.at(k), filledPhi.at(k))){
+                skipParticle = true;
+                break;
+            }
+        }
+        if (skipParticle){ continue; }
+
+        double dr = DeltaR(eta, genpart.at(j)->Eta, phi, genpart.at(j)->Phi);
+
+        // Check b's
+        if ((fabs(genpart.at(j)->PID) == 4 || fabs(genpart.at(j)->PID == 5)) && dr < drHfMin){
+            drHfMin = dr;
+        }
+
+        // Check taus
+        if (fabs(genpart.at(j)->PID) == 15 && dr < drTauMin){
+            drTauMin = dr;
+        }
+
+        if (dr < drMin){
+            drMin = dr;
+            nghbr = getNghbr(genpart.at(j)->PID);
+        }
+        if (dr < cone && pt > 5){
+            if (pt < 10){
+                mu_pt5to10_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+            }else if (pt < 20){
+                mu_pt10to20_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+            }else if (pt < 30){
+                mu_pt20to30_origin_cone.push_back(getNghbr(genpart.at(j)->PID));
+            }
+            filledPid.push_back(genpart.at(j)->PID);
+            filledPt.push_back(genpart.at(j)->PT);
+            filledEta.push_back(genpart.at(j)->Eta);
+            filledPhi.push_back(genpart.at(j)->Phi);
+            iso += genpart.at(j)->PT;
+        }
+    }
+
+    if (pt > 5){
+        if (pt < 10){
+            mu_pt5to10_origin_nghbr.push_back(nghbr);
+        }else if (pt < 20){
+            mu_pt10to20_origin_nghbr.push_back(nghbr);
+        }else if (pt < 30){
+            mu_pt20to30_origin_nghbr.push_back(nghbr);
+        }
+    }
+
+    // Weight to be returned
+    // Here I finally sell my scientific soul to the gods of publish or perish
+    //double wght = 1./(1. + wght_gen_iso*iso/pt);
+    // Or maybe not?
+    double wght = 1.;
+    if (drHfMin > cone && drTauMin > cone){
+        ;
+    }else if (drHfMin < drTauMin){
+        wght *= wght_hf_veto;
+    }else{
+        wght *= wght_tau_veto;
+    }
+
+    return wght;
+}
 
 // Print properties of particle
 template <typename T> void SUSY_Upgrade_Skimmer::pppWpidWstatus(const char* text, const size_t idx, const size_t noParticles, const T particle, const char* addText) const {
@@ -1379,13 +1379,13 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         //    }
         //}
 
-        //// Guess origin of leptons
-        //for (size_t i=0; i<mu1_pt.size(); ++i){
-        //    genWeight *= coneVeto(mu1_pt.at(i), mu1_eta.at(i), mu1_phi.at(i), genpart);
-        //}
-        //for (size_t i=0; i<mu2_pt.size(); ++i){
-        //    genWeight *= coneVeto(mu2_pt.at(i), mu2_eta.at(i), mu2_phi.at(i), genpart);
-        //}
+        // Guess origin of leptons
+        for (size_t i=0; i<mu1_pt.size(); ++i){
+            genWeight *= coneVeto(mu1_pt.at(i), mu1_eta.at(i), mu1_phi.at(i), genpart);
+        }
+        for (size_t i=0; i<mu2_pt.size(); ++i){
+            genWeight *= coneVeto(mu2_pt.at(i), mu2_eta.at(i), mu2_phi.at(i), genpart);
+        }
 
         // Fill leptons
         // Put pT and eta into vector of vector for simultaneous sorting
@@ -1667,6 +1667,51 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         //if (nSoftLep < 2){ continue; }
         //if (!hasSoftSFOS){ continue; }
         //if (met < 300){ continue; }
+
+        //// W+jets mu CR
+
+        //if (nMu != 2){ continue; }
+        //if (mu_q[0] != mu_q[1]){ continue; }
+        //if (mu_pt[1] < 5){ continue; }
+
+        //bool match1 = false;
+        //bool match2 = false;
+
+        //// Check if you can match the muon
+        //for (size_t i=0; i<genpart.size(); ++i){
+
+        //    if (genpart.at(i)->Status != 1){ continue; }
+        //    if (fabs(genpart.at(i)->PID) != 13){ continue; }
+
+        //    std::cout << "N: " << i
+        //        << ", St: " << genpart.at(i)->Status
+        //        << ", PID: " << genpart.at(i)->PID
+        //        << ", E: " << genpart.at(i)->E
+        //        << ", Pt: " << genpart.at(i)->PT
+        //        << ", Eta: " << genpart.at(i)->Eta
+        //        << ", Phi: " << genpart.at(i)->Phi
+        //        << ", Px: " << genpart.at(i)->Px
+        //        << ", Py: " << genpart.at(i)->Py
+        //        << ", Pz: " << genpart.at(i)->Pz
+        //        << ", M: " << genpart.at(i)->Mass
+        //        << ", M1: " << genpart.at(i)->M1
+        //        << ", M2: " << genpart.at(i)->M2
+        //        << ", D1: " << genpart.at(i)->D1
+        //        << ", D2: " << genpart.at(i)->D2 << std::endl;
+
+        //    // Truth matching
+        //    if (isMatched(genpart.at(i), mu_pt[0], mu_eta[0], mu_phi[0])){
+        //        match1 = true;
+        //    }
+        //    if (isMatched(genpart.at(i), mu_pt[1], mu_eta[1], mu_phi[1])){
+        //        match2 = true;
+        //    }
+        //}
+
+        //printf("WJCR: mu1_pt: %6.3f; mu2_pt: %6.3f; mu1_eta: %6.3f; mu2_eta: %6.3f; mu1_phi: %6.3f; mu2_phi: %6.3f; match1: %d; match2: %d\n",
+        //        mu_pt[0], mu_pt[1], mu_eta[0], mu_eta[1], mu_phi[0], mu_phi[1], match1, match2);
+
+        //// W+jets mu CR
 
         // In DYtoLL events, figure out what LL is
         unsigned int n11 = 0;
