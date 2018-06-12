@@ -890,29 +890,9 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         effOnTopMuon(muontight);
 
         // Cutflow variables
-        nLep = nEl = nMu = 0;
-        nSoftLep = nSoftEl = nSoftMu = 0;
         nBJet = 0;
         nW = nZ = 0;
         nJet25 = nJet40 = nJet60 = nJet100 = nJet150 = 0;
-        for (size_t i=0; i<elecs.size(); ++i){
-            if (elecs.at(i)->PT < el_pt_lo || !isIsolated(elecs.at(i))){ continue; }
-            nLep++;
-            nEl++;
-            if (elecs.at(i)->PT < el_pt_hi){
-                nSoftLep++;
-                nSoftEl++;
-            }
-        }
-        for (size_t i=0; i<muontight.size(); ++i){
-            if (muontight.at(i)->PT < mu_pt_lo || !isIsolated(muontight.at(i))){ continue; }
-            nLep++;
-            nMu++;
-            if (muontight.at(i)->PT < mu_pt_hi){
-                nSoftLep++;
-                nSoftMu++;
-            }
-        }
         for (size_t i=0; i<jetpuppi.size(); ++i){
             if (isOverlap(jetpuppi.at(i), elecs, muontight)){ continue; }
             if (jetpuppi.at(i)->PT > jet_pt_lo){
@@ -1073,6 +1053,9 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             }
         }
 
+        nLep = nEl = nMu = 0;
+        nSoftLep = nSoftEl = nSoftMu = 0;
+
         // Fill electrons
         for (size_t i=0; i<elecs.size(); ++i){
 
@@ -1203,10 +1186,17 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                         break;
                     }
                 }
-                el_matched.push_back(match);
+                if (!match){ continue; }
             }
 
-            // Fill isolated electrons
+            nLep++;
+            nEl++;
+            if (elecs.at(i)->PT < el_pt_hi){
+                nSoftLep++;
+                nSoftEl++;
+            }
+
+            // Fill isolated and matched electrons
             el_pt.push_back(elecs.at(i)->PT);
             el_eta.push_back(elecs.at(i)->Eta);
             el_phi.push_back(elecs.at(i)->Phi);
@@ -1383,10 +1373,17 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                         break;
                     }
                 }
-                mu_matched.push_back(match);
+                if (!match){ continue; }
             }
 
-            // Fill isolated muons
+            nLep++;
+            nMu++;
+            if (muontight.at(i)->PT < mu_pt_hi){
+                nSoftLep++;
+                nSoftMu++;
+            }
+
+            // Fill isolated and matched muons
             mu_pt.push_back(muontight.at(i)->PT);
             mu_eta.push_back(muontight.at(i)->Eta);
             mu_phi.push_back(muontight.at(i)->Phi);
