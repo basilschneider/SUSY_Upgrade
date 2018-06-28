@@ -759,6 +759,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 mN2 = genpart.at(i)->Mass;
                 break;
             }
+            susy_masses->Fill(mN2, mN1);
         }
 
         //// If there is a tau in the event, skip the event 50 % of the time
@@ -1856,6 +1857,8 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     //mu1_pt_origin_cone->Write();
     //mu2_pt_origin_nghbr->Write();
     //mu2_pt_origin_cone->Write();
+
+    susy_masses->Write();
 
     if (fill_rle){
         rle_el_num->Write();

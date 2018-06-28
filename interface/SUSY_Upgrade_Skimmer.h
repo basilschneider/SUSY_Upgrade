@@ -73,6 +73,7 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
 
         // Signal variables
         double mN1, mN2;
+        TH2D* susy_masses = new TH2D("susy_masses", "susy_masses", 401, -1.25, 1001.25, 401, -1.25, 1001.25);
 
         // Electron vectors
         std::vector<double> el_pt, el_eta, el_phi, el_sumPt;
