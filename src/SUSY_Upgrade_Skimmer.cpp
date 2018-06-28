@@ -1736,7 +1736,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         if (nLep < 2){ continue; }
         if (nSoftLep < 2){ continue; }
         if (!hasSoftSFOS){ continue; }
-        if (met < 200){ continue; }
+        if (met < 200 && mhlt25 < 200){ continue; }
 
         //// W+jets mu CR
 
