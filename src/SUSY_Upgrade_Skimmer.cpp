@@ -8,6 +8,10 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("xs", &xs);
     myskim->Branch("metSF", &metSF);
 
+    // Signal variables
+    myskim->Branch("mN1", &mN1);
+    myskim->Branch("mN2", &mN2);
+
     // Electron vectors
     myskim->Branch("el_pt", &el_pt);
     myskim->Branch("el_eta", &el_eta);
@@ -741,6 +745,21 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
         nTot = (getXsec()*3000.)/getNorm();
         xs = getXsec();
+
+        // Fill SUSY masses
+        mN1 = mN2 = -1.;
+        if (getSampleFile()(0, 16) == "SMS-TChiWZ_ZToLL"){
+            for (size_t i=0; i<genpart.size(); ++i){
+                if (fabs(genpart.at(i)->PID) != 1000022){ continue; }
+                mN1 = genpart.at(i)->Mass;
+                break;
+            }
+            for (size_t i=0; i<genpart.size(); ++i){
+                if (fabs(genpart.at(i)->PID) != 1000023){ continue; }
+                mN2 = genpart.at(i)->Mass;
+                break;
+            }
+        }
 
         //// If there is a tau in the event, skip the event 50 % of the time
         //// This mimics a tau veto, which cannot be implemented in Delphes

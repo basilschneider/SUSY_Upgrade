@@ -1,0 +1,19 @@
+[config-begin]
+
+    Outputdir = /uscms/home/bschneid/analysis/upgrade/DAF/production/production999/
+    Outputfile = outputfile.root
+
+    Samplesdir = root://cmseos.fnal.gov//store/user/snowmass/noreplica/YR_Delphes/Delphes342pre14/
+
+    Lumi       = 3000
+    Testmode   = true
+    Maxchilds  = 23
+    RunOnOutputOnly = false
+
+[config-end]
+
+[inputfiles-begin]
+
+$SMS-TChiWZ_ZToLL_mZMin-0p1_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/ , TChiWZ_Delphes_v10 , 616 , 1. , 1 , 1 , true
+
+[inputfiles-end]

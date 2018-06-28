@@ -17,6 +17,6 @@ rm run.out
 ##./SUSY_Upgrade_Skimmer config/configSkimmer_v342pre07.txt 2>&1 | tee -a run.out
 #./SUSY_Upgrade_Skimmer config/configSkimmer_v342pre07_run2_DY.txt 2>&1 | tee -a run.out
 #./SUSY_Upgrade_Skimmer config/configSkimmer_v342pre07_run2_Wj.txt 2>&1 | tee -a run.out
-#./SUSY_Upgrade_Skimmer config/configSkimmer_v342pre07_signal.txt 2>&1 | tee -a run.out
+#./SUSY_Upgrade_Skimmer config/configSkimmer_v342pre15_signal.txt 2>&1 | tee -a run.out
 
 ./SUSY_Upgrade_Skimmer config/configSkimmer_v342pre07_test.txt 2>&1 | tee -a run.out

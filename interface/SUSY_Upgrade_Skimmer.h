@@ -71,6 +71,9 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         // Event variables
         double genWeight, nTot, xs, metSF;
 
+        // Signal variables
+        double mN1, mN2;
+
         // Electron vectors
         std::vector<double> el_pt, el_eta, el_phi, el_sumPt;
         std::vector<int> el_q;
