@@ -6,7 +6,7 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("genWeight", &genWeight);
     myskim->Branch("nTot", &nTot);
     myskim->Branch("xs", &xs);
-    myskim->Branch("metSF", &metSF);
+    //myskim->Branch("metSF", &metSF);
 
     // Signal variables
     myskim->Branch("mN1", &mN1);
@@ -1816,25 +1816,25 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         // Crazy muon filters (not used, for compatibility with FS)
         crazyMuon50 = crazyMuon200 = crazyMuon500 = false;
 
-        // MET HT scale factors
-        {
-            TFile* fSF = new TFile("sf/met_ht_fs.root");
-            TH1D* hSF = nullptr;
-            if (getSampleFile()(0, 6) == "tt-4p-"){
-                hSF = (TH1D*)fSF->Get("sf_met_ht200_coarse_varbin_tt_ratio");
-            }else if (getSampleFile()(0, 10) == "DYJetsToLL"){
-                hSF = (TH1D*)fSF->Get("sf_met_ht200_coarse_varbin_DY2_ratio");
-            }else if (getSampleFile()(0, 10) == "WJetsToLNu"){
-                hSF = (TH1D*)fSF->Get("sf_met_ht200_coarse_varbin_Wj2_ratio");
-            }else if (getSampleFile()(0, 9) == "TChiWZOff"){
-                hSF = (TH1D*)fSF->Get("sf_met_ht200_coarse_varbin_TChiWZ_400_375_Delphes_v09_ratio");
-            }
-            metSF = 1.;
-            if (hSF){
-                metSF = hSF->GetBinContent(hSF->FindBin(met));
-            }
-            fSF->Close();
-        }
+        //// MET HT scale factors
+        //{
+        //    TFile* fSF = new TFile("sf/met_ht_fs.root");
+        //    TH1D* hSF = nullptr;
+        //    if (getSampleFile()(0, 6) == "tt-4p-"){
+        //        hSF = (TH1D*)fSF->Get("sf_met_ht200_coarse_varbin_tt_ratio");
+        //    }else if (getSampleFile()(0, 10) == "DYJetsToLL"){
+        //        hSF = (TH1D*)fSF->Get("sf_met_ht200_coarse_varbin_DY2_ratio");
+        //    }else if (getSampleFile()(0, 10) == "WJetsToLNu"){
+        //        hSF = (TH1D*)fSF->Get("sf_met_ht200_coarse_varbin_Wj2_ratio");
+        //    }else if (getSampleFile()(0, 9) == "TChiWZOff"){
+        //        hSF = (TH1D*)fSF->Get("sf_met_ht200_coarse_varbin_TChiWZ_400_375_Delphes_v09_ratio");
+        //    }
+        //    metSF = 1.;
+        //    if (hSF){
+        //        metSF = hSF->GetBinContent(hSF->FindBin(met));
+        //    }
+        //    fSF->Close();
+        //}
 
         // Transverse mass of leading two leptons
         if (lep_pt.size() >= 1){

@@ -69,7 +69,7 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         static constexpr double wght_gen_iso = 1.;
 
         // Event variables
-        double genWeight, nTot, xs, metSF;
+        double genWeight, nTot, xs;
 
         // Signal variables
         double mN1, mN2;

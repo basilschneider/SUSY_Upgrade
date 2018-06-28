@@ -6,7 +6,7 @@
     Samplesdir = root://cmseos.fnal.gov//store/user/snowmass/noreplica/YR_Delphes/Delphes342pre14/
 
     Lumi       = 3000
-    Testmode   = true
+    Testmode   = false
     Maxchilds  = 23
     RunOnOutputOnly = false
 
