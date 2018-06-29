@@ -14,6 +14,6 @@
 
 [inputfiles-begin]
 
-$SMS-TChiWZ_ZToLL_mZMin-0p1_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/ , TChiWZ_Delphes_v10 , 616 , 1. , 1 , 1 , true
+$SMS-TChiWZ_ZToLL_mZMin-0p1_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/ , TChiWZ_Delphes_v10 , 616 , 1 , 22309905 , 1 , true
 
 [inputfiles-end]
