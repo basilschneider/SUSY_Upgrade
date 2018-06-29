@@ -748,7 +748,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
         // Fill SUSY masses
         mN1 = mN2 = -1.;
-        if (getSampleFile()(0, 16) == "SMS-TChiWZ_ZToLL"){
+        if (std::string(getSampleFile()).find("SMS-TChiWZ_ZToLL") != std::string::npos){
             for (size_t i=0; i<genpart.size(); ++i){
                 if (fabs(genpart.at(i)->PID) != 1000022){ continue; }
                 mN1 = genpart.at(i)->Mass;
