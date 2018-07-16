@@ -7,7 +7,8 @@
     $Samplesdir = root://cmseos.fnal.gov//store/user/snowmass/noreplica/LHEGEN_SMbackgrounds/Delphes342pre07_hadd/
     $Samplesdir = root://cmseos.fnal.gov//store/user/bschneid/analysis/delphes/test02/
     $Samplesdir = root://cmseos.fnal.gov//store/user/bschneid/analysis/delphes/delphes_v342pre12_full-gen-info-validation/
-    Samplesdir = root://cmseos.fnal.gov//store/user/snowmass/noreplica/DelphesFromLHE_342pre05hadd_2017Aug/
+    $Samplesdir = root://cmseos.fnal.gov//store/user/snowmass/noreplica/DelphesFromLHE_342pre05hadd_2017Aug/
+    Samplesdir = root://cmseos.fnal.gov//store/user/snowmass/noreplica/YR_Delphes/Delphes342pre14/
 
     Lumi       = 3000
     Testmode   = true
@@ -24,6 +25,7 @@ $DYJetsToLL_M-10to50_TuneCUETP8M1_14TeV-madgraphMLM-pythia8_200PU/             ,
 $WToLNu_2J_14TeV-madgraphMLM-pythia8_200PU/                                    , WToLNu_2J_200PU              , 820 , 1 , 21322007 , 1 , false
 $DYJetsToLL_M-10to50_TuneCUETP8M1_14TeV-madgraphMLM-pythia8_200PU/DYJetsToLL_M-10to50_TuneCUETP8M1_14TeV-madgraphMLM-pythia8_1.root              , DYToLL_M-10to50        , 820 , 1 , auto , 1 , false
 $DYJetsToLL_M-10to50_TuneCUETP8M1_14TeV-madgraphMLM-pythia8_200PU_haddfew/DYJetsToLL_M-10to50_TuneCUETP8M1_14TeV-madgraphMLM-pythia8_1to15.root              , DYToLL_M-10to50        , 820 , 1 , auto , 1 , false
-tt-4p-0-600-v1510_14TEV_200PU/             , tt_ST0to600_200PU               , 801 ,    530893.58 ,  6606111 , 1 , false
+$tt-4p-0-600-v1510_14TEV_200PU/             , tt_ST0to600_200PU               , 801 ,    530893.58 ,  6606111 , 1 , false
+SMS-TChiWZ_ZToLL_mZMin-0p1_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/ , TChiWZ_Delphes_v10 , 616 , 1 , 22309905 , 1 , true
 
 [inputfiles-end]
