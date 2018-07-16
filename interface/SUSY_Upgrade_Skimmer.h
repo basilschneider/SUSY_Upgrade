@@ -137,19 +137,23 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         // MET variables
         double met, met_eta, met_phi;
         //double mht, mht_eta, mht_phi;
-        double mht25, mht40, mht60, mht100, mht150;
+        double mht25, mht40, mht50, mht60, mht100, mht150;
         double mlt, mlt_eta, mlt_phi;
         double mhlt25, mhlt25_eta, mhlt25_phi;
         double mhlt40, mhlt40_eta, mhlt40_phi;
+        double mhlt50, mhlt50_eta, mhlt50_phi;
+        double mhlt60, mhlt60_eta, mhlt60_phi;
+        double mhlt100, mhlt100_eta, mhlt100_phi;
+        double mhlt150, mhlt150_eta, mhlt150_phi;
         double PFmet, PFmet_eta, PFmet_phi;
         double genmet, genmet_eta, genmet_phi;
         double genpumet, genpumet_eta, genpumet_phi;
 
         // Other variables
         int nLep, nEl, nMu, nSoftLep, nSoftEl, nSoftMu, nBJet, nW, nZ;
-        int nJet25, nJet40, nJet60, nJet100, nJet150;
+        int nJet25, nJet40, nJet50, nJet60, nJet100, nJet150;
         //int nLep_truth;
-        double ht25, ht40, ht60, ht100, ht150;
+        double ht25, ht40, ht50, ht60, ht100, ht150;
         double genht25, genht40;
         bool hasSFOS, hasSoftSFOS, hasSFOS_truth, hasSoftSFOS_truth;
         std::vector<double> mllMin, mllMax, mt1, mt2, pt2l;

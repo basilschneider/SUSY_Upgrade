@@ -139,6 +139,7 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     //myskim->Branch("mht_phi", &mht_phi);
     myskim->Branch("mht25", &mht25);
     myskim->Branch("mht40", &mht40);
+    myskim->Branch("mht50", &mht50);
     myskim->Branch("mht60", &mht60);
     myskim->Branch("mht100", &mht100);
     myskim->Branch("mht150", &mht150);
@@ -151,6 +152,18 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("mhlt40", &mhlt40);
     myskim->Branch("mhlt40_eta", &mhlt40_eta);
     myskim->Branch("mhlt40_phi", &mhlt40_phi);
+    myskim->Branch("mhlt50", &mhlt50);
+    myskim->Branch("mhlt50_eta", &mhlt50_eta);
+    myskim->Branch("mhlt50_phi", &mhlt50_phi);
+    myskim->Branch("mhlt60", &mhlt60);
+    myskim->Branch("mhlt60_eta", &mhlt60_eta);
+    myskim->Branch("mhlt60_phi", &mhlt60_phi);
+    myskim->Branch("mhlt100", &mhlt100);
+    myskim->Branch("mhlt100_eta", &mhlt100_eta);
+    myskim->Branch("mhlt100_phi", &mhlt100_phi);
+    myskim->Branch("mhlt150", &mhlt150);
+    myskim->Branch("mhlt150_eta", &mhlt150_eta);
+    myskim->Branch("mhlt150_phi", &mhlt150_phi);
     myskim->Branch("PFmet", &PFmet);
     myskim->Branch("PFmet_eta", &PFmet_eta);
     myskim->Branch("PFmet_phi", &PFmet_phi);
@@ -174,11 +187,13 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("nZ", &nZ);
     myskim->Branch("nJet25", &nJet25);
     myskim->Branch("nJet40", &nJet40);
+    myskim->Branch("nJet50", &nJet50);
     myskim->Branch("nJet60", &nJet60);
     myskim->Branch("nJet100", &nJet100);
     myskim->Branch("nJet150", &nJet150);
     myskim->Branch("ht25", &ht25);
     myskim->Branch("ht40", &ht40);
+    myskim->Branch("ht50", &ht50);
     myskim->Branch("ht60", &ht60);
     myskim->Branch("ht100", &ht100);
     myskim->Branch("ht150", &ht150);
@@ -912,7 +927,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         // Cutflow variables
         nBJet = 0;
         nW = nZ = 0;
-        nJet25 = nJet40 = nJet60 = nJet100 = nJet150 = 0;
+        nJet25 = nJet40 = nJet50 = nJet60 = nJet100 = nJet150 = 0;
         for (size_t i=0; i<jetpuppi.size(); ++i){
             if (isOverlap(jetpuppi.at(i), elecs, muontight)){ continue; }
             if (jetpuppi.at(i)->PT > jet_pt_lo){
@@ -920,6 +935,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             }
             if (jetpuppi.at(i)->PT > 25.){ nJet25++; }
             if (jetpuppi.at(i)->PT > 40.){ nJet40++; }
+            if (jetpuppi.at(i)->PT > 50.){ nJet50++; }
             if (jetpuppi.at(i)->PT > 60.){ nJet60++; }
             if (jetpuppi.at(i)->PT > 100.){ nJet100++; }
             if (jetpuppi.at(i)->PT > 150.){ nJet150++; }
@@ -1667,8 +1683,8 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
         //// Fill poor man's MET
         TLorentzVector mlt4;
-        TLorentzVector mht4v25, mht4v40, mht4v60, mht4v100, mht4v150;
-        TLorentzVector mhlt4v25, mhlt4v40;
+        TLorentzVector mht4v25, mht4v40, mht4v50, mht4v60, mht4v100, mht4v150;
+        TLorentzVector mhlt4v25, mhlt4v40, mhlt4v50, mhlt4v60, mhlt4v100, mhlt4v150;
         for (size_t i=0; i<muontight.size(); ++i){
             if (muontight.at(i)->PT < mu_pt_lo || !isIsolated(muontight.at(i))){ continue; }
             TLorentzVector m4;
@@ -1676,6 +1692,10 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             mlt4 += m4;
             mhlt4v25 += m4;
             mhlt4v40 += m4;
+            mhlt4v50 += m4;
+            mhlt4v60 += m4;
+            mhlt4v100 += m4;
+            mhlt4v150 += m4;
         }
         for (size_t i=0; i<elecs.size(); ++i){
             if (elecs.at(i)->PT < el_pt_lo || !isIsolated(elecs.at(i))){ continue; }
@@ -1684,6 +1704,10 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             mlt4 += e4;
             mhlt4v25 += e4;
             mhlt4v40 += e4;
+            mhlt4v50 += e4;
+            mhlt4v60 += e4;
+            mhlt4v100 += e4;
+            mhlt4v150 += e4;
         }
         for (size_t i=0; i<jetpuppi.size(); ++i){
             if (jetpuppi.at(i)->PT < jet_pt_lo){ continue; }
@@ -1692,15 +1716,17 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             j4.SetPtEtaPhiM(jetpuppi.at(i)->PT, jetpuppi.at(i)->Eta, jetpuppi.at(i)->Phi, jetpuppi.at(i)->Mass);
             if (jetpuppi.at(i)->PT > 25.){ mht4v25 += j4; mhlt4v25 += j4; }
             if (jetpuppi.at(i)->PT > 40.){ mht4v40 += j4; mhlt4v40 += j4; }
-            if (jetpuppi.at(i)->PT > 60.){ mht4v60 += j4; }
-            if (jetpuppi.at(i)->PT > 100.){ mht4v100 += j4; }
-            if (jetpuppi.at(i)->PT > 150.){ mht4v150 += j4; }
+            if (jetpuppi.at(i)->PT > 50.){ mht4v50 += j4; mhlt4v50 += j4; }
+            if (jetpuppi.at(i)->PT > 60.){ mht4v60 += j4; mhlt4v60 += j4; }
+            if (jetpuppi.at(i)->PT > 100.){ mht4v100 += j4; mhlt4v100 += j4; }
+            if (jetpuppi.at(i)->PT > 150.){ mht4v150 += j4; mhlt4v150 += j4; }
         }
         mlt = mlt4.Pt();
         mlt_eta = mlt4.Eta();
         mlt_phi = mlt4.Phi();
         mht25 = mht4v25.Pt();
         mht40 = mht4v40.Pt();
+        mht50 = mht4v50.Pt();
         mht60 = mht4v60.Pt();
         mht100 = mht4v100.Pt();
         mht150 = mht4v150.Pt();
@@ -1710,13 +1736,26 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         mhlt40 = mhlt4v40.Pt();
         mhlt40_eta = mhlt4v40.Eta();
         mhlt40_phi = mhlt4v40.Phi();
+        mhlt50 = mhlt4v50.Pt();
+        mhlt50_eta = mhlt4v50.Eta();
+        mhlt50_phi = mhlt4v50.Phi();
+        mhlt60 = mhlt4v60.Pt();
+        mhlt60_eta = mhlt4v60.Eta();
+        mhlt60_phi = mhlt4v60.Phi();
+        mhlt100 = mhlt4v100.Pt();
+        mhlt100_eta = mhlt4v100.Eta();
+        mhlt100_phi = mhlt4v100.Phi();
+        mhlt150 = mhlt4v150.Pt();
+        mhlt150_eta = mhlt4v150.Eta();
+        mhlt150_phi = mhlt4v150.Phi();
 
         // Fill HT
-        ht25 = ht40 = ht60 = ht100 = ht150 = 0.;
+        ht25 = ht40 = ht50 = ht60 = ht100 = ht150 = 0.;
         for (size_t i=0; i<jetpuppi.size(); ++i){
             if (isOverlap(jetpuppi.at(i), elecs, muontight)){ continue; }
             if (jetpuppi.at(i)->PT > 25.){ ht25 += jetpuppi.at(i)->PT; }
             if (jetpuppi.at(i)->PT > 40.){ ht40 += jetpuppi.at(i)->PT; }
+            if (jetpuppi.at(i)->PT > 50.){ ht50 += jetpuppi.at(i)->PT; }
             if (jetpuppi.at(i)->PT > 60.){ ht60 += jetpuppi.at(i)->PT; }
             if (jetpuppi.at(i)->PT > 100.){ ht100 += jetpuppi.at(i)->PT; }
             if (jetpuppi.at(i)->PT > 150.){ ht150 += jetpuppi.at(i)->PT; }
@@ -1737,7 +1776,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         if (nLep < 2){ continue; }
         if (nSoftLep < 2){ continue; }
         if (!hasSoftSFOS){ continue; }
-        if (met < 200 && mhlt25 < 200){ continue; }
+        if (met < 200 && mhlt25 < 200 && mhlt40 < 200 && mhlt50 < 200 && mhlt60 < 200 && mhlt100 < 200 && mhlt150 < 200 ){ continue; }
 
         //// W+jets mu CR
 
