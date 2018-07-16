@@ -902,8 +902,12 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         }
 
         // Lepton on-the-fly efficiencies
-        effOnTopElec(elecs);
-        effOnTopMuon(muontight);
+        // Only applied to samples processed with older Delphes versions
+        if (std::string(getSamplePath()).find("Delphes342pre14") == std::string::npos && \
+                std::string(getSamplePath()).find("Delphes342pre14") == std::string::npos){
+            effOnTopElec(elecs);
+            effOnTopMuon(muontight);
+        }
 
         // Cutflow variables
         nBJet = 0;
