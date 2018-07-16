@@ -1689,37 +1689,37 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             if (muontight.at(i)->PT < mu_pt_lo || !isIsolated(muontight.at(i))){ continue; }
             TLorentzVector m4;
             m4.SetPtEtaPhiM(muontight.at(i)->PT, muontight.at(i)->Eta, muontight.at(i)->Phi, mass_mu);
-            mlt4 += m4;
-            mhlt4v25 += m4;
-            mhlt4v40 += m4;
-            mhlt4v50 += m4;
-            mhlt4v60 += m4;
-            mhlt4v100 += m4;
-            mhlt4v150 += m4;
+            mlt4 -= m4;
+            mhlt4v25 -= m4;
+            mhlt4v40 -= m4;
+            mhlt4v50 -= m4;
+            mhlt4v60 -= m4;
+            mhlt4v100 -= m4;
+            mhlt4v150 -= m4;
         }
         for (size_t i=0; i<elecs.size(); ++i){
             if (elecs.at(i)->PT < el_pt_lo || !isIsolated(elecs.at(i))){ continue; }
             TLorentzVector e4;
             e4.SetPtEtaPhiM(elecs.at(i)->PT, elecs.at(i)->Eta, elecs.at(i)->Phi, mass_el);
-            mlt4 += e4;
-            mhlt4v25 += e4;
-            mhlt4v40 += e4;
-            mhlt4v50 += e4;
-            mhlt4v60 += e4;
-            mhlt4v100 += e4;
-            mhlt4v150 += e4;
+            mlt4 -= e4;
+            mhlt4v25 -= e4;
+            mhlt4v40 -= e4;
+            mhlt4v50 -= e4;
+            mhlt4v60 -= e4;
+            mhlt4v100 -= e4;
+            mhlt4v150 -= e4;
         }
         for (size_t i=0; i<jetpuppi.size(); ++i){
             if (jetpuppi.at(i)->PT < jet_pt_lo){ continue; }
             if (isOverlap(jetpuppi.at(i), elecs, muontight)){ continue; }
             TLorentzVector j4;
             j4.SetPtEtaPhiM(jetpuppi.at(i)->PT, jetpuppi.at(i)->Eta, jetpuppi.at(i)->Phi, jetpuppi.at(i)->Mass);
-            if (jetpuppi.at(i)->PT > 25.){ mht4v25 += j4; mhlt4v25 += j4; }
-            if (jetpuppi.at(i)->PT > 40.){ mht4v40 += j4; mhlt4v40 += j4; }
-            if (jetpuppi.at(i)->PT > 50.){ mht4v50 += j4; mhlt4v50 += j4; }
-            if (jetpuppi.at(i)->PT > 60.){ mht4v60 += j4; mhlt4v60 += j4; }
-            if (jetpuppi.at(i)->PT > 100.){ mht4v100 += j4; mhlt4v100 += j4; }
-            if (jetpuppi.at(i)->PT > 150.){ mht4v150 += j4; mhlt4v150 += j4; }
+            if (jetpuppi.at(i)->PT > 25.){ mht4v25 -= j4; mhlt4v25 -= j4; }
+            if (jetpuppi.at(i)->PT > 40.){ mht4v40 -= j4; mhlt4v40 -= j4; }
+            if (jetpuppi.at(i)->PT > 50.){ mht4v50 -= j4; mhlt4v50 -= j4; }
+            if (jetpuppi.at(i)->PT > 60.){ mht4v60 -= j4; mhlt4v60 -= j4; }
+            if (jetpuppi.at(i)->PT > 100.){ mht4v100 -= j4; mhlt4v100 -= j4; }
+            if (jetpuppi.at(i)->PT > 150.){ mht4v150 -= j4; mhlt4v150 -= j4; }
         }
         mlt = mlt4.Pt();
         mlt_eta = mlt4.Eta();
