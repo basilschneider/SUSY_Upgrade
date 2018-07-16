@@ -334,10 +334,6 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
 }
 
 template <typename T> bool SUSY_Upgrade_Skimmer::isIsolated(const T particle){
-    //// For all samples except ttbar, don't apply isolation
-    //if (getSampleFile()(0, 6) != "tt-4p-"){
-    //    return true;
-    //}
     if (particle->IsolationVarRhoCorr > iso_cut_rel){
         return false;
     }
@@ -748,7 +744,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
         // Fill SUSY masses
         mN1 = mN2 = -1.;
-        if (std::string(getSampleFile()).find("SMS-TChiWZ_ZToLL") != std::string::npos){
+        if (std::string(getSamplePath()).find("SMS-TChiWZ_ZToLL") != std::string::npos){
             for (size_t i=0; i<genpart.size(); ++i){
                 if (fabs(genpart.at(i)->PID) != 1000022){ continue; }
                 mN1 = genpart.at(i)->Mass;
