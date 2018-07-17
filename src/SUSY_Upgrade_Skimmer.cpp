@@ -1031,12 +1031,40 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         for (size_t i=0; i<elecs.size(); ++i){
             // Only consider isolated particles with minimum pT
             if (elecs.at(i)->PT < el_pt_lo || !isIsolated(elecs.at(i))){ continue; }
+
+            // Check if you can match the electron
+            bool match = false;
+            for (size_t k=0; k<genpart.size(); ++k){
+                if (genpart.at(k)->Status != 1){ continue; }
+                if (fabs(genpart.at(k)->PID) != 11){ continue; }
+                // Truth matching
+                if (isMatched(genpart.at(k), elecs.at(i)->PT, elecs.at(i)->Eta, elecs.at(i)->Phi)){
+                    match = true;
+                    break;
+                }
+            }
+            if (!match){ continue; }
+
             for (size_t j=i+1; j<elecs.size(); ++j){
                 if (elecs.at(j)->PT < el_pt_lo || !isIsolated(elecs.at(j))){ continue; }
                 if (elecs.at(i)->Charge*elecs.at(j)->Charge > 0){ continue; }
+
+                // Check if you can match the electron
+                bool match = false;
+                for (size_t k=0; k<genpart.size(); ++k){
+                    if (genpart.at(k)->Status != 1){ continue; }
+                    if (fabs(genpart.at(k)->PID) != 11){ continue; }
+                    // Truth matching
+                    if (isMatched(genpart.at(k), elecs.at(j)->PT, elecs.at(j)->Eta, elecs.at(j)->Phi)){
+                        match = true;
+                        break;
+                    }
+                }
+                if (!match){ continue; }
+
                 hasSFOS = true;
 
-                // Mll for soft SFOS
+                // Mll for SFOS
                 TLorentzVector l1, l2;
                 l1.SetPtEtaPhiM(elecs.at(i)->PT, elecs.at(i)->Eta, elecs.at(i)->Phi, mass_el);
                 l2.SetPtEtaPhiM(elecs.at(j)->PT, elecs.at(j)->Eta, elecs.at(j)->Phi, mass_el);
@@ -1058,15 +1086,44 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                 }
             }
         }
+
         for (size_t i=0; i<muontight.size(); ++i){
             // Only consider isolated particles with minimum pT
             if (muontight.at(i)->PT < mu_pt_lo || !isIsolated(muontight.at(i))){ continue; }
+
+            // Check if you can match the muon
+            bool match = false;
+            for (size_t k=0; k<genpart.size(); ++k){
+                if (genpart.at(k)->Status != 1){ continue; }
+                if (fabs(genpart.at(k)->PID) != 13){ continue; }
+                // Truth matching
+                if (isMatched(genpart.at(k), muontight.at(i)->PT, muontight.at(i)->Eta, muontight.at(i)->Phi)){
+                    match = true;
+                    break;
+                }
+            }
+            if (!match){ continue; }
+
             for (size_t j=i+1; j<muontight.size(); ++j){
                 if (muontight.at(j)->PT < mu_pt_lo || !isIsolated(muontight.at(j))){ continue; }
                 if (muontight.at(i)->Charge*muontight.at(j)->Charge > 0){ continue; }
+
+                // Check if you can match the muon
+                bool match = false;
+                for (size_t k=0; k<genpart.size(); ++k){
+                    if (genpart.at(k)->Status != 1){ continue; }
+                    if (fabs(genpart.at(k)->PID) != 13){ continue; }
+                    // Truth matching
+                    if (isMatched(genpart.at(k), muontight.at(j)->PT, muontight.at(j)->Eta, muontight.at(j)->Phi)){
+                        match = true;
+                        break;
+                    }
+                }
+                if (!match){ continue; }
+
                 hasSFOS = true;
 
-                // Mll for SFOS (only first found pair considered; this could potentially overwrite e+e- Mll)
+                // Mll for SFOS
                 TLorentzVector l1, l2;
                 l1.SetPtEtaPhiM(muontight.at(i)->PT, muontight.at(i)->Eta, muontight.at(i)->Phi, mass_mu);
                 l2.SetPtEtaPhiM(muontight.at(j)->PT, muontight.at(j)->Eta, muontight.at(j)->Phi, mass_mu);
