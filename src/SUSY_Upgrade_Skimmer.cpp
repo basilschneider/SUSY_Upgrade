@@ -1,4 +1,5 @@
 #include "interface/SUSY_Upgrade_Skimmer.h"
+#include "TGraph.h"
 
 void SUSY_Upgrade_Skimmer::addBranches(){
 
@@ -708,6 +709,41 @@ template <typename T> void SUSY_Upgrade_Skimmer::ppp(const char* text, const siz
     fflush(stdout);
 }
 
+// Owen's jet pT correction
+static int bins[] = { 0, 25, 50, 75, 100, 125,
+    150, 175, 200, 225, 250, 275,
+    300, 325, 350, 375, 400, 425,
+    450, 475, 10000};
+float  SUSY_Upgrade_Skimmer::getCorrSigma(double sigma, double genpt, double geneta){
+    if (genpt <= 25) return sigma;
+    TString histName = "hGenPt";
+    unsigned int whichBin = 100;
+    for (unsigned int i = 0; i < sizeof(bins)/sizeof(*bins) - 2; i++){
+        if (bins[i] < genpt and genpt < bins[i+1]) {
+            whichBin = i;
+            break;
+        }
+    }
+    TString whatBins;
+    TString etaBin;
+    if (TMath::Abs(geneta) < 1.44){
+        etaBin = "_central";
+    }
+
+    else{
+        etaBin = "_forward";
+    }
+
+    if (whichBin != 100){
+        histName = histName + whatBins.Format("_%ito%i",bins[whichBin],bins[whichBin+1]) + etaBin;
+    }else{
+        histName = histName + "_475toInf" + etaBin;
+    }
+
+    TGraph * gr1 = (TGraph*)f_SMEAR->FindObjectAny(histName+"_grph_Delphes");
+    TGraph * gr2 = (TGraph*)f_SMEAR->FindObjectAny(histName+"_grph_FS");
+    return gr2->Eval(gr1->Eval(sigma));
+}
 void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for printouts */){
 
     d_ana::dBranchHandler<HepMCEvent> event(tree(),"Event");
@@ -919,10 +955,27 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         // Lepton on-the-fly efficiencies
         // Only applied to samples processed with older Delphes versions
         if (std::string(getSamplePath()).find("Delphes342pre14") == std::string::npos && \
-                std::string(getSamplePath()).find("Delphes342pre14") == std::string::npos){
+                std::string(getSamplePath()).find("Delphes342pre15") == std::string::npos){
             effOnTopElec(elecs);
             effOnTopMuon(muontight);
         }
+
+        // Jet pT corrections
+        for (size_t i=0; i<jetpuppi.size(); ++i){
+            if (TMath::Abs(jetpuppi.at(i)->Eta) > 2.7) continue;
+            float correctedPt;
+            bool matched = false;
+            for (size_t j=0; j<genjet.size(); ++j){
+                if ( DeltaR(jetpuppi.at(i)->Eta,genjet.at(j)->Eta,jetpuppi.at(i)->Phi,genjet.at(j)->Phi) > .2) continue;
+                matched = true;
+                float sigma = (jetpuppi.at(i)->PT - genjet.at(j)->PT)/genjet.at(j)->PT;
+                float correctedSigma = getCorrSigma(sigma, genjet.at(j)->PT,genjet.at(j)->Eta);
+                correctedPt    = (1+correctedSigma)*genjet.at(j)->PT;
+            }
+            if (matched == false) correctedPt = jetpuppi.at(i)->PT;
+            jetpuppi.at(i)->PT = correctedPt;
+        }
+
 
         // Cutflow variables
         nBJet = 0;

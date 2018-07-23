@@ -15,7 +15,11 @@
 
 class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
     public:
-        SUSY_Upgrade_Skimmer():d_ana::basicAnalyzer(){}
+        SUSY_Upgrade_Skimmer():d_ana::basicAnalyzer(){
+            TString pathJetPtCorr = "./data/cumulativeGraphs_phaseII.root";
+            std::cout << "Loading file from " << pathJetPtCorr << "." << std::endl;
+            f_SMEAR = new TFile(pathJetPtCorr, "READ");
+        }
         ~SUSY_Upgrade_Skimmer(){}
 
 
@@ -39,6 +43,7 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         bool isMatched(const GenParticle* truthParticle, const double pt, const double eta, const double phi);
         template <typename T> void ppp(const char* text, const size_t idx, const size_t noParticles, const T particle, const int pid, const int status, const char* addText="") const;
         template <typename T> void pppWpidWstatus(const char* text, const size_t idx, const size_t noParticles, const T particle, const char* addText="") const;
+        float getCorrSigma(double sigma, double genpt, double geneta);
 
         // Tree
         TTree* myskim;
@@ -179,6 +184,8 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         TH2D* rle_el_den = new TH2D("rle_el_den", "rle_el_den", 6, 0., 30., 8, 0., 4.);
         TH2D* rle_mu_num = new TH2D("rle_mu_num", "rle_mu_num", 6, 0., 30., 8, 0., 4.);
         TH2D* rle_mu_den = new TH2D("rle_mu_den", "rle_mu_den", 6, 0., 30., 8, 0., 4.);
+
+        TFile * f_SMEAR;
 };
 
 #endif /* SUSY_Upgrade_Skimmer_H_ */
