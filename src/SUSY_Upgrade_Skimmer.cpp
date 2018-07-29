@@ -710,11 +710,13 @@ template <typename T> void SUSY_Upgrade_Skimmer::ppp(const char* text, const siz
 }
 
 // Owen's jet pT correction
-static int bins[] = { 0, 25, 50, 75, 100, 125,
-    150, 175, 200, 225, 250, 275,
-    300, 325, 350, 375, 400, 425,
-    450, 475, 10000};
-float  SUSY_Upgrade_Skimmer::getCorrSigma(double sigma, double genpt, double geneta){
+double SUSY_Upgrade_Skimmer::getCorrSigma(double sigma, double genpt, double geneta){
+
+    static int bins[] = { 0, 25, 50, 75, 100, 125,
+        150, 175, 200, 225, 250, 275,
+        300, 325, 350, 375, 400, 425,
+        450, 475, 10000};
+
     if (genpt <= 25) return sigma;
     TString histName = "hGenPt";
     unsigned int whichBin = 100;
@@ -740,9 +742,12 @@ float  SUSY_Upgrade_Skimmer::getCorrSigma(double sigma, double genpt, double gen
         histName = histName + "_475toInf" + etaBin;
     }
 
-    TGraph * gr1 = (TGraph*)f_SMEAR->FindObjectAny(histName+"_grph_Delphes");
-    TGraph * gr2 = (TGraph*)f_SMEAR->FindObjectAny(histName+"_grph_FS");
-    return gr2->Eval(gr1->Eval(sigma));
+    TGraph* gr1 = (TGraph*)f_SMEAR->FindObjectAny(histName+"_grph_Delphes");
+    TGraph* gr2 = (TGraph*)f_SMEAR->FindObjectAny(histName+"_grph_FS");
+    double ret = gr2->Eval(gr1->Eval(sigma));
+    delete gr1, gr2;
+
+    return ret;
 }
 void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for printouts */){
 
@@ -963,13 +968,13 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         // Jet pT corrections
         for (size_t i=0; i<jetpuppi.size(); ++i){
             if (TMath::Abs(jetpuppi.at(i)->Eta) > 2.7) continue;
-            float correctedPt;
+            double correctedPt;
             bool matched = false;
             for (size_t j=0; j<genjet.size(); ++j){
                 if ( DeltaR(jetpuppi.at(i)->Eta,genjet.at(j)->Eta,jetpuppi.at(i)->Phi,genjet.at(j)->Phi) > .2) continue;
                 matched = true;
-                float sigma = (jetpuppi.at(i)->PT - genjet.at(j)->PT)/genjet.at(j)->PT;
-                float correctedSigma = getCorrSigma(sigma, genjet.at(j)->PT,genjet.at(j)->Eta);
+                double sigma = (jetpuppi.at(i)->PT - genjet.at(j)->PT)/genjet.at(j)->PT;
+                double correctedSigma = getCorrSigma(sigma, genjet.at(j)->PT,genjet.at(j)->Eta);
                 correctedPt    = (1+correctedSigma)*genjet.at(j)->PT;
             }
             if (matched == false) correctedPt = jetpuppi.at(i)->PT;

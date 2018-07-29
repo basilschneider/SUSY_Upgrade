@@ -43,7 +43,7 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         bool isMatched(const GenParticle* truthParticle, const double pt, const double eta, const double phi);
         template <typename T> void ppp(const char* text, const size_t idx, const size_t noParticles, const T particle, const int pid, const int status, const char* addText="") const;
         template <typename T> void pppWpidWstatus(const char* text, const size_t idx, const size_t noParticles, const T particle, const char* addText="") const;
-        float getCorrSigma(double sigma, double genpt, double geneta);
+        double getCorrSigma(double sigma, double genpt, double geneta);
 
         // Tree
         TTree* myskim;
