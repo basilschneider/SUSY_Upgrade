@@ -745,7 +745,8 @@ double SUSY_Upgrade_Skimmer::getCorrSigma(double sigma, double genpt, double gen
     TGraph* gr1 = (TGraph*)f_SMEAR->FindObjectAny(histName+"_grph_Delphes");
     TGraph* gr2 = (TGraph*)f_SMEAR->FindObjectAny(histName+"_grph_FS");
     double ret = gr2->Eval(gr1->Eval(sigma));
-    delete gr1, gr2;
+    delete gr1;
+    delete gr2;
 
     return ret;
 }
