@@ -803,14 +803,14 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         mN1 = mN2 = -1.;
         if (getIsSignal()){
             for (size_t i=0; i<genpart.size(); ++i){
-                if (fabs(genpart.at(i)->PID) != 1000022){ continue; }
-                mN1 = genpart.at(i)->Mass;
-                break;
-            }
-            for (size_t i=0; i<genpart.size(); ++i){
-                if (fabs(genpart.at(i)->PID) != 1000023){ continue; }
-                mN2 = genpart.at(i)->Mass;
-                break;
+                if (fabs(genpart.at(i)->PID) == 1000022){
+                    mN1 = genpart.at(i)->Mass;
+                }else if (fabs(genpart.at(i)->PID) == 1000023){
+                    mN2 = genpart.at(i)->Mass;
+                }
+                if (mN1 > 0 && mN2 > 0){
+                    break;
+                }
             }
             susy_masses->Fill(mN2, mN1);
         }
