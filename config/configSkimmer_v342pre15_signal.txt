@@ -14,8 +14,8 @@
 
 [inputfiles-begin]
 
-$$SMS-TChiWZ_ZToLL_mZMin-0p1_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/ , TChiWZ_Delphes_v10 , 616 , 1 , 22459902 , 1 , true
-$SMS-TChiWZ_ZToLL_mZMin-0p1_TuneCUETP8M1_14TeV-madgraphMLM-pythia8_200PU/ , TChiWZ_Delphes_v11 , 616 , 1 , 15913241 , 1 , true
-$SMS-N2N1-higgsino_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/          , TN2N1_Delphes      , 616 , 1 ,  5084823 , 1 , true
+$SMS-TChiWZ_ZToLL_mZMin-0p1_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/ , TChiWZ_Delphes_13TeV , 616 , 1 , 22459902 , 1 , true
+$SMS-TChiWZ_ZToLL_mZMin-0p1_TuneCUETP8M1_14TeV-madgraphMLM-pythia8_200PU/ , TChiWZ_Delphes_14TeV , 616 , 1 , 15913241 , 1 , true
+$SMS-N2N1-higgsino_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/          , TN2N1_Delphes_13TeV  , 616 , 1 ,  5084823 , 1 , true
 
 [inputfiles-end]
