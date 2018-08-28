@@ -22,11 +22,11 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("el_matched", &el_matched);
     myskim->Branch("el_st20to30", &el_st20to30);
     myskim->Branch("el_mother", &el_mother);
-    myskim->Branch("el_woIso_pt", &el_woIso_pt);
-    myskim->Branch("el_woIso_eta", &el_woIso_eta);
-    myskim->Branch("el_woIso_phi", &el_woIso_phi);
-    myskim->Branch("el_woIso_q", &el_woIso_q);
-    myskim->Branch("el_woIso_sumPt", &el_woIso_sumPt);
+    myskim->Branch("el_recoId_pt", &el_recoId_pt);
+    myskim->Branch("el_recoId_eta", &el_recoId_eta);
+    myskim->Branch("el_recoId_phi", &el_recoId_phi);
+    myskim->Branch("el_recoId_q", &el_recoId_q);
+    myskim->Branch("el_recoId_sumPt", &el_recoId_sumPt);
 
     // Electron truth vectors
     myskim->Branch("el_pt_truth", &el_pt_truth);
@@ -62,11 +62,11 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("mu_matched", &mu_matched);
     myskim->Branch("mu_st20to30", &mu_st20to30);
     myskim->Branch("mu_mother", &mu_mother);
-    myskim->Branch("mu_woIso_pt", &mu_woIso_pt);
-    myskim->Branch("mu_woIso_eta", &mu_woIso_eta);
-    myskim->Branch("mu_woIso_phi", &mu_woIso_phi);
-    myskim->Branch("mu_woIso_q", &mu_woIso_q);
-    myskim->Branch("mu_woIso_sumPt", &mu_woIso_sumPt);
+    myskim->Branch("mu_recoId_pt", &mu_recoId_pt);
+    myskim->Branch("mu_recoId_eta", &mu_recoId_eta);
+    myskim->Branch("mu_recoId_phi", &mu_recoId_phi);
+    myskim->Branch("mu_recoId_q", &mu_recoId_q);
+    myskim->Branch("mu_recoId_sumPt", &mu_recoId_sumPt);
 
     // Muon truth vectors
     myskim->Branch("mu_pt_truth", &mu_pt_truth);
@@ -242,11 +242,11 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     el_matched.clear();
     el_st20to30.clear();
     el_mother.clear();
-    el_woIso_pt.clear();
-    el_woIso_eta.clear();
-    el_woIso_phi.clear();
-    el_woIso_q.clear();
-    el_woIso_sumPt.clear();
+    el_recoId_pt.clear();
+    el_recoId_eta.clear();
+    el_recoId_phi.clear();
+    el_recoId_q.clear();
+    el_recoId_sumPt.clear();
     el_pt_truth.clear();
     el_eta_truth.clear();
     el_phi_truth.clear();
@@ -274,11 +274,11 @@ void SUSY_Upgrade_Skimmer::clearVectors(){
     mu_matched.clear();
     mu_st20to30.clear();
     mu_mother.clear();
-    mu_woIso_pt.clear();
-    mu_woIso_eta.clear();
-    mu_woIso_phi.clear();
-    mu_woIso_q.clear();
-    mu_woIso_sumPt.clear();
+    mu_recoId_pt.clear();
+    mu_recoId_eta.clear();
+    mu_recoId_phi.clear();
+    mu_recoId_q.clear();
+    mu_recoId_sumPt.clear();
     mu_pt_truth.clear();
     mu_eta_truth.clear();
     mu_phi_truth.clear();
@@ -1219,11 +1219,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             if (elecs.at(i)->PT < el_pt_lo){ continue; }
 
             // Fill electron vector ignoring isolation
-            el_woIso_pt.push_back(elecs.at(i)->PT);
-            el_woIso_eta.push_back(elecs.at(i)->Eta);
-            el_woIso_phi.push_back(elecs.at(i)->Phi);
-            el_woIso_q.push_back(elecs.at(i)->Charge);
-            el_woIso_sumPt.push_back(elecs.at(i)->SumPt);
+            el_recoId_pt.push_back(elecs.at(i)->PT);
+            el_recoId_eta.push_back(elecs.at(i)->Eta);
+            el_recoId_phi.push_back(elecs.at(i)->Phi);
+            el_recoId_q.push_back(elecs.at(i)->Charge);
+            el_recoId_sumPt.push_back(elecs.at(i)->SumPt);
 
             if (!isIsolated(elecs.at(i))){ continue; }
 
@@ -1406,11 +1406,11 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             if (muontight.at(i)->PT < mu_pt_lo){ continue; }
 
             // Fill muon vector ignoring isolation
-            mu_woIso_pt.push_back(muontight.at(i)->PT);
-            mu_woIso_eta.push_back(muontight.at(i)->Eta);
-            mu_woIso_phi.push_back(muontight.at(i)->Phi);
-            mu_woIso_q.push_back(muontight.at(i)->Charge);
-            mu_woIso_sumPt.push_back(muontight.at(i)->SumPt);
+            mu_recoId_pt.push_back(muontight.at(i)->PT);
+            mu_recoId_eta.push_back(muontight.at(i)->Eta);
+            mu_recoId_phi.push_back(muontight.at(i)->Phi);
+            mu_recoId_q.push_back(muontight.at(i)->Charge);
+            mu_recoId_sumPt.push_back(muontight.at(i)->SumPt);
 
             if (!isIsolated(muontight.at(i))){ continue; }
 

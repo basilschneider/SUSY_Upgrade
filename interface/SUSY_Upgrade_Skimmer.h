@@ -87,8 +87,8 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         std::vector<int> el_mother;
 
         // Electron vectors before isolation
-        std::vector<double> el_woIso_pt, el_woIso_eta, el_woIso_phi, el_woIso_sumPt;
-        std::vector<int> el_woIso_q;
+        std::vector<double> el_recoId_pt, el_recoId_eta, el_recoId_phi, el_recoId_sumPt;
+        std::vector<int> el_recoId_q;
 
         // Electron truth vectors
         std::vector<double> el_pt_truth, el_eta_truth, el_phi_truth;
@@ -108,8 +108,8 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         std::vector<int> mu_mother;
 
         // Muon vectors before isolation
-        std::vector<double> mu_woIso_pt, mu_woIso_eta, mu_woIso_phi, mu_woIso_sumPt;
-        std::vector<int> mu_woIso_q;
+        std::vector<double> mu_recoId_pt, mu_recoId_eta, mu_recoId_phi, mu_recoId_sumPt;
+        std::vector<int> mu_recoId_q;
 
         // Muon truth vectors
         std::vector<double> mu_pt_truth, mu_eta_truth, mu_phi_truth;
