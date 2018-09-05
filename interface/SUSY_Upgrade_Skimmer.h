@@ -61,6 +61,8 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         static constexpr double el_pt_hi = 30.;
         static constexpr double mu_pt_lo = 5.;
         static constexpr double mu_pt_hi = 30.;
+        static constexpr double el_eta_hi = 1.6;
+        static constexpr double mu_eta_hi = 2.4;
         static constexpr double jet_pt_lo = 25.;
         static constexpr double mass_el = .000511;
         static constexpr double mass_mu = .105658;

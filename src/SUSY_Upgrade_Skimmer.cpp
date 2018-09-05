@@ -852,6 +852,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             bool evtFound = false;
             for (size_t i=0; i<muontight.size(); ++i){
                 if (muontight.at(i)->PT < mu_pt_lo){ continue; }
+                if (fabs(muontight.at(i)->Eta) > mu_eta_hi){ continue; }
                 if (!isIsolated(muontight.at(i))){ continue; }
                 if (muontight.at(i)->PT > 5. && muontight.at(i)->PT < 10.){
                     evtFound = true;
@@ -863,6 +864,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                     if (genpart.at(i)->Status != 1){ continue; }
                     if (genpart.at(i)->PID != 13){ continue; }
                     if (genpart.at(i)->PT < mu_pt_lo){ continue; }
+                    if (fabs(genpart.at(i)->Eta) > mu_eta_hi){ continue; }
                     printf("Truth muon: pT: %f; Eta: %f; Phi: %f\n",
                             genpart.at(i)->PT, genpart.at(i)->Eta, genpart.at(i)->Phi);
                 }
@@ -1089,7 +1091,9 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         hasSFOS = hasSoftSFOS = false;
         for (size_t i=0; i<elecs.size(); ++i){
             // Only consider isolated particles with minimum pT
-            if (elecs.at(i)->PT < el_pt_lo || !isIsolated(elecs.at(i))){ continue; }
+            if (elecs.at(i)->PT < el_pt_lo){ continue; }
+            if (fabs(elecs.at(i)->Eta) > el_eta_hi){ continue; }
+            if (!isIsolated(elecs.at(i))){ continue; }
 
             // Check if you can match the electron
             bool match = false;
@@ -1105,7 +1109,9 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             if (!match){ continue; }
 
             for (size_t j=i+1; j<elecs.size(); ++j){
-                if (elecs.at(j)->PT < el_pt_lo || !isIsolated(elecs.at(j))){ continue; }
+                if (elecs.at(j)->PT < el_pt_lo){ continue; }
+                if (fabs(elecs.at(j)->Eta) > el_eta_hi){ continue; }
+                if (!isIsolated(elecs.at(j))){ continue; }
                 if (elecs.at(i)->Charge*elecs.at(j)->Charge > 0){ continue; }
 
                 // Check if you can match the electron
@@ -1148,7 +1154,9 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
 
         for (size_t i=0; i<muontight.size(); ++i){
             // Only consider isolated particles with minimum pT
-            if (muontight.at(i)->PT < mu_pt_lo || !isIsolated(muontight.at(i))){ continue; }
+            if (muontight.at(i)->PT < mu_pt_lo){ continue; }
+            if (fabs(muontight.at(i)->Eta) > mu_eta_hi){ continue; }
+            if (!isIsolated(muontight.at(i))){ continue; }
 
             // Check if you can match the muon
             bool match = false;
@@ -1164,7 +1172,9 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             if (!match){ continue; }
 
             for (size_t j=i+1; j<muontight.size(); ++j){
-                if (muontight.at(j)->PT < mu_pt_lo || !isIsolated(muontight.at(j))){ continue; }
+                if (muontight.at(j)->PT < mu_pt_lo){ continue; }
+                if (fabs(muontight.at(j)->Eta) > mu_eta_hi){ continue; }
+                if (!isIsolated(muontight.at(j))){ continue; }
                 if (muontight.at(i)->Charge*muontight.at(j)->Charge > 0){ continue; }
 
                 // Check if you can match the muon
@@ -1217,6 +1227,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             }
 
             if (elecs.at(i)->PT < el_pt_lo){ continue; }
+            if (fabs(elecs.at(i)->Eta) > el_eta_hi){ continue; }
 
             // Fill electron vector ignoring isolation
             el_recoId_pt.push_back(elecs.at(i)->PT);
@@ -1404,6 +1415,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             }
 
             if (muontight.at(i)->PT < mu_pt_lo){ continue; }
+            if (fabs(muontight.at(i)->Eta) > mu_eta_hi){ continue; }
 
             // Fill muon vector ignoring isolation
             mu_recoId_pt.push_back(muontight.at(i)->PT);
@@ -1802,7 +1814,9 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         TLorentzVector mht4v25, mht4v40, mht4v50, mht4v60, mht4v100, mht4v150;
         TLorentzVector mhlt4v25, mhlt4v40, mhlt4v50, mhlt4v60, mhlt4v100, mhlt4v150;
         for (size_t i=0; i<muontight.size(); ++i){
-            if (muontight.at(i)->PT < mu_pt_lo || !isIsolated(muontight.at(i))){ continue; }
+            if (muontight.at(i)->PT < mu_pt_lo){ continue; }
+            if (fabs(muontight.at(i)->Eta) > mu_eta_hi){ continue; }
+            if (!isIsolated(muontight.at(i))){ continue; }
             TLorentzVector m4;
             m4.SetPtEtaPhiM(muontight.at(i)->PT, muontight.at(i)->Eta, muontight.at(i)->Phi, mass_mu);
             mlt4 -= m4;
@@ -1814,7 +1828,9 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             mhlt4v150 -= m4;
         }
         for (size_t i=0; i<elecs.size(); ++i){
-            if (elecs.at(i)->PT < el_pt_lo || !isIsolated(elecs.at(i))){ continue; }
+            if (elecs.at(i)->PT < el_pt_lo){ continue; }
+            if (fabs(elecs.at(i)->Eta) > el_eta_hi){ continue; }
+            if (!isIsolated(elecs.at(i))){ continue; }
             TLorentzVector e4;
             e4.SetPtEtaPhiM(elecs.at(i)->PT, elecs.at(i)->Eta, elecs.at(i)->Phi, mass_el);
             mlt4 -= e4;
