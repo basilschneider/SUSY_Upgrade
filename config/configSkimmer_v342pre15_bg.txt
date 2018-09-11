@@ -7,7 +7,7 @@
 
     Lumi       = 3000
     Testmode   = false
-    Maxchilds  = 23
+    Maxchilds  = 1
     RunOnOutputOnly = false
 
 [config-end]
