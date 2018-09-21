@@ -1,5 +1,8 @@
-#include "interface/SUSY_Upgrade_Skimmer.h"
+#include "Math/GenVector/LorentzVector.h"
+#include "Math/GenVector/PtEtaPhiM4D.h"
+#include "Math/GenVector/PxPyPzM4D.h"
 #include "TGraph.h"
+#include "interface/SUSY_Upgrade_Skimmer.h"
 
 void SUSY_Upgrade_Skimmer::addBranches(){
 
@@ -209,6 +212,7 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     myskim->Branch("mt1", &mt1);
     myskim->Branch("mt2", &mt2);
     myskim->Branch("pt2l", &pt2l);
+    myskim->Branch("mTauTau", &mTauTau);
     myskim->Branch("ZtoLL", &ZtoLL);
     myskim->Branch("crazyMuon50", &crazyMuon50);
     myskim->Branch("crazyMuon200", &crazyMuon200);
@@ -750,6 +754,26 @@ double SUSY_Upgrade_Skimmer::getCorrSigma(double sigma, double genpt, double gen
 
     return ret;
 }
+
+// Taken from Run-2 (functionsSOS.cc)
+float mass_tautau(float Met_Pt, float Met_Phi,  float l1_Pt, float l1_Eta, float l1_Phi, float l2_Pt, float l2_Eta, float l2_Phi){
+    typedef ROOT::Math::LorentzVector<ROOT::Math::PtEtaPhiM4D<double> > PtEtaPhiMVector;
+    typedef ROOT::Math::LorentzVector<ROOT::Math::PxPyPzM4D<double>   > PxPyPzMVector;
+    PtEtaPhiMVector Met( Met_Pt, 0.     , Met_Phi , 0.   );
+    PtEtaPhiMVector L1(  l1_Pt , l1_Eta , l1_Phi  , 0.106 );
+    PtEtaPhiMVector L2(  l2_Pt , l2_Eta , l2_Phi  , 0.106 );   // 0.106 mu mass
+    float A00,A01,A10,A11,  C0,C1,  X0,X1,  inv_det;     // Define A:2x2 matrix, C,X 2x1 vectors & det[A]^-1
+    inv_det = 1./( L1.Px()*L2.Py() - L2.Px()*L1.Py() );
+    A00 = inv_det*L2.Py();     A01 =-inv_det*L2.Px();
+    A10 =-inv_det*L1.Py();     A11 = inv_det*L1.Px();
+    C0  = (Met+L1+L2).Px();    C1  = (Met+L1+L2).Py();
+    X0  = A00*C0 + A01*C1;     X1  = A10*C0 + A11*C1;
+    PxPyPzMVector T1( L1.Px()*X0 , L1.Py()*X0 , L1.Pz()*X0 , 1.777 );    // 1.777 tau mass
+    PxPyPzMVector T2( L2.Px()*X1 , L2.Py()*X1 , L2.Pz()*X1 , 1.777 );
+    if(X0>0.&&X1>0.)return  (T1+T2).M();
+    else            return -(T1+T2).M();
+}
+
 void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for printouts */){
 
     d_ana::dBranchHandler<HepMCEvent> event(tree(),"Event");
@@ -1902,6 +1926,12 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             if (genjet.at(i)->PT > 40.){
                 genht40 += genjet.at(i)->PT;
             }
+        }
+
+        // Fill mTauTau
+        mTauTau = -1.;
+        if (lep_pt.size() == 2){
+            mTauTau = mass_tautau(met, met_phi, lep_pt[0], lep_eta[0], lep_phi[0], lep_pt[1], lep_eta[1], lep_phi[1]);
         }
 
         // Skim

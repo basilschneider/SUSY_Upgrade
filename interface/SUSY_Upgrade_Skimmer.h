@@ -164,6 +164,7 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         double genht25, genht40;
         bool hasSFOS, hasSoftSFOS, hasSFOS_truth, hasSoftSFOS_truth;
         std::vector<double> mllMin, mllMax, mt1, mt2, pt2l;
+        double mTauTau;
         unsigned int ZtoLL;
         bool crazyMuon50, crazyMuon200, crazyMuon500;
 
