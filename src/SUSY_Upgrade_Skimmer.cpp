@@ -992,21 +992,21 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             effOnTopMuon(muontight);
         }
 
-        // Jet pT corrections
-        for (size_t i=0; i<jetpuppi.size(); ++i){
-            if (TMath::Abs(jetpuppi.at(i)->Eta) > 2.7) continue;
-            double correctedPt;
-            bool matched = false;
-            for (size_t j=0; j<genjet.size(); ++j){
-                if ( DeltaR(jetpuppi.at(i)->Eta,genjet.at(j)->Eta,jetpuppi.at(i)->Phi,genjet.at(j)->Phi) > .2) continue;
-                matched = true;
-                double sigma = (jetpuppi.at(i)->PT - genjet.at(j)->PT)/genjet.at(j)->PT;
-                double correctedSigma = getCorrSigma(sigma, genjet.at(j)->PT,genjet.at(j)->Eta);
-                correctedPt    = (1+correctedSigma)*genjet.at(j)->PT;
-            }
-            if (matched == false) correctedPt = jetpuppi.at(i)->PT;
-            jetpuppi.at(i)->PT = correctedPt;
-        }
+        //// Jet pT corrections
+        //for (size_t i=0; i<jetpuppi.size(); ++i){
+        //    if (TMath::Abs(jetpuppi.at(i)->Eta) > 2.7) continue;
+        //    double correctedPt;
+        //    bool matched = false;
+        //    for (size_t j=0; j<genjet.size(); ++j){
+        //        if ( DeltaR(jetpuppi.at(i)->Eta,genjet.at(j)->Eta,jetpuppi.at(i)->Phi,genjet.at(j)->Phi) > .2) continue;
+        //        matched = true;
+        //        double sigma = (jetpuppi.at(i)->PT - genjet.at(j)->PT)/genjet.at(j)->PT;
+        //        double correctedSigma = getCorrSigma(sigma, genjet.at(j)->PT,genjet.at(j)->Eta);
+        //        correctedPt    = (1+correctedSigma)*genjet.at(j)->PT;
+        //    }
+        //    if (matched == false) correctedPt = jetpuppi.at(i)->PT;
+        //    jetpuppi.at(i)->PT = correctedPt;
+        //}
 
 
         // Cutflow variables
