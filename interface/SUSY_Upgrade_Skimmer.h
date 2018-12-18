@@ -41,6 +41,7 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
         double coneVeto(double pt, double eta, double phi, d_ana::dBranchHandler<GenParticle>& genpart, std::string particle);
         template <typename T> bool isMatched(const GenParticle* truthParticle, const T particle);
         bool isMatched(const GenParticle* truthParticle, const double pt, const double eta, const double phi);
+        void fillMuM1(double& mu, double& M1, const double mN1);
         template <typename T> void ppp(const char* text, const size_t idx, const size_t noParticles, const T particle, const int pid, const int status, const char* addText="") const;
         template <typename T> void pppWpidWstatus(const char* text, const size_t idx, const size_t noParticles, const T particle, const char* addText="") const;
         double getCorrSigma(double sigma, double genpt, double geneta);
@@ -80,6 +81,7 @@ class SUSY_Upgrade_Skimmer: public d_ana::basicAnalyzer{
 
         // Signal variables
         double mN1, mN2;
+        double mu, M1;
         TH2D* susy_masses = new TH2D("susy_masses", "susy_masses", 401, -1.25, 1001.25, 401, -1.25, 1001.25);
 
         // Electron vectors
