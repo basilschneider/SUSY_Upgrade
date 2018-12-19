@@ -910,6 +910,9 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                     break;
                 }
             }
+
+            // Fill the TH2 histograms to later derive the number of events in
+            // each mass point
             susy_masses->Fill(mN2, mN1);
 
             // For the pMSSM higgsino grid, we need to figure out the mass
@@ -917,8 +920,9 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
             // only rely on mN1 being filled all the time (since e.g. an event
             // like N1N1 associated production would not produce any other SUSY
             // gen particles than N1)
-            if (getSampleFile()(0, 13) == "MSSM-higgsino"){
+            if (std::string(getSamplePath()).find("MSSM-higgsino") != std::string::npos){
                 fillMuM1(mu, M1, mN1);
+                pMSSM_masses->Fill(mu, M1);
             }
         }
 
@@ -2144,6 +2148,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     //mu2_pt_origin_cone->Write();
 
     susy_masses->Write();
+    pMSSM_masses->Write();
 
     if (fill_rle){
         rle_el_num->Write();
