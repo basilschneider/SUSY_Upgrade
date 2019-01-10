@@ -26,7 +26,7 @@ $WToLNu_2J_14TeV-madgraphMLM-pythia8_200PU/                                    ,
 $DYJetsToLL_M-10to50_TuneCUETP8M1_14TeV-madgraphMLM-pythia8_200PU/DYJetsToLL_M-10to50_TuneCUETP8M1_14TeV-madgraphMLM-pythia8_1.root              , DYToLL_M-10to50        , 820 , 1 , auto , 1 , false
 $DYJetsToLL_M-10to50_TuneCUETP8M1_14TeV-madgraphMLM-pythia8_200PU_haddfew/DYJetsToLL_M-10to50_TuneCUETP8M1_14TeV-madgraphMLM-pythia8_1to15.root              , DYToLL_M-10to50        , 820 , 1 , auto , 1 , false
 $tt-4p-0-600-v1510_14TEV_200PU/             , tt_ST0to600_200PU               , 801 ,    530893.58 ,  6606111 , 1 , false
-SMS-TChiWZ_ZToLL_mZMin-0p1_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/ , TChiWZ_Delphes_v10 , 616 , 1 , 22309905 , 1 , true
-$MSSM-higgsino_no1l_2lfilter_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/ , MSSM-higgsino_13TeV  , 616 , 1 ,  5543431 , 1 , true
+$SMS-TChiWZ_ZToLL_mZMin-0p1_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/ , TChiWZ_Delphes_v10 , 616 , 1 , 22309905 , 1 , true
+MSSM-higgsino_no1l_2lfilter_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_200PU/MSSM-higgsino_no1l_2lfilter_TuneCUETP8M1_13TeV-madgraphMLM-pythia8_1_0.root , MSSM-higgsino_13TeV  , 616 , 1 ,  5543431 , 1 , true
 
 [inputfiles-end]

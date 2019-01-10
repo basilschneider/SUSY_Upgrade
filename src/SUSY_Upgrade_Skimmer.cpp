@@ -403,68 +403,70 @@ bool SUSY_Upgrade_Skimmer::isOverlap(const Jet* jet, d_ana::dBranchHandler<Elect
 void SUSY_Upgrade_Skimmer::fillMuM1(double& mu, double& M1, const double mN1){
 
     mu = M1 = -1.;
+    double dM = .2;
 
     // Physical mass of N1 unambiguously defines mu and M1
-    if      (mN1 ==  92.750000){ mu=100.; M1= 300.;}
-    else if (mN1 ==  96.125000){ mu=100.; M1= 400.;}
-    else if (mN1 ==  98.062500){ mu=100.; M1= 500.;}
-    else if (mN1 ==  99.250000){ mu=100.; M1= 600.;}
-    else if (mN1 == 100.750000){ mu=100.; M1= 800.;}
-    else if (mN1 == 101.562500){ mu=100.; M1=1000.;}
-    else if (mN1 == 102.125000){ mu=100.; M1=1200.;}
-    else if (mN1 == 112.625000){ mu=120.; M1= 300.;}
-    else if (mN1 == 116.500000){ mu=120.; M1= 400.;}
-    else if (mN1 == 118.562500){ mu=120.; M1= 500.;}
-    else if (mN1 == 119.875000){ mu=120.; M1= 600.;}
-    else if (mN1 == 121.437500){ mu=120.; M1= 800.;}
-    else if (mN1 == 122.312500){ mu=120.; M1=1000.;}
-    else if (mN1 == 122.937500){ mu=120.; M1=1200.;}
-    else if (mN1 == 132.375000){ mu=140.; M1= 300.;}
-    else if (mN1 == 136.750000){ mu=140.; M1= 400.;}
-    else if (mN1 == 139.000000){ mu=140.; M1= 500.;}
-    else if (mN1 == 140.500000){ mu=140.; M1= 600.;}
-    else if (mN1 == 142.125000){ mu=140.; M1= 800.;}
-    else if (mN1 == 143.000000){ mu=140.; M1=1000.;}
-    else if (mN1 == 143.625000){ mu=140.; M1=1200.;}
-    else if (mN1 == 151.875000){ mu=160.; M1= 300.;}
-    else if (mN1 == 156.875000){ mu=160.; M1= 400.;}
-    else if (mN1 == 159.500000){ mu=160.; M1= 500.;}
-    else if (mN1 == 161.000000){ mu=160.; M1= 600.;}
-    else if (mN1 == 162.750000){ mu=160.; M1= 800.;}
-    else if (mN1 == 163.750000){ mu=160.; M1=1000.;}
-    else if (mN1 == 164.375000){ mu=160.; M1=1200.;}
-    else if (mN1 == 171.000000){ mu=180.; M1= 300.;}
-    else if (mN1 == 177.000000){ mu=180.; M1= 400.;}
-    else if (mN1 == 179.875000){ mu=180.; M1= 500.;}
-    else if (mN1 == 181.500000){ mu=180.; M1= 600.;}
-    else if (mN1 == 183.375000){ mu=180.; M1= 800.;}
-    else if (mN1 == 184.375000){ mu=180.; M1=1000.;}
-    else if (mN1 == 185.000000){ mu=180.; M1=1200.;}
-    else if (mN1 == 189.750000){ mu=200.; M1= 300.;}
-    else if (mN1 == 197.000000){ mu=200.; M1= 400.;}
-    else if (mN1 == 200.125000){ mu=200.; M1= 500.;}
-    else if (mN1 == 202.000000){ mu=200.; M1= 600.;}
-    else if (mN1 == 204.000000){ mu=200.; M1= 800.;}
-    else if (mN1 == 205.000000){ mu=200.; M1=1000.;}
-    else if (mN1 == 205.750000){ mu=200.; M1=1200.;}
-    else if (mN1 == 207.875000){ mu=220.; M1= 300.;}
-    else if (mN1 == 216.750000){ mu=220.; M1= 400.;}
-    else if (mN1 == 220.375000){ mu=220.; M1= 500.;}
-    else if (mN1 == 222.375000){ mu=220.; M1= 600.;}
-    else if (mN1 == 224.500000){ mu=220.; M1= 800.;}
-    else if (mN1 == 225.125000){ mu=220.; M1=1000.;}
-    else if (mN1 == 225.625000){ mu=220.; M1=1200.;}
-    else if (mN1 == 226.375000){ mu=240.; M1= 300.;}
-    else if (mN1 == 236.500000){ mu=240.; M1= 400.;}
-    else if (mN1 == 240.625000){ mu=240.; M1= 500.;}
-    else if (mN1 == 242.750000){ mu=240.; M1= 600.;}
-    else if (mN1 == 245.000000){ mu=240.; M1= 800.;}
-    else if (mN1 == 246.250000){ mu=240.; M1=1000.;}
-    else if (mN1 == 247.000000){ mu=240.; M1=1200.;}
+    if      (mN1 -  92.750000 < dM){ mu=100.; M1= 300.;}
+    else if (mN1 -  96.125000 < dM){ mu=100.; M1= 400.;}
+    else if (mN1 -  98.062500 < dM){ mu=100.; M1= 500.;}
+    else if (mN1 -  99.250000 < dM){ mu=100.; M1= 600.;}
+    else if (mN1 - 100.750000 < dM){ mu=100.; M1= 800.;}
+    else if (mN1 - 101.562500 < dM){ mu=100.; M1=1000.;}
+    else if (mN1 - 102.125000 < dM){ mu=100.; M1=1200.;}
+    else if (mN1 - 112.625000 < dM){ mu=120.; M1= 300.;}
+    else if (mN1 - 116.500000 < dM){ mu=120.; M1= 400.;}
+    else if (mN1 - 118.562500 < dM){ mu=120.; M1= 500.;}
+    else if (mN1 - 119.875000 < dM){ mu=120.; M1= 600.;}
+    else if (mN1 - 121.437500 < dM){ mu=120.; M1= 800.;}
+    else if (mN1 - 122.312500 < dM){ mu=120.; M1=1000.;}
+    else if (mN1 - 122.937500 < dM){ mu=120.; M1=1200.;}
+    else if (mN1 - 132.375000 < dM){ mu=140.; M1= 300.;}
+    else if (mN1 - 136.750000 < dM){ mu=140.; M1= 400.;}
+    else if (mN1 - 139.000000 < dM){ mu=140.; M1= 500.;}
+    else if (mN1 - 140.500000 < dM){ mu=140.; M1= 600.;}
+    else if (mN1 - 142.125000 < dM){ mu=140.; M1= 800.;}
+    else if (mN1 - 143.000000 < dM){ mu=140.; M1=1000.;}
+    else if (mN1 - 143.625000 < dM){ mu=140.; M1=1200.;}
+    else if (mN1 - 151.875000 < dM){ mu=160.; M1= 300.;}
+    else if (mN1 - 156.875000 < dM){ mu=160.; M1= 400.;}
+    else if (mN1 - 159.500000 < dM){ mu=160.; M1= 500.;}
+    else if (mN1 - 161.000000 < dM){ mu=160.; M1= 600.;}
+    else if (mN1 - 162.750000 < dM){ mu=160.; M1= 800.;}
+    else if (mN1 - 163.750000 < dM){ mu=160.; M1=1000.;}
+    else if (mN1 - 164.375000 < dM){ mu=160.; M1=1200.;}
+    else if (mN1 - 171.000000 < dM){ mu=180.; M1= 300.;}
+    else if (mN1 - 177.000000 < dM){ mu=180.; M1= 400.;}
+    else if (mN1 - 179.875000 < dM){ mu=180.; M1= 500.;}
+    else if (mN1 - 181.500000 < dM){ mu=180.; M1= 600.;}
+    else if (mN1 - 183.375000 < dM){ mu=180.; M1= 800.;}
+    else if (mN1 - 184.375000 < dM){ mu=180.; M1=1000.;}
+    else if (mN1 - 185.000000 < dM){ mu=180.; M1=1200.;}
+    else if (mN1 - 189.750000 < dM){ mu=200.; M1= 300.;}
+    else if (mN1 - 197.000000 < dM){ mu=200.; M1= 400.;}
+    else if (mN1 - 200.125000 < dM){ mu=200.; M1= 500.;}
+    else if (mN1 - 202.000000 < dM){ mu=200.; M1= 600.;}
+    else if (mN1 - 204.000000 < dM){ mu=200.; M1= 800.;}
+    else if (mN1 - 205.000000 < dM){ mu=200.; M1=1000.;}
+    else if (mN1 - 205.750000 < dM){ mu=200.; M1=1200.;}
+    else if (mN1 - 207.875000 < dM){ mu=220.; M1= 300.;}
+    else if (mN1 - 216.750000 < dM){ mu=220.; M1= 400.;}
+    else if (mN1 - 220.375000 < dM){ mu=220.; M1= 500.;}
+    else if (mN1 - 222.375000 < dM){ mu=220.; M1= 600.;}
+    else if (mN1 - 224.500000 < dM){ mu=220.; M1= 800.;}
+    else if (mN1 - 225.125000 < dM){ mu=220.; M1=1000.;}
+    else if (mN1 - 225.625000 < dM){ mu=220.; M1=1200.;}
+    else if (mN1 - 226.375000 < dM){ mu=240.; M1= 300.;}
+    else if (mN1 - 236.450000 < dM){ mu=240.; M1= 400.;}
+    else if (mN1 - 240.625000 < dM){ mu=240.; M1= 500.;}
+    else if (mN1 - 242.750000 < dM){ mu=240.; M1= 600.;}
+    else if (mN1 - 245.000000 < dM){ mu=240.; M1= 800.;}
+    else if (mN1 - 246.250000 < dM){ mu=240.; M1=1000.;}
+    else if (mN1 - 247.000000 < dM){ mu=240.; M1=1200.;}
 
     // Throw error if we couldn't derive mu/M1
     if (mu == -1. || M1 == -1.){
-        std::cerr << "Could not determine mu and M1 for the pMSSM higgsino grid." << std::endl;
+        std::cerr << "Could not determine mu and M1 for the pMSSM higgsino grid."
+                  << " mN1: " << mN1 << std::endl;
     }
 
     return;
