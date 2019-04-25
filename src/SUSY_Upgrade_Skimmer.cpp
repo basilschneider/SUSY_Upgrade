@@ -15,6 +15,7 @@ void SUSY_Upgrade_Skimmer::addBranches(){
     // Signal variables
     myskim->Branch("mN1", &mN1);
     myskim->Branch("mN2", &mN2);
+    myskim->Branch("mC1", &mC1);
     myskim->Branch("mu", &mu);
     myskim->Branch("M1", &M1);
 
@@ -898,7 +899,7 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
         xs = getXsec();
 
         // Fill SUSY masses
-        mN1 = mN2 = -1.;
+        mN1 = mN2 = mC1 = -1.;
         mu = M1 = -1.;
         if (getIsSignal()){
             for (size_t i=0; i<genpart.size(); ++i){
@@ -906,16 +907,19 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
                     mN1 = genpart.at(i)->Mass;
                 }else if (fabs(genpart.at(i)->PID) == 1000023){
                     mN2 = genpart.at(i)->Mass;
+                }else if (fabs(genpart.at(i)->PID) == 1000024){
+                    mC1 = genpart.at(i)->Mass;
                 }
-                // If we found both particle masses, we can stop
-                if (mN1 > 0 && mN2 > 0){
+                // If we found all particle masses, we can stop
+                if (mN1 > 0. && mN2 > 0. && mC1 > 0.){
                     break;
                 }
             }
 
             // Fill the TH2 histograms to later derive the number of events in
             // each mass point
-            susy_masses->Fill(mN2, mN1);
+            susy_massesN2N1->Fill(mN2, mN1);
+            susy_massesC1N1->Fill(mC1, mN1);
 
             // For the pMSSM higgsino grid, we need to figure out the mass
             // parameters (mu, M1) from the physical parameters (mN1); we can
@@ -2149,7 +2153,8 @@ void SUSY_Upgrade_Skimmer::analyze(size_t childid /* this info can be used for p
     //mu2_pt_origin_nghbr->Write();
     //mu2_pt_origin_cone->Write();
 
-    susy_masses->Write();
+    susy_massesN2N1->Write();
+    susy_massesC1N1->Write();
     pMSSM_masses->Write();
 
     if (fill_rle){
